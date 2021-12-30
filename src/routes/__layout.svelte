@@ -13,9 +13,17 @@
 </script>
 <style lang="scss" global>
 	@import "./../css/base.scss";
+	.footer {
+		margin-left: 3px;
+	}
+	pre {
+		color: white !important;
+	}
 </style>
 
-<Header />
+<pre>
+	<Header />
+</pre>
 
 <main>
 	<slot />

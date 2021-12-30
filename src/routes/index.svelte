@@ -1,6 +1,6 @@
 <script context="module" lang="ts">
 	import { fetchFates } from "$lib/request"
-	export const prerender = false;
+	export const prerender = true;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		const url = `/api/v2/index?type=0`;
@@ -23,6 +23,7 @@
 <script lang="ts">
 	import BotCard from "$lib/cards/BotCard.svelte"
 	import CardContainer from "$lib/cards/CardContainer.svelte"
+	import Icon from '@iconify/svelte';
 	export let data: any;
 </script>
 
@@ -47,14 +48,33 @@
 <section>
 	<h1>Fates List</h1>
 	<h2 class="best-bots">Find the best bots for your servers!</h2>
-	<CardContainer>
-		{#each data.top_voted as bot}
-			<BotCard data={bot} type="bot" rand={false}/>
-		{/each}
-	</CardContainer>
 </section>
+<Icon class="white" icon="fa-solid:sort-amount-up" inline={true} height="3em"></Icon>
+<h2 class="bot-section">Top Voted</h2>
+<CardContainer>
+	{#each data.top_voted as bot}
+		<BotCard data={bot} type="bot" rand={false}/>
+	{/each}
+</CardContainer>
 
 <style>
+	h1 {
+		font-size: 50px;
+		margin: 0px;
+	}
+
+	h2 {
+		font-size: 40px;
+		margin: 0px;
+	}
+
+	.bot-section {
+		margin-left: 10px;
+		display: inline-block;
+	}
+	.best-bots {
+		opacity: 0.6;
+	}
 	section {
 		display: flex;
 		flex-direction: column;

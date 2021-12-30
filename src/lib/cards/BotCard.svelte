@@ -1,5 +1,4 @@
 <script lang="ts">
-    import LazyImage from 'svelte-lazy-image';
     import Icon from '@iconify/svelte';
     import Button from '@smui/button';
     import { enums } from '../enums/enums'
