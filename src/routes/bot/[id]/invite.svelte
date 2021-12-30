@@ -1,0 +1,1 @@
+<h1>Invite page</h1>
