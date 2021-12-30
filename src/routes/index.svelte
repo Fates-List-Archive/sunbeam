@@ -1,5 +1,26 @@
 <script context="module" lang="ts">
 	export const prerender = true;
+	/** @type {import('@sveltejs/kit').Load} */
+	export async function load({ page, fetch, session, stuff }) {
+		const url = `https://fateslist.xyz/api/v2/index?type=0`;
+		const res = await fetch(url);
+
+		if (res.ok) {
+			return {
+				props: {
+					bots: await res.json()
+				}
+			};
+		}
+
+		return {
+			status: res.status,
+			error: new Error(`Could not load ${url}`)
+		};
+	}
+</script>
+<script>
+	export let bots;
 </script>
 
 <svelte:head>
@@ -23,6 +44,7 @@
 <section>
 	<h1>Fates List</h1>
 	<h2 class="best-bots">Find the best bots for your servers!</h2>
+	<h3>Bots: {JSON.stringify(bots)}</h3>
 </section>
 
 <style>
