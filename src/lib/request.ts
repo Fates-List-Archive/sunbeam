@@ -1,7 +1,11 @@
 import { browser } from '$app/env';
+
+// Change this if cf will ever be used
+const usingCf = true
+
 export async function fetchFates(url: string) {
     let res = null
-    if(browser || !process) {
+    if(browser || usingCf) {
         // Always use direct if browser
         return await fetch("https://fateslist.xyz"+url)
     }
