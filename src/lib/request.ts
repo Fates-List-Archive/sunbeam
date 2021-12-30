@@ -1,7 +1,7 @@
 import { browser } from '$app/env';
 export async function fetchFates(url: string) {
     let res = null
-    if(browser || process.env.NODE_VERSION) {
+    if(browser || !process) {
         // Always use direct if browser
         return await fetch("https://fateslist.xyz"+url)
     }
