@@ -231,12 +231,18 @@ background-color: blue;
 .bot-card-footer-stats {height: 30px !important; width: 55% !important;}
 .i-m3 {margin-right: 3px}
 .bot-card-actions {width: 80%;margin: 0 10%;}
-.bot-card-actions-link {width: 45%; font-weight: bold; border: solid thin !important; outline: none !important; opacity: 0 !important;}
+.bot-card-actions-link {width: 45%; font-weight: bold; border: solid thin !important; outline: none !important; opacity: 1 !important;}
 .invite-link {
 	margin-left: 6.5%;
 }
 
-.hr-is {font-size: 20px; border-top-width: 1px; border-top-color: #eee; width: 90%;}
+.hr-is {
+	font-size: 20px; 
+	border-top-width: 1px; 
+	border-top-color: #eee; 
+	width: 90%;
+}
+
 .title-is {color: rgba(255,255,255,0.87); margin-left: 15px; font-size: 32px;}
 .div-is {width: 90%;margin: 30px 5%;}
 /*width: 45%;margin-right: 5%;border-radius: 25px;font-weight: bold;*/
