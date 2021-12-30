@@ -1,14 +1,15 @@
 <script context="module" lang="ts">
+	import { fetchFates } from "$lib/request"
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
-		const url = `http://127.0.0.1:9999/api/v2/index?type=0`;
-		const res = await fetch(url);
+		const url = `/api/v2/index?type=0`;
+		const res = await fetchFates(url);
 
 		if (res.ok) {
 			return {
 				props: {
-					bots: await res.json()
+					data: await res.json()
 				}
 			};
 		}
@@ -19,8 +20,10 @@
 		};
 	}
 </script>
-<script>
-	export let bots;
+<script lang="ts">
+	import BotCard from "$lib/cards/BotCard.svelte"
+	import CardContainer from "$lib/cards/CardContainer.svelte"
+	export let data: any;
 </script>
 
 <svelte:head>
@@ -44,7 +47,11 @@
 <section>
 	<h1>Fates List</h1>
 	<h2 class="best-bots">Find the best bots for your servers!</h2>
-	<h3>Bots: {JSON.stringify(bots)}</h3>
+	<CardContainer>
+		{#each data.top_voted as bot}
+			<BotCard data={bot} type="bot" rand={false}/>
+		{/each}
+	</CardContainer>
 </section>
 
 <style>
