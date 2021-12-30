@@ -1,5 +1,5 @@
 <svelte:head>
-	<link href="https://fateslist.xyz/static/assets/prod/material-icons.min.css" rel="stylesheet" />
+	<link href="https://fateslist.xyz/static/assets/prod/material-icons.min.css" rel="stylesheet" defer />
 	<link
 		rel="stylesheet"
 		href="https://cdn.jsdelivr.net/npm/svelte-material-ui/bare.min.css"

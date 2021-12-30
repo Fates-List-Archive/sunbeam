@@ -4,16 +4,16 @@
 
 <header>
 	<div class="corner">
-		<a href="/">
+		<a href="/" rel="external">
 			<img src="https://fateslist.xyz/static/botlisticon.webp" alt="Fates List Logo" />
 		</a>
 	</div>
 
 	<nav>
 		<ul>
-			<li class:active={$page.path === '/partners'}><a sveltekit:prefetch href="/partners">Partners</a></li>
-			<li class:active={$page.path === '/servers'}><a sveltekit:prefetch href="/servers">Servers</a></li>
-			<li class:active={$page.path === '/'}><a sveltekit:prefetch href="/">Bots</a></li>
+			<li class:active={$page.url.pathname === '/partners'}><a sveltekit:prefetch href="/partners">Partners</a></li>
+			<li class:active={$page.url.pathname === '/servers'}><a sveltekit:prefetch href="/servers">Servers</a></li>
+			<li class:active={$page.url.pathname === '/'}><a href="/" rel="external">Bots</a></li>
 		</ul>
 	</nav>
 

@@ -1,8 +1,8 @@
 <script context="module" lang="ts">
-	export const prerender = true;
-	/** @type {import('@sveltejs/kit').Load} */
-	export async function load({ page, fetch, session, stuff }) {
-		const url = `https://fateslist.xyz/api/v2/index?type=0`;
+	export const prerender = false;
+	/** @type {import('@sveltejs/kit@next').Load} */
+	export async function load({ params, fetch, session, stuff }) {
+		const url = `http://127.0.0.1:9999/api/v2/index?type=0`;
 		const res = await fetch(url);
 
 		if (res.ok) {

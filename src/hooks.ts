@@ -6,7 +6,7 @@ export const handle: Handle = async ({ request, resolve }) => {
 	const cookies = cookie.parse(request.headers.cookie || '');
 
 	// TODO https://github.com/sveltejs/kit/issues/1046
-	const method = request.query.get('_method');
+	const method = request.url.searchParams.get('_method');
 	if (method) {
 		request.method = method.toUpperCase();
 	}
