@@ -25,8 +25,11 @@
 <style lang="scss">
 	header {
 		display: flex;
-		//position: fixed;
+		position: fixed;
 		width: 100%;
+		margin: 0px;
+		padding: 0px;
+		z-index: 1;
 		background-color: black;
 	}
 
@@ -85,5 +88,6 @@
 		padding: 0 1em;
 		font-size: 0.8rem;
 		transition: color 0.2s linear;
+		overflow: hidden;
 	}
 </style>

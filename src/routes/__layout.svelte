@@ -25,12 +25,13 @@
 	pre {
 		color: white !important;
 	}
+	#mdiv {
+		height: 70px;
+	}
 </style>
 
-<pre>
-	<Header />
-</pre>
-
+<Header />
+<div id="mdiv"></div>
 <main>
 	<slot />
 </main>

@@ -15,11 +15,12 @@ $link-opacity: 0.63;
 html, body {
 	overflow-x: hidden !important; 
 	background-color: #1D1E23;
-	height: 100%;
-	width: 100%;
+	margin: 0px;
+	padding: 0px;
 }
 
 h1, h2, h3, h4, h5, h6, p, nav {
+	overflow: hidden;
 	color: white !important;
 	font-family: 'Lexend Deca';
 }
