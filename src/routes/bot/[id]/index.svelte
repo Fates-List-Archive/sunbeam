@@ -23,8 +23,6 @@
 	}
 </script>
 <script lang="ts">
-	import BotCard from "$lib/cards/BotCard.svelte"
-	import CardContainer from "$lib/cards/CardContainer.svelte"
 	import Icon from '@iconify/svelte';
 	export let data: any;
 </script>
