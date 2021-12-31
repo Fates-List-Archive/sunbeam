@@ -3,7 +3,7 @@
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
-		const url = `/api/v2/bots/${params.id}/raw`;
+		const url = `/api/v2/bots/${params.id}/_sunbeam`;
 		const res = await fetchFates(url);
 
 		if (res.ok) {
