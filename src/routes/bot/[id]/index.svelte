@@ -27,6 +27,7 @@
 	export let data: any;
 </script>
 <svelte:head>
+    <title>{data.user.username}</title>
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://fateslist.xyz/bot/{data.user.id}">
     <meta property="og:title" content="Discover {data.user.username} on FatesList!">
