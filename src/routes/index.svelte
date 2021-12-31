@@ -50,6 +50,13 @@
 	<h2 class="best-bots">Find the best bots for your servers!</h2>
 </section>
 <Icon class="white" icon="fa-solid:sort-amount-up" inline={true} height="3em"></Icon>
+<h2 class="bot-section">Certified</h2>
+<CardContainer>
+	{#each data.certified_bots as bot}
+		<BotCard data={bot} type="bot" rand={false}/>
+	{/each}
+</CardContainer>
+
 <h2 class="bot-section">Top Voted</h2>
 <CardContainer>
 	{#each data.top_voted as bot}

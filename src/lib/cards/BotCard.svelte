@@ -1,6 +1,7 @@
 <script lang="ts">
     import Icon from '@iconify/svelte';
     import Button from '@smui/button';
+    import Img from '@zerodevx/svelte-img';
     import { enums } from '../enums/enums'
     export let data: any;
     export let type: string;
@@ -10,17 +11,18 @@
     if(data.id && !data.user) {
         data.user = {"id": data.id}
     }
+    data.banner = data.banner || 'https://fateslist.xyz/static/assets/prod/banner.webp?v=2'
 </script>
 
   
 <section class="bot-card">
-    <!--<LazyImage class="bot-card-banner" src="{data.banner || '/static/assets/prod/banner.webp?v=1'}" sizes="(max-width: 33%)"></LazyImage>-->
-        {#if (type == 'bot' || type == 'server') && (data.state == enums.BotState.certified) }
-            <Icon class="bot-card-cert" icon="fa-solid:certificate" inline="false" height="3em"></Icon>
-        {/if}
-        <a href="/{type}/{data.user.id}" class="bot-card-view-link">
-            <img alt="Bot Avatar" class="bot-card-avatar" src="{data.user.avatar.replace('.png', '.webp')}" width="30%" height="20%" loading="lazy"/>
-        </a>
+    <img loading="lazy" class="bot-card-banner" src="{data.banner}" sizes="(max-width: 33%)" alt="{data.user.username}'s avatar"/>
+    {#if (type == 'bot' || type == 'server') && (data.state == enums.BotState.certified) }
+        <Icon class="bot-card-cert" icon="fa-solid:certificate" inline={false} height="3em"></Icon>
+    {/if}
+    <a href="/{type}/{data.user.id}" class="bot-card-view-link bot-card-avatar-container">
+        <img alt="Bot Avatar" class="bot-card-avatar" src="{data.user.avatar.replace('.png', '.webp')}" loading="lazy"/>
+    </a>
     <div>
         <a href="/{type}/{data.user.id}" class="bot-card-view-link">
             <div class="bot-card-username">
@@ -30,14 +32,14 @@
     </div>
 
     <p class="bot-card-description">
-        <strong class="bot-card-description-txt" style="overflow-wrap: anywhere;">{data.description}</strong>
+        <span class="bot-card-description-txt" style="overflow-wrap: anywhere;">{data.description}</span>
     </p>
 
     {#if type == 'bot' || type == 'server'}
     <div class="d-flex bot-card-footer">
         <div class="bot-card-footer-stats">
             <p class="text-center white-bold">
-                <Icon icon="fa-solid:server" inline="false"></Icon>
+                <Icon icon="fa-solid:server" inline={false}></Icon>
                 <span style="margin-left: 3px;" class="bot-servers">{#if rand}N/A{:else}{data.guild_count}{/if}</span>
             </p>
         </div>
@@ -57,11 +59,76 @@
     </div>
 </section>
 
-<style>
+<style lang="scss">
+    $card-scale: 1.025;
+    $form-radius: 4px;
+    $link-opacity: 0.63; 
+
     .text-center {
         text-align: center;
     }
     .d-flex {
         display: flex;
+    }
+    .bot-card {
+        position: relative;
+    }
+
+    .bot-card:hover {
+	    transform: scale($card-scale, $card-scale) perspective(1px) translateZ(0);
+	    filter: blur;
+	    -webkit-filter: blur(0);
+    }
+
+    .bot-card-username {
+        margin-right: auto;
+        margin-left: auto;
+        margin-top: 30px;
+    }
+    
+    .bot-card-username-txt {
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        font-size: 21px;
+        margin-top: 35px; 
+        text-align: center;
+    }
+
+    .bot-card {
+        width: 300px;
+        height: 520px;
+        background: #111112;
+        box-shadow: 0px 0px 20px 5px;
+        border-top-style: none;
+        margin: 25px 25px; 
+        border-radius: 10px 10px 10px 10px;
+    }
+
+    .bot-card-banner {
+        position: absolute;
+        width: 100%;
+        height: 35%;
+        background: center / cover no-repeat;
+    }
+
+    .bot-card-avatar {
+        border-radius: 50%;
+        background-color: black !important;
+        width: 100px;
+        height: 100px;
+        margin: 5% auto;
+        margin-top: 17%;
+        margin-right: 35%;
+        margin-left: 35%;
+        margin-bottom: 0px;
+    }
+
+    .bot-card-description {
+	    color: white; 
+	    opacity: $link-opacity; 
+	    width: 90%; 
+	    margin: 0 5%; 
+	    height:105px
     }
 </style>

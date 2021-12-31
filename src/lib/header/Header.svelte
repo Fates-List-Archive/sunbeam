@@ -22,9 +22,12 @@
 	</div>
 </header>
 
-<style>
+<style lang="scss">
 	header {
 		display: flex;
+		//position: fixed;
+		width: 100%;
+		background-color: black;
 	}
 
 	.corner {
