@@ -59,6 +59,9 @@
 </section>
 
 <style lang="scss">
+    a {
+        opacity: 1 !important;
+    }
     $card-scale: 1.025;
     $form-radius: 4px;
     $link-opacity: 0.63; 
