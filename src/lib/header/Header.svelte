@@ -4,7 +4,7 @@
 
 <header>
 	<div class="corner">
-		<a href="/" rel="external">
+		<a href="/">
 			<img src="https://fateslist.xyz/static/botlisticon.webp" alt="Fates List Logo" />
 		</a>
 	</div>
@@ -13,7 +13,7 @@
 		<ul>
 			<li class:active={$page.url.pathname === '/partners'}><a sveltekit:prefetch href="/partners">Partners</a></li>
 			<li class:active={$page.url.pathname === '/servers'}><a sveltekit:prefetch href="/servers">Servers</a></li>
-			<li class:active={$page.url.pathname === '/'}><a href="/" rel="external">Bots</a></li>
+			<li class:active={$page.url.pathname === '/'}><a href="/">Bots</a></li>
 		</ul>
 	</nav>
 
