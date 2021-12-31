@@ -1,7 +1,6 @@
 <script lang="ts">
     import Icon from '@iconify/svelte';
     import Button from '@smui/button';
-    import Img from '@zerodevx/svelte-img';
     import { enums } from '../enums/enums'
     export let data: any;
     export let type: string;
@@ -16,7 +15,7 @@
 
   
 <section class="bot-card">
-    <img loading="lazy" class="bot-card-banner" src="{data.banner}" sizes="(max-width: 33%)" alt="{data.user.username}'s avatar"/>
+    <div class="lozad bot-card-banner" data-background-image="{data.banner}">
     {#if (type == 'bot' || type == 'server') && (data.state == enums.BotState.certified) }
         <Icon class="bot-card-cert" icon="fa-solid:certificate" inline={false} height="3em"></Icon>
     {/if}
@@ -70,9 +69,6 @@
     .d-flex {
         display: flex;
     }
-    .bot-card {
-        position: relative;
-    }
 
     .bot-card:hover {
 	    transform: scale($card-scale, $card-scale) perspective(1px) translateZ(0);
@@ -106,7 +102,6 @@
     }
 
     .bot-card-banner {
-        position: absolute;
         width: 100%;
         height: 35%;
         background: center / cover no-repeat;

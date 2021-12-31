@@ -10,6 +10,12 @@
 </svelte:head>
 <script lang="ts">
 	import Header from '$lib/header/Header.svelte';
+	import lozad from 'lozad';
+    import { browser } from '$app/env'; 
+	if(browser) {
+		const observer = lozad(); // lazy loads elements with default selector as '.lozad'
+		observer.observe();
+	}
 </script>
 <style lang="scss" global>
 	@import "./../css/base.scss";
