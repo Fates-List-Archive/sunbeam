@@ -3,6 +3,10 @@
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ url, params }) {
+		return {
+			status: 404,
+			error: new Error(`${url}`)
+		}
 		console.log("params is:", params)
 		let searchParams: URLSearchParams = url.searchParams
 		let tag = searchParams.get("tag")
