@@ -3,6 +3,12 @@
 	import { fetchFates } from "$lib/request"
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
+		if(params.vanity == "servers") {
+			return {
+				status: 307,
+				redirect: "/frostpaw/servers/"
+			}
+		}
 		const url = `/api/v2/code/${params.vanity}`;
 		const res = await fetchFates(url);
 

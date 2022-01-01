@@ -1,5 +1,6 @@
 <script lang="ts">
-import Button, { Icon } from "@smui/button";
+import Icon from '@iconify/svelte';
+import Button from "@smui/button";
 import type { TagInterface } from "$lib/types"
 export let tags: TagInterface[];
 export let targetType: string;
