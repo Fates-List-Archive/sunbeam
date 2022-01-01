@@ -3,6 +3,7 @@
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ url, session }) {
+		url.bind(url)
 		return {
 			status: 404,
 			error: new Error(`${JSON.stringify(url)}`)
