@@ -1,4 +1,4 @@
-<script context="module" lang="ts">
+<script context="module">
 	import { fetchFates } from "$lib/request"
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
