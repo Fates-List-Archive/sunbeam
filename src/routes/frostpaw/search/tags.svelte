@@ -1,7 +1,7 @@
 <script context="module">
 	import { fetchFates } from "$lib/request"
 	export const prerender = false;
-	/** @type {import('@sveltejs/kit@next').Load} */
+	// 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ url }) {
         let tag = url.searchParams.get("tag")
         let targetType = url.searchParams.get("target_type")
