@@ -19,7 +19,7 @@ html, body {
 	padding: 0px;
 }
 
-h1, h2, h3, h4, h5, h6, p, nav {
+h1, h2, h3, h4, h5, h6, p, nav, .fform {
 	overflow: hidden;
 	color: white !important;
 	font-family: 'Lexend Deca';
@@ -82,8 +82,9 @@ h1 {
 .search {
 	display: block;
 	width: 37%;
+	font-size: 20px;
 	padding: 12px !important;
-	margin-bottom: 1px !important;
+	margin-bottom: 10px !important;
 }
 
 .btn_s {
@@ -171,8 +172,8 @@ a {
 }
 
 @media screen and (max-width: 768px) {
-.index-fl {justify-content: center; text-align: center;}
-.content-nomobile {display: none !important;}
+	.index-fl {justify-content: center; text-align: center;}
+	.content-nomobile {display: none !important;}
 }
 
   .form {
@@ -206,31 +207,6 @@ background-color: blue;
 /* Utlity */
 .white-bold {color: white;font-weight: bold;}
 
-.bot-card-cert {
-	color:#7289DA; 
-	position: absoulute; 
-	margin-top: -15px; 
-	margin-left: 90%;
-	z-index: 10 !important;
-}
-.bot-card-footer {width: 80%;margin: 0 10%;height: 10%;margin-top: 20px;margin-bottom: 20px;}
-.bot-card-footer-stats {height: 30px !important; width: 55% !important;}
-.i-m3 {margin-right: 3px}
-
-.bot-card-actions {
-	width: 80%;
-	margin: 0 15%;
-}
-
-.bot-card-actions-link {
-	width: 45%; 
-	font-weight: bold; 
-	border: solid thin !important; 
-	outline: none !important; 
-	opacity: 1 !important;
-	font-size: 10px;
-}
-
 .invite-link {
 	margin-left: 6.5%;
 }
@@ -244,7 +220,9 @@ background-color: blue;
 
 .title-is {color: rgba(255,255,255,0.87); margin-left: 15px; font-size: 32px;}
 .div-is {width: 90%;margin: 30px 5%;}
-.white {color:white;}
+.white {
+	color:white !important;
+}
 .bold {font-weight: bold;}
 
 #up-btn {

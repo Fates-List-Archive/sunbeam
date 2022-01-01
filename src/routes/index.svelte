@@ -21,6 +21,8 @@
 	}
 </script>
 <script lang="ts">
+	import SearchBar from "$lib/base/SearchBar.svelte";
+	import Tag from "$lib/base/Tag.svelte";
 	import BotCard from "$lib/cards/BotCard.svelte"
 	import CardContainer from "$lib/cards/CardContainer.svelte"
 	import Icon from '@iconify/svelte';
@@ -49,6 +51,8 @@
 	<h1>Fates List</h1>
 	<h2 class="best-bots">Find the best bots for your servers!</h2>
 </section>
+<SearchBar type="bot" query=""></SearchBar>
+<Tag targetType="bot" tags={data.tags_fixed}></Tag>
 <Icon class="white" icon="fa-solid:sort-amount-up" inline={true} height="3em"></Icon>
 <h2 class="bot-section">Certified</h2>
 <CardContainer>

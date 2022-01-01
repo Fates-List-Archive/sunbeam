@@ -44,7 +44,7 @@
         </div>
         <div class="bot-card-footer-stats">
             <p class="text-center white-bold">
-                <Icon icon="fa-solid:thumbs-up" inline="false"></Icon>
+                <Icon icon="fa-solid:thumbs-up" inline={false}></Icon>
                 <span style="margin-left: 3px;" class="bot-votes">{#if rand}N/A{:else}{data.votes}{/if}</span>
             </p>
         </div>
@@ -129,5 +129,29 @@
 	    width: 90%; 
 	    margin: 0 5%; 
 	    height:105px
+    }
+
+    :global(.bot-card-cert) {
+	    color:#7289DA; 
+	    position: absoulute; 
+	    margin-top: -15px; 
+	    margin-left: 90%;
+	    z-index: 10 !important;
+}
+    .bot-card-footer {width: 80%;margin: 0 10%;height: 10%;margin-top: 20px;margin-bottom: 20px;}
+    .bot-card-footer-stats {height: 30px !important; width: 55% !important;}
+
+    .bot-card-actions {
+	    width: 80%;
+	    margin: 0 15%;
+    }
+
+    :global(.bot-card-actions-link) {
+	    width: 45%; 
+	    font-weight: bold; 
+	    border: solid thin !important; 
+	    outline: none !important; 
+	    opacity: 1 !important;
+	    font-size: 10px;
     }
 </style>

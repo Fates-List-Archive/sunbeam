@@ -5,3 +5,9 @@
 export interface Locals {
 	userid: string;
 }
+export interface TagInterface {
+	id: string;
+	name: string;
+	iconify_data: string;
+	owner_guild: string;
+}
