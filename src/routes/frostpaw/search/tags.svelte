@@ -5,7 +5,7 @@
 	export async function load({ url }) {
 		return {
 			status: 404,
-			error: new Error(`${url}`)
+			error: new Error(`${Object.keys(url)}`)
 		}
 		console.log("url is:", url)
 		let tag = url.searchParams.get("tag")
