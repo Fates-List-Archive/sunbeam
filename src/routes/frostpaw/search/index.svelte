@@ -2,9 +2,9 @@
 	import { fetchFates } from "$lib/request"
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
-	export async function load({ url }) {
-        let query = url.searchParams.get("q")
-        let targetType = url.searchParams.get("target_type")
+	export async function load({ session }) {
+        let query = session.query.q
+        let targetType = session.query.target_type
         console.log(query)
 		const searchUrl = `/api/v2/search?target_type=${targetType}&q=${query}`;
 		const res = await fetchFates(searchUrl);
