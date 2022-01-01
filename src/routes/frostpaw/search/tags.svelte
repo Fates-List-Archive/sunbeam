@@ -8,7 +8,7 @@
 		try {
         	tag = url.searchParams.get("tag")
         	targetType = url.searchParams.get("target_type")
-		} catch (err) {
+		} catch(err) {
 			return {
 				status: 500,
 				error: new Error(`${url}`)
