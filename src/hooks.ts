@@ -20,5 +20,10 @@ export const handle: Handle = async ({ request, resolve }) => {
 		request.locals.session = cookies.session;
 	}
 
+	console.log(request.url)
+	request.locals.session = {
+		"url": request.url.toJSON()
+	}
+
 	return response;
 };
