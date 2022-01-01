@@ -18,3 +18,18 @@ export const handle: Handle = async ({ request, resolve }) => {
 
 	return response;
 };
+
+export function getSession(request) {
+	console.log("getSession called")
+
+	// Bypass dumb cloudflare bug
+	let query = {}
+	request.url.searchParams.forEach((v, k) => {
+		query[k] = v
+	})
+
+	return {
+		"url": request.url.toJSON(), // CF adpter workaround, hopefully works?
+		"query": query
+	}
+}

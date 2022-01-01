@@ -2,11 +2,12 @@
 	import { fetchFates } from "$lib/request"
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
-	export async function load({ url }) {
-		//console.log("url is:", url)
-		let tag = url.searchParams.get("tag")
-		let targetType = url.searchParams.get("target_type")
-        console.log(tag)
+	export async function load({ url, session }) {
+		// Dumb cloudflare bug bypass
+		console.log("url is:", session)
+		let tag = session.query.tag
+		let targetType = session.query.target_type
+        	console.log(tag)
 		const searchUrl = `/api/v2/search/tags?target_type=${targetType}&tag=${tag}`;
 		const res = await fetchFates(searchUrl);
 
@@ -32,7 +33,6 @@
     import BotCard from "$lib/cards/BotCard.svelte"
     import SearchBar from "$lib/base/SearchBar.svelte"
     import Tag from "$lib/base/Tag.svelte";
-import { session } from "$app/stores";
     export let data: any;
     export let targetType: string;
 </script>
