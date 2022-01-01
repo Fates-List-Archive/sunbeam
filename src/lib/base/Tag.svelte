@@ -28,7 +28,6 @@ export let targetType: string;
 	    outline: none !important; 
         color: white !important;
         font-size: 18px;
-	    vertical-align: top;
 	    display: inline-block;
 	    margin: 10px;
 	    //width: 170px;

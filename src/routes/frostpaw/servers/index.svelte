@@ -51,8 +51,8 @@
 	<h1>Fates List</h1>
 	<h2 class="best-bots">Find the best bots for your servers!</h2>
 </section>
-<SearchBar type="bot" query=""></SearchBar>
-<Tag targetType="bot" tags={data.tags_fixed}></Tag>
+<SearchBar type="server" query=""></SearchBar>
+<Tag targetType="server" tags={data.tags_fixed}></Tag>
 <Icon class="white" icon="fa-solid:sort-amount-up" inline={true} height="3em"></Icon>
 <h2 class="bot-section">Certified</h2>
 <CardContainer>

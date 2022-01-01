@@ -59,7 +59,8 @@
 <SearchBar type="bot" query=""></SearchBar>
 <Tag targetType="bot" tags={data.tags_fixed}></Tag>
 <RandomBot type="bot" randomBot={randomBot}/>
-<Icon class="white" icon="fa-solid:sort-amount-up" inline={true} height="3em"></Icon>
+
+<Icon class="white" icon="fa-solid:certificate" inline={true} height="3em"></Icon>
 <h2 class="bot-section">Certified</h2>
 <CardContainer>
 	{#each data.certified_bots as bot}
@@ -67,12 +68,22 @@
 	{/each}
 </CardContainer>
 
+<Icon class="white" icon="fa-solid:sort-amount-up" inline={true} height="3em"></Icon>
 <h2 class="bot-section">Top Voted</h2>
 <CardContainer>
 	{#each data.top_voted as bot}
 		<BotCard data={bot} type="bot" rand={false}/>
 	{/each}
 </CardContainer>
+
+<Icon class="white" icon="fa-solid:plus" inline={true} height="3em"></Icon>
+<h2 class="bot-section">New Bots</h2>
+<CardContainer>
+	{#each data.new_bots as bot}
+		<BotCard data={bot} type="bot" rand={false}/>
+	{/each}
+</CardContainer>
+
 
 <style>
 	h1 {

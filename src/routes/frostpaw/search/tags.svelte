@@ -39,7 +39,7 @@
 	<h2 class="best-bots">Find the best bots for your servers!</h2>
 </section>
 <SearchBar type={targetType} query=""></SearchBar>
-<Tag targetType="bot" tags={data.tags_fixed}></Tag>
+<Tag targetType={targetType} tags={data.tags_fixed}></Tag>
 <CardContainer>
 	{#each data.search_res as bot}
 		<BotCard data={bot} type={targetType} rand={false}/>
