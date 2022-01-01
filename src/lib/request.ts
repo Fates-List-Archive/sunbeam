@@ -16,3 +16,11 @@ export async function fetchFates(url: string) {
     }
     return res
 }
+
+export async function roll(type: string) {
+    const url = `https://fateslist.xyz/api/${type}s/0/random`
+    const res = await fetch(url)
+    const roll = await res.json()
+    console.log(roll)
+    return roll
+}

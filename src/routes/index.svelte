@@ -1,5 +1,6 @@
 <script context="module" lang="ts">
 	import { fetchFates } from "$lib/request"
+	import { roll } from '$lib/request'
 	export const prerender = true;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
@@ -9,7 +10,8 @@
 		if (res.ok) {
 			return {
 				props: {
-					data: await res.json()
+					data: await res.json(),
+					randomBot: await roll("bot")
 				}
 			};
 		}
@@ -20,13 +22,16 @@
 		};
 	}
 </script>
+
 <script lang="ts">
 	import SearchBar from "$lib/base/SearchBar.svelte";
 	import Tag from "$lib/base/Tag.svelte";
-	import BotCard from "$lib/cards/BotCard.svelte"
-	import CardContainer from "$lib/cards/CardContainer.svelte"
+	import BotCard from "$lib/cards/BotCard.svelte";
+	import CardContainer from "$lib/cards/CardContainer.svelte";
 	import Icon from '@iconify/svelte';
+	import RandomBot from "$lib/base/RandomBot.svelte";
 	export let data: any;
+	export let randomBot: any;
 </script>
 
 <svelte:head>
@@ -53,6 +58,7 @@
 </section>
 <SearchBar type="bot" query=""></SearchBar>
 <Tag targetType="bot" tags={data.tags_fixed}></Tag>
+<RandomBot type="bot" randomBot={randomBot}/>
 <Icon class="white" icon="fa-solid:sort-amount-up" inline={true} height="3em"></Icon>
 <h2 class="bot-section">Certified</h2>
 <CardContainer>

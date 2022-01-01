@@ -25,13 +25,13 @@
     <div>
         <a href="/{type}/{data.user.id}" class="bot-card-view-link">
             <div class="bot-card-username">
-                <p class="bot-card-username-txt white-bold">{#if rand}Fetching random bot{:else}{data.user.username}{/if}</p>
+                <p class="bot-card-username-txt white-bold">{#if rand}Fetching random bot...{:else}{data.user.username}{/if}</p>
             </div>
         </a>
     </div>
 
     <p class="bot-card-description">
-        <span class="bot-card-description-txt" style="overflow-wrap: anywhere;">{data.description}</span>
+        <span class="bot-card-description-txt" style="overflow-wrap: anywhere;">{#if rand}Try out your luck!{:else}{data.description}{/if}</span>
     </p>
 
     {#if type == 'bot' || type == 'server'}
