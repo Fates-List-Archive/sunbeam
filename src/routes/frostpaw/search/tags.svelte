@@ -4,9 +4,9 @@
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ url, params }) {
 		console.log("params is:", params)
-		let tag = url.searchParams.get("tag")
-
-		let targetType = url.searchParams.get("target_type")
+		let searchParams: URLSearchParams = url.searchParams
+		let tag = searchParams.get("tag")
+		let targetType = searchParams.get("target_type")
         console.log(tag)
 		const searchUrl = `/api/v2/search/tags?target_type=${targetType}&tag=${tag}`;
 		const res = await fetchFates(searchUrl);
