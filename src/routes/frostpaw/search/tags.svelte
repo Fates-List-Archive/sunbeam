@@ -1,16 +1,15 @@
-<script context="module" lang="ts">
+<script context="module">
 	import { fetchFates } from "$lib/request"
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
-	export async function load({ url, params }) {
+	export async function load({ url }) {
 		return {
 			status: 404,
 			error: new Error(`${url}`)
 		}
-		console.log("params is:", params)
-		let searchParams: URLSearchParams = url.searchParams
-		let tag = searchParams.get("tag")
-		let targetType = searchParams.get("target_type")
+		console.log("url is:", url)
+		let tag = url.searchParams.get("tag")
+		let targetType = url.searchParams.get("target_type")
         console.log(tag)
 		const searchUrl = `/api/v2/search/tags?target_type=${targetType}&tag=${tag}`;
 		const res = await fetchFates(searchUrl);
