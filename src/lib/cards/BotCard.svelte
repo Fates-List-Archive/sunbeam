@@ -56,6 +56,7 @@
             <Button aria-label="Invite" href="/{type}/{data.user.id}/invite" class="bot-card-actions-link" target="_blank" touch variant="outlined">Invite</Button>
         {/if}
     </div>
+</div>
 </section>
 
 <style lang="scss">
