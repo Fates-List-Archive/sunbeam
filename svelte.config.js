@@ -10,6 +10,11 @@ const config = {
 	kit: {
 		adapter: adapter(),
 
+		headers: {
+			host: 'X-Forwarded-Host',
+			protocol: 'X-Forwarded-Proto'
+		},
+		
 		// hydrate the <div id="svelte"> element in src/app.html
 		target: '#svelte',
 		serviceWorker: {
