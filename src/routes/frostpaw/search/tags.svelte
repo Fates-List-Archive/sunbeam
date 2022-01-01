@@ -2,11 +2,7 @@
 	import { fetchFates } from "$lib/request"
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
-	export async function load({ request, url, session }) {
-		return {
-			status: 404,
-			error: new Error(`${url.toJSON()}`)
-		}
+	export async function load({ url }) {
 		//console.log("url is:", url)
 		let tag = url.searchParams.get("tag")
 		let targetType = url.searchParams.get("target_type")

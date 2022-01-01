@@ -11,19 +11,10 @@ export const handle: Handle = async ({ request, resolve }) => {
 		request.method = method.toUpperCase();
 	}
 
-	const response = await resolve(request);
-
-	request.locals.session = null;
-
-	if (cookies.session) {
-		// TODO: Fetch session data from backend here
-		request.locals.session = cookies.session;
-	}
-
 	console.log(request.url)
-	request.locals.session = {
-		"url": request.url.toJSON()
-	}
+	console.log(request.params)
+
+	const response = await resolve(request);
 
 	return response;
 };
