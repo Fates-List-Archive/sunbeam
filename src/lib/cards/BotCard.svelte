@@ -115,7 +115,9 @@
         border-radius: 50%;
         background-color: black !important;
         width: 100px;
+        min-width: 100px;
         height: 100px;
+        min-height: 100px;
         margin: 5% auto;
         margin-top: 17%;
         margin-right: 35%;
@@ -127,8 +129,13 @@
 	    color: white; 
 	    opacity: $link-opacity; 
 	    width: 90%; 
+        min-width: 90%;
+        max-width: 90%;
 	    margin: 0 5%; 
-	    height:105px
+	    height:105px;
+        text-overflow: ellipsis;
+        min-height: 105px;
+        max-height: 105px;
     }
 
     :global(.bot-card-cert) {
@@ -138,8 +145,18 @@
 	    margin-left: 90%;
 	    z-index: 10 !important;
 }
-    .bot-card-footer {width: 80%;margin: 0 10%;height: 10%;margin-top: 20px;margin-bottom: 20px;}
-    .bot-card-footer-stats {height: 30px !important; width: 55% !important;}
+    .bot-card-footer {
+        width: 80%;
+        margin: 0 10%;
+        height: 10%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .bot-card-footer-stats {
+        height: 30px !important; 
+        width: 55% !important;
+    }
 
     .bot-card-actions {
 	    width: 80%;
