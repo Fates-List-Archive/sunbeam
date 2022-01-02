@@ -1,22 +1,18 @@
 <script lang="ts">
-	import BotCard from '$lib/cards/BotCard.svelte';
-import Icon from '@iconify/svelte';
+    import Icon from '@iconify/svelte';
+    import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
 	export let data: any;
     export let type: string;
 </script>
-<svelte:head>
-    <title>{data.user.username}</title>
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://fateslist.xyz/{type}/{data.user.id}">
-    <meta property="og:title" content="Discover {data.user.username} on FatesList!">
-    <meta property="og:description" content="{data.description}">
-    <meta property="og:image" content="{data.user.avatar}">
-    <meta property="twitter:card" content="summary">
-    <meta property="twitter:url" content="https://fateslist.xyz/">
-    <meta property="twitter:title" content="Discover {data.user.username} on FatesList!">
-    <meta property="twitter:description" content="{data.description}">
-    <meta property="twitter:image" content="{data.user.avatar}">        
-</svelte:head>
+
+<BristlefrostMeta 
+	url="https://fateslist.xyz/{type}/{data.user.id}"
+    pageTitle="{data.user.username}"
+	title="Discover {data.user.username} on Fates List!"
+	description="{data.description}"
+	thumbnail="{data.user.avatar}"
+></BristlefrostMeta>
+
 {#if data.banner && data.keep_banner_decor}
 <style lang="scss">
 .banner-decor {

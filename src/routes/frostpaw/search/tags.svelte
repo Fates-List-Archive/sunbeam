@@ -33,9 +33,19 @@
     import BotCard from "$lib/cards/BotCard.svelte"
     import SearchBar from "$lib/base/SearchBar.svelte"
     import Tag from "$lib/base/Tag.svelte";
+	import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
     export let data: any;
     export let targetType: string;
+	export let tag: string;
 </script>
+
+<BristlefrostMeta 
+	url="https://fateslist.xyz/frostpaw/search/tags?q={tag}&target_type={targetType}"
+	title="Search results for {targetType}s tagged with {tag}"
+	description="Find, invite and discover the best {tag} {targetType}s"
+	thumbnail="https://fateslist.xyz/static/botlisticon.webp"
+></BristlefrostMeta>
+
 <section>
 	<h1>Fates List</h1>
 	<h2 class="best-bots">Find the best bots for your servers!</h2>
