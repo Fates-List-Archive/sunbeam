@@ -31,6 +31,7 @@
 	import Icon from '@iconify/svelte';
 	import RandomBot from "$lib/base/RandomBot.svelte";
 	import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
+	import Section from "$lib/base/Section.svelte";
 	export let data: any;
 	export let randomBot: any;
 </script>
@@ -46,28 +47,26 @@
 	<h1>Fates List</h1>
 	<h2 class="best-bots">Find the best bots for your servers!</h2>
 </section>
+
 <SearchBar type="bot" query=""></SearchBar>
 <Tag targetType="bot" tags={data.tags_fixed}></Tag>
 <RandomBot type="bot" randomBot={randomBot}/>
 
-<Icon class="white" icon="fa-solid:certificate" inline={true} height="3em"></Icon>
-<h2 class="bot-section">Certified</h2>
+<Section icon="fa-solid:certificate" title="Certified"></Section>
 <CardContainer>
 	{#each data.certified_bots as bot}
 		<BotCard data={bot} type="bot" rand={false}/>
 	{/each}
 </CardContainer>
 
-<Icon class="white" icon="fa-solid:sort-amount-up" inline={true} height="3em"></Icon>
-<h2 class="bot-section">Top Voted</h2>
+<Section icon="fa-solid:sort-amount-up" title="Top Voted"></Section>
 <CardContainer>
 	{#each data.top_voted as bot}
 		<BotCard data={bot} type="bot" rand={false}/>
 	{/each}
 </CardContainer>
 
-<Icon class="white" icon="fa-solid:plus" inline={true} height="3em"></Icon>
-<h2 class="bot-section">New Bots</h2>
+<Section icon="fa-solid:plus" title="New Bots"></Section>
 <CardContainer>
 	{#each data.new_bots as bot}
 		<BotCard data={bot} type="bot" rand={false}/>
@@ -86,10 +85,6 @@
 		margin: 0px;
 	}
 
-	.bot-section {
-		margin-left: 10px;
-		display: inline-block;
-	}
 	.best-bots {
 		opacity: 0.6;
 	}

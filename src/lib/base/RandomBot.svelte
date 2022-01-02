@@ -11,7 +11,7 @@
 </script>
 <div class="flex">
     <BotCard type={type} rand={false} data={randomBot}></BotCard>
-    <!--<Button class="random-button white" on:load={roll(type)} on:click={roll(type)} touch variant="outlined">Roll</Button>-->
+    <Button class="random-button white" on:click={() => {window.location.reload()} } touch variant="outlined">Roll</Button>
 </div>
 <div class="spacer"></div>
 <style>

@@ -17,7 +17,7 @@
 		observer.observe();
 	}
 
-	export let version: string = "1"
+	export let version: string = "2"
 	export let frostpawVersion: string = "0.1.0"
 </script>
 <style lang="scss" global>
