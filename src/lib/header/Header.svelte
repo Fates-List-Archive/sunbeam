@@ -1,13 +1,16 @@
 <script lang="ts">
 	import { page, session } from '$app/stores';
-	console.log($session)
+	console.log($session, "Session From Header")
 	import Menu, { MenuComponentDev } from '@smui/menu';
 	import List, { Item, Separator, Text } from '@smui/list';
 	import Button, { Label } from '@smui/button';
 
 	let menu: MenuComponentDev;
 	let clicked = 'nothing yet';
-	let username = $session.username
+	let username = null
+	if($session.session.user) {
+		username = $session.session.user.username
+	}
 </script>
 
 <header>
@@ -35,10 +38,45 @@
 		</div>
 		<Menu bind:this={menu} class="corner-nav">
 		<List>
-			<Item on:SMUI:action={() => (clicked = 'Login')}>
+			{#if username}
+			<Item on:SMUI:action={() => {
+				clicked = "Logout"
+				fetch("https://fateslist.xyz/api/v2/logout/_sunbeam", {
+					method: "POST",
+					credentials: "include"
+				})
+				.then(res => res.json())
+				.then(json => {
+					window.location.href = "/"
+				})
+			}}>
+				<Text>Logout</Text>
+			</Item>
+			{:else}
+			<Item on:SMUI:action={() => {
+				clicked = "Login"
+				document.cookie = `_sunbeam-login=${window.location.href}; max-age=60*30; Secure`
+				fetch("https://fateslist.xyz/api/v2/oauth", {
+					method: "POST",
+					headers: {
+						'Content-Type': 'application/json', 
+						"Frostpaw": "0.1.0", 
+						"Frostpaw-Server": window.location.origin
+					},
+					body: JSON.stringify({"scopes": ["identify"]})
+				})
+				.then((res) => res.json())
+				.then((json) => {
+					window.location.href = json.url
+				})	
+			}}>
 				<Text>Login</Text>
 			</Item>
-			<Item on:SMUI:action={() => (clicked = 'API Docs')}>
+			{/if}
+			<Item on:SMUI:action={() => {
+				clicked = 'API Docs'
+				window.location.href = "https://docs.fateslist.xyz"
+			}}>
 				<Text>API Docs</Text>
 			</Item>
 		</List>

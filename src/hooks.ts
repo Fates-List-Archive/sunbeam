@@ -1,5 +1,4 @@
 import cookie from 'cookie';
-import { v4 as uuid } from '@lukeed/uuid';
 import type { Handle } from '@sveltejs/kit';
 
 export const handle: Handle = async ({ request, resolve }) => {
@@ -19,7 +18,7 @@ export const handle: Handle = async ({ request, resolve }) => {
 	return response;
 };
 
-export function getSession(request) {
+export async function getSession(request) {
 	console.log("getSession called")
 
 	// Bypass dumb cloudflare bug
@@ -28,8 +27,18 @@ export function getSession(request) {
 		query[k] = v
 	})
 
+	const cookies = cookie.parse(request.headers.cookie || '');
+
+	let sessionData = {}
+	if (cookies["sunbeam-session"]) {
+		let jwt = cookies["sunbeam-session"]
+		let sessionRes = await fetch(`https://fateslist.xyz/api/v2/jwtparse/_sunbeam?jwt=${jwt}`)
+		sessionData = await sessionRes.json()
+	}
+
 	return {
 		"url": request.url.toJSON(), // CF adpter workaround, hopefully works?
-		"query": query
+		"query": query,
+		"session": sessionData
 	}
 }

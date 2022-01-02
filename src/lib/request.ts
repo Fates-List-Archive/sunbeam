@@ -24,3 +24,13 @@ export async function roll(type: string) {
     console.log(roll)
     return roll
 }
+
+export function getCookie(name, cookie) {
+    function escape(s) { return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, '\\$1'); }
+    var match = null;
+    if(cookie) {
+        match = cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
+    }
+    match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
+    return match ? match[1] : null;
+}
