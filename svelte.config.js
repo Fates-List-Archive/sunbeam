@@ -17,6 +17,10 @@ const config = {
 	kit: {
 		adapter: adapter(),
 
+		prerender: {
+			enabled: false
+		},
+
 		headers: {
 			host: 'X-Forwarded-Host',
 			protocol: 'X-Forwarded-Proto'
