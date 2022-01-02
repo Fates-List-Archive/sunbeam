@@ -1,14 +1,3 @@
-<script lang="ts">
-    //import Icon as IconifyIcon from '@iconify/svelte';
-    import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
-    import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
-    import { enums } from '../enums/enums';
-	export let data: any;
-    export let type: string;
-
-    let panel1Open = false
-</script>
-
 <BristlefrostMeta 
 	url="https://fateslist.xyz/{type}/{data.user.id}"
     pageTitle="{data.user.username}"
@@ -114,3 +103,12 @@
         </div>
     </article>
 </div>
+
+<script lang="ts">
+    //import Icon as IconifyIcon from '@iconify/svelte';
+    import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
+    import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
+    import { enums } from '../enums/enums';
+	export let data: any;
+    export let type: string;
+</script>

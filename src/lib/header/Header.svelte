@@ -1,5 +1,11 @@
 <script lang="ts">
 	import { page } from '$app/stores';
+	import Menu, { MenuComponentDev } from '@smui/menu';
+	import List, { Item, Separator, Text } from '@smui/list';
+	import Button, { Label } from '@smui/button';
+
+	let menu: MenuComponentDev;
+	let clicked = 'nothing yet';
 </script>
 
 <header>
@@ -15,6 +21,30 @@
 			<li class:active={$page.url.pathname === '/servers'}><a sveltekit:prefetch href="/servers">Servers</a></li>
 			<li class:active={$page.url.pathname === '/'}><a href="/">Bots</a></li>
 		</ul>
+		<ul class="navbar">
+			<Button on:click={() => {alert("Test"); menu.setOpen(true)} }>
+				<Label>Open Menu</Label>
+			</Button>			
+			<Menu bind:this={menu}>
+				<List>
+				  <Item on:SMUI:action={() => (clicked = 'Cut')}>
+					<Text>Cut</Text>
+				  </Item>
+				  <Item on:SMUI:action={() => (clicked = 'Copy')}>
+					<Text>Copy</Text>
+				  </Item>
+				  <Item on:SMUI:action={() => (clicked = 'Paste')}>
+					<Text>Paste</Text>
+				  </Item>
+				  <Separator />
+				  <Item on:SMUI:action={() => (clicked = 'Delete')}>
+					<Text>Delete</Text>
+				  </Item>
+				</List>
+			  </Menu>
+			   
+			  <pre class="status">Clicked: {clicked}</pre>
+			</ul>
 	</nav>
 
 	<div class="corner">

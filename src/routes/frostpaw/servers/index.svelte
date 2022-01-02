@@ -77,10 +77,6 @@
 		margin: 0px;
 	}
 
-	.bot-section {
-		margin-left: 10px;
-		display: inline-block;
-	}
 	.best-bots {
 		opacity: 0.6;
 	}
