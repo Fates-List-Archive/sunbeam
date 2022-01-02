@@ -99,7 +99,9 @@
         width: 300px;
         height: 520px;
         background: #111112;
-        box-shadow: 0px 0px 20px 5px;
+        -moz-box-shadow: 0px 0px 20px 5px #000;
+        -webkit-box-shadow: 0px 0px 20px 5px #000;
+        box-shadow: 0px 0px 20px 5px #000;
         border-top-style: none;
         margin: 25px 25px; 
         border-radius: 10px 10px 10px 10px;
@@ -132,7 +134,7 @@
         min-width: 90%;
         max-width: 90%;
 	    margin: 0 5%; 
-	    height:105px;
+	    height: 105px;
         text-overflow: ellipsis;
         min-height: 105px;
         max-height: 105px;
