@@ -1,9 +1,16 @@
 <svelte:head>
 	<link href="https://fateslist.xyz/static/assets/prod/material-icons.min.css" rel="stylesheet" defer />
+	<!-- SMUI Styles -->	
 	<link
-		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/npm/svelte-material-ui/bare.min.css"
-  	/>
+  		rel="stylesheet"
+  		href="/static/smui.css?v=1"
+  		media="(prefers-color-scheme: light)"
+	/>
+	<link
+  		rel="stylesheet"
+  		href="/static/smui-dark.css?v=2"
+  		media="screen and (prefers-color-scheme: dark)"
+	/>
 	<link rel="canonical" href="https://fateslist.xyz/">
 	<meta name="keywords" content="discord bot, discord bot list, fateslist, fates list, bot list, discord list, list of bost, discord bots, fateslist bots, fates list">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">

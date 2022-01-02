@@ -27,7 +27,7 @@
 		display: flex;
 		position: fixed;
 		width: 100%;
-		margin: 0px;
+		margin: 2px;
 		padding: 0px;
 		z-index: 1;
 		background-color: black;
