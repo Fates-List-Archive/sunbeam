@@ -3,12 +3,12 @@
 	<!-- SMUI Styles -->	
 	<link
   		rel="stylesheet"
-  		href="/static/smui.css?v=1"
+  		href="https://fateslist.xyz/static/smui.css?v=1"
   		media="(prefers-color-scheme: light)"
 	/>
 	<link
   		rel="stylesheet"
-  		href="/static/smui-dark.css?v=2"
+  		href="https://fateslist.xyz/static/smui-dark.css?v=2"
   		media="screen and (prefers-color-scheme: dark)"
 	/>
 	<link rel="canonical" href="https://fateslist.xyz/">
