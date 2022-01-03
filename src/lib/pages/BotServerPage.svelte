@@ -48,6 +48,11 @@
     margin: 0 auto;
 }
 
+.bot-username, span {
+    margin-bottom: 0px;
+    padding-bottom: 0px;
+}
+
 .bot-avatar {
     border-radius: 50%; 
     width: 120px;
@@ -64,6 +69,28 @@
     cursor: text !important;
 }
 
+#bot-description {
+    font-size: 18px;
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+}
+
+:global(.buttons-all) {
+    color: white !important;
+    border: solid thin !important;
+    opacity: 1 !important;
+    margin-right: 10px;
+}
+
+.buttons {
+    width: 80% !important;
+    margin-left: auto;
+}
+
+:global(.disabled) {
+    opacity: 0.63 !important;
+}
 </style>
 <div class="lozad bot-page-banner" data-background-image="{data.banner}">
     <img class="bot-avatar" loading="lazy" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="{type}-avatar" alt="{data.user.username}'s avatar">
@@ -97,8 +124,64 @@
                             low-quality bot. Please do not invite it.
                         </Content>
                     </Panel>
+                    {:else if data.state == enums.BotState.banned}
+                    <Panel color="primary" open>
+                        <Header ripple={false}>
+                          Bot Banned
+                        </Header>
+                        <Content class="accordian-container">
+                            This bot has been BANNED from this bot list for violating our rules or being a low-quality bot. 
+                            Please do not invite it until further notice!
+                        </Content>
+                    </Panel>
                     {/if}
                 </Accordion>
+            </div>
+            <p class="banner-decor white" id="bot-description">{@html data.description.replace("p>", "span>") }</p>
+            <div class="buttons">
+			    <Button on:click={() => voteBot()} class="buttons-all" id="buttons-vote" touch variant="outlined">
+				    <Icon icon="fa-solid:thumbs-up" inline={false}/>
+				    <span style="margin-left: 3px;">{data.votes}</span>
+			    </Button>
+			    <Button href="/{type}/{data.user.id}/invite" class="buttons-all" id="buttons-vote" touch variant="outlined">
+				    <span>Invite</span>
+			    </Button>
+                {#if data.support}
+			    <Button href="{data.support}" class="buttons-all" id="buttons-vote" touch variant="outlined">
+				    <span>Support</span>
+			    </Button>
+                {:else}
+			    <Button class="buttons-all disabled" id="buttons-vote" touch variant="outlined" disabled>
+				    <span>Support</span>
+			    </Button>
+                {/if}
+                {#if data.website}
+			    <Button href="{data.website}" class="buttons-all" touch variant="outlined">
+				    <span>Website</span>
+			    </Button>
+                {:else}
+			    <Button class="buttons-all disabled" touch variant="outlined" disabled>
+				    <span>Website</span>
+			    </Button>
+                {/if}
+                {#if data.privacy_policy}
+			    <Button href="{data.privacy_policy}" class="buttons-all" touch variant="outlined">
+				    <span>Privacy Policy</span>
+			    </Button>
+                {:else}
+			    <Button class="buttons-all disabled" touch variant="outlined" disabled>
+				    <span>Privacy Policy</span>
+			    </Button>
+                {/if}
+                {#if data.github}
+			    <Button href="{data.github}" class="buttons-all" touch variant="outlined">
+				    <span>Github</span>
+			    </Button>
+                {:else}
+			    <Button class="buttons-all disabled" touch variant="outlined" disabled>
+				    <span>Github</span>
+			    </Button>
+                {/if}
             </div>
         </div>
     </article>
@@ -108,7 +191,24 @@
     //import Icon as IconifyIcon from '@iconify/svelte';
     import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
     import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
+    import Icon from '@iconify/svelte';
+    import Button from '@smui/button';
     import { enums } from '../enums/enums';
+    import { voteHandler } from '$lib/request'
+    import { session } from '$app/stores';
 	export let data: any;
     export let type: string;
+
+    async function voteBot() {
+        let token = $session.session.token
+        let userID = ""
+        if(token) {
+            userID = $session.session.user.id
+        }
+        return await voteHandler(userID, token, data.user.id, false)
+    }
+
+    function noOption(s: string) {
+        alert("This bot does not have a " + s)
+    }
 </script>

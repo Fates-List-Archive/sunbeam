@@ -1,3 +1,4 @@
+// Simple request proxy
 async function proxy(request: any, method: string) {
     let proxiedURL = request.url.href.replace("sunbeam.fateslist.xyz", "fateslist.xyz").replace("sunbeam-cf.fateslist.xyz", "fateslist.xyz")
     let headers = {

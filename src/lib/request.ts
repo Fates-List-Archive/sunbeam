@@ -34,3 +34,28 @@ export function getCookie(name, cookie) {
     match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
     return match ? match[1] : null;
 }
+
+export async function voteHandler(userID: string, token: string, botID: string, test: boolean) {
+    if(!browser) {
+        return
+    }
+	if(!token || !userID) {
+		alert("You must be logged in to vote for bots!")
+	}
+    let res = await fetch(`https://fateslist.xyz/api/dragon/bots/${botID}/votes`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json', 
+            "Frostpaw": "0.1.0", 
+            "Authorization": token
+        },
+        body: JSON.stringify({user_id: userID, test: test})
+    })
+    let data = await res.json()
+    if(res.ok) {
+        alert("Successfully voted for this bot!")
+        window.location.reload()
+    } else {
+        alert(JSON.stringify(data.reason))
+    }
+}
