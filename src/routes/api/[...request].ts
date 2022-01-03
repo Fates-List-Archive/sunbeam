@@ -20,8 +20,6 @@ async function proxy(request: any, method: string) {
     let res = await fetch(proxiedURL, {
         method: method,
         headers: headers,
-        mode: 'cors',
-        credentials: 'include',
         body: body
     })
 
