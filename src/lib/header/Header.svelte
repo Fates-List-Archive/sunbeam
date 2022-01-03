@@ -79,6 +79,12 @@
 			}}>
 				<Text>API Docs</Text>
 			</Item>
+			<Item on:SMUI:action={() => {
+				clicked = 'Terms Of Service'
+				window.location.href = "/frostpaw/tos"
+			}}>
+				<Text>Terms Of Service</Text>
+			</Item>
 		</List>
 		</Menu>
 	</nav>
