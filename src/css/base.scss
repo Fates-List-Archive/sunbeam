@@ -19,9 +19,13 @@ html, body {
 	padding: 0px;
 }
 
-h1, h2, h3, h4, h5, h6, p, nav, .fform, a, ol {
+h1, h2, h3, h4, h5, h6, p, nav, .fform, a, ol, .tab {
 	overflow: hidden;
 	color: white !important;
+	font-family: 'Lexend Deca';
+}
+
+ul {
 	font-family: 'Lexend Deca';
 }
 

@@ -91,10 +91,24 @@
 :global(.disabled) {
     opacity: 0.63 !important;
 }
+
+.review-user {
+	margin-top: 5px;
+	padding-left: 3px;
+	box-sizing: border-box;
+	/*border-left: 1px solid white !important; */ 
+	margin-bottom: 2px;
+}
+.review-left {
+	display: inline-block;
+}
 </style>
+
+{@html data.css_html}
+
 <div class="lozad bot-page-banner" data-background-image="{data.banner}">
     <img class="bot-avatar" loading="lazy" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="{type}-avatar" alt="{data.user.username}'s avatar">
-    <article class="bot-page" style="{data.css}">
+    <article class="bot-page">
         <a href="/{type}/{data.user.id}/invite" class="banner-decor bot-username">
             <h3 class="text-center white" id="bot-name">{data.user.username} {#if type == "bot"}<span class="prefix">({data.prefix || "/"})</span>{/if}</h3>
         </a>
@@ -183,6 +197,16 @@
 			    </Button>
                 {/if}
             </div>
+            <Tab tabs={tabs} defaultTabButton="long-description-tab-button">
+                <section id="long-description-tab" class='tabcontent tabdesign'>
+                    <span id="long-description">
+                        {@html data.long_description}
+                    </span>
+                </section>
+                <section id="about-tab" class='tabcontent tabdesign'>
+                    About
+                </section>
+            </Tab>
         </div>
     </article>
 </div>
@@ -196,8 +220,18 @@
     import { enums } from '../enums/enums';
     import { voteHandler } from '$lib/request'
     import { session } from '$app/stores';
+    import Tab from '$lib/base/Tab.svelte';
 	export let data: any;
     export let type: string;
+
+    let tabs = [{
+        "name": "Description",
+        "id": "long-description"    
+    }, 
+    {
+        "name": "About",
+        "id": "about"
+    }]
 
     async function voteBot() {
         let token = $session.session.token
@@ -206,9 +240,5 @@
             userID = $session.session.user.id
         }
         return await voteHandler(userID, token, data.user.id, false)
-    }
-
-    function noOption(s: string) {
-        alert("This bot does not have a " + s)
     }
 </script>
