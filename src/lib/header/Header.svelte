@@ -3,7 +3,6 @@
 	console.log($session, "Session From Header")
 	import Menu, { MenuComponentDev } from '@smui/menu';
 	import List, { Item, Text } from '@smui/list';
-	//import Button, { Label } from '@smui/button';
 
 	let username = null
 	let userID = null
@@ -35,10 +34,9 @@
 				{username || "Not logged in"}
 			</a>
 		</div>
-		<Menu bind:this={menu} class="corner-2">
+		<Menu bind:this={menu} class="navbar">
 			<List>
 				{#if username}
-
 				<Item on:SMUI:action={() => {
 					fetch("https://api.fateslist.xyz/api/v2/logout/_sunbeam", {
 						method: "POST",
@@ -73,9 +71,7 @@
 				}}>
 					<Text>Add Bot</Text>
 				</Item>
-
 				{:else}
-
 				<Item on:SMUI:action={() => {
 					document.cookie = `_sunbeam-login=${window.location.href}; max-age=1800; Secure`
 					fetch("https://api.fateslist.xyz/api/v2/oauth", {
@@ -94,9 +90,7 @@
 				}}>
 					<Text>Login</Text>
 				</Item>
-
 				{/if}
-
 				<Item on:SMUI:action={() => {
 					window.location.href = "https://docs.fateslist.xyz"
 				}}>
@@ -108,7 +102,6 @@
 				}}>
 					<Text>Terms Of Service</Text>
 				</Item>
-
 			</List>
 		</Menu>
 	</nav>

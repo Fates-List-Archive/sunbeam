@@ -288,7 +288,7 @@
         if(!browser) {
             return
         }
-        let res = await fetch(`https://fateslist.xyz/bot/${data.user.id}/reviews_html?page=${page}`)
+        let res = await fetch(`https://api.fateslist.xyz/bot/${data.user.id}/reviews_html?page=${page}`)
         if(res.ok) {
             let data = await res.text()
             document.querySelector("#reviews").innerHTML = data
