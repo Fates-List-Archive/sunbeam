@@ -41,64 +41,64 @@
 				{username || "Not logged in"}
 			</a>
 		</div>
-		<Menu bind:this={menu} class="corner-nav">
-		<List>
-			{#if username}
-			<Item on:SMUI:action={() => {
-				clicked = "Logout"
-				fetch("https://api.fateslist.xyz/api/v2/logout/_sunbeam", {
-					method: "POST",
-					credentials: "include",
-					headers: {
-						'Content-Type': 'application/json', 
-						"Frostpaw": "0.1.0", 
-					}
-				})
-				.then(res => res.json())
-				.then(json => {
-					window.location.href = "/"
-				})
-			}}>
-				<Text>Logout</Text>
-			</Item>
-			<Item on:SMUI:action={() => {
-				clicked = "Profile"
-				window.location.href = `/profile/${userID}`
-			}}>
-				<Text>Profile</Text>
-			</Item>
-			<Item on:SMUI:action={() => {
-				clicked = "About"
-				window.location.href = `/frostpaw/about`
-			}}>
-				<Text>About</Text>
-			</Item>
-			<Item on:SMUI:action={() => {
-				clicked = "Add Bot"
-				window.location.href = `https://api.fateslist.xyz/bot/admin/add`
-			}}>
-				<Text>About</Text>
-			</Item>
+		<Menu bind:this={menu} class="corner corner-nav">
+			<List>
+				{#if username}
+				<Item on:SMUI:action={() => {
+					clicked = "Logout"
+					fetch("https://api.fateslist.xyz/api/v2/logout/_sunbeam", {
+						method: "POST",
+						credentials: "include",
+						headers: {
+							'Content-Type': 'application/json', 
+							"Frostpaw": "0.1.0", 
+						}
+					})
+					.then(res => res.json())
+					.then(json => {
+						window.location.href = "/"
+					})
+				}}>
+					<Text>Logout</Text>
+				</Item>
+				<Item on:SMUI:action={() => {
+					clicked = "Profile"
+					window.location.href = `/profile/${userID}`
+				}}>
+					<Text>Profile</Text>
+				</Item>
+				<Item on:SMUI:action={() => {
+					clicked = "About"
+					window.location.href = `/frostpaw/about`
+				}}>
+					<Text>About</Text>
+				</Item>
+				<Item on:SMUI:action={() => {
+					clicked = "Add Bot"
+					window.location.href = `https://api.fateslist.xyz/bot/admin/add`
+				}}>
+					<Text>About</Text>
+				</Item>
 			{:else}
-			<Item on:SMUI:action={() => {
-				clicked = "Login"
-				document.cookie = `_sunbeam-login=${window.location.href}; max-age=1800; Secure`
-				fetch("https://api.fateslist.xyz/api/v2/oauth", {
-					method: "POST",
-					headers: {
-						'Content-Type': 'application/json', 
-						"Frostpaw": "0.1.0", 
-						"Frostpaw-Server": window.location.origin
-					},
-					body: JSON.stringify({"scopes": ["identify"]})
-				})
-				.then((res) => res.json())
-				.then((json) => {
-					window.location.href = json.url
-				})	
-			}}>
-				<Text>Login</Text>
-			</Item>
+				<Item on:SMUI:action={() => {
+					clicked = "Login"
+					document.cookie = `_sunbeam-login=${window.location.href}; max-age=1800; Secure`
+					fetch("https://api.fateslist.xyz/api/v2/oauth", {
+						method: "POST",
+						headers: {
+							'Content-Type': 'application/json', 
+							"Frostpaw": "0.1.0", 
+							"Frostpaw-Server": window.location.origin
+						},
+						body: JSON.stringify({"scopes": ["identify"]})
+					})
+					.then((res) => res.json())
+					.then((json) => {
+						window.location.href = json.url
+					})	
+				}}>
+					<Text>Login</Text>
+				</Item>
 			{/if}
 			<Item on:SMUI:action={() => {
 				clicked = 'API Docs'

@@ -32,7 +32,7 @@ export async function getSession(request) {
 	let sessionData = {}
 	if (cookies["sunbeam-session"]) {
 		let jwt = cookies["sunbeam-session"]
-		let sessionRes = await fetch(`https://fateslist.xyz/api/v2/jwtparse/_sunbeam?jwt=${jwt}`)
+		let sessionRes = await fetch(`https://api.fateslist.xyz/api/v2/jwtparse/_sunbeam?jwt=${jwt}`)
 		sessionData = await sessionRes.json()
 	}
 
