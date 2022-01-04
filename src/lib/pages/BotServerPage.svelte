@@ -199,9 +199,9 @@
             </div>
             <Tab tabs={tabs} defaultTabButton="long-description-tab-button">
                 <section id="long-description-tab" class='tabcontent tabdesign'>
-                    <span id="long-description">
+                    <div id="long-description">
                         {@html data.long_description}
-                    </span>
+                    </div>
                 </section>
                 <section id="about-tab" class='tabcontent tabdesign'>
                     About
