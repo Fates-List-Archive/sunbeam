@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { page, session } from '$app/stores';
 	console.log($session, "Session From Header")
-	import Menu, { MenuComponentDev } from '@smui/menu';
+	import Menu from '@smui/menu';
 	import List, { Item, Separator, Text } from '@smui/list';
 	//import Button, { Label } from '@smui/button';
 
-	let menu: MenuComponentDev;
 	let clicked = 'nothing yet';
 	let username = null
 	let userID = null
@@ -41,7 +40,7 @@
 				{username || "Not logged in"}
 			</a>
 		</div>
-		<Menu bind:this={menu} class="corner">
+		<Menu class="corner">
 			<List>
 				{#if username}
 				<Item on:SMUI:action={() => {

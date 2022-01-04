@@ -33,12 +33,23 @@ export async function getSession(request) {
 	if (cookies["sunbeam-session"]) {
 		let jwt = cookies["sunbeam-session"]
 		let sessionRes = await fetch(`https://api.fateslist.xyz/api/v2/jwtparse/_sunbeam?jwt=${jwt}`)
-		sessionData = await sessionRes.json()
+		try {
+			sessionData = await sessionRes.json()
+		} catch(err) {
+			sessionData = {}
+		}
 	}
-
-	return {
-		"url": request.url.toJSON(), // CF adpter workaround, hopefully works?
-		"query": query,
-		"session": sessionData
+	try {
+		return {
+			"url": request.url.toJSON(), // CF adpter workaround, hopefully works?
+			"query": query,
+			"session": sessionData
+		}
+	} catch(err) {
+		return {
+			"url": "https://fateslist.xyz",
+			"query": {},
+			"session": {}
+		}
 	}
 }
