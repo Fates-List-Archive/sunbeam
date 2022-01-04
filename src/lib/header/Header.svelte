@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page, session } from '$app/stores';
 	console.log($session, "Session From Header")
-	import Menu from '@smui/menu';
+	import Menu, { MenuComponentDev } from '@smui/menu';
 	import List, { Item, Separator, Text } from '@smui/list';
 	//import Button, { Label } from '@smui/button';
 
@@ -9,6 +9,7 @@
 	let username = null
 	let userID = null
 	let debug = false
+	let menu: MenuComponentDev;
 	if($session.session.user) {
 		username = $session.session.user.username
 		userID = $session.session.user.id
@@ -177,7 +178,7 @@
 		margin: 0;
 		height: 3em;
 		display: flex;
-		list-style: none;
+		list-style: none !important;
 		background-size: contain;
 	}
 
