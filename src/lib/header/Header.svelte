@@ -59,7 +59,7 @@
 			{:else}
 			<Item on:SMUI:action={() => {
 				clicked = "Login"
-				document.cookie = `_sunbeam-login=${window.location.href}; max-age=60*30; Secure`
+				document.cookie = `_sunbeam-login=${window.location.href}; max-age=1800; Secure`
 				fetch("https://fateslist.xyz/api/v2/oauth", {
 					method: "POST",
 					headers: {

@@ -11,7 +11,12 @@
     if(browser) {
         frostpawServer = getCookie("_sunbeam-login", document.cookie)
 
+        if(!frostpawServer) {
+            frostpawServer = "/"
+        }
+
         function login() {
+            frostpawMsg = `Logging you in and redirecting you back to ${frostpawServer}. Please wait...`          
             let retry = "<br/><br/><a href='https://fateslist.xyz/fates/login'>Try Again?</a>"
             let searchParams = new URLSearchParams(window.location.search)
             let error = searchParams.get("error")
@@ -41,14 +46,13 @@
             .then((res) => res.json())
             .then((json) => {
                 if(!json.done) {
-                    frostpawServer = JSON.stringify(json)
+                    frostpawMsg = `Got error: ${JSON.stringify(json)}`
                 } else {
-                    window.location.href = "/"
+                    window.location.href = frostpawServer
                 }
             })
         }
         login()
     }
 </script>
-<p style="font-size: bold;">Logging you in and redirecting you back to {frostpawServer}. Please wait...</p>
-{@html frostpawMsg}
+<p style="font-size: bold;">{@html frostpawMsg}</p>
