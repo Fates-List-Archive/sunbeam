@@ -210,9 +210,24 @@
                 </section>
                 <section id="about-tab" class='tabcontent tabdesign'>
                     <!--First main owner is guaranteed to be first in HTML-->
-                    <h2>Owners</h2>
-                    <Icon icon="mdi-crown" inline={false} height="1.2em" style="margin-right: 1px"></Icon>
-                    {@html data.owners_html}
+                    {#if type == "bot"}
+                        <h2>Owners</h2>
+                        <Icon icon="mdi-crown" inline={false} height="1.2em" style="margin-right: 1px"></Icon>
+                        {@html data.owners_html}
+                        <h2>Statistics</h2>
+                        <p>Guild Count: {data.guild_count}</p>
+                        <p>User Count (according to bot): {data.user_count}</p>
+                        <p>Shard Count: {data.shard_count}</p>
+                        <p>Shards: 
+                            {#each data.shards as shard}
+                                <span class="white">{shard}</span>, 
+                            {/each}
+                        </p>
+                        <h2>Nerdville</h2>
+                        <p>Last posted statistics on: {data.last_stats_post}</p>
+                        <p>Added to the list on: {data.created_at}</p>
+                        <p>Bot Flags: {data.flags}</p>
+                    {/if}
                 </section>
             </Tab>
         </div>
@@ -247,5 +262,9 @@
             userID = $session.session.user.id
         }
         return await voteHandler(userID, token, data.user.id, false)
+    }
+
+    if(data.shards.length < 1) {
+        data.shards = ["No shards set. Try checking it's website or support server (if it has one)!"]
     }
 </script>
