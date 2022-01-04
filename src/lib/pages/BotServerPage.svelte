@@ -174,7 +174,7 @@
 				    <Icon icon="fa-solid:thumbs-up" inline={false}/>
 				    <span style="margin-left: 3px;">{data.votes}</span>
 			    </Button>
-			    <Button href="/{type}/{data.user.id}/invite" class="buttons-all" touch variant="outlined">
+			    <Button href="/{type}/{data.user.id}/invite" class="buttons-all" touch variant="outlined" rel="external">
 				    <span>Invite</span>
 			    </Button>
                 {#if data.support}
