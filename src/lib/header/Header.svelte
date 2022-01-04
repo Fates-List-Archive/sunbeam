@@ -3,16 +3,21 @@
 	console.log($session, "Session From Header")
 	import Menu, { MenuComponentDev } from '@smui/menu';
 	import List, { Item, Separator, Text } from '@smui/list';
-	import Button, { Label } from '@smui/button';
+	//import Button, { Label } from '@smui/button';
 
 	let menu: MenuComponentDev;
 	let clicked = 'nothing yet';
 	let username = null
+	let debug = false
 	if($session.session.user) {
 		username = $session.session.user.username
 	}
 </script>
-
+{#if debug}
+<ul class="navbar">
+	<pre class="status">Clicked: {clicked}</pre>
+</ul>
+{/if}
 <header>
 	<div class="corner">
 		<a href="/">
@@ -26,9 +31,6 @@
 			<li class:active={$page.url.pathname === '/servers'}><a sveltekit:prefetch href="/servers">Servers</a></li>
 			<li class:active={$page.url.pathname === '/'}><a href="/">Bots</a></li>
 		</ul>
-		<ul class="navbar">
-			<pre class="status">Clicked: {clicked}</pre>
-			</ul>
 	</nav>
 	<nav class="corner-two">
 		<div>
