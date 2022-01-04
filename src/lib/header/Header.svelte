@@ -32,6 +32,7 @@
 			<li class:active={$page.url.pathname === '/partners'}><a sveltekit:prefetch href="/partners">Partners</a></li>
 			<li class:active={$page.url.pathname === '/servers'}><a sveltekit:prefetch href="/servers">Servers</a></li>
 			<li class:active={$page.url.pathname === '/'}><a href="/">Bots</a></li>
+			<li class:active={$page.url.pathname === 'https://api.fateslist.xyz/bot/admin/add'}><a href="/">Add Bot</a></li>
 		</ul>
 	</nav>
 	<nav class="corner-two">
