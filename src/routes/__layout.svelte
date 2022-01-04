@@ -3,16 +3,16 @@
 	<!-- SMUI Styles -->	
 	<link
   		rel="stylesheet"
-  		href="https://api.fateslist.xyz/static/smui.css?v=7"
+  		href="https://api.fateslist.xyz/static/smui.css?v=8"
 	/>
 	<link
   		rel="stylesheet"
-  		href="https://api.fateslist.xyz/static/smui.css?v=7"
+  		href="https://api.fateslist.xyz/static/smui.css?v=8"
   		media="(prefers-color-scheme: light)"
 	/>
 	<link
   		rel="stylesheet"
-  		href="https://api.fateslist.xyz/static/smui-dark.css?v=7"
+  		href="https://api.fateslist.xyz/static/smui-dark.css?v=8"
   		media="(prefers-color-scheme: dark)"
 	/>
 	<link rel="canonical" href="https://fateslist.xyz/">
