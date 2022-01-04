@@ -9,7 +9,7 @@ async function proxy(request: any, method: string) {
     }
 
     for (const property in request.headers) {
-        if(property === "host" || property === "connection" || property == "accept") {
+        if(property === "host" || property === "connection" || property == "accept" || property.includes("cookie")) {
             continue
         } else {
             headers[property.toLowerCase()] = request.headers[property]
