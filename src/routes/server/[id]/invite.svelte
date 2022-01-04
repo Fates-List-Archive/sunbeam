@@ -5,7 +5,7 @@
         if(session.session.user) {
             auth = `${session.session.user.id}|${session.session.token}`
         }
-        let inviteUrl = await fetch(`https://fateslist.xyz/api/v2/guilds/${params.id}/_sunbeam/invite`, {
+        let inviteUrl = await fetch(`https://api.fateslist.xyz/api/v2/guilds/${params.id}/_sunbeam/invite`, {
             method: "GET",
             headers: {
                 "Frostpaw": "0.1.0",

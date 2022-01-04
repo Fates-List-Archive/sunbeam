@@ -72,6 +72,12 @@
 			}}>
 				<Text>About</Text>
 			</Item>
+			<Item on:SMUI:action={() => {
+				clicked = "Add Bot"
+				window.location.href = `https://api.fateslist.xyz/bot/admin/add`
+			}}>
+				<Text>About</Text>
+			</Item>
 			{:else}
 			<Item on:SMUI:action={() => {
 				clicked = "Login"

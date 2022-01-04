@@ -7,18 +7,18 @@ export async function fetchFates(url: string) {
     let res = null
     if(browser || usingCf) {
         // Always use direct if browser
-        return await fetch("https://fateslist.xyz"+url, {headers: {"Frostpaw": "0.1"}})
+        return await fetch("https://api.fateslist.xyz"+url, {headers: {"Frostpaw": "0.1"}})
     }
     try {
         res = await fetch("http://127.0.0.1:9999"+url)
     } catch (err) {
-        res = await fetch("https://fateslist.xyz"+url)
+        res = await fetch("https://api.fateslist.xyz"+url)
     }
     return res
 }
 
 export async function roll(type: string) {
-    const url = `https://fateslist.xyz/api/${type}s/0/random`
+    const url = `https://api.fateslist.xyz/api/${type}s/0/random`
     const res = await fetch(url)
     const roll = await res.json()
     console.log(roll)
@@ -43,7 +43,7 @@ export async function voteHandler(userID: string, token: string, botID: string, 
 		alert("You must be logged in to vote for bots!")
 		return
 	}
-    let res = await fetch(`https://fateslist.xyz/api/dragon/bots/${botID}/votes`, {
+    let res = await fetch(`https://api.fateslist.xyz/api/dragon/bots/${botID}/votes`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json', 

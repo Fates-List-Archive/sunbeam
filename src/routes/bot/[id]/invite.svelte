@@ -17,7 +17,6 @@
         return {
             status: 307,
             redirect: decodeURIComponent(inviteJson.invite)
-            //redirect: `https://fateslist.xyz/api/v2/_sunbeam/redirect?id=${inviteJson.fallback}`
         };
     }
 </script>

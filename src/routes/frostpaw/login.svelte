@@ -17,7 +17,7 @@
 
         function login() {
             frostpawMsg = `Logging you in and redirecting you back to ${frostpawServer}. Please wait...`          
-            let retry = "<br/><br/><a href='https://fateslist.xyz/fates/login'>Try Again?</a>"
+            let retry = "<br/><br/><a href='https://fateslist.xyz'>Try Again?</a>"
             let searchParams = new URLSearchParams(window.location.search)
             let error = searchParams.get("error")
             if(error) {
@@ -31,7 +31,7 @@
                 frostpawMsg = ("Invalid code/state" + retry)
             }
 
-            fetch("https://fateslist.xyz/api/v2/users", {
+            fetch("https://api.fateslist.xyz/api/v2/users", {
                 credentials: 'include',
                 method: "POST",
                 headers: {
