@@ -1,6 +1,6 @@
 // Simple request proxy
 async function proxy(request: any, method: string) {
-    let proxiedURL = request.url.href.replace("sunbeam.fateslist.xyz", "api.fateslist.xyz").replace("sunbeam-cf.fateslist.xyz", "api.fateslist.xyz")
+    let proxiedURL = request.url.href.replace("sunbeam.fateslist.xyz", "api.fateslist.xyz").replace("sunbeam-cf.fateslist.xyz", "api.fateslist.xyz").replace("fateslist.xyz", "api.fateslist.xyz")
     let headers = {
         'content-type': 'application/json', 
         'Accept': 'application/json',
@@ -30,9 +30,9 @@ async function proxy(request: any, method: string) {
 
     let resHeaders = {}
 
-    for(const property in res.headers) {
-        resHeaders[property] = res.headers[property]
-    }
+    //for(const property in res.headers) {
+    //    resHeaders[property] = res.headers[property]
+    //}
 
     if(method !== "HEAD") {
         response["body"] = await res.json()
