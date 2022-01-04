@@ -1,6 +1,6 @@
 // Simple request proxy
 async function proxy(request: any, method: string) {
-    let proxiedURL = request.url.href.replace("sunbeam.fateslist.xyz", "api.fateslist.xyz").replace("sunbeam-cf.fateslist.xyz", "api.fateslist.xyz").replace("fateslist.xyz", "api.fateslist.xyz")
+    let proxiedURL = request.url.href.replace("sunbeam.fateslist.xyz", "fateslist.xyz").replace("sunbeam-cf.fateslist.xyz", "fateslist.xyz").replace("fateslist.xyz", "api.fateslist.xyz")
     let headers = {
         'content-type': 'application/json', 
         'Accept': 'application/json',
@@ -18,11 +18,16 @@ async function proxy(request: any, method: string) {
 
     let body = JSON.stringify(request.body)
 
-    let res = await fetch(proxiedURL, {
-        method: method,
-        headers: headers,
-        body: body
-    })
+    let fetchData = {
+    	method: method,
+	headers: headers
+    }
+
+    if(method != "GET" && method != "HEAD") {
+    	fetchData[body] = body
+    }
+
+    let res = await fetch(proxiedURL, fetchData)
 
     let response = {
         status: res.status,
@@ -33,10 +38,14 @@ async function proxy(request: any, method: string) {
     //for(const property in res.headers) {
     //    resHeaders[property] = res.headers[property]
     //}
+   	
+    if(proxiedURL.includes("redoc") || proxiedURL.includes("widget") || proxiedURL.includes("swagger") || proxiedURL.includes(".js")) {
+    	return {headers: {"Location": proxiedURL}, status: 301}
+    }
 
     if(method !== "HEAD") {
-        response["body"] = await res.json()
-        response["body"]["new_api_url"] = "https://api.fateslist.xyz"
+	response["body"] = await res.json()
+	response["body"]["new_api_url"] = "https://api.fateslist.xyz"
         response["body"]["_proxy"] = {
             headers: headers,
             method: method,
