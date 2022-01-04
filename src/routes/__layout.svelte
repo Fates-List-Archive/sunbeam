@@ -1,14 +1,18 @@
 <svelte:head>
-	<link href="https://fateslist.xyz/static/assets/prod/material-icons.min.css" rel="stylesheet" defer />
+	<link href="https://api.fateslist.xyz/static/assets/prod/material-icons.min.css" rel="stylesheet" defer />
 	<!-- SMUI Styles -->	
 	<link
   		rel="stylesheet"
-  		href="https://fateslist.xyz/static/smui.css?v=4"
+  		href="https://api.fateslist.xyz/static/smui.css?v=5"
   		media="(prefers-color-scheme: light)"
 	/>
 	<link
   		rel="stylesheet"
-  		href="https://fateslist.xyz/static/smui-dark.css?v=4"
+  		href="https://api.fateslist.xyz/static/smui.css?v=5"
+	/>
+	<link
+  		rel="stylesheet"
+  		href="https://api.fateslist.xyz/static/smui-dark.css?v=5"
   		media="screen and (prefers-color-scheme: dark)"
 	/>
 	<link rel="canonical" href="https://fateslist.xyz/">
