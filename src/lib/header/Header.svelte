@@ -46,7 +46,7 @@
 			{#if username}
 			<Item on:SMUI:action={() => {
 				clicked = "Logout"
-				fetch("https://fateslist.xyz/api/v2/logout/_sunbeam", {
+				fetch("https://api.fateslist.xyz/api/v2/logout/_sunbeam", {
 					method: "POST",
 					credentials: "include",
 					headers: {
@@ -83,7 +83,7 @@
 			<Item on:SMUI:action={() => {
 				clicked = "Login"
 				document.cookie = `_sunbeam-login=${window.location.href}; max-age=1800; Secure`
-				fetch("https://fateslist.xyz/api/v2/oauth", {
+				fetch("https://api.fateslist.xyz/api/v2/oauth", {
 					method: "POST",
 					headers: {
 						'Content-Type': 'application/json', 
