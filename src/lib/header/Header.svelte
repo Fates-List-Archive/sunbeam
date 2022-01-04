@@ -2,37 +2,31 @@
 	import { page, session } from '$app/stores';
 	console.log($session, "Session From Header")
 	import Menu, { MenuComponentDev } from '@smui/menu';
-	import List, { Item, Separator, Text } from '@smui/list';
+	import List, { Item, Text } from '@smui/list';
 	//import Button, { Label } from '@smui/button';
 
-	let clicked = 'nothing yet';
 	let username = null
 	let userID = null
-	let debug = false
 	let menu: MenuComponentDev;
 	if($session.session.user) {
 		username = $session.session.user.username
 		userID = $session.session.user.id
 	}
 </script>
-{#if debug}
-<ul class="navbar">
-	<pre class="status">Clicked: {clicked}</pre>
-</ul>
-{/if}
 <header>
 	<div class="corner">
 		<a href="/">
-			<img src="https://fateslist.xyz/static/botlisticon.webp" alt="Fates List Logo" />
+			<img src="https://api.fateslist.xyz/static/botlisticon.webp" alt="Fates List Logo" />
 		</a>
 	</div>
 
 	<nav class="nav1">
 		<ul>
+			<li><a href="https://api.fateslist.xyz">Legacy</a></li>
 			<li class:active={$page.url.pathname === '/partners'}><a sveltekit:prefetch href="/partners">Partners</a></li>
 			<li class:active={$page.url.pathname === '/servers'}><a sveltekit:prefetch href="/servers">Servers</a></li>
 			<li class:active={$page.url.pathname === '/'}><a href="/">Bots</a></li>
-			<li class:active={$page.url.pathname === 'https://api.fateslist.xyz/bot/admin/add'}><a href="https://api.fateslist.xyz/bot/admin/add">Add Bot</a></li>
+			<li><a href="https://api.fateslist.xyz/bot/admin/add">Add Bot</a></li>
 		</ul>
 	</nav>
 	<nav class="corner-two">
@@ -41,11 +35,11 @@
 				{username || "Not logged in"}
 			</a>
 		</div>
-		<Menu class="corner">
+		<Menu bind:this={menu} class="corner-2">
 			<List>
 				{#if username}
+
 				<Item on:SMUI:action={() => {
-					clicked = "Logout"
 					fetch("https://api.fateslist.xyz/api/v2/logout/_sunbeam", {
 						method: "POST",
 						credentials: "include",
@@ -61,27 +55,28 @@
 				}}>
 					<Text>Logout</Text>
 				</Item>
+
 				<Item on:SMUI:action={() => {
-					clicked = "Profile"
 					window.location.href = `/profile/${userID}`
 				}}>
 					<Text>Profile</Text>
 				</Item>
+
 				<Item on:SMUI:action={() => {
-					clicked = "About"
 					window.location.href = `/frostpaw/about`
 				}}>
 					<Text>About</Text>
 				</Item>
+
 				<Item on:SMUI:action={() => {
-					clicked = "Add Bot"
 					window.location.href = `https://api.fateslist.xyz/bot/admin/add`
 				}}>
 					<Text>Add Bot</Text>
 				</Item>
+
 				{:else}
+
 				<Item on:SMUI:action={() => {
-					clicked = "Login"
 					document.cookie = `_sunbeam-login=${window.location.href}; max-age=1800; Secure`
 					fetch("https://api.fateslist.xyz/api/v2/oauth", {
 						method: "POST",
@@ -99,20 +94,22 @@
 				}}>
 					<Text>Login</Text>
 				</Item>
-			{/if}
-			<Item on:SMUI:action={() => {
-				clicked = 'API Docs'
-				window.location.href = "https://docs.fateslist.xyz"
-			}}>
-				<Text>API Docs</Text>
-			</Item>
-			<Item on:SMUI:action={() => {
-				clicked = 'Terms Of Service'
-				window.location.href = "/frostpaw/tos"
-			}}>
-				<Text>Terms Of Service</Text>
-			</Item>
-		</List>
+
+				{/if}
+
+				<Item on:SMUI:action={() => {
+					window.location.href = "https://docs.fateslist.xyz"
+				}}>
+					<Text>API Docs</Text>
+				</Item>
+
+				<Item on:SMUI:action={() => {
+					window.location.href = "/frostpaw/tos"
+				}}>
+					<Text>Terms Of Service</Text>
+				</Item>
+
+			</List>
 		</Menu>
 	</nav>
 </header>	

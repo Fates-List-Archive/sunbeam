@@ -10,7 +10,7 @@
     if(data.id && !data.user) {
         data.user = {"id": data.id}
     }
-    data.banner = data.banner || 'https://fateslist.xyz/static/assets/prod/banner.webp?v=2'
+    data.banner = data.banner || 'https://api.fateslist.xyz/static/assets/prod/banner.webp?v=2'
 </script>
 
   
