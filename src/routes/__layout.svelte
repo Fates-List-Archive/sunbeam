@@ -15,7 +15,6 @@
   		href="https://api.fateslist.xyz/static/smui-dark.css?v=8"
   		media="(prefers-color-scheme: dark)"
 	/>
-	<link rel="canonical" href="https://fateslist.xyz/">
 	<meta name="keywords" content="discord bot, discord bot list, fateslist, fates list, bot list, discord list, list of bost, discord bots, fateslist bots, fates list">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </svelte:head>
