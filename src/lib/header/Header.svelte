@@ -43,7 +43,11 @@
 				clicked = "Logout"
 				fetch("https://fateslist.xyz/api/v2/logout/_sunbeam", {
 					method: "POST",
-					credentials: "include"
+					credentials: "include",
+					headers: {
+						'Content-Type': 'application/json', 
+						"Frostpaw": "0.1.0", 
+					}
 				})
 				.then(res => res.json())
 				.then(json => {

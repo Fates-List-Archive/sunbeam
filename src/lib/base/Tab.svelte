@@ -72,10 +72,13 @@
 			flag = true
 			return
 		} 
+		
 		if(flag) {
-			tabLoad()
+			// Wait for 200ms bc js
+			setTimeout(() => tabLoad(), 200)
 		}
 	}
+
 </script>
 <style lang="scss">
 :global(.slider) {
@@ -182,11 +185,6 @@ tr:last-child th {
 th {
 	text-align: left;
 }
-
-#long-description img {
-	max-width: 100%;
-}
-
 #switcher {
 	border-radius: 13px;
 	margin-left: 1.1%;

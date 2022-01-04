@@ -86,6 +86,7 @@
 .buttons {
     width: 80% !important;
     margin-left: auto;
+    margin-right: 3px;
 }
 
 :global(.disabled) {
@@ -102,6 +103,10 @@
 .review-left {
 	display: inline-block;
 }
+
+#long-description img {
+	max-width: 100%;
+}
 </style>
 
 {@html data.css_html}
@@ -110,7 +115,7 @@
     <img class="bot-avatar" loading="lazy" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="{type}-avatar" alt="{data.user.username}'s avatar">
     <article class="bot-page">
         <a href="/{type}/{data.user.id}/invite" class="banner-decor bot-username">
-            <h3 class="text-center white" id="bot-name">{data.user.username} {#if type == "bot"}<span class="prefix">({data.prefix || "/"})</span>{/if}</h3>
+            <h2 class="text-center white" id="bot-name">{data.user.username} {#if type == "bot"}<span class="prefix">({data.prefix || "/"})</span>{/if}</h2>
         </a>
         <div class="bot-page-content">
             <div class="accordion-container">
@@ -204,7 +209,10 @@
                     </div>
                 </section>
                 <section id="about-tab" class='tabcontent tabdesign'>
-                    About
+                    <!--First main owner is guaranteed to be first in HTML-->
+                    <h2>Owners</h2>
+                    <Icon icon="mdi-crown" inline={false} height="1.2em" style="margin-right: 1px"></Icon>
+                    {@html data.owners_html}
                 </section>
             </Tab>
         </div>
@@ -212,7 +220,6 @@
 </div>
 
 <script lang="ts">
-    //import Icon as IconifyIcon from '@iconify/svelte';
     import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
     import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
     import Icon from '@iconify/svelte';

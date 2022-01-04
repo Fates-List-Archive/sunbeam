@@ -3,7 +3,7 @@
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
-		const url = `/api/v2/servers/${params.id}/_sunbeam`;
+		const url = `/api/v2/guilds/${params.id}/_sunbeam`;
 		const res = await fetchFates(url);
 
 		if (res.ok) {
@@ -18,7 +18,7 @@
 
 		return {
 			status: res.status,
-			error: new Error(`Bot Not Found`)
+			error: new Error(`Server Not Found`)
 		};
 	}
 </script>
