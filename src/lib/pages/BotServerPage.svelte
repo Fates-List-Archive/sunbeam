@@ -174,15 +174,15 @@
 				    <Icon icon="fa-solid:thumbs-up" inline={false}/>
 				    <span style="margin-left: 3px;">{data.votes}</span>
 			    </Button>
-			    <Button href="/{type}/{data.user.id}/invite" class="buttons-all" id="buttons-vote" touch variant="outlined">
+			    <Button href="/{type}/{data.user.id}/invite" class="buttons-all" touch variant="outlined">
 				    <span>Invite</span>
 			    </Button>
                 {#if data.support}
-			    <Button href="{data.support}" class="buttons-all" id="buttons-vote" touch variant="outlined">
+			    <Button href="{data.support}" class="buttons-all" touch variant="outlined">
 				    <span>Support</span>
 			    </Button>
                 {:else}
-			    <Button class="buttons-all disabled" id="buttons-vote" touch variant="outlined" disabled>
+			    <Button class="buttons-all disabled" touch variant="outlined" disabled>
 				    <span>Support</span>
 			    </Button>
                 {/if}
