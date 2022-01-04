@@ -4,17 +4,8 @@ import { browser } from '$app/env';
 const usingCf = true
 
 export async function fetchFates(url: string) {
-    let res = null
-    if(browser || usingCf) {
-        // Always use direct if browser
-        return await fetch("https://api.fateslist.xyz"+url, {headers: {"Frostpaw": "0.1"}})
-    }
-    try {
-        res = await fetch("http://127.0.0.1:9999"+url)
-    } catch (err) {
-        res = await fetch("https://api.fateslist.xyz"+url)
-    }
-    return res
+    // Always use direct if browser
+    return await fetch("https://api.fateslist.xyz"+url, {headers: {"Frostpaw": "0.1"}})
 }
 
 export async function roll(type: string) {

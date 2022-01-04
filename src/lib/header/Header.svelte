@@ -78,7 +78,7 @@
 				}}>
 					<Text>Add Bot</Text>
 				</Item>
-			{:else}
+				{:else}
 				<Item on:SMUI:action={() => {
 					clicked = "Login"
 					document.cookie = `_sunbeam-login=${window.location.href}; max-age=1800; Secure`

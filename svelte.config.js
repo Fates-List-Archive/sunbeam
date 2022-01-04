@@ -34,7 +34,7 @@ const config = {
 		vite: {
 			autoReload: false,
 			ssr: {
-			  noExternal: [/^@smui(?:-extra)?\//],
+				noExternal: [/^@material\//, /^@smui(?:-extra)?\//],
 			},
 		  },
 	}
