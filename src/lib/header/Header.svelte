@@ -41,7 +41,7 @@
 				{username || "Not logged in"}
 			</a>
 		</div>
-		<Menu bind:this={menu} class="corner corner-nav">
+		<Menu bind:this={menu} class="corner">
 			<List>
 				{#if username}
 				<Item on:SMUI:action={() => {
@@ -77,7 +77,7 @@
 					clicked = "Add Bot"
 					window.location.href = `https://api.fateslist.xyz/bot/admin/add`
 				}}>
-					<Text>About</Text>
+					<Text>Add Bot</Text>
 				</Item>
 			{:else}
 				<Item on:SMUI:action={() => {
