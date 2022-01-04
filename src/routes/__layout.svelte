@@ -49,5 +49,4 @@
 <footer>
 	<p>Sunbeam Version: {version}</p>
 	<p>Frostpaw Client Version: {frostpawVersion}</p>
-	<p>Please visit our <a href="https://fateslist.xyz/server/789934742128558080/invite">support server</a> if you have any queries or concerns or just for fun!</p>
 </footer>
