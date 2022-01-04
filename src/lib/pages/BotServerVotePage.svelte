@@ -1,7 +1,7 @@
 <BristlefrostMeta 
 	url="https://fateslist.xyz/{type}/{data.user.id}"
     pageTitle="{data.user.username}"
-	title="Discover {data.user.username} on Fates List!"
+	title="Vote For {data.user.username} on Fates List!"
 	description="{data.description}"
 	thumbnail="{data.user.avatar}"
 ></BristlefrostMeta>
@@ -84,9 +84,8 @@
 }
 
 .buttons {
-    width: 80% !important;
     margin-left: auto;
-    margin-right: 3px;
+    text-align: center;
 }
 
 :global(.disabled) {
@@ -105,10 +104,6 @@
 	display: inline-block;
 }
 
-#long-description img {
-	max-width: 100%;
-}
-
 :global(.page-item) {
     display: inline-block;
     margin-right: 5px !important;
@@ -119,6 +114,13 @@
     margin-top: 0px !important;
     margin-bottom: 1px !important;
 }
+
+.red {
+    color: red;
+}
+#vote-warning {
+    text-align: center;
+}
 </style>
 
 {@html data.css}
@@ -127,7 +129,7 @@
     <img class="bot-avatar" loading="lazy" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="bot-avatar" alt="{data.user.username}'s avatar">
     <article class="bot-page">
         <a href="/{type}/{data.user.id}/invite" class="banner-decor bot-username bot-username-link">
-            <h2 class="white" id="bot-name">{data.user.username} {#if type == "bot"}<span class="prefix">({data.prefix || "/"})</span>{/if}</h2>
+            <h2 class="white" id="bot-name">Vote for {data.user.username}! {#if type == "bot"}<span class="prefix">({data.prefix || "/"})</span>{/if}</h2>
         </a>
         <div class="bot-page-content">
             <div class="accordion-container">
@@ -177,74 +179,8 @@
 			    <Button href="/{type}/{data.user.id}/invite" class="buttons-all" id="buttons-vote" touch variant="outlined">
 				    <span>Invite</span>
 			    </Button>
-                {#if data.support}
-			    <Button href="{data.support}" class="buttons-all" id="buttons-vote" touch variant="outlined">
-				    <span>Support</span>
-			    </Button>
-                {:else}
-			    <Button class="buttons-all disabled" id="buttons-vote" touch variant="outlined" disabled>
-				    <span>Support</span>
-			    </Button>
-                {/if}
-                {#if data.website}
-			    <Button href="{data.website}" class="buttons-all" touch variant="outlined">
-				    <span>Website</span>
-			    </Button>
-                {:else}
-			    <Button class="buttons-all disabled" touch variant="outlined" disabled>
-				    <span>Website</span>
-			    </Button>
-                {/if}
-                {#if data.privacy_policy}
-			    <Button href="{data.privacy_policy}" class="buttons-all" touch variant="outlined">
-				    <span>Privacy Policy</span>
-			    </Button>
-                {:else}
-			    <Button class="buttons-all disabled" touch variant="outlined" disabled>
-				    <span>Privacy Policy</span>
-			    </Button>
-                {/if}
-                {#if data.github}
-			    <Button href="{data.github}" class="buttons-all" touch variant="outlined">
-				    <span>Github</span>
-			    </Button>
-                {:else}
-			    <Button class="buttons-all disabled" touch variant="outlined" disabled>
-				    <span>Github</span>
-			    </Button>
-                {/if}
             </div>
-            <Tab tabs={tabs} defaultTabButton="long-description-tab-button">
-                <section id="long-description-tab" class='tabcontent tabdesign'>
-                    <div id="long-description">
-                        {@html data.long_description}
-                    </div>
-                </section>
-                <section id="reviews-tab" class="tabcontent tabdesign">
-                    <div id="reviews">Loading reviews...</div>
-                </section>
-                <section id="about-tab" class='tabcontent tabdesign'>
-                    <!--First main owner is guaranteed to be first in HTML-->
-                    {#if type == "bot"}
-                        <h2>Owners</h2>
-                        <Icon icon="mdi-crown" inline={false} height="1.2em" style="margin-right: 1px"></Icon>
-                        {@html data.owners_html}
-                        <h2>Statistics</h2>
-                        <p>Guild Count: {data.guild_count}</p>
-                        <p>User Count (according to bot): {data.user_count}</p>
-                        <p>Shard Count: {data.shard_count}</p>
-                        <p>Shards: 
-                            {#each data.shards as shard}
-                                <span class="white">{shard}</span>, 
-                            {/each}
-                        </p>
-                        <h2>Nerdville</h2>
-                        <p>Last posted statistics on: {data.last_stats_post}</p>
-                        <p>Added to the list on: {data.created_at}</p>
-                        <p>Bot Flags: {data.flags}</p>
-                    {/if}
-                </section>
-            </Tab>
+            <p id="vote-warning"><span class="red">Warning:</span> You can only vote for one bot every 8 hours, so vote wisely</p>
         </div>
     </article>
 </div>
@@ -255,24 +191,10 @@
     import Icon from '@iconify/svelte';
     import Button from '@smui/button';
     import { enums } from '../enums/enums';
-    import { browser } from "$app/env";
     import { voteHandler } from '$lib/request'
     import { session } from '$app/stores';
-    import Tab from '$lib/base/Tab.svelte';
 	export let data: any;
     export let type: string;
-
-    let tabs = [{
-        "name": "Description",
-        "id": "long-description"    
-    }, 
-    {
-        "name": "About",
-        "id": "about"
-    }, {
-        "name": "Reviews",
-        "id": "reviews"
-    }]
 
     async function voteBot() {
         let token = $session.session.token
@@ -281,30 +203,5 @@
             userID = $session.session.user.id
         }
         return await voteHandler(userID, token, data.user.id, false)
-    }
-
-    async function getReviewPage(page: number) {
-        document.querySelector("#reviews").innerHTML = "<h2>Loading Reviews</h2>"
-        if(!browser) {
-            return
-        }
-        let res = await fetch(`https://fateslist.xyz/bot/${data.user.id}/reviews_html?page=${page}`)
-        if(res.ok) {
-            let data = await res.text()
-            document.querySelector("#reviews").innerHTML = data
-            window.context.rev_page = page
-        }
-    }
-
-    if(browser) {
-        window.getReviewPage = getReviewPage
-        window.context = {
-            "rev_page": 1
-        }
-        getReviewPage(1)
-    }
-
-    if(data.shards.length < 1) {
-        data.shards = ["No shards set. Try checking it's website or support server (if it has one)!"]
     }
 </script>

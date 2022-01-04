@@ -163,8 +163,9 @@
 	background: black; 
 	border: hidden; 
 	margin-top: 5px; 
-	min-height: 500px; 
+	min-height: 700px;
 	padding: 5px;
+	margin-bottom: 0px;
 }
 
 th, td {

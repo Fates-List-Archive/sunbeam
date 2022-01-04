@@ -23,9 +23,6 @@
 		const observer = lozad(); // lazy loads elements with default selector as '.lozad'
 		observer.observe();
 	}
-
-	export let version: string = "3"
-	export let frostpawVersion: string = "0.1.0"
 </script>
 <style lang="scss" global>
 	@import "./../css/base.scss";
@@ -47,6 +44,4 @@
 </main>
 
 <footer>
-	<p>Sunbeam Version: {version}</p>
-	<p>Frostpaw Client Version: {frostpawVersion}</p>
 </footer>

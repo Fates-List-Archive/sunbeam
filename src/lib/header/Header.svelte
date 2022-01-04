@@ -8,9 +8,11 @@
 	let menu: MenuComponentDev;
 	let clicked = 'nothing yet';
 	let username = null
+	let userID = null
 	let debug = false
 	if($session.session.user) {
 		username = $session.session.user.username
+		userID = $session.session.user.id
 	}
 </script>
 {#if debug}
@@ -57,6 +59,18 @@
 				})
 			}}>
 				<Text>Logout</Text>
+			</Item>
+			<Item on:SMUI:action={() => {
+				clicked = "Profile"
+				window.location.href = `/profile/${userID}`
+			}}>
+				<Text>Profile</Text>
+			</Item>
+			<Item on:SMUI:action={() => {
+				clicked = "About"
+				window.location.href = `/frostpaw/about`
+			}}>
+				<Text>About</Text>
 			</Item>
 			{:else}
 			<Item on:SMUI:action={() => {
