@@ -41,6 +41,7 @@ export async function voteHandler(userID: string, token: string, botID: string, 
     }
 	if(!token || !userID) {
 		alert("You must be logged in to vote for bots!")
+		return
 	}
     let res = await fetch(`https://fateslist.xyz/api/dragon/bots/${botID}/votes`, {
         method: "PATCH",
