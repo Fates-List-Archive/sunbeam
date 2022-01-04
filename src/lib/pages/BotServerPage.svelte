@@ -93,19 +93,26 @@
     opacity: 0.63 !important;
 }
 
-.review-user {
+:global(.review-user) {
+    opacity: 1;
 	margin-top: 5px;
 	padding-left: 3px;
 	box-sizing: border-box;
 	/*border-left: 1px solid white !important; */ 
 	margin-bottom: 2px;
 }
-.review-left {
+:global(.review-left) {
 	display: inline-block;
 }
 
 #long-description img {
 	max-width: 100%;
+}
+
+:global(.page-item) {
+    display: inline-block;
+    margin-right: 5px !important;
+    list-style: none;
 }
 </style>
 
@@ -208,6 +215,9 @@
                         {@html data.long_description}
                     </div>
                 </section>
+                <section id="reviews-tab" class="tabcontent tabdesign">
+                    <div id="reviews">Loading reviews...</div>
+                </section>
                 <section id="about-tab" class='tabcontent tabdesign'>
                     <!--First main owner is guaranteed to be first in HTML-->
                     {#if type == "bot"}
@@ -240,6 +250,7 @@
     import Icon from '@iconify/svelte';
     import Button from '@smui/button';
     import { enums } from '../enums/enums';
+    import { browser } from "$app/env";
     import { voteHandler } from '$lib/request'
     import { session } from '$app/stores';
     import Tab from '$lib/base/Tab.svelte';
@@ -253,6 +264,9 @@
     {
         "name": "About",
         "id": "about"
+    }, {
+        "name": "Reviews",
+        "id": "reviews"
     }]
 
     async function voteBot() {
@@ -262,6 +276,27 @@
             userID = $session.session.user.id
         }
         return await voteHandler(userID, token, data.user.id, false)
+    }
+
+    async function getReviewPage(page: number) {
+        document.querySelector("#reviews").innerHTML = "<h2>Loading Reviews</h2>"
+        if(!browser) {
+            return
+        }
+        let res = await fetch(`https://fateslist.xyz/bot/${data.user.id}/reviews_html?page=${page}`)
+        if(res.ok) {
+            let data = await res.text()
+            document.querySelector("#reviews").innerHTML = data
+            window.context.rev_page = page
+        }
+    }
+
+    if(browser) {
+        window.getReviewPage = getReviewPage
+        window.context = {
+            "rev_page": 1
+        }
+        getReviewPage(1)
     }
 
     if(data.shards.length < 1) {
