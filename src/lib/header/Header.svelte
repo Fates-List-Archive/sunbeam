@@ -59,7 +59,12 @@
 				}}>
 					<Text>Profile</Text>
 				</Item>
-
+				{:else}
+				<Item on:SMUI:action={() => {
+					window.location.href = "/servers"
+				}}>
+					<Text>Servers</Text>
+				</Item>
 				<Item on:SMUI:action={() => {
 					window.location.href = `/frostpaw/about`
 				}}>
@@ -71,7 +76,6 @@
 				}}>
 					<Text>Add Bot</Text>
 				</Item>
-				{:else}
 				<Item on:SMUI:action={() => {
 					document.cookie = `_sunbeam-login=${window.location.href}; max-age=1800; Secure`
 					fetch("https://api.fateslist.xyz/api/v2/oauth", {
