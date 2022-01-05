@@ -80,13 +80,28 @@
     color: white !important;
     border: solid thin !important;
     opacity: 1 !important;
-    margin-right: 10px;
 }
 
 .buttons {
-    width: 80% !important;
+    width: 87% !important;
+    height: 50px;
     margin-left: auto;
     margin-right: 3px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+@media screen and (max-width: 767px) {
+	.buttons {
+		margin-left: 3px !important;
+		width: 100% !important;
+	}
+}
+
+.buttons-all {
+	word-wrap: break-word;
+	text-overflow: ellipsis;
 }
 
 :global(.disabled) {
@@ -213,6 +228,11 @@
 				    <span>Github</span>
 			    </Button>
                 {/if}
+		{#if type == "bot"}
+                            <Button href='https://api.fateslist.xyz/bot/{data.user.id}/settings' class="buttons-all" touch variant="outlined">
+                                    <span>Settings</span>
+                            </Button>
+		{/if}
             </div>
             <Tab tabs={tabs} defaultTabButton="long-description-tab-button">
                 <section id="long-description-tab" class='tabcontent tabdesign'>

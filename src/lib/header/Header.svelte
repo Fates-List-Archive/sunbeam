@@ -21,11 +21,11 @@
 
 	<nav class="nav1">
 		<ul>
-			<li><a href="https://api.fateslist.xyz">Legacy</a></li>
 			<li class:active={$page.url.pathname === '/partners'}><a sveltekit:prefetch href="/partners">Partners</a></li>
 			<li class:active={$page.url.pathname === '/servers'}><a sveltekit:prefetch href="/servers">Servers</a></li>
 			<li class:active={$page.url.pathname === '/'}><a href="/">Bots</a></li>
 			<li><a href="https://api.fateslist.xyz/bot/admin/add">Add Bot</a></li>
+			<li><a href="/frostpaw/add-server">Add Server</a></li>
 		</ul>
 	</nav>
 	<nav class="corner-two">
@@ -75,6 +75,11 @@
 					window.location.href = `https://api.fateslist.xyz/bot/admin/add`
 				}}>
 					<Text>Add Bot</Text>
+				</Item>
+				<Item on:SMUI:action={() => {
+					window,location.href = 'https://fateslist.xyz/frostpaw/add-server'
+				}}>
+					<Text>Add Server</Text>
 				</Item>
 				<Item on:SMUI:action={() => {
 					document.cookie = `_sunbeam-login=${window.location.href}; max-age=1800; Secure`
@@ -191,6 +196,12 @@
 		left: calc(50% - var(--size));
 		border: var(--size) solid transparent;
 		border-top: var(--size) solid var(--accent-color);
+	}
+
+	@media screen and (max-width: 767px) {
+		.nav1 {
+			display: none !important;
+		}
 	}
 
 	.nav1 a {
