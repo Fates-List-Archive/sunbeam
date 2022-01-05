@@ -241,6 +241,7 @@
                     </div>
                 </section>
                 <section id="reviews-tab" class="tabcontent tabdesign">
+		    <h2>Creating new reviews is currently disabled</h2>
                     <div id="reviews">Loading reviews... <a href="#" on:click={getReviewPage(content.rev_page)}>Retry</a></div>
                 </section>
                 <section id="about-tab" class='tabcontent tabdesign'>
