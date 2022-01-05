@@ -232,6 +232,10 @@
                             <Button href='https://api.fateslist.xyz/bot/{data.user.id}/settings' class="buttons-all" touch variant="outlined">
                                     <span>Settings</span>
                             </Button>
+		{:else}
+			    <Button class="buttons-all" touch variant="outlined" disabled>
+				    <span>Settings</span>
+			    </Button>
 		{/if}
             </div>
             <Tab tabs={tabs} defaultTabButton="long-description-tab-button">
