@@ -4,7 +4,7 @@ async function proxy(request: any, method: string) {
     let headers = {
         'content-type': 'application/json', 
         'Accept': 'application/json',
-        "Frostpaw": "0.1.0", 
+        "Frostpaw-Proxy": "0.1.0", 
         "method": method
     }
 
