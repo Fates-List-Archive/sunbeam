@@ -9,7 +9,7 @@
     let frostpawMsg = "Please wait..."
 
     if(browser) {
-        frostpawServer = getCookie("_sunbeam-login", document.cookie)
+	frostpawServer = localStorage.sunbeamLogin
 
         if(!frostpawServer) {
             frostpawServer = "/"

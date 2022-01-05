@@ -26,12 +26,27 @@ export function getCookie(name, cookie) {
     return match ? match[1] : null;
 }
 
+export async function loginUser() {
+	localStorage.sunbeamLogin = window.location.href
+	let res = await fetch("https://api.fateslist.xyz/api/v2/oauth", {
+		method: "POST",
+		headers: {
+			'Content-Type': 'application/json', 
+			"Frostpaw": "0.1.0",
+			"Frostpaw-Server": window.location.origin
+		},
+		body: JSON.stringify({"scopes": ["identify"]})
+	})
+	let json = await res.json()
+	window.location.href = json.url
+}
+
 export async function voteHandler(userID: string, token: string, botID: string, test: boolean) {
     if(!browser) {
         return
     }
 	if(!token || !userID) {
-		alert("You must be logged in to vote for bots!")
+		await loginUser()
 		return
 	}
     let res = await fetch(`https://api.fateslist.xyz/api/dragon/bots/${botID}/votes`, {

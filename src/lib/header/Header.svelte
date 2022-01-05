@@ -3,6 +3,7 @@
 	console.log($session, "Session From Header")
 	import Menu, { MenuComponentDev } from '@smui/menu';
 	import List, { Item, Text } from '@smui/list';
+	import { loginUser } from '$lib/request';
 
 	let username = null
 	let userID = null
@@ -82,20 +83,7 @@
 					<Text>Add Server</Text>
 				</Item>
 				<Item on:SMUI:action={() => {
-					document.cookie = `_sunbeam-login=${window.location.href}; max-age=1800; Secure`
-					fetch("https://api.fateslist.xyz/api/v2/oauth", {
-						method: "POST",
-						headers: {
-							'Content-Type': 'application/json', 
-							"Frostpaw": "0.1.0", 
-							"Frostpaw-Server": window.location.origin
-						},
-						body: JSON.stringify({"scopes": ["identify"]})
-					})
-					.then((res) => res.json())
-					.then((json) => {
-						window.location.href = json.url
-					})	
+					loginUser()
 				}}>
 					<Text>Login</Text>
 				</Item>
