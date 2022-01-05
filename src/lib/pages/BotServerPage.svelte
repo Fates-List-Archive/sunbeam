@@ -317,9 +317,13 @@
         let res = await fetch(`https://api.fateslist.xyz/bot/${data.user.id}/reviews_html?page=${page}`)
         if(res.ok) {
             let data = await res.text()
-            document.querySelector("#reviews").innerHTML = data
-            window.context.rev_page = page
-        }
+	    try {
+            	document.querySelector("#reviews").innerHTML = data
+            	window.context.rev_page = page
+            } catch(err) {
+		console.log("Error in fetching reviews", err)
+	    }
+	}
     }
 
     if(browser) {
