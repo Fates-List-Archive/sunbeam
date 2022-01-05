@@ -284,7 +284,7 @@
     }
 
     async function getReviewPage(page: number) {
-        document.querySelector("#reviews").innerHTML = "<h2>Loading Reviews</h2><a href="#" onclick='getReviewPage(content.rev_page)'>Retry</a>"
+        document.querySelector("#reviews").innerHTML = "<h2>Loading Reviews</h2><a href='#' onclick='getReviewPage(content.rev_page)'>Retry</a>"
         if(!browser) {
             return
         }
@@ -304,7 +304,7 @@
         getReviewPage(1)
     }
 
-    if(data.shards.length < 1) {
+    if(data.shards !== undefined && data.shards.length < 1) {
         data.shards = ["No shards set. Try checking it's website or support server (if it has one)!"]
     }
 </script>
