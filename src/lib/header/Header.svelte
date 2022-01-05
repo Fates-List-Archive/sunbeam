@@ -111,6 +111,11 @@
 				}}>
 					<Text>Terms Of Service</Text>
 				</Item>
+				<Item on:SMUI:action={() => {
+					window.location.href = "/server/789934742128558080/invite"
+				}}>
+					<Text>Support</Text>
+				</Item>
 			</List>
 		</Menu>
 	</nav>
