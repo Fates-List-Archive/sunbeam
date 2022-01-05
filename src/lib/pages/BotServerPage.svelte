@@ -221,7 +221,7 @@
                     </div>
                 </section>
                 <section id="reviews-tab" class="tabcontent tabdesign">
-                    <div id="reviews">Loading reviews...</div>
+                    <div id="reviews">Loading reviews... <a href="#" on:click={getReviewPage(content.rev_page)}>Retry</a></div>
                 </section>
                 <section id="about-tab" class='tabcontent tabdesign'>
                     <!--First main owner is guaranteed to be first in HTML-->
@@ -284,7 +284,7 @@
     }
 
     async function getReviewPage(page: number) {
-        document.querySelector("#reviews").innerHTML = "<h2>Loading Reviews</h2>"
+        document.querySelector("#reviews").innerHTML = "<h2>Loading Reviews</h2><a href="#" onclick='getReviewPage(content.rev_page)'>Retry</a>"
         if(!browser) {
             return
         }
