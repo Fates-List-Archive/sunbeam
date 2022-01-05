@@ -246,7 +246,7 @@
                 </section>
                 <section id="reviews-tab" class="tabcontent tabdesign">
 		    <h2>Creating new reviews is currently disabled</h2>
-                    <div id="reviews">Loading reviews... <a href="#" on:click={getReviewPage(content.rev_page)}>Retry</a></div>
+                    <div id="reviews" use:onload>Loading reviews... <a href="#" on:click={getReviewPage(content.rev_page)}>Retry</a></div>
                 </section>
                 <section id="about-tab" class='tabcontent tabdesign'>
                     <!--First main owner is guaranteed to be first in HTML-->
@@ -267,6 +267,7 @@
                         <p>Last posted statistics on: {data.last_stats_post}</p>
                         <p>Added to the list on: {data.created_at}</p>
                         <p>Bot Flags: {data.flags}</p>
+                        <p>Bot Features: {data.features}</p>
                     {/if}
                 </section>
             </Tab>
@@ -326,6 +327,10 @@
         window.context = {
             "rev_page": 1
         }
+        getReviewPage(1)
+    }
+
+    const onload = (_: any) => {
         getReviewPage(1)
     }
 
