@@ -62,6 +62,12 @@
 				</Item>
 				{:else}
 				<Item on:SMUI:action={() => {
+					loginUser()
+				}}>
+					<Text>Login</Text>
+				</Item>
+				{/if}
+				<Item on:SMUI:action={() => {
 					window.location.href = "/servers"
 				}}>
 					<Text>Servers</Text>
@@ -82,12 +88,6 @@
 				}}>
 					<Text>Add Server</Text>
 				</Item>
-				<Item on:SMUI:action={() => {
-					loginUser()
-				}}>
-					<Text>Login</Text>
-				</Item>
-				{/if}
 				<Item on:SMUI:action={() => {
 					window.location.href = "https://docs.fateslist.xyz"
 				}}>
