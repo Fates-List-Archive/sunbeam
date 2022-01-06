@@ -24,9 +24,9 @@
 		<ul>
 			<li class:active={$page.url.pathname === '/partners'}><a sveltekit:prefetch href="/partners">Partners</a></li>
 			<li class:active={$page.url.pathname === '/servers'}><a sveltekit:prefetch href="/servers">Servers</a></li>
-			<li class:active={$page.url.pathname === '/'}><a href="/">Bots</a></li>
+			<li class:active={$page.url.pathname === '/'} sveltekit:prefetch><a href="/">Bots</a></li>
 			<li><a href="https://api.fateslist.xyz/bot/admin/add">Add Bot</a></li>
-			<li><a href="/frostpaw/add-server">Add Server</a></li>
+			<li><a href="/frostpaw/add-server" sveltekit:prefetch>Add Server</a></li>
 		</ul>
 	</nav>
 	<nav class="corner-two">
@@ -35,7 +35,7 @@
 				{username || "Not logged in"}
 			</a>
 		</div>
-		<Menu bind:this={menu} class="navbar">
+		<Menu bind:this={menu} class="corner-nav">
 			<List>
 				{#if username}
 				<Item on:SMUI:action={() => {
