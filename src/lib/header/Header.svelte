@@ -118,6 +118,8 @@
 		padding: 2px;
 		z-index: 1;
 		background-color: black;
+		box-shadow: 1px 1px 1px black;
+		
 	}
 
 	.corner {
