@@ -202,7 +202,7 @@
 		height: 100%;
 		align-items: center;
 		padding: 0 1em;
-		font-size: 0.8rem;
+		font-size: 0.75rem;
 		transition: color 0.2s linear;
 	}
 </style>
