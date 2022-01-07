@@ -241,9 +241,10 @@
             <Tab tabs={tabs} defaultTabButton="long-description-tab-button">
                 <section id="long-description-tab" class='tabcontent tabdesign'>
                     <div id="long-description">
-                        {@html data.long_description}
 			{#if data.long_description_type == enums.LongDescType.markdown_marked}
-				<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+				{@html marked.parse(data.long_description)}
+			{:else}
+				{@html data.long_description}
 			{/if}
                     </div>
                 </section>
@@ -278,6 +279,8 @@
     </article>
 </div>
 
+<span use:onload2></span>
+
 <script lang="ts">
     import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
     import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
@@ -285,7 +288,8 @@
     import Button from '@smui/button';
     import { enums } from '../enums/enums';
     import { browser } from "$app/env";
-    import { voteHandler } from '$lib/request'
+    import { voteHandler } from '$lib/request';
+    import { marked } from 'marked'; 
     import { session } from '$app/stores';
     import Tab from '$lib/base/Tab.svelte';
     export let data: any;
@@ -302,15 +306,6 @@
         "name": "Reviews",
         "id": "reviews"
     }]
-
-    if(browser && data.long_description_type == enums.LongDescType.markdown_marked) {
-	var md = marked.parse(data.long_description)
-	let el = null
-	while(!el) {
-	    el = document.querySelector("#long-description")
-	}
-	el.innerHTML = md
-    }
 
     async function voteBot() {
         let token = $session.session.token
