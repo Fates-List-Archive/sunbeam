@@ -26,8 +26,10 @@ export function getCookie(name, cookie) {
     return match ? match[1] : null;
 }
 
-export async function loginUser() {
-	localStorage.sunbeamLogin = window.location.href
+export async function loginUser(noSetStorage: boolean) {
+	if(!noSetStorage) {
+                localStorage.sunbeamLogin = window.location.href
+	}
 	let res = await fetch("https://api.fateslist.xyz/api/v2/oauth", {
 		method: "POST",
 		headers: {
@@ -46,7 +48,7 @@ export async function voteHandler(userID: string, token: string, botID: string, 
         return
     }
 	if(!token || !userID) {
-		await loginUser()
+		await loginUser(false)
 		return
 	}
     let res = await fetch(`https://api.fateslist.xyz/api/dragon/bots/${botID}/votes`, {
