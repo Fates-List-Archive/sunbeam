@@ -20,4 +20,4 @@
   }
   riverLogin()
 </script>
-{msg}
+<p>{msg}</p>
