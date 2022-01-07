@@ -8,12 +8,16 @@
       }
       const urlParams = new URLSearchParams(window.location.search);
       let redirect = urlParams.get("redirect")
+      if(redirect && redirect.startsWith("/")) {
+          redirect = "https://api.fateslist.xyz" + redirect
+      }
       if(!redirect || !redirect.startsWith("https://api.fateslist.xyz")) {
           msg = "Invalid redirect"
+          return
       }
       localStorage.sunbeamLogin = redirect
       loginUser(true)
   }
   riverLogin()
 </script>
-{msg}
+<p>{msg}</p>
