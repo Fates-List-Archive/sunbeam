@@ -5,7 +5,7 @@ const usingCf = true
 
 export async function fetchFates(url: string, auth: string) {
     // Always use direct if browser
-    headers = {"Frostpaw": "0.1"}
+    let headers = {"Frostpaw": "0.1"}
     if(auth) {
         headers["Frostpaw-Auth"] = auth
     }
