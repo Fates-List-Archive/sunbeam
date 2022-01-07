@@ -242,6 +242,9 @@
                 <section id="long-description-tab" class='tabcontent tabdesign'>
                     <div id="long-description">
                         {@html data.long_description}
+			{#if data.long_description_type == enums.LongDescType.markdown_marked}
+				<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+			{/if}
                     </div>
                 </section>
                 <section id="reviews-tab" class="tabcontent tabdesign">
@@ -285,7 +288,7 @@
     import { voteHandler } from '$lib/request'
     import { session } from '$app/stores';
     import Tab from '$lib/base/Tab.svelte';
-	export let data: any;
+    export let data: any;
     export let type: string;
 
     let tabs = [{
@@ -299,6 +302,15 @@
         "name": "Reviews",
         "id": "reviews"
     }]
+
+    if(browser && data.long_description_type == enums.LongDescType.markdown_marked) {
+	var md = marked.parse(data.long_description)
+	let el = null
+	while(!el) {
+	    el = document.querySelector("#long-description")
+	}
+	el.innerHTML = md
+    }
 
     async function voteBot() {
         let token = $session.session.token

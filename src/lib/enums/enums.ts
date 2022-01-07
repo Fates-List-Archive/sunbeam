@@ -19,6 +19,11 @@ export let enums = {
         vote_locked:   4,
         system:        5,
     },
+    LongDescType: {
+	html:                0,
+	markdown_pymarkdown: 1,
+    	markdown_marked:     2
+    },
     helpers: {
         flagCheck: function(flags: number[] | number, allFlags: number[]) {
             // Function start
