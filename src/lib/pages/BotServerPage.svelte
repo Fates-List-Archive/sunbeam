@@ -191,7 +191,21 @@
                             Please do not invite it until further notice!
                         </Content>
                     </Panel>
-                    {/if}
+		    {:else if data.state == enums.BotState.pending} 
+		    	<Header ripple={false}>
+                    	  Bot Pending Review
+		  	</Header>
+			<Content class="accordian-container">
+			    This bot has not yet been tested and may be low quality or malicious. Please do not invite it yet
+			</Content>
+		    {:else if data.state == enums.BotState.under_review}
+			<Header ripple={false}>
+			  Bot Under Review
+			</Header>
+			<Content class="accordian-container">
+			    This bot is currently being tested, Expect to hear from us soon!
+			</Content>
+		    {/if}
                 </Accordion>
             </div>
             <p class="banner-decor white" id="bot-description">{@html data.description.replace("p>", "span>") }</p>
