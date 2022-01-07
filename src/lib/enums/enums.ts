@@ -1,14 +1,14 @@
 enum BotState {
-        approved =           0
-        pending =            1
-        denied =             2
-        hidden =             3
-        banned =             4
-        under_review =       5
-        certified =          6
-        archived =           7
-        private_viewable =   8
-        private_staff_only = 9
+        approved =           0,
+        pending =            1,
+        denied =             2,
+        hidden =             3,
+        banned =             4,
+        under_review =       5,
+        certified =          6,
+        archived =           7,
+        private_viewable =   8,
+        private_staff_only = 9,
 }
 
 export let enums = {
