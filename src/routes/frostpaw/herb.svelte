@@ -10,6 +10,7 @@
       let redirect = urlParams.get("redirect")
       if(!redirect || !redirect.startsWith("https://api.fateslist.xyz")) {
           msg = "Invalid redirect"
+          return
       }
       localStorage.sunbeamLogin = redirect
       loginUser(true)
