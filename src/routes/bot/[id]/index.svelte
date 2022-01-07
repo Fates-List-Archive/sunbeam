@@ -4,10 +4,17 @@
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		const url = `/api/v2/bots/${params.id}/_sunbeam`;
-		const res = await fetchFates(url);
+		
+		let auth = ""
+        	
+		if(session.session.user) {
+			auth = `${session.session.user.id}|${session.session.token}`
+		}
+		
+		const res = await fetchFates(url, auth);
 
 		if (res.ok) {
-            let data = await res.json()
+            	    let data = await res.json()
 			return {
 				props: {
 					data: data.data,
