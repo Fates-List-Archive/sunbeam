@@ -87,21 +87,32 @@
     height: 50px;
     margin-left: auto;
     margin-right: 3px;
-    overflow-x: scroll;
-    overflow-y: hidden;
+    //overflow-x: scroll;
+    //overflow-y: hidden;
     white-space: nowrap;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
 	.buttons {
 		margin-left: 3px !important;
 		width: 100% !important;
 	}
 }
 
-.buttons-all {
+@media screen and (max-width: 992px) {
+	.buttons {
+		overflow-x: scroll;
+		overflow-y: hidden;
+	}
+}
+
+.buttons {
 	word-wrap: break-word;
 	text-overflow: ellipsis;
+}
+
+.buttons {
+	margin-bottom: 40px;
 }
 
 :global(.disabled) {
