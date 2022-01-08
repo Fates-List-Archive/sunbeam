@@ -278,8 +278,19 @@
                     </div>
                 </section>
                 <section id="reviews-tab" class="tabcontent tabdesign">
-		    <h2>Creating new reviews is currently disabled</h2>
-                    <div id="reviews" use:onload>Loading reviews... <a href="#" on:click={getReviewPage(content.rev_page)}>Retry</a></div>
+		   <label for="rating">On a scale of 1 to 10, how much did you like this {type}?</label><br/>
+		   <input class='slider range-slider' type="range" id="star_rating" min="0.1" max="10" style="width: 100%" value='5' step='0.1' output="rating-desc"/>
+		   <p id='rating-desc' style="color: white;"></p>
+		   <label for="review-text">Enter your review here</label><br/>
+		   <textarea 
+		     class="form-control fform text-input" 
+		     id="review-text" 
+		     placeholder="Write your review here. This must be at least 7 characters!" 
+		     minlength="9" 
+		     style="width: 100%" 
+		     required 
+		     ></textarea>
+                    <div id="reviews" use:onload>Loading reviews... <a href="#" on:click={() => window.location.reload()}>Retry</a></div>
                 </section>
                 <section id="about-tab" class='tabcontent tabdesign'>
                     <!--First main owner is guaranteed to be first in HTML-->
@@ -377,4 +388,54 @@
     if(data.shards !== undefined && data.shards.length < 1) {
         data.shards = ["No shards set. Try checking it's website or support server (if it has one)!"]
     }
+
+    let rating = 0;
+    let setupInputs = () => {
+    	let slider = document.querySelectorAll(".range-slider");
+   	// Update the current slider value (each time you drag the slider handle)
+    	for(let i = 0; i < slider.length; i++) {
+		let outputId = slider[i].getAttribute("output")
+		document.getElementById(outputId).innerHTML = "Drag the slider to change your rating"; // Display the default slider value
+		slider[i].oninput = function() {
+			let output = document.getElementById(this.getAttribute("output"))
+			console.log(output)
+			let state = parseState(this.value)
+			output.innerHTML = state + ", " + this.value;
+		}
+	}
+    }
+
+function parseState(v) {
+	let state = ""
+	if(v < 1)
+		state = "Atrocity"
+	else if(v < 2)
+		state = "Absymal"
+	else if(v < 3)
+		state = "Really Poor"
+	else if(v < 4)
+		state = "Poor"
+	else if(v < 5)
+		state = "Below Average"
+	else if(v < 6)
+		state = "Average"
+	else if(v < 7)
+		state = "Above Average"
+	else if(v < 8)
+		state = "Meets Expectations"
+	else if(v < 9)
+		state = "Great"
+	else if(v < 10)
+		state = "Exceeds Expectations"
+	else if(v == 10)
+		state = "Without a doubt, perfect"
+	return state
+}
+
+	const onload2 = () => {
+		if(!browser) {
+			return
+		}
+		setupInputs()
+	}
 </script>
