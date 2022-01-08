@@ -29,7 +29,14 @@
 </script>
 <script lang="ts">
 	import BotCard from "$lib/cards/BotCard.svelte";
+	import Button from '@smui/button';
 	import CardContainer from "$lib/cards/CardContainer.svelte";
+	import { page, session } from '$app/stores';
+	let loggedIn = false;
+    	if($session.session.user) {
+		loggedIn = true;
+	}
+
     export let data: any;
     export let systemBots: any;
     let type = "profile"
@@ -45,6 +52,9 @@
 <img class="user-avatar" loading="lazy" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="user-avatar" alt="{data.user.username}'s avatar">
 <h2 class="white user-username" id="user-name">{data.user.username}</h2>
 <p id="user-description">{@html data.profile.description.replace("p>", "span>") }</p>
+{#if loggedIn}
+	<Button href="https://api.fateslist.xyz/profile/{data.user.id}/edit" class="bot-card-actions-link" id="profiles-center" touch variant="outlined">Settings</Button>
+{/if}
 <CardContainer>
 	{#each data.bots as bot}
 		<BotCard data={bot} type="bot" rand={false}/>
@@ -77,5 +87,14 @@
     text-align: center;
     margin: 0px;
     padding: 0px;
+}
+
+:global(#profiles-center) {
+	margin-left: auto;
+	margin-right: auto;
+	display: flex !important;
+	align-items: center;
+	width: 150px;
+	padding: 3px;
 }
 </style>
