@@ -363,7 +363,7 @@
             return
         }
 	
-	let userID = ""
+	let userID = "0"
 	if($session.session.token) {
 		userID = $session.session.user.id
 	}
