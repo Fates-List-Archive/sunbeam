@@ -69,6 +69,6 @@ export async function voteHandler(userID: string, token: string, botID: string, 
         alert("Successfully voted for this bot!")
         window.location.reload()
     } else {
-        alert(JSON.stringify(data.reason))
+        alert(data.reason)
     }
 }

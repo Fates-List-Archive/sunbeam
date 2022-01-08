@@ -279,7 +279,7 @@
                 </section>
                 <section id="reviews-tab" class="tabcontent tabdesign">
 		   <label for="rating">On a scale of 1 to 10, how much did you like this {type}?</label><br/>
-		   <input class='slider range-slider' type="range" id="star_rating" min="0.1" max="10" style="width: 100%" value='5' step='0.1' output="rating-desc"/>
+		   <input class='slider range-slider' type="range" id="star-rating" min="0.1" max="10" style="width: 100%" value='5' step='0.1' output="rating-desc"/>
 		   <p id='rating-desc' style="color: white;"></p>
 		   <label for="review-text">Enter your review here</label><br/>
 		   <textarea 
@@ -290,7 +290,8 @@
 		     style="width: 100%" 
 		     required 
 		     ></textarea>
-                    <div id="reviews" use:onload>Loading reviews... <a href="#" on:click={() => window.location.reload()}>Retry</a></div>
+		     <Button href={"#"} on:click={() => addReview()} class="buttons-all">Add Review</Button>
+                    <div id="reviews" use:onload>Loading reviews... <a href={"#"} on:click={() => window.location.reload()}>Retry</a></div>
                 </section>
                 <section id="about-tab" class='tabcontent tabdesign'>
                     <!--First main owner is guaranteed to be first in HTML-->
@@ -361,7 +362,12 @@
         if(!browser) {
             return
         }
-        let res = await fetch(`https://api.fateslist.xyz/${type}/${data.user.id}/reviews_html?page=${page}`)
+	
+	let userID = ""
+	if($session.session.token) {
+		userID = $session.session.user.id
+	}
+        let res = await fetch(`https://api.fateslist.xyz/${type}/${data.user.id}/reviews_html?page=${page}&user_id=${userID}`)
         if(res.ok) {
             let data = await res.text()
 	    try {
@@ -437,5 +443,37 @@ function parseState(v) {
 			return
 		}
 		setupInputs()
+	}
+
+	async function addReview() {
+		let targetType = 0
+		if(type == "server") {
+			targetType = 1
+		}
+		let review = document.querySelector("#review-text")
+		let starRating = document.querySelector("#star-rating")
+		let json = {
+			review: review.value,
+			star_rating: starRating.value,
+			target_type: targetType,
+			target_id: data.user.id
+		}
+		let token = $session.session.token;
+		let userID = $session.session.user.id;
+		let res = await fetch(`https://api.fateslist.xyz/api/v2/users/${userID}/reviews`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"Frostpaw": "0.1.0",
+				"Authorization": token
+			},
+			body: JSON.stringify(json)
+		})
+
+		if(res.ok) {
+			alert("Successfully posted your review")
+		}
+		let err = await res.json()
+		alert(err.reason)	
 	}
 </script>
