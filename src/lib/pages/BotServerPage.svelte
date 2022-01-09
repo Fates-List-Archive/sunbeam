@@ -18,6 +18,7 @@
 <style lang="scss">
 :global(.buttons-all) {
     background-color: black !important;
+    margin-right: 10px;
 }
 :global(.codehilite) {
     background-color: white;
@@ -80,15 +81,18 @@
     color: white !important;
     border: solid thin !important;
     opacity: 1 !important;
+    min-width: 125px;
+    max-width: 150px;
 }
 
 .buttons {
-    width: 87% !important;
+    display: flex;
+    flex-flow: column-wrap;
+    justify-content: center;
+    align-items: center;
+    width: 87%;
     height: 50px;
-    margin-left: auto;
-    margin-right: 3px;
-    //overflow-x: scroll;
-    //overflow-y: hidden;
+    margin: 0 auto;
     white-space: nowrap;
 }
 
