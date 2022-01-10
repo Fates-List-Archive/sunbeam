@@ -81,7 +81,7 @@
     color: white !important;
     border: solid thin !important;
     opacity: 1 !important;
-    min-width: 125px;
+    min-width: 130px;
     max-width: 150px;
 }
 
@@ -447,6 +447,35 @@ function parseState(v) {
 			return
 		}
 		setupInputs()
+	}
+
+
+	async function voteReview(reviewId: string, upvote: boolean) {
+		let token = $session.session.token;
+		if(!token) {
+			loginUser()
+			return
+		}
+		let userID = $session.session.user.id;
+		let res = await fetch(`https://api.fateslist.xyz/api/v2/users/${userID}/reviews/${reviewID}/votes`, {
+			method: "PATCH",
+			headers: {
+				"Content-Type": "application/json",
+				"Frostpaw": "0.1.0",
+				"Authorization": token
+			},
+			body: JSON.stringify({upvote: upvote})
+		})
+		if(res.ok) {
+			alert("Successfully voted for this review")
+			window.location.reload()
+		}
+		let err = await res.json()
+		alert(err.reason)
+	}
+
+	if(browser) {
+		window.voteReview = voteReview
 	}
 
 	async function addReview() {
