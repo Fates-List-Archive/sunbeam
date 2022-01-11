@@ -154,7 +154,7 @@
 {@html data.css}
 
 <div class="lozad bot-page-banner" data-background-image="{data.banner}">
-    <img class="bot-avatar" loading="lazy" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="bot-avatar" alt="{data.user.username}'s avatar">
+    <img class="bot-avatar" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="bot-avatar" alt="{data.user.username}'s avatar">
     <article class="bot-page">
         <a href="/{type}/{data.user.id}/invite" class="banner-decor bot-username bot-username-link">
             <h2 class="white" id="bot-name">{data.user.username} {#if type == "bot"}<span class="prefix">({data.prefix || "/"})</span>{/if}</h2>
