@@ -333,7 +333,7 @@
     import Button from '@smui/button';
     import { enums } from '../enums/enums';
     import { browser } from "$app/env";
-    import { voteHandler } from '$lib/request';
+    import { voteHandler, loginUser } from '$lib/request';
     import { marked } from 'marked'; 
     import { session } from '$app/stores';
     import Tab from '$lib/base/Tab.svelte';
@@ -450,7 +450,7 @@ function parseState(v) {
 	}
 
 
-	async function voteReview(reviewId: string, upvote: boolean) {
+	async function voteReview(reviewID: string, upvote: boolean) {
 		let token = $session.session.token;
 		if(!token) {
 			loginUser()
@@ -475,7 +475,9 @@ function parseState(v) {
 	}
 
 	if(browser) {
+		// Needed for dnyamic review injection
 		window.voteReview = voteReview
+		window.loginUser = loginUser
 	}
 
 	async function addReview() {
