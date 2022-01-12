@@ -16,6 +16,14 @@
 </style>
 {/if}
 <style lang="scss">
+:global(#review-add) {
+	opacity: 1 !important; 
+	border: solid thin; 
+	width: 250px; 
+	max-width: 250px;
+	margin-bottom: 10px;
+}
+
 :global(.buttons-all) {
     background-color: black !important;
     margin-right: 10px;
@@ -294,7 +302,7 @@
 		     style="width: 100%" 
 		     required 
 		     ></textarea>
-		     <Button href={"#"} on:click={() => addReview()} class="buttons-all">Add Review</Button>
+		     <Button href={"#"} on:click={() => addReview()} id="review-add">Add Review</Button>
                     <div id="reviews" use:onload>Loading reviews... <a href={"#"} on:click={() => window.location.reload()}>Retry</a></div>
                 </section>
                 <section id="about-tab" class='tabcontent tabdesign'>
@@ -353,6 +361,10 @@
     }]
 
     async function voteBot() {
+	if(type == "server") {
+		alert("To vote for a server, type /vote in the server.")
+		return
+	}
         let token = $session.session.token
         let userID = ""
         if(token) {
