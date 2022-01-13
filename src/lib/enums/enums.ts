@@ -18,6 +18,8 @@ enum UserBotAction {
     ban = 3,
     claim = 4,
     unclaim = 5,
+    transfer_ownership = 6,
+    edit_bot = 7,
 }
 
 export let enums = {

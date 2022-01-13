@@ -325,6 +325,10 @@
                         <p>Added to the list on: {data.created_at}</p>
                         <p>Bot Flags: {data.flags}</p>
                         <p>Bot Features: {data.features}</p>
+			<h4>User Audit Logs</h4>
+			{#each data.action_logs as log}
+				{JSON.stringify(log)}
+			{/each}
                     {/if}
                 </section>
             </Tab>
