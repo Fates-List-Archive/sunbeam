@@ -1,22 +1,38 @@
-<script context="module">
-	import { browser, dev } from '$app/env';
-
-	// we don't need any JS on this page, though we'll load
-	// it in dev so that we get hot module replacement...
-	export const hydrate = dev;
-
-	// ...but if the client-side router is already loaded
-	// (i.e. we came here from elsewhere in the app), use it
-	export const router = browser;
-
-	// since there's no dynamic data here, we can prerender
-	// it so that it gets served as a static asset in prod
+<script context="module" lang="ts">
+	import { fetchFates } from "$lib/request"
 	export const prerender = true;
+	/** @type {import('@sveltejs/kit@next').Load} */
+	export async function load({ params, fetch, session, stuff }) {
+		const url = `/api/v2/partners`;
+		const res = await fetchFates(url, "");
+
+		if (res.ok) {
+			return {
+				props: {
+					partners: await res.json()
+				}
+			};
+		}
+
+		return {
+			status: res.status,
+			error: new Error(`Could not load ${url}`)
+		};	
+	}
 </script>
 
-<svelte:head>
-	<title>Our Partners | Fates List</title>
-</svelte:head>
+<script lang="ts">
+	import Partner from "$lib/base/Partner.svelte"
+	import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
+	export let partners: any;
+</script>
+
+<BristlefrostMeta 
+	url="https://fateslist.xyz/partners"
+	title="Fates List | Our Partners"
+	description="See our partners and supporters!"
+	thumbnail="https://fateslist.xyz/static/botlisticon.webp"
+></BristlefrostMeta>
 
 <div class="content">
 	<h1>Our Partners</h1>
@@ -26,6 +42,10 @@
 		place on the below servers!
 	</p>
 </div>
+
+{#each partners.partners as partner}
+	<Partner partner={partner} icons={partners.icons}></Partner>
+{/each}
 
 <style>
 	.content {
