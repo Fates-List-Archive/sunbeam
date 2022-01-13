@@ -115,7 +115,7 @@
 		position: fixed;
 		width: 100%;
 		margin: 0px;
-		padding: 2px;
+		padding: 3px;
 		z-index: 1;
 		background-color: black;
 		box-shadow: 1px 1px 1px black;

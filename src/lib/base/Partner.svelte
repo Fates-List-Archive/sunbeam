@@ -24,18 +24,18 @@
 </script>
 <div id="{partner.id}">
     <a href={partner.links.website}>
-    <div class="partner">
-        <img class="partner-img" src={partner.image} alt="{partner.name} image" width="100px" height="100px">
-        <div class="partner-content">
-            <h2>{partner.name}</h2>
-            <p>{partner.description}</p>
-            {#each Object.entries(partner.links) as link}
-                <a href={link[1]}>
-                    <Icon icon={icons[link[0]]}></Icon> {title(link[0])}
-                </a>
-            {/each}
+        <div class="partner">
+            <img class="partner-img" src={partner.image} alt="{partner.name} image" width="100px" height="100px">
+            <div class="partner-content">
+                <h2>{partner.name}</h2>
+                <p>{partner.description}</p>
+                {#each Object.entries(partner.links) as link}
+                    <a href={link[1]}>
+                        <Icon icon={icons[link[0]]}></Icon> {title(link[0])}
+                    </a>
+                {/each}
+            </div>
         </div>
-    </div>
     </a>
 </div>
 
