@@ -1,22 +1,47 @@
 <script context="module" lang="ts">
 	import { fetchFates } from "$lib/request"
+	import { enums } from "$lib/enums/enums";
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
-		let url = `/api/v2/users/${params.id}`;
+		let url = `/api/v2/users/${params.id}?bot_logs=true`;
 
         if(session.query.system_bots == "true") {
-            url += "?system_bots=true"
+            url += "&system_bots=true"
         }
 
         const res = await fetchFates(url);
 
 		if (res.ok) {
             let data = await res.json()
+
+			let approvedBots = data.profile.bot_logs.filter(v => {
+				if(v.action == enums.UserBotAction.approve) {
+					return true
+				}
+				return false
+			})
+			let deniedBots = data.profile.bot_logs.filter(v => {
+				if(v.action == enums.UserBotAction.deny) {
+					return true
+				}
+				return false
+			})
+			let certifiedBots = data.profile.bot_logs.filter(v => {
+				if(v.action == enums.UserBotAction.certify) {
+					return true
+				}
+				return false
+			})
+
+
 			return {
 				props: {
 					data: data,
-                    systemBots: session.query.system_bots == "true"
+                    systemBots: session.query.system_bots == "true",
+					approvedBots: approvedBots,
+					deniedBots: deniedBots,
+					certifiedBots: certifiedBots
 				}
 			};
 		}
@@ -39,6 +64,9 @@
 
     export let data: any;
     export let systemBots: any;
+	export let approvedBots: any;
+	export let deniedBots: any;
+	export let certifiedBots: any;
     let type = "profile"
     import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
 </script>
@@ -52,6 +80,19 @@
 <img class="user-avatar" loading="lazy" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="user-avatar" alt="{data.user.username}'s avatar">
 <h2 class="white user-username" id="user-name">{data.user.username}</h2>
 <p id="user-description">{@html data.profile.description.replace("p>", "span>") }</p>
+
+<div class="badges">
+	{#each data.profile.badges as badge}
+		<a class="badge-link" href={"#"} on:click={() => alert(badge.description)}>
+			<img class="badge-img" src={badge.image} width="50px" height="50px" alt={badge.description}>
+		</a>
+	{/each}
+</div>
+
+<p class="bot-action-log">Approved Bots: {approvedBots.length}</p>
+<p class="bot-action-log">Denied Bots: {deniedBots.length}</p>
+<p class="bot-action-log">Certified Bots: {certifiedBots.length}</p>
+
 {#if loggedIn}
 	<Button href="https://api.fateslist.xyz/profile/{data.user.id}/edit" class="bot-card-actions-link" id="profiles-center" touch variant="outlined">Settings</Button>
 {/if}
@@ -64,7 +105,24 @@
 <p>Click <a href="/profile/{data.user.id}?system_bots=true">here</a> to show system bots as well!</p>
 {/if}
 <style>
-.user-username, .user-avatar {
+.badge-link {
+	opacity: 1 !important;
+}
+
+.badges {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+
+.badge-img {
+	border-radius: 50%;
+	display: inline-block;
+	margin-right: 3px;
+	background-color: black;
+}
+
+.user-username, .user-avatar, .bot-action-log {
     display: flex;
     opacity: 1 !important;
     justify-content: center;

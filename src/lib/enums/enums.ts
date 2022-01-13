@@ -11,8 +11,18 @@ enum BotState {
         private_staff_only = 9,
 }
 
+enum UserBotAction {
+    approve = 0,
+    deny = 1,
+    certify = 2,
+    ban = 3,
+    claim = 4,
+    unclaim = 5,
+}
+
 export let enums = {
     BotState: BotState,
+    UserBotAction: UserBotAction,
     Flags: {
         unlocked:      0,
         edit_locked:   1,
