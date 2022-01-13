@@ -90,8 +90,23 @@
 </div>
 
 <p class="bot-action-log">Approved Bots: {approvedBots.length}</p>
+<ul>
+	{#each approvedBots as bot}
+		<li class="white">{bot.bot_id} - {bot.action_time}</li>
+	{/each}
+</ul>
 <p class="bot-action-log">Denied Bots: {deniedBots.length}</p>
-<p class="bot-action-log">Certified Bots: {certifiedBots.length}</p>
+<ul>
+	{#each deniedBots as bot}
+		<li class="white">{bot.bot_id} - {bot.action_time}</li>
+	{/each}
+</ul>
+<p class="bot-action-log">Certified Bots: {certifiedBots.length}</p> 
+<ul>
+	{#each certifiedBots as bot}
+		<li class="white">{bot.bot_id} - {bot.action_time}</li>
+	{/each}
+</ul>
 
 {#if loggedIn}
 	<Button href="https://api.fateslist.xyz/profile/{data.user.id}/edit" class="bot-card-actions-link" id="profiles-center" touch variant="outlined">Settings</Button>
