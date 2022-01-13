@@ -289,6 +289,16 @@
 			{/if}
                     </div>
                 </section>
+		<section id="resources-tab" class="tabcontent tabdesign">
+			{#if !data.resources && data.resources.length < 0}
+				<h2>This {type} does not have any resources set!</h2>
+			{:else}
+				{#each data.resources as resource}
+					<a href={resource.resource_link}>{resource.resource_title}</a>
+					<p>{resource.resource_description}</p>
+				{/each}
+			{/if}
+		</section>
                 <section id="reviews-tab" class="tabcontent tabdesign">
 		   <label for="rating">On a scale of 1 to 10, how much did you like this {type}?</label><br/>
 		   <input class='slider range-slider' type="range" id="star-rating" min="0.1" max="10" style="width: 100%" value='5' step='0.1' output="rating-desc"/>
@@ -329,6 +339,8 @@
 			{#each data.action_logs as log}
 				{JSON.stringify(log)}
 			{/each}
+		    {:else}
+			<h2>Servers do not support this feature <em>yet</em> :(</h2>
                     {/if}
                 </section>
             </Tab>
@@ -359,6 +371,9 @@
     {
         "name": "About",
         "id": "about"
+    }, {
+	"name": "Resources",
+	"id": "resources"
     }, {
         "name": "Reviews",
         "id": "reviews"
