@@ -1,4 +1,4 @@
-<a class="render-msg" href={iframeUrl}>Click here if this page does not render</a>
+<!--<a class="render-msg" href={iframeUrl}>Click here if this page does not render</a>-->
 <iframe frameborder="0" title={title} src={iframeUrl} width="100%"></iframe>
 
 <BristlefrostMeta 
