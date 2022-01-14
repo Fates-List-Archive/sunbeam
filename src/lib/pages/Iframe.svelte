@@ -1,5 +1,9 @@
 <!--<a class="render-msg" href={iframeUrl}>Click here if this page does not render</a>-->
-<iframe frameborder="0" title={title} src={iframeUrl} width="100%"></iframe>
+{#if token}
+	<iframe frameborder="0" title={title} src={iframeUrl} width="100%"></iframe>
+{:else}
+	<p>Logging you in, please wait...</p>
+{/if}
 
 <BristlefrostMeta 
 	url={metaUrl}
