@@ -34,6 +34,7 @@
 	import Section from "$lib/base/Section.svelte";
 	export let data: any;
 	export let randomBot: any;
+	//
 </script>
 
 <BristlefrostMeta 
