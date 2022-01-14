@@ -1,4 +1,4 @@
-<a class="render-msg" href="https://api.fateslist.xyz/bot/admin/add">Click here if this page does not render</a>
+<a class="render-msg" href="https://api.fateslist.xyz/bot/admin/add?iframe=true">Click here if this page does not render</a>
 <iframe frameborder="0" title="Add Bot Page" src="https://api.fateslist.xyz/bot/admin/add?iframe=true" width="100%"></iframe>
 
 <BristlefrostMeta 
