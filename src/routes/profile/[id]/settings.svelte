@@ -14,8 +14,8 @@
     export let id: string;
 </script>
 <PageFrame 
-	iframeUrl="https://api.fateslist.xyz/bot/{id}/settings?iframe=true" 
+	iframeUrl="https://api.fateslist.xyz/profile/{id}/edit?iframe=true" 
 	title="Add Bot Page" 
-	metaTitle="Fates List | Bot Settings"
-	metaUrl="https://fateslist.xyz/bot/{id}/settings"
+	metaTitle="Fates List | Profile Edit"
+	metaUrl="https://fateslist.xyz/profile/{id}/settings"
 ></PageFrame>
