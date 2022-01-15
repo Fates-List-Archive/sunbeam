@@ -43,5 +43,9 @@
 	import BotServerVotePage from '$lib/pages/BotServerVotePage.svelte';
 	export let data: any;
 	export let type: string;
+
+	if(type == "guild") {
+		type = "server"
+	}
 </script>
 <BotServerVotePage data={data} type="{type}"></BotServerVotePage>
