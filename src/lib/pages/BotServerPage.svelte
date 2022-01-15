@@ -402,7 +402,7 @@
 	if($session.session.token) {
 		userID = $session.session.user.id
 	}
-        let res = await fetch(`https://api.fateslist.xyz/${type}/${data.user.id}/reviews_html?page=${page}&user_id=${userID}`)
+        let res = await fetch(`https://api.fateslist.xyz/_sunbeam/pub/${type}/${data.user.id}/reviews_html?page=${page}&user_id=${userID}`)
         if(res.ok) {
             let data = await res.text()
 	    try {
