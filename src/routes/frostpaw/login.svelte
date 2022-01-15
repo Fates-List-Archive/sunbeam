@@ -45,9 +45,13 @@
             })
             .then((res) => res.json())
             .then((json) => {
-                if(!json.done) {
-                    frostpawMsg = `Got error: ${JSON.stringify(json)}`
-                } else {
+		if(!json.done) {
+		    if(json.banned) {
+			frostpawMsg = `<h1>${json.reason}</h1><br/><h2>This is a ${json.ban.type} ban and ${json.ban.desc}.</h2><br/>You can try to appeal this ban at <a href="https://fateslist.xyz/banappeal">our ban appeal server</a>`
+		    } else {
+                    	frostpawMsg = `Got error: ${JSON.stringify(json)}`
+		    }	    
+		} else {
                     window.location.href = frostpawServer
                 }
             })
