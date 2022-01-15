@@ -270,7 +270,7 @@
 			    </Button>
                 {/if}
 		{#if type == "bot"}
-                            <Button href='https://api.fateslist.xyz/bot/{data.user.id}/settings' class="buttons-all" touch variant="outlined">
+                            <Button href='/bot/{data.user.id}/settings' class="buttons-all" touch variant="outlined">
                                     <span>Settings</span>
                             </Button>
 		{:else}
