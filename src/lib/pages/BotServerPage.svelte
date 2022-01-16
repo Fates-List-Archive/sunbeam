@@ -320,7 +320,18 @@
                     {#if type == "bot"}
                         <h2>Owners</h2>
                         <Icon icon="mdi-crown" inline={false} height="1.2em" style="margin-right: 1px"></Icon>
-                        {@html data.owners_html}
+			{@html data.owners_html}
+			<h2>Uptime</h2>
+			<p>Uptime Checks (Total): {data.uptime_checks_total}</p>
+			<p>Uptime Checks (Failed): {data.uptime_checks_failed}</p>
+			<p>Uptime Checks (Success): {data.uptime_checks_total - data.uptime_checks_failed}</p>	
+			<p>Uptime Checks (Score): 
+			{#if data.uptime_checks_total} 
+				{ (data.uptime_checks_total - data.uptime_checks_failed) / data.uptime_checks_total }
+			{:else}
+				Not Available
+			{/if}
+			</p>
                         <h2>Statistics</h2>
                         <p>Guild Count: {data.guild_count}</p>
                         <p>User Count (according to bot): {data.user_count}</p>
