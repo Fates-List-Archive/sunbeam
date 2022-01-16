@@ -10,7 +10,7 @@
             url += "&system_bots=true"
         }
 
-        const res = await fetchFates(url);
+        const res = await fetchFates(url, "", fetch);
 
 		if (res.ok) {
             let data = await res.json()

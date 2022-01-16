@@ -4,7 +4,7 @@
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
         let url = "/api/v2/policies/all"
-        let res = await fetchFates(url)
+        let res = await fetchFates(url, "", fetch)
         if(!res.ok) {
             return {
                 status: res.status,

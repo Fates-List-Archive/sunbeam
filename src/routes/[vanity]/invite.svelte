@@ -3,7 +3,7 @@
 	export const prerender = false;
     export async function load({ params, fetch, session, stuff }) {
 		const codeUrl = `/api/v2/code/${params.vanity}`;
-		const codeRes = await fetchFates(codeUrl);
+		const codeRes = await fetchFates(codeUrl, "", fetch);
 
 		if (codeRes.ok) {
             let data = await codeRes.json()

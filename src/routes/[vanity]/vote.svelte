@@ -4,7 +4,7 @@
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		const url = `/api/v2/code/${params.vanity}`;
-		const res = await fetchFates(url);
+		const res = await fetchFates(url, "", fetch);
 
 		if (res.ok) {
             let data = await res.json()
@@ -12,7 +12,7 @@
 			let type: string = data.type
 
 			const pageUrl = `/api/v2/${type}s/${id}/_sunbeam`;
-			const pageRes = await fetchFates(pageUrl);
+			const pageRes = await fetchFates(pageUrl, "", fetch);
 			if (pageRes.ok) {
 				let pageData = await pageRes.json()
 				console.log(pageData)

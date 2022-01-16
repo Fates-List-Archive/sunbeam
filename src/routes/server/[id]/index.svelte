@@ -4,7 +4,7 @@
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		const url = `/api/v2/guilds/${params.id}/_sunbeam`;
-		const res = await fetchFates(url);
+		const res = await fetchFates(url, "", fetch);
 
 		if (res.ok) {
             let data = await res.json()

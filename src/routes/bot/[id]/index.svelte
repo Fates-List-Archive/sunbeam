@@ -11,7 +11,7 @@
 			auth = `${session.session.user.id}|${session.session.token}`
 		}
 		
-		const res = await fetchFates(url, auth);
+		const res = await fetchFates(url, auth, fetch);
 
 		if (res.ok) {
             	    let data = await res.json()

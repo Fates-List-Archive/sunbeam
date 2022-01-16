@@ -2,14 +2,14 @@
 	import { fetchFates } from "$lib/request"
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
-	export async function load({ url, session }) {
+	export async function load({ url, session, fetch }) {
 		// Dumb cloudflare bug bypass
 		console.log("url is:", session)
 		let tag = session.query.tag
 		let targetType = session.query.target_type
         	console.log(tag)
 		const searchUrl = `/api/v2/search/tags?target_type=${targetType}&tag=${tag}`;
-		const res = await fetchFates(searchUrl);
+		const res = await fetchFates(searchUrl, "", fetch);
 
 		if (res.ok) {
             let data = await res.json()

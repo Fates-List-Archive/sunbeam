@@ -4,7 +4,7 @@
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		const url = `/api/v2/partners`;
-		const res = await fetchFates(url, "");
+		const res = await fetchFates(url, "", fetch);
 
 		if (res.ok) {
 			return {

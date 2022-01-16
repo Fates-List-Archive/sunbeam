@@ -3,7 +3,7 @@ import { browser } from '$app/env';
 // Change this if cf will ever be used
 const usingCf = true
 
-export async function fetchFates(url: string, auth: string) {
+export async function fetchFates(url: string, auth: string, fetch: any) {
     // Always use direct if browser
     let headers = {"Frostpaw": "0.1"}
     if(auth) {
