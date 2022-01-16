@@ -89,8 +89,10 @@
     color: white !important;
     border: solid thin !important;
     opacity: 1 !important;
-    min-width: 130px;
-    max-width: 150px;
+    //min-width: 130px;
+    //max-width: 150px;
+	word-wrap: break-word !important;
+	font-size: 15px !important;
 }
 
 .buttons {
@@ -98,10 +100,10 @@
     flex-flow: column-wrap;
     justify-content: center;
     align-items: center;
-    width: 87%;
-    height: 50px;
+    width: 93%;
+    height: 53px;
     margin: 0 auto;
-    white-space: nowrap;
+    //white-space: nowrap;
 }
 
 @media screen and (max-width: 768px) {
