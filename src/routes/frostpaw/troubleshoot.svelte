@@ -36,7 +36,7 @@
 <ul class="white">
 	{#each Object.entries(data.data) as info}
 		{#if info[0] == "user"}
-			<li>{info[0]} (Logged in user): {JSON.stringify(info[1])}</li>
+			<li style="word-wrap: break-word;">{info[0]} (Logged in user): {JSON.stringify(info[1])}</li>
 		{:else}
 			<li>{info[0]}: {info[1]}</li>
 		{/if}
