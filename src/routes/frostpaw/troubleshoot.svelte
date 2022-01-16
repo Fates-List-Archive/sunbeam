@@ -35,7 +35,11 @@
 <h1>{msg}</h1>
 <ul class="white">
 	{#each Object.entries(data.data) as info}
-		<li>{info[0]}: {info[1]}</li>
+		{#if info[0] == "user"}
+			<li>{info[0]} (Logged in user): {JSON.stringify(info[1])}</li>
+		{:else}
+			<li>{info[0]}: {info[1]}</li>
+		{/if}
 	{/each}
 	<li>real_user_agent: {agent}</li>
 	<li>session: {JSON.stringify(sessInfo)}</li>
