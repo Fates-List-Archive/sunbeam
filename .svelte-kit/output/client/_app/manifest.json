@@ -144,7 +144,7 @@
       "_enums-06152dee.js"
     ],
     "css": [
-      "assets/pages/frostpaw/servers/index.svelte-e799d5c6.css"
+      "assets/pages/frostpaw/search/index.svelte-e73873a2.css"
     ]
   },
   "src/routes/frostpaw/search/index.svelte": {
@@ -161,7 +161,7 @@
       "_enums-06152dee.js"
     ],
     "css": [
-      "assets/pages/frostpaw/servers/index.svelte-e799d5c6.css"
+      "assets/pages/frostpaw/search/index.svelte-e73873a2.css"
     ]
   },
   "src/routes/frostpaw/search/tags.svelte": {
@@ -178,7 +178,7 @@
       "_enums-06152dee.js"
     ],
     "css": [
-      "assets/pages/frostpaw/servers/index.svelte-e799d5c6.css"
+      "assets/pages/frostpaw/search/index.svelte-e73873a2.css"
     ]
   },
   "src/routes/frostpaw/about.svelte": {
