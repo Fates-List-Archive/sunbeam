@@ -100,7 +100,7 @@ const U5Bidu5D = create_ssr_component(($$result, $$props, $$bindings, slots) => 
 <ul>${each(certifiedBots, (bot) => `<li class="${"white"}">${escape(bot.bot_id)} - ${escape(bot.action_time)}</li>`)}</ul>
 
 ${loggedIn ? `${validate_component(Button_1, "Button").$$render($$result, {
-    href: "https://api.fateslist.xyz/profile/" + data.user.id + "/edit",
+    href: "https://fateslist.xyz/profile/" + data.user.id + "/settings",
     class: "bot-card-actions-link",
     id: "profiles-center",
     touch: true,

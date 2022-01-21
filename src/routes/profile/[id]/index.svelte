@@ -109,7 +109,7 @@
 </ul>
 
 {#if loggedIn}
-	<Button href="https://api.fateslist.xyz/profile/{data.user.id}/edit" class="bot-card-actions-link" id="profiles-center" touch variant="outlined">Settings</Button>
+	<Button href="https://fateslist.xyz/profile/{data.user.id}/settings" class="bot-card-actions-link" id="profiles-center" touch variant="outlined">Settings</Button>
 {/if}
 <CardContainer>
 	{#each data.bots as bot}

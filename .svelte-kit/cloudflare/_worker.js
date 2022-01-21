@@ -5763,7 +5763,7 @@ var init__8 = __esm({
     init_index_svelte3();
     entry8 = "pages/frostpaw/servers/index.svelte-9613f6a6.js";
     js8 = ["pages/frostpaw/servers/index.svelte-9613f6a6.js", "chunks/vendor-22677977.js", "chunks/request-2d5483df.js", "chunks/Tag-6f90ee50.js", "chunks/CardContainer-fe7298a5.js", "chunks/enums-06152dee.js", "chunks/Section-04b3bd4d.js", "chunks/BristlefrostMeta-4b5eefb5.js"];
-    css17 = ["assets/pages/frostpaw/search/tags.svelte-c70bc30c.css", "assets/Tag-3c419aa8.css", "assets/CardContainer-6f3614cc.css", "assets/Section-0b0cfa5e.css"];
+    css17 = ["assets/pages/frostpaw/servers/index.svelte-e799d5c6.css", "assets/Tag-3c419aa8.css", "assets/CardContainer-6f3614cc.css", "assets/Section-0b0cfa5e.css"];
   }
 });
 
@@ -5849,7 +5849,7 @@ var init__9 = __esm({
     init_index_svelte4();
     entry9 = "pages/frostpaw/search/index.svelte-dae91e0a.js";
     js9 = ["pages/frostpaw/search/index.svelte-dae91e0a.js", "chunks/vendor-22677977.js", "chunks/request-2d5483df.js", "chunks/CardContainer-fe7298a5.js", "chunks/enums-06152dee.js", "chunks/Tag-6f90ee50.js", "chunks/BristlefrostMeta-4b5eefb5.js"];
-    css19 = ["assets/pages/frostpaw/search/tags.svelte-c70bc30c.css", "assets/CardContainer-6f3614cc.css", "assets/Tag-3c419aa8.css"];
+    css19 = ["assets/pages/frostpaw/servers/index.svelte-e799d5c6.css", "assets/CardContainer-6f3614cc.css", "assets/Tag-3c419aa8.css"];
   }
 });
 
@@ -5936,7 +5936,7 @@ var init__10 = __esm({
     init_tags_svelte();
     entry10 = "pages/frostpaw/search/tags.svelte-654631f4.js";
     js10 = ["pages/frostpaw/search/tags.svelte-654631f4.js", "chunks/vendor-22677977.js", "chunks/request-2d5483df.js", "chunks/CardContainer-fe7298a5.js", "chunks/enums-06152dee.js", "chunks/Tag-6f90ee50.js", "chunks/BristlefrostMeta-4b5eefb5.js"];
-    css21 = ["assets/pages/frostpaw/search/tags.svelte-c70bc30c.css", "assets/CardContainer-6f3614cc.css", "assets/Tag-3c419aa8.css"];
+    css21 = ["assets/pages/frostpaw/servers/index.svelte-e799d5c6.css", "assets/CardContainer-6f3614cc.css", "assets/Tag-3c419aa8.css"];
   }
 });
 
@@ -6086,8 +6086,8 @@ var entry14, js14, css25;
 var init__14 = __esm({
   ".svelte-kit/output/server/nodes/13.js"() {
     init_herb_svelte();
-    entry14 = "pages/frostpaw/herb.svelte-04c79b93.js";
-    js14 = ["pages/frostpaw/herb.svelte-04c79b93.js", "chunks/vendor-22677977.js", "chunks/request-2d5483df.js"];
+    entry14 = "pages/frostpaw/herb.svelte-3f5dcfa5.js";
+    js14 = ["pages/frostpaw/herb.svelte-3f5dcfa5.js", "chunks/vendor-22677977.js", "chunks/request-2d5483df.js"];
     css25 = [];
   }
 });
@@ -6404,7 +6404,7 @@ var init_index_svelte5 = __esm({
 <ul>${each(certifiedBots, (bot) => `<li class="${"white"}">${escape(bot.bot_id)} - ${escape(bot.action_time)}</li>`)}</ul>
 
 ${loggedIn ? `${validate_component(Button_1, "Button").$$render($$result, {
-        href: "https://api.fateslist.xyz/profile/" + data.user.id + "/edit",
+        href: "https://fateslist.xyz/profile/" + data.user.id + "/settings",
         class: "bot-card-actions-link",
         id: "profiles-center",
         touch: true,
@@ -6430,8 +6430,8 @@ var entry17, js17, css31;
 var init__17 = __esm({
   ".svelte-kit/output/server/nodes/16.js"() {
     init_index_svelte5();
-    entry17 = "pages/profile/_id_/index.svelte-3298c952.js";
-    js17 = ["pages/profile/_id_/index.svelte-3298c952.js", "chunks/vendor-22677977.js", "chunks/enums-06152dee.js", "chunks/request-2d5483df.js", "chunks/CardContainer-fe7298a5.js", "chunks/stores-56fb81e3.js", "chunks/BristlefrostMeta-4b5eefb5.js"];
+    entry17 = "pages/profile/_id_/index.svelte-b3e95bf0.js";
+    js17 = ["pages/profile/_id_/index.svelte-b3e95bf0.js", "chunks/vendor-22677977.js", "chunks/enums-06152dee.js", "chunks/request-2d5483df.js", "chunks/CardContainer-fe7298a5.js", "chunks/stores-56fb81e3.js", "chunks/BristlefrostMeta-4b5eefb5.js"];
     css31 = ["assets/pages/profile/_id_/index.svelte-08627ff2.css", "assets/CardContainer-6f3614cc.css"];
   }
 });
@@ -11451,7 +11451,7 @@ var manifest = {
   assets: new Set(["botlisticon.webp", "favicon.ico", "robots.txt", "sitemap.xml", "smui-dark.css", "smui.css"]),
   _: {
     mime: { ".webp": "image/webp", ".ico": "image/vnd.microsoft.icon", ".txt": "text/plain", ".xml": "application/xml", ".css": "text/css" },
-    entry: { "file": "start-eabff999.js", "js": ["start-eabff999.js", "chunks/vendor-22677977.js"], "css": ["assets/start-61d1577b.css"] },
+    entry: { "file": "start-5976cd7a.js", "js": ["start-5976cd7a.js", "chunks/vendor-22677977.js"], "css": ["assets/start-61d1577b.css"] },
     nodes: [
       () => Promise.resolve().then(() => (init__(), __exports)),
       () => Promise.resolve().then(() => (init__2(), __exports2)),
