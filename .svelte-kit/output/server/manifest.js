@@ -3,7 +3,7 @@ export const manifest = {
 	assets: new Set(["botlisticon.webp","favicon.ico","robots.txt","sitemap.xml","smui-dark.css","smui.css"]),
 	_: {
 		mime: {".webp":"image/webp",".ico":"image/vnd.microsoft.icon",".txt":"text/plain",".xml":"application/xml",".css":"text/css"},
-		entry: {"file":"start-5c7097f8.js","js":["start-5c7097f8.js","chunks/vendor-22677977.js"],"css":["assets/start-61d1577b.css"]},
+		entry: {"file":"start-7ae755a1.js","js":["start-7ae755a1.js","chunks/vendor-22677977.js"],"css":["assets/start-61d1577b.css"]},
 		nodes: [
 			() => import('./nodes/0.js'),
 			() => import('./nodes/1.js'),

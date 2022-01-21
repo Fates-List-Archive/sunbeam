@@ -99,7 +99,7 @@
 					<Text>Terms Of Service</Text>
 				</Item>
 				<Item on:SUMI:action={() => {
-					window.location.href = "/frostpaw/stats"
+					window.location.href = "https://fateslist.xyz/frostpaw/stats"
 				}}>
 					<Text>Stats</Text>
 				</Item>
