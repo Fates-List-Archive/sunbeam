@@ -2818,9 +2818,11 @@ var init_layout_svelte = __esm({
 				${validate_component(Item, "Item").$$render($$result, {}, {}, {
               default: () => `${validate_component(Text, "Text").$$render($$result, {}, {}, { default: () => `API Docs` })}`
             })}
-
 				${validate_component(Item, "Item").$$render($$result, {}, {}, {
               default: () => `${validate_component(Text, "Text").$$render($$result, {}, {}, { default: () => `Terms Of Service` })}`
+            })}
+				${validate_component(Item, "Item").$$render($$result, {}, {}, {
+              default: () => `${validate_component(Text, "Text").$$render($$result, {}, {}, { default: () => `Stats` })}`
             })}
 				${validate_component(Item, "Item").$$render($$result, {}, {}, {
               default: () => `${validate_component(Text, "Text").$$render($$result, {}, {}, { default: () => `Support` })}`
@@ -2862,8 +2864,8 @@ var entry, js, css3;
 var init__ = __esm({
   ".svelte-kit/output/server/nodes/0.js"() {
     init_layout_svelte();
-    entry = "pages/__layout.svelte-697be109.js";
-    js = ["pages/__layout.svelte-697be109.js", "chunks/vendor-22677977.js", "chunks/stores-56fb81e3.js", "chunks/request-2d5483df.js"];
+    entry = "pages/__layout.svelte-34c6019b.js";
+    js = ["pages/__layout.svelte-34c6019b.js", "chunks/vendor-22677977.js", "chunks/stores-56fb81e3.js", "chunks/request-2d5483df.js"];
     css3 = ["assets/pages/__layout.svelte-8c4b10b0.css"];
   }
 });
@@ -11449,7 +11451,7 @@ var manifest = {
   assets: new Set(["botlisticon.webp", "favicon.ico", "robots.txt", "sitemap.xml", "smui-dark.css", "smui.css"]),
   _: {
     mime: { ".webp": "image/webp", ".ico": "image/vnd.microsoft.icon", ".txt": "text/plain", ".xml": "application/xml", ".css": "text/css" },
-    entry: { "file": "start-e33e6465.js", "js": ["start-e33e6465.js", "chunks/vendor-22677977.js"], "css": ["assets/start-61d1577b.css"] },
+    entry: { "file": "start-5c7097f8.js", "js": ["start-5c7097f8.js", "chunks/vendor-22677977.js"], "css": ["assets/start-61d1577b.css"] },
     nodes: [
       () => Promise.resolve().then(() => (init__(), __exports)),
       () => Promise.resolve().then(() => (init__2(), __exports2)),
