@@ -1,0 +1,1 @@
+import{S as e,i as a,s as n}from"../../../chunks/vendor-22677977.js";const u=!1;async function d({params:t,fetch:s,session:r,stuff:o}){return{status:307,redirect:"https://fateslist.xyz/frostpaw/add-bot"}}class f extends e{constructor(s){super();a(this,s,null,null,n,{})}}export{f as default,d as load,u as prerender};

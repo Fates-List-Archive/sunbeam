@@ -1,0 +1,1 @@
+import{S as t,i as n,s as r}from"../../../chunks/vendor-22677977.js";const l=!1;async function c({params:e,fetch:s,session:o,stuff:u}){return{status:307,redirect:`/server/${e.id}/${e.route}`}}class i extends t{constructor(s){super();n(this,s,null,null,r,{})}}export{i as default,c as load,l as prerender};
