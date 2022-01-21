@@ -697,9 +697,11 @@ const Header = create_ssr_component(($$result, $$props, $$bindings, slots) => {
 				${validate_component(Item, "Item").$$render($$result, {}, {}, {
           default: () => `${validate_component(Text, "Text").$$render($$result, {}, {}, { default: () => `API Docs` })}`
         })}
-
 				${validate_component(Item, "Item").$$render($$result, {}, {}, {
           default: () => `${validate_component(Text, "Text").$$render($$result, {}, {}, { default: () => `Terms Of Service` })}`
+        })}
+				${validate_component(Item, "Item").$$render($$result, {}, {}, {
+          default: () => `${validate_component(Text, "Text").$$render($$result, {}, {}, { default: () => `Stats` })}`
         })}
 				${validate_component(Item, "Item").$$render($$result, {}, {}, {
           default: () => `${validate_component(Text, "Text").$$render($$result, {}, {}, { default: () => `Support` })}`

@@ -93,7 +93,6 @@
 				}}>
 					<Text>API Docs</Text>
 				</Item>
-
 				<Item on:SMUI:action={() => {
 					window.location.href = "/frostpaw/tos"
 				}}>
@@ -102,6 +101,8 @@
 				<Item on:SUMI:action={() => {
 					window.location.href = "/frostpaw/stats"
 				}}>
+					<Text>Stats</Text>
+				</Item>
 				<Item on:SMUI:action={() => {
 					window.location.href = "/server/789934742128558080/invite"
 				}}>
