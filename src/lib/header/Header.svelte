@@ -98,7 +98,7 @@
 				}}>
 					<Text>Terms Of Service</Text>
 				</Item>
-				<Item on:SUMI:action={() => {
+				<Item on:SMUI:action={() => {
 					window.location.href = "https://fateslist.xyz/frostpaw/stats"
 				}}>
 					<Text>Stats</Text>
