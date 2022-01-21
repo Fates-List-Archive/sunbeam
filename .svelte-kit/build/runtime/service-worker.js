@@ -1,9 +1,9 @@
-export const timestamp = 1642740164287;
+export const timestamp = 1642743791072;
 
 export const build = [
-	"/_app/start-e33e6465.js",
+	"/_app/start-c3daf3db.js",
 	"/_app/assets/start-61d1577b.css",
-	"/_app/pages/__layout.svelte-697be109.js",
+	"/_app/pages/__layout.svelte-e500f38b.js",
 	"/_app/assets/pages/__layout.svelte-8c4b10b0.css",
 	"/_app/pages/__error.svelte-f660afac.js",
 	"/_app/pages/index.svelte-dc4fd296.js",
@@ -14,7 +14,7 @@ export const build = [
 	"/_app/assets/pages/frostpaw/add-server.svelte-78a60692.css",
 	"/_app/pages/frostpaw/add-bot.svelte-579b876e.js",
 	"/_app/pages/frostpaw/servers/index.svelte-9613f6a6.js",
-	"/_app/assets/pages/frostpaw/search/index.svelte-e73873a2.css",
+	"/_app/assets/pages/frostpaw/servers/index.svelte-e799d5c6.css",
 	"/_app/pages/frostpaw/search/index.svelte-dae91e0a.js",
 	"/_app/pages/frostpaw/search/tags.svelte-654631f4.js",
 	"/_app/pages/frostpaw/about.svelte-e39bef43.js",
