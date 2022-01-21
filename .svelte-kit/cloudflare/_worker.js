@@ -2864,8 +2864,8 @@ var entry, js, css3;
 var init__ = __esm({
   ".svelte-kit/output/server/nodes/0.js"() {
     init_layout_svelte();
-    entry = "pages/__layout.svelte-34c6019b.js";
-    js = ["pages/__layout.svelte-34c6019b.js", "chunks/vendor-22677977.js", "chunks/stores-56fb81e3.js", "chunks/request-2d5483df.js"];
+    entry = "pages/__layout.svelte-53c24e5b.js";
+    js = ["pages/__layout.svelte-53c24e5b.js", "chunks/vendor-22677977.js", "chunks/stores-56fb81e3.js", "chunks/request-2d5483df.js"];
     css3 = ["assets/pages/__layout.svelte-8c4b10b0.css"];
   }
 });
@@ -5763,7 +5763,7 @@ var init__8 = __esm({
     init_index_svelte3();
     entry8 = "pages/frostpaw/servers/index.svelte-9613f6a6.js";
     js8 = ["pages/frostpaw/servers/index.svelte-9613f6a6.js", "chunks/vendor-22677977.js", "chunks/request-2d5483df.js", "chunks/Tag-6f90ee50.js", "chunks/CardContainer-fe7298a5.js", "chunks/enums-06152dee.js", "chunks/Section-04b3bd4d.js", "chunks/BristlefrostMeta-4b5eefb5.js"];
-    css17 = ["assets/pages/frostpaw/search/index.svelte-e73873a2.css", "assets/Tag-3c419aa8.css", "assets/CardContainer-6f3614cc.css", "assets/Section-0b0cfa5e.css"];
+    css17 = ["assets/pages/frostpaw/servers/index.svelte-e799d5c6.css", "assets/Tag-3c419aa8.css", "assets/CardContainer-6f3614cc.css", "assets/Section-0b0cfa5e.css"];
   }
 });
 
@@ -5849,7 +5849,7 @@ var init__9 = __esm({
     init_index_svelte4();
     entry9 = "pages/frostpaw/search/index.svelte-dae91e0a.js";
     js9 = ["pages/frostpaw/search/index.svelte-dae91e0a.js", "chunks/vendor-22677977.js", "chunks/request-2d5483df.js", "chunks/CardContainer-fe7298a5.js", "chunks/enums-06152dee.js", "chunks/Tag-6f90ee50.js", "chunks/BristlefrostMeta-4b5eefb5.js"];
-    css19 = ["assets/pages/frostpaw/search/index.svelte-e73873a2.css", "assets/CardContainer-6f3614cc.css", "assets/Tag-3c419aa8.css"];
+    css19 = ["assets/pages/frostpaw/servers/index.svelte-e799d5c6.css", "assets/CardContainer-6f3614cc.css", "assets/Tag-3c419aa8.css"];
   }
 });
 
@@ -5936,7 +5936,7 @@ var init__10 = __esm({
     init_tags_svelte();
     entry10 = "pages/frostpaw/search/tags.svelte-654631f4.js";
     js10 = ["pages/frostpaw/search/tags.svelte-654631f4.js", "chunks/vendor-22677977.js", "chunks/request-2d5483df.js", "chunks/CardContainer-fe7298a5.js", "chunks/enums-06152dee.js", "chunks/Tag-6f90ee50.js", "chunks/BristlefrostMeta-4b5eefb5.js"];
-    css21 = ["assets/pages/frostpaw/search/index.svelte-e73873a2.css", "assets/CardContainer-6f3614cc.css", "assets/Tag-3c419aa8.css"];
+    css21 = ["assets/pages/frostpaw/servers/index.svelte-e799d5c6.css", "assets/CardContainer-6f3614cc.css", "assets/Tag-3c419aa8.css"];
   }
 });
 
@@ -11451,7 +11451,7 @@ var manifest = {
   assets: new Set(["botlisticon.webp", "favicon.ico", "robots.txt", "sitemap.xml", "smui-dark.css", "smui.css"]),
   _: {
     mime: { ".webp": "image/webp", ".ico": "image/vnd.microsoft.icon", ".txt": "text/plain", ".xml": "application/xml", ".css": "text/css" },
-    entry: { "file": "start-5c7097f8.js", "js": ["start-5c7097f8.js", "chunks/vendor-22677977.js"], "css": ["assets/start-61d1577b.css"] },
+    entry: { "file": "start-7ae755a1.js", "js": ["start-7ae755a1.js", "chunks/vendor-22677977.js"], "css": ["assets/start-61d1577b.css"] },
     nodes: [
       () => Promise.resolve().then(() => (init__(), __exports)),
       () => Promise.resolve().then(() => (init__2(), __exports2)),
