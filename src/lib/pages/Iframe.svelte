@@ -45,7 +45,13 @@
 	let token = $session.session.token;
 	if(!token) {
 		if(browser) {
+			localStorage.reloadIgnore = window.location.href
+			localStorage.reloadPage = "1"
 			loginUser(false)
 		}
+	}
+	if(browser) {
+		localStorage.reloadIgnore = window.location.href
+		localStorage.reloadPage = "1"
 	}
 </script>

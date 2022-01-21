@@ -23,6 +23,11 @@
 	import lozad from 'lozad';
     import { browser } from '$app/env'; 
 	if(browser) {
+		if(localStorage.reloadPage === "1" && localStorage.reloadIgnore != window.location.href) {
+			console.log("Reloading page due to reloadPage being set")
+			localStorage.removeItem("reloadPage")
+			window.location.reload()
+		}
 		const observer = lozad(); // lazy loads elements with default selector as '.lozad'
 		observer.observe();
 	}
