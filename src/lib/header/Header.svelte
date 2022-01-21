@@ -99,6 +99,9 @@
 				}}>
 					<Text>Terms Of Service</Text>
 				</Item>
+				<Item on:SUMI:action={() => {
+					window.location.href = "/frostpaw/stats"
+				}}>
 				<Item on:SMUI:action={() => {
 					window.location.href = "/server/789934742128558080/invite"
 				}}>
