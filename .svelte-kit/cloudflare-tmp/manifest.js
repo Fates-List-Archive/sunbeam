@@ -3,7 +3,7 @@ export const manifest = {
 	assets: new Set(["botlisticon.webp","favicon.ico","robots.txt","sitemap.xml","smui-dark.css","smui.css"]),
 	_: {
 		mime: {".webp":"image/webp",".ico":"image/vnd.microsoft.icon",".txt":"text/plain",".xml":"application/xml",".css":"text/css"},
-		entry: {"file":"start-5976cd7a.js","js":["start-5976cd7a.js","chunks/vendor-22677977.js"],"css":["assets/start-61d1577b.css"]},
+		entry: {"file":"start-7559610e.js","js":["start-7559610e.js","chunks/vendor-22677977.js"],"css":["assets/start-61d1577b.css"]},
 		nodes: [
 			() => import('../output/server/nodes/0.js'),
 			() => import('../output/server/nodes/1.js'),
@@ -196,12 +196,6 @@ export const manifest = {
 				path: null,
 				a: [0,21],
 				b: [1]
-			},
-			{
-				type: 'endpoint',
-				pattern: /^\/api(?:\/(.*))?$/,
-				params: (m) => ({ request: m[1] || ''}),
-				load: () => import('../output/server/entries/endpoints/api/_...request_.ts.js')
 			},
 			{
 				type: 'page',

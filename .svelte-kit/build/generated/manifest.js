@@ -94,8 +94,6 @@ export const routes = [
 	// src/routes/bots/[id]/[...route].svelte
 	[/^\/bots\/([^/]+?)(?:\/(.*))?\/?$/, [c[0], c[21]], [c[1]], (m) => ({ id: d(m[1]), route: d(m[2] || '')})],
 
-	,
-
 	// src/routes/bot/admin/add.svelte
 	[/^\/bot\/admin\/add\/?$/, [c[0], c[22]], [c[1]]],
 

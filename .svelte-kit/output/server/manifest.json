@@ -10,11 +10,6 @@
       "assets/app-6009617f.css"
     ]
   },
-  "src/routes/api/[...request].ts": {
-    "file": "entries/endpoints/api/_...request_.ts.js",
-    "src": "src/routes/api/[...request].ts",
-    "isEntry": true
-  },
   "src/routes/__layout.svelte": {
     "file": "entries/pages/__layout.svelte.js",
     "src": "src/routes/__layout.svelte",
