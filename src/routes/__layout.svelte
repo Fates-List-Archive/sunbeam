@@ -21,9 +21,9 @@
 <script lang="ts">
 	import Header from '$lib/header/Header.svelte';
 	import lozad from 'lozad';
-    import { browser } from '$app/env'; 
+    	import { browser } from '$app/env'; 
 	if(browser) {
-		if(localStorage.reloadPage === "1" && localStorage.reloadIgnore != window.location.href) {
+		if(localStorage.reloadPage == "1" && localStorage.reloadIgnore != window.location.href) {
 			console.log("Reloading page due to reloadPage being set")
 			localStorage.removeItem("reloadPage")
 			window.location.reload()

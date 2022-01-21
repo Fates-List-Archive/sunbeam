@@ -3,7 +3,7 @@
 **[Sunbeam](https://warriors.fandom.com/wiki/Sunbeam) is a protagonist in Warriors: A Starless Clan.**
 
 
-**Currently may or may not deploy**
+**Currently may or may not deploy on Cloudflare pages**
 
 Sunbeam is also the new WIP frontend for Fates List.
 
