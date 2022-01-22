@@ -1,1 +1,0 @@
-import{S as s,i as o,s as n}from"../../../chunks/vendor-22677977.js";const c=!1;async function i({params:e,fetch:t,session:r,stuff:u}){return console.log(e,"Bot redirector"),{status:307,redirect:`/bot/${e.id}/${e.route}`}}class a extends s{constructor(t){super();o(this,t,null,null,n,{})}}export{a as default,i as load,c as prerender};
