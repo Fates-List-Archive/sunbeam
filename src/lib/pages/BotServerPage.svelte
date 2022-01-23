@@ -415,11 +415,11 @@
 	if($session.session.token) {
 		userID = $session.session.user.id
 	}
-        let res = await fetch(`https://api.fateslist.xyz/_sunbeam/pub/${type}/${data.user.id}/reviews_html?page=${page}&user_id=${userID}`)
+        let res = await fetch(`https://api.fateslist.xyz/api/v2/_sunbeam/${type}/${data.user.id}/reviews_html?page=${page}&user_id=${userID}`)
         if(res.ok) {
-            let data = await res.text()
+            let json = await res.json()
 	    try {
-            	document.querySelector("#reviews").innerHTML = data
+            	document.querySelector("#reviews").innerHTML = json.html
             	window.contextR.rev_page = page
             } catch(err) {
 		console.log("Error in fetching reviews", err)
