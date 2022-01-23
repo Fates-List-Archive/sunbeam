@@ -420,7 +420,7 @@
             let data = await res.text()
 	    try {
             	document.querySelector("#reviews").innerHTML = data
-            	window.context.rev_page = page
+            	window.contextR.rev_page = page
             } catch(err) {
 		console.log("Error in fetching reviews", err)
 	    }
@@ -429,7 +429,7 @@
 
     if(browser) {
         window.getReviewPage = getReviewPage
-        window.context = {
+        window.contextR = {
             "rev_page": 1
         }
         getReviewPage(1)
