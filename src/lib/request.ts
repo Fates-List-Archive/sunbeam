@@ -8,6 +8,7 @@ export async function fetchFates(url: string, auth: string, fetch: any) {
     let headers = {"Frostpaw": "0.1"}
     if(auth) {
         headers["Frostpaw-Auth"] = auth
+        headers["Authorization"] = auth
     }
     return await fetch("https://api.fateslist.xyz"+url, {headers: headers})
 }
