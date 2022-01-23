@@ -1,14 +1,22 @@
 enum BotState {
-        approved =           0,
-        pending =            1,
-        denied =             2,
-        hidden =             3,
-        banned =             4,
-        under_review =       5,
-        certified =          6,
-        archived =           7,
-        private_viewable =   8,
-        private_staff_only = 9,
+    approved =           0,
+    pending =            1,
+    denied =             2,
+    hidden =             3,
+    banned =             4,
+    under_review =       5,
+    certified =          6,
+    archived =           7,
+    private_viewable =   8,
+    private_staff_only = 9,
+}
+
+enum UserState {
+    normal = 0,
+    global_ban = 1,
+    profile_edit_ban = 2,
+    ddr_ban = 3, // Unused
+    api_ban = 4 // Unused
 }
 
 enum UserBotAction {
@@ -24,6 +32,7 @@ enum UserBotAction {
 
 export let enums = {
     BotState: BotState,
+    UserState: UserState,
     UserBotAction: UserBotAction,
     Flags: {
         unlocked:      0,

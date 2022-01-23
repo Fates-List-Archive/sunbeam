@@ -1,21 +1,212 @@
-<script context="module" lang="ts">
+<script lang="ts" context="module">
+	import { fetchFates } from "$lib/request"
+	import { enums } from "$lib/enums/enums";
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
-        return {
-            props: {
-                id: params.id
+        // Check perms
+        if(!session.session.token || session.session.user.id != params.id) {
+            return {
+                status: 403,
+                error: new Error("Forbidden")
             }
         }
+
+        // Get profile
+		let url = `/api/v2/users/${params.id}?bot_logs=true`;
+        const res = await fetchFates(url, "", fetch);
+		if (res.ok) {
+            let data = await res.json()
+
+			return {
+				props: {
+					data: data,
+				}
+			};
+		}
+
+		return {
+			status: res.status,
+			error: new Error(`Profile Not Found`)
+		};
     }
 </script>
 <script lang="ts">
-	import PageFrame from "$lib/pages/Iframe.svelte"
-    export let id: string;
+    import Tab from '$lib/base/Tab.svelte';
+    import { page, session } from '$app/stores';
+    export let data: any;
+    import SelectOption from '$lib/base/SelectOption.svelte'
+    import Button from '@smui/button';
+    let tabs = [{
+        "name": "About",
+        "id": "about"    
+    }, {
+        "name": "Basics",
+        "id": "basics"
+    }, {
+        "name": "CSS",
+        "id": "css"
+    }]
+
+    let firstTimeShowedWarning = false // Whether or not we have sent the warning alert once or not
+
+    function showUserToken() {
+        let t = document.querySelector("#user-token-field")
+        let b = document.querySelector("#user-token-show-btn")
+        if(b.textContent == "Show") {
+            if(!firstTimeShowedWarning) {
+                alert("Warning: Do not share this with anyone")
+                firstTimeShowedWarning = true
+            }
+            t.textContent = $session.session.token
+            b.textContent = "Hide"
+        } else {
+            t.textContent = "Hidden"
+            b.textContent = "Show"
+        }
+    }
+
+    async function regenUserToken() {
+        let url = `https://api.fateslist.xyz/api/v2/users/${data.user.id}/token`
+        let headers = {"Authorization": `User ${$session.session.token}`}
+        let res = await fetch(url, {
+            method: "PATCH",
+            headers: headers
+        })
+        if(res.ok) {
+            alert("Regenerated token, you will need to login again")
+            fetch("https://api.fateslist.xyz/api/v2/logout/_sunbeam", {
+                method: "POST",
+                credentials: "include",
+                headers: {
+                    'Content-Type': 'application/json', 
+                    "Frostpaw": "0.1.0", 
+                }
+			})
+			.then(res => res.json())
+			.then(json => {
+				window.location.href = "/"
+			})
+        } else {
+            alert(`Error during token regeneration: ${res.status}`)
+        }
+    }
+
+    async function updateProfile() {
+        let payload = {
+            "description": document.querySelector("#description").value,
+            "profile_css": document.querySelector("#profile-css").value,
+            "user_css": document.querySelector("#user-css").value,
+            "site_lang": document.querySelector("#site-lang").value,
+        }
+        console.log(JSON.stringify(payload))
+        let url = `https://api.fateslist.xyz/api/v2/users/${data.user.id}/preferences`
+        let headers = {"Authorization": $session.session.token, "Content-Type": "application/json"}
+        let res = await fetch(url, {
+            method: "PATCH",
+            headers: headers,
+            body: JSON.stringify(payload)
+        })
+        if(res.ok) {
+            alert("Updated your profile successfully")
+            window.location.href = `/profile/${data.user.id}`
+        } else {
+            let json = await res.json()
+            alert(JSON.stringify(json))
+        }
+    }
+
+    // Sigh svelte
+    let placeholderUserCss = "Warning: Fates List is not responsible for any issues due to your custom user CSS. To use javascript in custom css, put your JS in a LT/styleGTLTscriptGTYOUR JS HERELT/scriptGTLTstyleGT tag"
 </script>
-<PageFrame 
-	iframeUrl="https://api.fateslist.xyz/_sunbeam/pub/profile/{id}/settings" 
-	title="Add Bot Page" 
-	metaTitle="Fates List | Profile Edit"
-	metaUrl="https://fateslist.xyz/profile/{id}/settings"
-></PageFrame>
+<img class="user-avatar" loading="lazy" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="user-avatar" alt="{data.user.username}'s avatar">
+<h1 class="white user-username" id="user-name">{data.user.username}</h1>
+<h2 id="user-description">Profile Settings</h2>
+<Tab tabs={tabs} defaultTabButton="about-tab-button">
+    <section id="about-tab" class='tabcontent tabdesign'>
+        <h2>User Token</h2>
+            <p class="white"><em>Accidentally</em> leaked your API token? Just be sure to change the token everywhere you use it and make sure it doesn't happen again!</p>
+            <pre id="user-token-field">Hidden</pre>
+            <Button href={"#"} on:click={showUserToken} class="button" id="user-token-show-btn" touch variant="outlined">Show</Button>
+            <Button href={"#"} on:click={regenUserToken} class="button" id="user-token-regen-btn" touch variant="outlined">Regenerate</Button>
+        <h2>Profile Info</h2>
+            <p>Profile State: {enums.UserState[data.profile.state]} ({data.profile.state})</p>
+            <p>Bot Logs: {JSON.stringify(data.profile.bot_logs)}</p>
+    </section>
+    <section id="basics-tab" class='tabcontent tabdesign'>
+        <label for="site-lang">Site Language</label>
+        <select name="site-lang" id="site-lang">
+            <SelectOption value="en" masterValue={data.profile.site_lang}>English</SelectOption>
+            <SelectOption value="es" masterValue={data.profile.site_lang}>Spanish</SelectOption>
+            <SelectOption value="fr" masterValue={data.profile.site_lang}>French</SelectOption>
+            <SelectOption value="hi" masterValue={data.profile.site_lang}>Hindi</SelectOption>
+            <SelectOption value="ru" masterValue={data.profile.site_lang}>Russian</SelectOption>
+        </select>
+        <label for="description">Description</label>
+        <textarea 
+            name="description" 
+            id="description"
+            class="form-control fform text-input" 
+            style="width: 100%"
+            placeholder="Enter a description for your profile here"
+        >{data.profile.description}</textarea>
+    </section>
+    <section id="css-tab" class='tabcontent tabdesign'>
+        <label for="user-css">User CSS</label>
+        <textarea
+            name="user-css"
+            id="user-css"
+            class="form-control fform text-input"
+            style="width: 100%"
+            placeholder="{placeholderUserCss.replaceAll("LT", "<").replaceAll("GT", ">")}"
+        >{data.profile.user_css}</textarea>
+        <label for="profile-css">Profile CSS</label>
+        <textarea
+            name="profile-css"
+            id="profile-css"
+            class="form-control fform text-input"
+            style="width: 100%"
+            placeholder="Enter any profile CSS you want here. For security purposes, this does not allow Javascript whatsoever!"
+        >{data.profile.profile_css}</textarea>
+    </section>
+</Tab>
+<Button href={"#"} on:click={updateProfile} class="button" id="update-profile-btn" touch variant="outlined">Update Profile</Button>
+<style>
+    .user-username, .user-avatar {
+        display: flex;
+        opacity: 1 !important;
+        justify-content: center;
+        align-items: center;
+        margin: 0 auto;
+    }
+    
+    .user-username {
+        margin-bottom: 0px;
+        padding-bottom: 0px;
+    }
+    
+    .user-avatar {
+        border-radius: 50%; 
+        width: 120px;
+    }
+    
+    #user-description {
+        text-align: center;
+        margin: 0px;
+        padding: 0px;
+    }
+    
+    :global(#profiles-center) {
+        margin-left: auto;
+        margin-right: auto;
+        display: flex !important;
+        align-items: center;
+        width: 150px;
+        padding: 3px;
+    }
+
+    :global(.button) {
+        opacity: 1 !important;
+        border: solid thin !important;
+    }
+</style>    

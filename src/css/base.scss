@@ -228,3 +228,13 @@ background-color: blue;
 pre {
 	white-space: pre-wrap;
 }
+
+select {
+	transition: transform .2s;
+	background-color: black !important;
+	color: white !important;
+	width: 100%;
+	-webkit-appearance: menulist-button;
+	padding: 3px;
+	height: 30px;
+}

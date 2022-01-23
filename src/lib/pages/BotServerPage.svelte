@@ -272,9 +272,9 @@
 			    </Button>
                 {/if}
 		{#if type == "bot"}
-                            <Button href='/bot/{data.user.id}/settings' class="buttons-all" touch variant="outlined">
-                                    <span>Settings</span>
-                            </Button>
+				<Button href='/bot/{data.user.id}/settings' class="buttons-all" touch variant="outlined">
+						<span>Settings</span>
+				</Button>
 		{:else}
 			    <Button class="buttons-all" touch variant="outlined" disabled>
 				    <span>Settings</span>
@@ -301,7 +301,7 @@
 				{/each}
 			{/if}
 		</section>
-                <section id="reviews-tab" class="tabcontent tabdesign">
+        <section id="reviews-tab" class="tabcontent tabdesign">
 		   <label for="rating">On a scale of 1 to 10, how much did you like this {type}?</label><br/>
 		   <input class='slider range-slider' type="range" id="star-rating" min="0.1" max="10" style="width: 100%" value='5' step='0.1' output="rating-desc"/>
 		   <p id='rating-desc' style="color: white;"></p>
@@ -385,8 +385,8 @@
         "name": "About",
         "id": "about"
     }, {
-	"name": "Resources",
-	"id": "resources"
+		"name": "Resources",
+		"id": "resources"
     }, {
         "name": "Reviews",
         "id": "reviews"
