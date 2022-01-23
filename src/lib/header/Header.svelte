@@ -120,10 +120,13 @@
 		width: 100%;
 		margin: 0px;
 		padding: 3px;
-		z-index: 1;
+		z-index: 2;
 		background-color: black;
-		box-shadow: 1px 1px 1px black;
-		
+		box-shadow: 1px 1px 1px black;	
+	}
+
+	::-webkit-scrollbar {
+		z-index: 30 !important;
 	}
 
 	.corner {
