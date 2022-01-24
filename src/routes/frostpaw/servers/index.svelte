@@ -40,7 +40,7 @@
 
 <section>
 	<h1>Fates List</h1>
-	<h2 class="best-bots">Find the best bots for your servers!</h2>
+	<h2 class="best-bots">Find the best servers to join!</h2>
 </section>
 <SearchBar type="server" query=""></SearchBar>
 <Tag targetType="server" tags={data.tags_fixed}></Tag>

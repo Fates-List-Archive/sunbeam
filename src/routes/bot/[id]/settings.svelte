@@ -6,7 +6,7 @@
 				return {
 					props: {
 						failed: true,
-						html: ""
+						html: "Logging you in, please wait..."
 					}
 				}
 			}
@@ -35,8 +35,6 @@
 	export let html: string;
 	if(failed) {
 		if(browser) {
-			localStorage.reloadIgnore = window.location.href
-			localStorage.reloadPage = "1"
 			loginUser(false)
 		}
 	}

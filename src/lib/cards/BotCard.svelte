@@ -53,7 +53,7 @@
     <div class="bot-card-actions">
         <Button aria-label="View" href="/{type}/{data.user.id}" class="bot-card-actions-link" touch variant="outlined">View</Button>
         {#if type != 'profile'}
-            <Button aria-label="Invite" href="/{type}/{data.user.id}/invite" class="bot-card-actions-link" target="_blank" touch variant="outlined">Invite</Button>
+            <Button aria-label="Invite" href="/{type}/{data.user.id}/invite" class="bot-card-actions-link" target="_blank" touch variant="outlined">{#if type == "server"}Join{:else}Invite{/if}</Button>
         {/if}
     </div>
 </div>

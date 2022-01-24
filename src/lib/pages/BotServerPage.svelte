@@ -246,7 +246,7 @@
 				    <span style="margin-left: 3px;">{data.votes}</span>
 			    </Button>
 			    <Button href="/{type}/{data.user.id}/invite" class="buttons-all" touch variant="outlined" rel="external">
-				    <span>Invite</span>
+				    <span>{#if type == "server"}Join{:else}Invite{/if}</span>
 			    </Button>
                 {#if data.support}
 			    <Button href="{data.support}" class="buttons-all" touch variant="outlined">
