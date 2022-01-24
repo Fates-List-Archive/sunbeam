@@ -35,10 +35,17 @@ enum ReviewType {
     server = 1,
 }
 
+enum CommandType {
+    regular = 0,
+    guild_slash = 1,
+    global_slash = 2,
+}
+
 export let enums = {
     BotState: BotState,
     UserState: UserState,
     UserBotAction: UserBotAction,
+    CommandType: CommandType,
     ReviewType: ReviewType,
     Flags: {
         unlocked:      0,

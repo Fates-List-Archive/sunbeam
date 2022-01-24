@@ -159,6 +159,19 @@
     margin-top: 0px !important;
     margin-bottom: 1px !important;
 }
+
+.commands-table, .commands-item, .commands-header {
+	padding: 1rem;
+}
+
+.command-group-list {
+	padding: 0;
+	list-style-position: inside;
+}
+
+.cmd-group-header {
+	cursor: pointer;
+}
 </style>
 
 {@html data.css}
@@ -280,17 +293,76 @@
 				    <span>Settings</span>
 			    </Button>
 		{/if}
-            </div>
-            <Tab tabs={tabs} defaultTabButton="long-description-tab-button">
-                <section id="long-description-tab" class='tabcontent tabdesign'>
-                    <div id="long-description">
-			{#if data.long_description_type == enums.LongDescType.markdown_marked}
-				{@html marked.parse(data.long_description)}
+    </div>
+    <Tab tabs={tabs} defaultTabButton="long-description-tab-button">
+		<section id="long-description-tab" class='tabcontent tabdesign'>
+			<div id="long-description">
+				{#if data.long_description_type == enums.LongDescType.markdown_marked}
+					{@html marked.parse(data.long_description)}
+				{:else}
+					{@html data.long_description}
+				{/if}
+			</div>
+		</section>
+		<section id="commands-tab" class="tabcontent tabdesign">
+			{#if type == "bot"}
+				{#if Object.keys(data.commands).length == 0}
+					<h2>This bot does not have any commands</h2>
+				{/if}
+				{#each Object.entries(data.commands) as cmd_group}
+					{#if cmd_group[0] == "default"}
+						<h2 class="cmd-group-header" on:click={() => showHideCommandGroup(cmd_group[0])}>Uncategorized</h2>
+					{:else}
+						<h2 class="cmd-group-header" on:click={() => showHideCommandGroup(cmd_group[0])}>{title(cmd_group[0])}</h2>
+					{/if}
+
+					<table id="{cmd_group[0]}-table" class="commands-table" rules="all">
+						<tr>
+							<th class="commands-header">Name</th>
+							<th class="commands-header">Type</th>
+							<th class="commands-header">Args</th>
+							<th class="commands-header">Description</th>
+							<th class="commands-header">Notes</th>
+							<th class="commands-header">Groups</th>
+						</tr>
+						{#each cmd_group[1] as cmd}
+							<tr>
+								<td class="commands-item">{cmd["cmd_name"]}</td>
+								<td class="commands-item">{enums.CommandType[cmd["cmd_type"]]}</td>
+								<td class="commands-item">{cmd["args"]}</td>
+								<td class="commands-item">{cmd["description"]}</td>
+								<td class="commands-item">
+									<ul class="command-group-list">
+										{#if cmd["vote_locked"]}
+											<li>Requires Voting (vote-locked)</li>
+										{/if}
+										{#if cmd["premium_only"]}
+											<li>Premium Only</li>
+										{/if}
+										{#each cmd["notes"] as note}
+											<li>{note}</li>
+										{/each}
+									</ul>
+								</td>
+								<td class="commands-item">
+									<ul class="command-group-list">
+										{#each cmd["cmd_groups"] as group}
+											{#if group == "default"}
+												<li>Uncategorized</li>
+											{:else}
+												<li>{title(group)}</li>
+											{/if}
+										{/each}
+									</ul>
+								</td>
+							</tr>
+						{/each}	
+					</table>
+				{/each}
 			{:else}
-				{@html data.long_description}
+				<span>Servers do not have commands</span>
 			{/if}
-                    </div>
-                </section>
+		</section>
 		<section id="resources-tab" class="tabcontent tabdesign">
 			{#if !data.resources && data.resources.length < 0}
 				<h2>This {type} does not have any resources set!</h2>
@@ -322,18 +394,18 @@
                     {#if type == "bot"}
                         <h2>Owners</h2>
                         <Icon icon="mdi-crown" inline={false} height="1.2em" style="margin-right: 1px"></Icon>
-			{@html data.owners_html}
-			<h2>Uptime</h2>
-			<p>Uptime Checks (Total): {data.uptime_checks_total}</p>
-			<p>Uptime Checks (Failed): {data.uptime_checks_failed}</p>
-			<p>Uptime Checks (Success): {data.uptime_checks_total - data.uptime_checks_failed}</p>	
-			<p>Uptime Checks (Score): 
-			{#if data.uptime_checks_total} 
-				{ (data.uptime_checks_total - data.uptime_checks_failed) / data.uptime_checks_total }
-			{:else}
-				Not Available
-			{/if}
-			</p>
+						{@html data.owners_html}
+						<h2>Uptime</h2>
+						<p>Uptime Checks (Total): {data.uptime_checks_total}</p>
+						<p>Uptime Checks (Failed): {data.uptime_checks_failed}</p>
+						<p>Uptime Checks (Success): {data.uptime_checks_total - data.uptime_checks_failed}</p>	
+						<p>Uptime Checks (Score): 
+							{#if data.uptime_checks_total} 
+								{ (data.uptime_checks_total - data.uptime_checks_failed) / data.uptime_checks_total }
+							{:else}
+								Not Available
+							{/if}
+						</p>
                         <h2>Statistics</h2>
                         <p>Guild Count: {data.guild_count}</p>
                         <p>User Count (according to bot): {data.user_count}</p>
@@ -348,12 +420,12 @@
                         <p>Added to the list on: {data.created_at}</p>
                         <p>Bot Flags: {data.flags}</p>
                         <p>Bot Features: {data.features}</p>
-			<h4>User Audit Logs</h4>
-			{#each data.action_logs as log}
-				{JSON.stringify(log)}
-			{/each}
-		    {:else}
-			<h2>Servers do not support this feature <em>yet</em> :(</h2>
+						<h4>User Audit Logs</h4>
+						{#each data.action_logs as log}
+							{JSON.stringify(log)}
+						{/each}
+		    		{:else}
+						<h2>Servers do not support this feature <em>yet</em> :(</h2>
                     {/if}
                 </section>
             </Tab>
@@ -390,13 +462,58 @@
     }, {
         "name": "Reviews",
         "id": "reviews"
-    }]
+    }, {
+		"name": "Commands",
+		"id": "commands"
+	}]
+
+	function fade(element) {
+    	var op = 1;  // initial opacity
+    	var timer = setInterval(function () {
+        if (op <= 0.1){
+            clearInterval(timer);
+            element.style.display = 'none';
+        }
+        element.style.opacity = op;
+        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        op -= op * 0.1;
+    	}, 10);
+	}
+
+	function unfade(element) {
+    	var op = 0.1;  // initial opacity
+    	element.style.display = 'table';
+    	var timer = setInterval(function () {
+        	if (op >= 1){
+            	clearInterval(timer);
+        	}
+        	element.style.opacity = op;
+        	element.style.filter = 'alpha(opacity=' + op * 100 + ")";
+        	op += op * 0.1;
+    	}, 10);
+	}
+
+	function showHideCommandGroup(cmdGroup: string) {
+		let id = `#${cmdGroup}-table`
+		let group = document.querySelector(id)
+		if(group.style.display != 'none') {
+			fade(group)
+		}
+		else {
+			unfade(group)
+		}
+	}
+
+    // https://stackoverflow.com/a/46959528
+    function title(str: string) {
+        return str.replaceAll("_", " ").replace(/(^|\s)\S/g, function(t) { return t.toUpperCase() });
+    }
 
     async function voteBot() {
-	if(type == "server") {
-		alert("To vote for a server, type /vote in the server.")
-		return
-	}
+		if(type == "server") {
+			alert("To vote for a server, type /vote in the server.")
+			return
+		}
         let token = $session.session.token
         let userID = ""
         if(token) {
@@ -424,13 +541,14 @@
 	let res = await fetch(`https://api.fateslist.xyz/api/v2/_sunbeam/reviews/${data.user.id}?page=${page}&user_id=${userID}&target_type=${targetType}`)
         if(res.ok) {
             let json = await res.json()
-	    try {
+	    	try {
             	document.querySelector("#reviews").innerHTML = json.html
             	window.contextR.rev_page = page
-            } catch(err) {
-		console.log("Error in fetching reviews", err)
-	    }
-	}
+            } 
+			catch(err) {
+				console.log("Error in fetching reviews", err)
+	    	}
+		}
     }
 
     if(browser) {
