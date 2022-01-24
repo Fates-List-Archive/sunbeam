@@ -30,10 +30,16 @@ enum UserBotAction {
     edit_bot = 7,
 }
 
+enum ReviewType {
+    bot = 0,
+    server = 1,
+}
+
 export let enums = {
     BotState: BotState,
     UserState: UserState,
     UserBotAction: UserBotAction,
+    ReviewType: ReviewType,
     Flags: {
         unlocked:      0,
         edit_locked:   1,

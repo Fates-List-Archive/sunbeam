@@ -415,7 +415,13 @@
 	if($session.session.token) {
 		userID = $session.session.user.id
 	}
-        let res = await fetch(`https://api.fateslist.xyz/api/v2/_sunbeam/${type}/${data.user.id}/reviews_html?page=${page}&user_id=${userID}`)
+
+	let targetType = enums.ReviewType.bot
+	if(type == "server") {
+		targetType = enums.ReviewType.server
+	}
+
+	let res = await fetch(`https://api.fateslist.xyz/api/v2/_sunbeam/reviews/${data.user.id}?page=${page}&user_id=${userID}&target_type=${targetType}`)
         if(res.ok) {
             let json = await res.json()
 	    try {
@@ -513,6 +519,7 @@ function parseState(v) {
 		if(res.ok) {
 			alert("Successfully voted for this review")
 			window.location.reload()
+			return
 		}
 		let err = await res.json()
 		alert(err.reason)
