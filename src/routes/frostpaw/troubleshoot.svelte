@@ -34,12 +34,12 @@
 
 	if(browser) {
 		agent = navigator.userAgent;
-		msg = data.message
+		msg = "Please send a screenshot of this page and send it to staff (or our support server)"
 	}
 </script>
 <h1>{msg}</h1>
 <ul class="white">
-	{#each Object.entries(data.data) as info}
+	{#each Object.entries(data) as info}
 		{#if info[0] == "user"}
 			<li style="word-wrap: break-word;">{info[0]} (Logged in user): {JSON.stringify(info[1])}</li>
 		{:else}
