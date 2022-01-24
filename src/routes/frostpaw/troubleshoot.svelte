@@ -2,7 +2,12 @@
 	import { fetchFates } from "$lib/request"
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
-		const url = `/_sunbeam/troubleshoot`;
+		let url = `/_sunbeam/troubleshoot`;
+		
+		if(session.session.token) {
+			url += `?user_id=${session.session.user.id}`
+		}
+
 		const res = await fetchFates(url, "", fetch);
 		if(res.ok) {
 			return {
