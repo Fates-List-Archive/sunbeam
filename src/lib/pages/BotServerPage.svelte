@@ -285,11 +285,11 @@
 			    </Button>
                 {/if}
 		{#if type == "bot"}
-				<Button href='/bot/{data.user.id}/settings' class="buttons-all" touch variant="outlined">
-						<span>Settings</span>
-				</Button>
+			<Button href='/bot/{data.user.id}/settings' class="buttons-all" rel="external" touch variant="outlined">
+			    	     <span>Settings</span>
+			    </Button>
 		{:else}
-			    <Button class="buttons-all" touch variant="outlined" disabled>
+			    <Button class="buttons-all disabled" touch variant="outlined" disabled>
 				    <span>Settings</span>
 			    </Button>
 		{/if}
