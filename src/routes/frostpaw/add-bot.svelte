@@ -2,6 +2,13 @@
 	import { fetchFates } from "$lib/request";
 		/** @type {import('@sveltejs/kit@next').Load} */
 		export async function load({params, fetch, session, stuff}) {
+			if(!session.session.token) {
+				return {
+					props: {
+						data: {}
+					}
+				}
+			}
 			let tagsRes = await fetch(`https://api.fateslist.xyz/api/v2/_sunbeam/add-bot?user_id=${session.session.user.id}`)
 			if(!tagsRes.ok) {
 				return {
