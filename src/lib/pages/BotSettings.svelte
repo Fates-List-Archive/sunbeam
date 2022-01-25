@@ -241,7 +241,7 @@ import { toggle_class } from "svelte/internal";
             bot[field.id] = value
         })
 
-        // Client ID is broken sigh
+        // Fix known broken things
         bot["client_id"] = document.querySelector("#client_id").value
         bot["webhook"] = document.querySelector("#webhook").value
         bot["css"] = document.querySelector("#css").value
@@ -306,7 +306,7 @@ import { toggle_class } from "svelte/internal";
         bot["features"] = features
 
         // Extra owners
-        if(bot["extra_owners"]) {
+        if(data["extra_owners"]) {
             bot["extra_owners"] = bot["extra_owners"].replace(" ", "").split(",")
         } else {
             bot["extra_owners"] = []
@@ -563,7 +563,7 @@ import { toggle_class } from "svelte/internal";
             name="Webhook URL"
             id="webhook"
             placeholder="https://vote.mysite.com/fates"
-            data={data.webhook_url}
+            data={data.webhook}
         />
         <Tip>
             API Token is used as the webhook secret if you do not set a 
@@ -657,7 +657,7 @@ import { toggle_class } from "svelte/internal";
             name="Custom CSS"
             id="css"
             placeholder="See w3schools if you need a tutorial on CSS. See our API Documentation for more informatiom about what CSS Fates List has and allows! Have fun :)"
-            data={data.custom_css}
+            data={data.css}
             textarea={true}
         />
     </section>
