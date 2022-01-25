@@ -140,7 +140,7 @@
 }
 
 /* Create an active/current tablink class */
-:global(.tab button.active) {
+.tab button.active {
 	border-bottom: solid !important;
 	color: white !important;
 }

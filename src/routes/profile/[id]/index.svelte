@@ -3,14 +3,14 @@
 	import { enums } from "$lib/enums/enums";
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
-	export async function load({ params, fetch, session, stuff }) {
-		let url = `/api/v2/users/${params.id}?bot_logs=true`;
+	export async function load({ params, url, fetch, session, stuff }) {
+		let reqUrl = `/api/v2/users/${params.id}?bot_logs=true`;
 
-        if(session.query.system_bots == "true") {
+        if(url.searchParams.get("system_bots") == "true") {
             url += "&system_bots=true"
         }
 
-        const res = await fetchFates(url, "", fetch);
+        const res = await fetchFates(reqUrl, "", fetch);
 
 		if (res.ok) {
             let data = await res.json()
