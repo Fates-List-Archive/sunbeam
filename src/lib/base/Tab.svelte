@@ -168,24 +168,6 @@
 	margin-bottom: 0px;
 }
 
-th, td {
-	padding: 23px;
-	border-bottom: solid;
-	border-width: thin;
-}
-th {
-	border-right: solid;
-	border-width: thin;
-}
-tr:last-child td {
-	border-bottom: none;
-}
-tr:last-child th {
-	border-bottom: none;
-}
-th {
-	text-align: left;
-}
 #switcher {
 	border-radius: 13px;
 	margin-left: 1.1%;
