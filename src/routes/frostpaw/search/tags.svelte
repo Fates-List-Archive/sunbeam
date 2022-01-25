@@ -4,8 +4,7 @@
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ url, session, fetch }) {
 		// Dumb cloudflare bug bypass
-		console.log("url is:", session)
-		let tag = session.query.tag
+		let tag = url.searchParams.get("tag")
 		let targetType = session.query.target_type
         	console.log(tag)
 		const searchUrl = `/api/v2/search/tags?target_type=${targetType}&tag=${tag}`;
