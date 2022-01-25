@@ -15,7 +15,7 @@
 }
 </style>
 {/if}
-<style lang="scss">
+<style lang="scss" global>
 :global(#review-add) {
 	opacity: 1 !important; 
 	border: solid thin; 
