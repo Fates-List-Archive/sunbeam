@@ -23,7 +23,7 @@ import { toggle_class } from "svelte/internal";
     export let context: any;
 
     let tabs = []
-    let defaultTabButton = ""
+    let defaultTabButton = "basics-tab"
     let token = "Click 'Show' to see your bots token"
     let tokenShown = false
     let saveTxt = mode
