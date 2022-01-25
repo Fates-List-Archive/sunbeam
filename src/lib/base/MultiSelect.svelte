@@ -4,15 +4,15 @@
     import { fly } from 'svelte/transition';
     export let id = '';
     export let initialValues;
-    export let value = initialValues;
-    export let readonly = false;
-    export let placeholder = '';
-  
 
     if(!initialValues) {
       initialValues = []
     }
 
+    export let value = initialValues;
+    export let readonly = false;
+    export let placeholder = '';
+  
     let input, 
       inputValue, 
       options = [],
