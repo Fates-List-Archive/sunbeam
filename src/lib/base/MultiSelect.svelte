@@ -8,6 +8,11 @@
     export let readonly = false;
     export let placeholder = '';
   
+
+    if(!initialValues) {
+      initialValues = []
+    }
+
     let input, 
       inputValue, 
       options = [],
