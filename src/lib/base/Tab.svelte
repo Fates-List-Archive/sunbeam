@@ -191,8 +191,4 @@ th {
 	margin-left: 1.1%;
 	margin-right: 1.1%
 } /* Thanks Fearful */
-
-textarea {
-	border-radius: 2em !important;
-}
 </style>
