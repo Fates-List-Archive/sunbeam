@@ -243,6 +243,8 @@ import { toggle_class } from "svelte/internal";
 
         // Client ID is broken sigh
         bot["client_id"] = document.querySelector("#client_id").value
+        bot["webhook"] = document.querySelector("#webhook").value
+        bot["css"] = document.querySelector("#css").value
 
         // Handle the selects here
         // webhook_type, long_description_type, nsfw, system_bot, keep_banner_decor
@@ -559,7 +561,7 @@ import { toggle_class } from "svelte/internal";
         <br/>
         <FormInput
             name="Webhook URL"
-            id="webhook_url"
+            id="webhook"
             placeholder="https://vote.mysite.com/fates"
             data={data.webhook_url}
         />
