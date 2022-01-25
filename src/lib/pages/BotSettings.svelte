@@ -23,7 +23,7 @@ import { toggle_class } from "svelte/internal";
     export let context: any;
 
     let tabs = []
-    let defaultTabButton = "basics-tab"
+    let defaultTabButton = "basics-tab-button"
     let token = "Click 'Show' to see your bots token"
     let tokenShown = false
     let saveTxt = mode
@@ -243,7 +243,7 @@ import { toggle_class } from "svelte/internal";
 
         // Fix known broken things
         if(mode == "add") {
-            bot["bot_id"] = document.querySelector("#client_id").value
+            bot["bot_id"] = document.querySelector("#bot_id").value
         }
         bot["client_id"] = document.querySelector("#client_id").value
         bot["webhook"] = document.querySelector("#webhook").value
@@ -286,7 +286,8 @@ import { toggle_class } from "svelte/internal";
             alert("Error: This bot doesn't exist on discord or you need to provide a client id")
             saveTxt = mode
             return
-        }
+	}
+
         let jsonP = await res.json()
         if(!jsonP.bot_public) {
             alert("Error: This bot is not public")
