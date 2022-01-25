@@ -12,7 +12,7 @@
 					}
 				}
 			}
-			let url = `/api/v2/_sunbeam/bots/${params.id}/settings?user_id=${session.session.user.id}`
+			let url = `/api/v2/bots/${params.id}/_sunbeam/settings?user_id=${session.session.user.id}`
 			let res = await fetchFates(url, "User " + session.session.token, fetch)
 			if(!res.ok) {
 				let json = await res.json()
