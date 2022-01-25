@@ -242,6 +242,9 @@ import { toggle_class } from "svelte/internal";
         })
 
         // Fix known broken things
+        if(mode == "add") {
+            bot["bot_id"] = document.querySelector("#client_id").value
+        }
         bot["client_id"] = document.querySelector("#client_id").value
         bot["webhook"] = document.querySelector("#webhook").value
         bot["css"] = document.querySelector("#css").value
