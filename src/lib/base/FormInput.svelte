@@ -26,7 +26,7 @@ import { browser } from "$app/env";
     <input 
         name={id}
         id={id}
-        value={data}
+        value={data || ""}
         class="fform" 
         placeholder={placeholder}
         type={type}
@@ -42,5 +42,5 @@ import { browser } from "$app/env";
         type={type}
         aria-required={required}
         required={required}
-    >{data}</textarea><br/>
+    >{data || ""}</textarea><br/>
 {/if}
