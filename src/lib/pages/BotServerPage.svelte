@@ -16,7 +16,7 @@
 </style>
 {/if}
 <style lang="scss" global>
-:global(#review-add) {
+#review-add {
 	opacity: 1 !important; 
 	border: solid thin; 
 	width: 250px; 
@@ -221,8 +221,8 @@
 		    {:else if data.state == enums.BotState.pending}
 		    <Panel color="secondary" open>
 		    	<Header ripple={false}>
-                    	  Bot Pending Review
-		  	</Header>
+                    Bot Pending Review
+		  		</Header>
 			<Content class="accordian-container">
 			    This bot has not yet been tested and may be low quality or malicious. Please do not invite it yet
 			</Content>
@@ -379,11 +379,11 @@
 		   <p id='rating-desc' style="color: white;"></p>
 		   <label for="review-text">Enter your review here</label><br/>
 		   <textarea 
-		     class="form-control fform text-input" 
+		     class="fform" 
 		     id="review-text" 
 		     placeholder="Write your review here. This must be at least 7 characters!" 
 		     minlength="9" 
-		     style="width: 100%" 
+		     style="width: 100%; border-radius: 4px 4px 4px 4px;" 
 		     required 
 		     ></textarea>
 		     <Button href={"#"} on:click={() => addReview()} id="review-add">Add Review</Button>

@@ -47,6 +47,7 @@
 	<h1>Fates List</h1>
 	<h2 class="best-bots">Find the best bots for your servers!</h2>
 </section>
+
 <SearchBar type={targetType} query={query}></SearchBar>
 <Tag targetType={targetType} tags={data.tags_fixed}></Tag>
 <CardContainer>
