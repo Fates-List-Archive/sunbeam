@@ -1,44 +1,40 @@
 <script lang="ts" context="module">
-import { fetchFates } from "$lib/request";
-	/** @type {import('@sveltejs/kit@next').Load} */
-	export async function load({params, fetch, session, stuff}) {
-		if(!session.session.token) {
+	import { fetchFates } from "$lib/request";
+		/** @type {import('@sveltejs/kit@next').Load} */
+		export async function load({params, fetch, session, stuff}) {
+			let tagsRes = await fetch(`https://api.fateslist.xyz/api/v2/_sunbeam/add-bot?user_id=${session.session.user.id}`)
+			if(!tagsRes.ok) {
+				return {
+					status: tagsRes.status,
+					error: new Error("Could not fetch tags and features") 
+				}
+			}
+			let data = await tagsRes.json()
 			return {
 				props: {
-					failed: true,
-					html: ""
+					data: data
 				}
 			}
 		}
-		let url = `/api/v2/_sunbeam/add-bot?user_id=${session.session.user.id}`
-		let res = await fetchFates(url, "User " + session.session.token, fetch)
-		if(!res.ok) {
-			let json = await res.json()
-			return {
-				status: res.status,
-				error: new Error(`${JSON.stringify(json)}`)
-			}
-		}
-		let json = await res.json()
-		return {
-			props: {
-				failed: false,
-				html: json.html
-			}
-		}
-	}
 </script>
 <script lang="ts">
 	import { browser } from "$app/env"
+	import BotSettings from "$lib/pages/BotSettings.svelte";
 	import { loginUser } from "$lib/request"
-	export let failed: boolean;
-	export let html: string;
-	if(failed) {
+	import { session } from "$app/stores"
+	export let data: any;
+	let user = {
+		username: "Fates List",
+		avatar: "https://api.fateslist.xyz/static/botlisticon.webp"
+	}
+	if(!$session.session.token) {
 		if(browser) {
-			localStorage.reloadIgnore = window.location.href
-			localStorage.reloadPage = "1"
 			loginUser(false)
 		}
 	}
 </script>
-{@html html}
+{#if $session.session.token}
+	<BotSettings mode="add" user={user} data={data.data} context={data.context}></BotSettings>
+{:else}
+	<p>Logging you in, please wait...</p>
+{/if}

@@ -41,24 +41,26 @@ enum CommandType {
     global_slash = 2,
 }
 
+enum Flag {
+    unlocked =     0,
+    edit_locked =  1,
+    staff_locked =  2,
+    stats_locked =  3,
+    vote_locked =   4,
+    system =        5,
+}
+
 export let enums = {
     BotState: BotState,
     UserState: UserState,
     UserBotAction: UserBotAction,
     CommandType: CommandType,
     ReviewType: ReviewType,
-    Flags: {
-        unlocked:      0,
-        edit_locked:   1,
-        staff_locked:  2,
-        stats_locked:  3,
-        vote_locked:   4,
-        system:        5,
-    },
+    Flags: Flag,
     LongDescType: {
-	html:                0,
-	markdown_pymarkdown: 1,
-    	markdown_marked:     2
+	    html:                0,
+	    markdown_pymarkdown: 1,
+        markdown_marked:     2
     },
     helpers: {
         flagCheck: function(flags: number[] | number, allFlags: number[]) {
