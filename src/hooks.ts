@@ -1,33 +1,28 @@
 import cookie from 'cookie';
 import type { Handle } from '@sveltejs/kit';
+import type { GetSession } from '@sveltejs/kit';
 
-export const handle: Handle = async ({ request, resolve }) => {
-	const cookies = cookie.parse(request.headers.cookie || '');
+export const handle: Handle = async ({ event, resolve }) => {
+	const cookies = cookie.parse(event.request.headers.get("cookie") || '');
 
 	// TODO https://github.com/sveltejs/kit/issues/1046
-	const method = request.url.searchParams.get('_method');
-	if (method) {
-		request.method = method.toUpperCase();
-	}
+	console.log(event.url)
 
-	console.log(request.url)
-	console.log(request.params)
-
-	const response = await resolve(request);
+	const response = await resolve(event);
 
 	return response;
 };
 
-export async function getSession(request) {
+export const getSession: GetSession = async (event) => {
 	console.log("getSession called")
 
 	// Bypass dumb cloudflare bug
-	let query = {}
-	request.url.searchParams.forEach((v, k) => {
+	/*let query = {}
+	event.url.searchParams.forEach((v, k) => {
 		query[k] = v
-	})
+	})*/
 
-	const cookies = cookie.parse(request.headers.cookie || '');
+	const cookies = cookie.parse(event.request.headers.get("cookie") || '');
 
 	let sessionData = {}
 	if (cookies["sunbeam-session"]) {
@@ -39,10 +34,11 @@ export async function getSession(request) {
 			sessionData = {}
 		}
 	}
+
 	try {
 		return {
-			"url": request.url.toJSON(), // CF adpter workaround, hopefully works?
-			"query": query,
+			"url": event.url.toJSON(), // CF adpter workaround, hopefully works?
+			"query": {},
 			"session": sessionData
 		}
 	} catch(err) {

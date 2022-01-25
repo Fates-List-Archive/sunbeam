@@ -3,10 +3,8 @@
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ url, session, fetch }) {
-		// Dumb cloudflare bug bypass
 		let tag = url.searchParams.get("tag")
-		let targetType = session.query.target_type
-        	console.log(tag)
+		let targetType = url.searchParams.get("target_type")
 		const searchUrl = `/api/v2/search/tags?target_type=${targetType}&tag=${tag}`;
 		const res = await fetchFates(searchUrl, "", fetch);
 
