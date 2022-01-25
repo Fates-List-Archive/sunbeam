@@ -55,7 +55,7 @@
 	{/each}
 </CardContainer>
 
-<style>
+<style lang="scss">
 	h1 {
 		font-size: 50px;
 		margin: 0px;
