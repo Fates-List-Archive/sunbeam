@@ -164,13 +164,4 @@
 	    width: 80%;
 	    margin: 0 15%;
     }
-
-    :global(.bot-card-actions-link) {
-	    width: 45%; 
-	    font-weight: bold; 
-	    border: solid thin !important; 
-	    outline: none !important; 
-	    opacity: 1 !important;
-	    font-size: 10px;
-    }
 </style>
