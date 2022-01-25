@@ -7,7 +7,7 @@
 		let reqUrl = `/api/v2/users/${params.id}?bot_logs=true`;
 
         if(url.searchParams.get("system_bots") == "true") {
-            url += "&system_bots=true"
+            reqUrl += "&system_bots=true"
         }
 
         const res = await fetchFates(reqUrl, "", fetch);
@@ -38,7 +38,7 @@
 			return {
 				props: {
 					data: data,
-                    systemBots: session.query.system_bots == "true",
+                    systemBots: url.searchParams.get("system_bots") == "true",
 					approvedBots: approvedBots,
 					deniedBots: deniedBots,
 					certifiedBots: certifiedBots
@@ -119,7 +119,7 @@
 {#if !systemBots}
 <p>Click <a href="/profile/{data.user.id}?system_bots=true">here</a> to show system bots as well!</p>
 {/if}
-<style>
+<style lang="scss" global>
 .badge-link {
 	opacity: 1 !important;
 }
@@ -162,7 +162,7 @@
     padding: 0px;
 }
 
-:global(#profiles-center) {
+#profiles-center {
 	margin-left: auto;
 	margin-right: auto;
 	display: flex !important;
