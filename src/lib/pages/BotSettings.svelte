@@ -20,7 +20,11 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
 
     function alert(msg: string) {
         popUpMsg = msg
-        window.alert(msg)
+        try {
+            window.alert(msg)
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     export let data: any;
@@ -237,120 +241,124 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
         let bot = {}
         let errorFields = []
 
-        window.inputFields.forEach(field => {
-            let value = document.querySelector(`#${field.id}`).value
-            if(!value && field.required) {
-                errorFields.push(field.id.replaceAll("_", " "))
+        try {
+            window.inputFields.forEach(field => {
+                let value = document.querySelector(`#${field.id}`).value
+                if(!value && field.required) {
+                    errorFields.push(field.id.replaceAll("_", " "))
+                }
+                else if(!value) {
+                    value = null
+                }
+                bot[field.id] = value
+            })
+
+            // Fix known broken things
+            if(mode == "add") {
+                bot["bot_id"] = document.querySelector("#bot_id").value
             }
-            else if(!value) {
-                value = null
+            bot["client_id"] = document.querySelector("#client_id").value
+            bot["webhook"] = document.querySelector("#webhook").value
+            bot["css"] = document.querySelector("#css").value
+
+            // Handle the selects here
+            // webhook_type, long_description_type, nsfw, system_bot, keep_banner_decor
+            bot["webhook_type"] = parseInt(document.querySelector("#webhook_type").value)
+            bot["long_description_type"] = parseInt(document.querySelector("#long_description_type").value)
+            bot["nsfw"] = document.querySelector("#nsfw").value == "true"
+            bot["system_bot"] = document.querySelector("#system_bot").value == "true"
+            bot["keep_banner_decor"] = document.querySelector("#keep_banner_decor").value == "true"
+
+
+            if(mode == "edit") {
+                bot["bot_id"] = context.bot_id
             }
-            bot[field.id] = value
-        })
 
-        // Fix known broken things
-        if(mode == "add") {
-            bot["bot_id"] = document.querySelector("#bot_id").value
-        }
-        bot["client_id"] = document.querySelector("#client_id").value
-        bot["webhook"] = document.querySelector("#webhook").value
-        bot["css"] = document.querySelector("#css").value
+            let botId = bot["bot_id"] 
 
-        // Handle the selects here
-        // webhook_type, long_description_type, nsfw, system_bot, keep_banner_decor
-        bot["webhook_type"] = parseInt(document.querySelector("#webhook_type").value)
-        bot["long_description_type"] = parseInt(document.querySelector("#long_description_type").value)
-        bot["nsfw"] = document.querySelector("#nsfw").value == "true"
-        bot["system_bot"] = document.querySelector("#system_bot").value == "true"
-        bot["keep_banner_decor"] = document.querySelector("#keep_banner_decor").value == "true"
+            // Check if it exists
+            if(mode == "add") {
+                let res = await fetch(`https://api.fateslist.xyz/api/v2/bots/${botId}`)
+                if(res.status == 200) {
+                    alert("This bot already exists on Fates List")
+                    saveTxt = mode
+                    return
+                }
+            }
 
+            // Check if the bot is public
+            let clientId = bot["client_id"]
 
-        if(mode == "edit") {
-            bot["bot_id"] = context.bot_id
-        }
+            if(clientId) {
+                botId = clientId
+            }
 
-        let botId = bot["bot_id"] 
-
-        // Check if it exists
-        if(mode == "add") {
-            let res = await fetch(`https://api.fateslist.xyz/api/v2/bots/${botId}`)
-            if(res.status == 200) {
-                alert("This bot already exists on Fates List")
+            let res = await fetch(`https://discord.com/api/v9/applications/${botId}/rpc`)
+            if(res.status != 200) {
+                alert("Error: This bot doesn't exist on discord or you need to provide a client id")
                 saveTxt = mode
                 return
             }
-        }
 
-        // Check if the bot is public
-        let clientId = bot["client_id"]
+            let jsonP = await res.json()
+            if(!jsonP.bot_public) {
+                alert("Error: This bot is not public")
+                saveTxt = mode
+                return
+            }
 
-        if(clientId) {
-            botId = clientId
-        }
+            if(errorFields.length != 0) {
+                alert(`You must fill out the following required fields: ${errorFields.join(', ')}`)
+                return
+            }
 
-        let res = await fetch(`https://discord.com/api/v9/applications/${botId}/rpc`)
-        if(res.status != 200) {
-            alert("Error: This bot doesn't exist on discord or you need to provide a client id")
-            saveTxt = mode
-            return
-	}
+            // Tags+Features
+            if(tags.length == 0) {
+                alert("You need to specify tags for your bot")
+                return
+            } else {
+                bot["tags"] = tags
+            }
+            bot["features"] = features
 
-        let jsonP = await res.json()
-        if(!jsonP.bot_public) {
-            alert("Error: This bot is not public")
-            saveTxt = mode
-            return
-        }
+            // Extra owners
+            if(data["extra_owners"]) {
+                bot["extra_owners"] = bot["extra_owners"].replace(" ", "").split(",")
+            } else {
+                bot["extra_owners"] = []
+            }
 
-        if(errorFields.length != 0) {
-            alert(`You must fill out the following required fields: ${errorFields.join(', ')}`)
-            return
-        }
+            // Method stuff
+            let method = "PATCH"
+            let mod = "editted successfully"
 
-        // Tags+Features
-        if(tags.length == 0) {
-            alert("You need to specify tags for your bot")
-            return
-        } else {
-            bot["tags"] = tags
-        }
-        bot["features"] = features
+            if(mode != "edit") {
+                method = "PUT"
+                mod = "added to our queue"
+            }
 
-        // Extra owners
-        if(data["extra_owners"]) {
-            bot["extra_owners"] = bot["extra_owners"].replace(" ", "").split(",")
-        } else {
-            bot["extra_owners"] = []
-        }
+            console.log(bot)
 
-        // Method stuff
-        let method = "PATCH"
-        let mod = "editted successfully"
-
-        if(mode != "edit") {
-			method = "PUT"
-			mod = "added to our queue"
-		}
-
-        console.log(bot)
-
-        let url = `https://api.fateslist.xyz/api/v2/users/${$session.session.user.id}/bots/${bot['bot_id']}`
-        let headers = {
-            "Content-Type": "application/json", 
-            "Authorization": $session.session.token
-        }
-        let updateRes = await fetch(url, {
-            method: method,
-            headers: headers,
-            body: JSON.stringify(bot)
-        })
-        if(updateRes.ok) {
-            alert(`This bot has been ${mod}`)
-            return
-        } else {
-            let json = await updateRes.json()
-            alert(JSON.stringify(json))
-            return
+            let url = `https://api.fateslist.xyz/api/v2/users/${$session.session.user.id}/bots/${bot['bot_id']}`
+            let headers = {
+                "Content-Type": "application/json", 
+                "Authorization": $session.session.token
+            }
+            let updateRes = await fetch(url, {
+                method: method,
+                headers: headers,
+                body: JSON.stringify(bot)
+            })
+            if(updateRes.ok) {
+                alert(`This bot has been ${mod}`)
+                return
+            } else {
+                let json = await updateRes.json()
+                alert(JSON.stringify(json))
+                return
+            }
+        } catch (err) {
+            alert(err)
         }
     }
 </script>
@@ -358,7 +366,6 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
 <img class="user-avatar" loading="lazy" src="{user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="user-avatar" alt="{user.username}'s avatar">
 <h2 class="white user-username" id="user-name">{user.username}</h2>
 <h2 id="bot-settings">{#if mode == "add"}Welcome!{:else}Bot Settings{/if}</h2>
-<pre>{popUpMsg}</pre>
 <Tab tabs={tabs} defaultTabButton={defaultTabButton}>
     {#if mode == "edit"}
         <section id="about-tab" class='tabcontent tabdesign'>
@@ -675,6 +682,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
     </section>
 </Tab>
 <Button href={"#"} on:click={updateBot} class="button btn-save" id="submit" touch variant="outlined">{saveTxt}</Button>  
+<pre>{popUpMsg}</pre>
 <style lang="scss">
     .section-title {
         text-decoration: underline;
