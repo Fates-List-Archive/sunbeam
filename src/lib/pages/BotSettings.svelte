@@ -536,7 +536,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
         <label for="tags">Tags <RedStar/></label>
         <MultiSelect initialValues={data.tags} id="tags" bind:value={tags}> <!-- value={data.tags}-->
             {#each context.tags as tag}
-                <SelectOptionMulti value={tag.value} valueList={data.tags}>{tag.text}</SelectOptionMulti>
+                <SelectOptionMulti value={tag} valueList={data.tags}>{title(tag)}</SelectOptionMulti>
             {/each}
         </MultiSelect>
         <label for="features">Features</label>
