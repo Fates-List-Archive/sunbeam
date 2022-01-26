@@ -17,7 +17,7 @@
 				let json = await res.json()
 				return {
 					status: res.status,
-					error: new Error(`${JSON.stringify(json)}`)
+					error: new Error(json.reason)
 				}
 			}
 			let json = await res.json()
