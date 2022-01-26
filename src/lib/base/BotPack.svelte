@@ -3,7 +3,7 @@
 </script>
 <div class="pack-container">
     <h3>{pack.name}</h3>
-    <h4>{pack.description}</h4>
+    <h4 class="opaque">{pack.description}</h4>
     {#each pack.resolved_bots as bot}
         <div class="pack-bot">
             <a href="/bot/{bot.id}">
@@ -34,6 +34,10 @@
 
     .pack-bot {
         margin-bottom: 20px;
+    }
+
+    .opaque {
+        opacity: 0.8;
     }
 
     .indent {
