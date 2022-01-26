@@ -284,6 +284,15 @@
 				    <span>Github</span>
 			    </Button>
                 {/if}
+                {#if data.donate}
+			    <Button href="{data.donate}" id="buttons-donate" class="buttons-all" touch variant="outlined">
+				    <span>Donate</span>
+			    </Button>
+                {:else}
+			    <Button class="buttons-all disabled" id="buttons-donate" touch variant="outlined" disabled>
+				    <span>Donate</span>
+			    </Button>
+                {/if}
 		{#if type == "bot"}
 			<Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all" rel="external" touch variant="outlined">
 			    	     <span>Settings</span>
