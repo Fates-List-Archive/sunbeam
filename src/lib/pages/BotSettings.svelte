@@ -19,7 +19,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
     let popUpMsg = "Errors will appear here (just in case you have popups disabled)"
 
     function alert(msg: string) {
-        popupMsg = msg
+        popUpMsg = msg
         window.alert(msg)
     }
 
