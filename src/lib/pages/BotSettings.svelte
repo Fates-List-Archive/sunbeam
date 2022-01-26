@@ -542,7 +542,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
         <label for="features">Features</label>
         <MultiSelect initialValues={data.features} id="features" bind:value={features}>
             {#each context.features as feature}
-                <SelectOptionMulti value={feature.value} valueList={data.features}>{feature.text}</SelectOptionMulti>
+                <SelectOptionMulti value={feature} valueList={data.features}>{title(feature)}</SelectOptionMulti>
             {/each}
         </MultiSelect>
         <br/>
