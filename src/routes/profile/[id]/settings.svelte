@@ -54,18 +54,19 @@ import Tip from '$lib/base/Tip.svelte';
 
     let firstTimeShowedWarning = false // Whether or not we have sent the warning alert once or not
 
+    let userToken = "Hidden, click 'Show' to show it and make sure to NEVER share it with anyone else"
+
     function showUserToken() {
-        let t = document.querySelector("#user-token-field")
         let b = document.querySelector("#user-token-show-btn")
         if(b.textContent == "Show") {
             if(!firstTimeShowedWarning) {
                 alert("Warning: Do not share this with anyone")
                 firstTimeShowedWarning = true
             }
-            t.textContent = $session.session.token
+            userToken = $session.session.token
             b.textContent = "Hide"
         } else {
-            t.textContent = "Hidden"
+            userToken = "Hidden"
             b.textContent = "Show"
         }
     }
@@ -174,7 +175,7 @@ import Tip from '$lib/base/Tip.svelte';
     <section id="about-tab" class='tabcontent tabdesign'>
         <h2>User Token</h2>
             <p class="white"><em>Accidentally</em> leaked your API token? Just be sure to change the token everywhere you use it and make sure it doesn't happen again!</p>
-            <pre id="user-token-field">Hidden</pre>
+	    <pre id="user-token-field">{userToken}</pre>
             <Button href={"#"} on:click={showUserToken} class="button" id="user-token-show-btn" touch variant="outlined">Show</Button>
             <Button href={"#"} on:click={regenUserToken} class="button" id="user-token-regen-btn" touch variant="outlined">Regenerate</Button>
         <h2>Profile Info</h2>
