@@ -6,7 +6,6 @@
 				return {
 					props: {
 						failed: true,
-						user: {},
 						data: {},
 						context: {}
 					}
@@ -25,7 +24,6 @@
 			return {
 				props: {
 					failed: false,
-					user: json.user,
 					data: json.data,
 					context: json.context
 				}
@@ -37,7 +35,6 @@
 	import BotSettings from "$lib/pages/BotSettings.svelte";
 	import { loginUser } from "$lib/request"
 	export let failed: boolean;
-	export let user: any;
 	export let data: any;
 	export let context: any;
 	if(failed) {
@@ -47,7 +44,7 @@
 	}
 </script>
 {#if !failed}
-	<BotSettings mode="edit" user={user} data={data} context={context}></BotSettings>
+	<BotSettings mode="edit" data={data} context={context}></BotSettings>
 {:else}
 	<p>Logging you in, please wait...</p>
 {/if}

@@ -34,6 +34,7 @@
 		username: "Fates List",
 		avatar: "https://api.fateslist.xyz/static/botlisticon.webp"
 	}
+	data.data.user = user;
 	if(!$session.session.token) {
 		if(browser) {
 			loginUser(false)
@@ -41,7 +42,7 @@
 	}
 </script>
 {#if $session.session.token}
-	<BotSettings mode="add" user={user} data={data.data} context={data.context}></BotSettings>
+	<BotSettings mode="add" data={data.data} context={data.context}></BotSettings>
 {:else}
 	<p>Logging you in, please wait...</p>
 {/if}

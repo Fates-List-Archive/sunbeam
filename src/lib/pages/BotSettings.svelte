@@ -17,10 +17,11 @@ import { toggle_class } from "svelte/internal";
         return str.replaceAll("_", " ").replace(/(^|\s)\S/g, function(t) { return t.toUpperCase() });
     }
 
-    export let user: any;
     export let data: any;
     export let mode: string;
     export let context: any;
+
+    let user = data.user;
 
     let tabs = []
     let defaultTabButton = "basics-tab-button"
