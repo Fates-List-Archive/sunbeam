@@ -144,6 +144,26 @@ import Tip from '$lib/base/Tip.svelte';
         }
     }
 
+    async function delBotPack() {
+        let packId = document.querySelector("#del-pack-id").value
+        if(!packId) {
+            alert("No Pack ID given")
+            return
+        }
+        let headers = {"Authorization": $session.session.token}
+        let res = await fetch(`https://api.fateslist.xyz/api/v2/users/${data.user.id}/packs/${packId}`, {
+            method: "DELETE",
+            headers: headers
+        })
+        if(res.ok) {
+            alert("Delete pack successfully")
+            return
+        } else {
+            let json = await res.json()
+            alert(json.reason)
+        }
+    }
+
     // Sigh svelte
     let placeholderUserCss = "Warning: Fates List is not responsible for any issues due to your custom user CSS. To use javascript in custom css, put your JS in a LT/styleGTLTscriptGTYOUR JS HERELT/scriptGTLTstyleGT tag"
 </script>
@@ -200,6 +220,17 @@ import Tip from '$lib/base/Tip.svelte';
             placeholder="10293,29392,39492 etc."
         />
         <Button href={"#"} on:click={addBotPack} class="button" id="add-bot-pack-btn" touch variant="outlined">Add Pack</Button>
+        
+        <h2>Delete Bot Packs</h2>
+        <Tip>You can get a bot pack's ID from the Bot Pack List under About (coming soon) or using our API</Tip>
+        <label for="del-pack-id">Pack ID</label>
+        <input
+            id="del-pack-id"
+            name="del-pack-id"
+            class="fform"
+            placeholder="df3b4053-eaed-45d6-9e26-470be52cd80c etc."
+        />
+        <Button href={"#"} on:click={delBotPack} class="button" id="del-bot-pack-btn" touch variant="outlined">Delete Pack</Button>
     </section>
     <section id="basics-tab" class='tabcontent tabdesign'>
         <label for="site-lang">Site Language</label>
