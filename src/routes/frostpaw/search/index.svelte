@@ -31,6 +31,8 @@
     import SearchBar from "$lib/base/SearchBar.svelte"
     import Tag from "$lib/base/Tag.svelte";
 	import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
+import Section from "$lib/base/Section.svelte";
+import BotPack from "$lib/base/BotPack.svelte";
     export let data: any;
     export let targetType: string;
     export let query: string;
@@ -55,6 +57,13 @@
 		<BotCard data={bot} type={targetType} rand={false}/>
 	{/each}
 </CardContainer>
+
+{#if targetType == "bot"}
+	<Section title="Bot Packs" icon="bx:bx-package"></Section>
+	{#each data.extra as pack}
+		<BotPack pack={pack}></BotPack>
+	{/each}
+{/if}
 
 <style lang="scss">
 	h1 {

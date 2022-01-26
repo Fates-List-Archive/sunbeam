@@ -69,6 +69,7 @@
 	export let certifiedBots: any;
     let type = "profile"
     import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
+import BotPack from "$lib/base/BotPack.svelte";
 </script>
 <BristlefrostMeta 
 	url="https://fateslist.xyz/profile/{data.user.id}"
@@ -116,6 +117,11 @@
 		<BotCard data={bot} type="bot" rand={false}/>
 	{/each}
 </CardContainer>
+
+{#each data.packs as pack}
+	<BotPack pack={pack}></BotPack>
+{/each}
+
 {#if !systemBots}
 <p>Click <a href="/profile/{data.user.id}?system_bots=true">here</a> to show system bots as well!</p>
 {/if}

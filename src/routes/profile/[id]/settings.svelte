@@ -37,9 +37,13 @@
     export let data: any;
     import SelectOption from '$lib/base/SelectOption.svelte'
     import Button from '@smui/button';
+import Tip from '$lib/base/Tip.svelte';
     let tabs = [{
         "name": "About",
         "id": "about"    
+    }, {
+        "name": "Actions",
+        "id": "actions"
     }, {
         "name": "Basics",
         "id": "basics"
@@ -116,6 +120,30 @@
         }
     }
 
+    async function addBotPack() {
+        let payload = {
+            name: document.querySelector("#pack-name").value,
+            description: document.querySelector("#pack-desc").value,
+            icon: document.querySelector("#pack-icon").value,
+            banner: document.querySelector("#pack-banner").value,
+        }
+        let bots = document.querySelector("#pack-bots").value
+        payload["bots"] = bots.split(" ")
+        let headers = {"Authorization": $session.session.token, "Content-Type": "application/json"}
+        let res = await fetch(`https://api.fateslist.xyz/api/v2/users/${data.user.id}/packs`, {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(payload)
+        })
+        if(res.ok) {
+            alert("Added pack successfully")
+            return
+        } else {
+            let json = await res.json()
+            alert(json.reason)
+        }
+    }
+
     // Sigh svelte
     let placeholderUserCss = "Warning: Fates List is not responsible for any issues due to your custom user CSS. To use javascript in custom css, put your JS in a LT/styleGTLTscriptGTYOUR JS HERELT/scriptGTLTstyleGT tag"
 </script>
@@ -132,6 +160,46 @@
         <h2>Profile Info</h2>
             <p>Profile State: {enums.UserState[data.profile.state]} ({data.profile.state})</p>
             <p>Bot Logs: {JSON.stringify(data.profile.bot_logs)}</p>
+    </section>
+    <section id="actions-tab" class='tabcontent tabdesign'>
+        <h2>Create Bot Packs</h2>
+        <Tip>Bot Packs are a way of grouping bots into one package!</Tip>
+        <label for="pack-name">Pack Name</label>
+        <input
+            id="pack-name"
+            name="pack-name"
+            class="fform"
+            placeholder="Name it something snazzy!"
+        />
+        <label for="pack-desc">Pack Description</label>
+        <input
+            id="pack-desc"
+            name="pack-desc"
+            class="fform"
+            placeholder="What does this pack do?"
+        />
+        <label for="pack-icon">Pack Icon</label>
+        <input
+            id="pack-icon"
+            name="pack-icon"
+            class="fform"
+            placeholder="https://api.fateslist.xyz/static/botlisticon.webp etc."
+        />
+        <label for="pack-banner">Pack Banner</label>
+        <input
+            id="pack-banner"
+            name="pack-banner"
+            class="fform"
+            placeholder="https://api.fateslist.xyz/static/botlisticon.webp etc."
+        />
+        <label for="pack-bots">Bots (comma seperated)</label>
+        <input
+            id="pack-bots"
+            name="pack-bots"
+            class="fform"
+            placeholder="10293,29392,39492 etc."
+        />
+        <Button href={"#"} on:click={addBotPack} class="button" id="add-bot-pack-btn" touch variant="outlined">Add Pack</Button>
     </section>
     <section id="basics-tab" class='tabcontent tabdesign'>
         <label for="site-lang">Site Language</label>
@@ -150,6 +218,8 @@
             style="width: 100%"
             placeholder="Enter a description for your profile here"
         >{data.profile.description}</textarea>
+    </section>
+    <section id="actions-tab" class='tabcontent tabdesign'>
     </section>
     <section id="css-tab" class='tabcontent tabdesign'>
         <label for="user-css">User CSS</label>
