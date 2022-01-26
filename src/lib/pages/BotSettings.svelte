@@ -243,7 +243,14 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
 
         try {
             window.inputFields.forEach(field => {
-                let value = document.querySelector(`#${field.id}`).value
+                let value = null
+                let fieldEl = document.querySelector(`#${field.id}`)
+                if(fieldEl) {
+                    value = fieldEl.value
+                } else {
+                    alert(`Internal error: ${field.id} does not exist!`)
+                    return
+                }
                 if(!value && field.required) {
                     errorFields.push(field.id.replaceAll("_", " "))
                 }
