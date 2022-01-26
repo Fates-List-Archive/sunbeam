@@ -226,7 +226,7 @@ import { toggle_class } from "svelte/internal";
     }
 
     async function updateBot() {
-        saveTxt = `${mode}int`
+        saveTxt = `${mode}ing`
         let bot = {}
         let errorFields = []
 
