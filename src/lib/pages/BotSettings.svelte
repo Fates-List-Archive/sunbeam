@@ -11,10 +11,16 @@ import SelectOption from "$lib/base/SelectOption.svelte";
 import RedStar from "$lib/base/RedStar.svelte";
 import FormInput from "$lib/base/FormInput.svelte";
 import MultiSelect from "$lib/base/MultiSelect.svelte";
-import { toggle_class } from "svelte/internal";
 
     function title(str: string) {
         return str.replaceAll("_", " ").replace(/(^|\s)\S/g, function(t) { return t.toUpperCase() });
+    }
+
+    let popUpMsg = "Errors will appear here (just in case you have popups disabled)"
+
+    function alert(msg: string) {
+        popupMsg = msg
+        window.alert(msg)
     }
 
     export let data: any;
@@ -351,7 +357,8 @@ import { toggle_class } from "svelte/internal";
 
 <img class="user-avatar" loading="lazy" src="{user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="user-avatar" alt="{user.username}'s avatar">
 <h2 class="white user-username" id="user-name">{user.username}</h2>
-<h2 id="bot-settings">Bot Settings</h2>
+<h2 id="bot-settings">{#if mode == "add"}Welcome!{:else}Bot Settings{/if}</h2>
+<pre>{popUpMsg}</pre>
 <Tab tabs={tabs} defaultTabButton={defaultTabButton}>
     {#if mode == "edit"}
         <section id="about-tab" class='tabcontent tabdesign'>
@@ -444,7 +451,7 @@ import { toggle_class } from "svelte/internal";
     <section id="basics-tab" class='tabcontent tabdesign'>
         {#if mode != "edit"}
             <FormInput
-                name="Bot ID (older bots only)"
+                name="Bot ID (https://discord.dev)"
                 id="bot_id"
                 placeholder="563808552288780322 etc."
                 type="number"
