@@ -245,51 +245,51 @@
 				    <Icon icon="fa-solid:thumbs-up" inline={false}/>
 				    <span style="margin-left: 3px;">{data.votes}</span>
 			    </Button>
-			    <Button href="/{type}/{data.user.id}/invite" class="buttons-all" touch variant="outlined" rel="external">
+			    <Button href="/{type}/{data.user.id}/invite" class="buttons-all" id="buttons-invite" touch variant="outlined" rel="external">
 				    <span>{#if type == "server"}Join{:else}Invite{/if}</span>
 			    </Button>
                 {#if data.support}
-			    <Button href="{data.support}" class="buttons-all" touch variant="outlined">
+			    <Button href="{data.support}" id="buttons-support" class="buttons-all" touch variant="outlined">
 				    <span>Support</span>
 			    </Button>
                 {:else}
-			    <Button class="buttons-all disabled" touch variant="outlined" disabled>
+			    <Button class="buttons-all disabled" id="buttons-support" touch variant="outlined" disabled>
 				    <span>Support</span>
 			    </Button>
                 {/if}
                 {#if data.website}
-			    <Button href="{data.website}" class="buttons-all" touch variant="outlined">
+			    <Button href="{data.website}" id="buttons-website" class="buttons-all" touch variant="outlined">
 				    <span>Website</span>
 			    </Button>
                 {:else}
-			    <Button class="buttons-all disabled" touch variant="outlined" disabled>
+			    <Button class="buttons-all disabled" id="buttons-website" touch variant="outlined" disabled>
 				    <span>Website</span>
 			    </Button>
                 {/if}
                 {#if data.privacy_policy}
-			    <Button href="{data.privacy_policy}" class="buttons-all" touch variant="outlined">
+			    <Button href="{data.privacy_policy}" id="buttons-privacy" class="buttons-all" touch variant="outlined">
 				    <span>Privacy Policy</span>
 			    </Button>
                 {:else}
-			    <Button class="buttons-all disabled" touch variant="outlined" disabled>
+			    <Button class="buttons-all disabled" id="buttons-privacy" touch variant="outlined" disabled>
 				    <span>Privacy Policy</span>
 			    </Button>
                 {/if}
                 {#if data.github}
-			    <Button href="{data.github}" class="buttons-all" touch variant="outlined">
+			    <Button href="{data.github}" id="buttons-github" class="buttons-all" touch variant="outlined">
 				    <span>Github</span>
 			    </Button>
                 {:else}
-			    <Button class="buttons-all disabled" touch variant="outlined" disabled>
+			    <Button class="buttons-all disabled" id="buttons-github" touch variant="outlined" disabled>
 				    <span>Github</span>
 			    </Button>
                 {/if}
 		{#if type == "bot"}
-			<Button href='/bot/{data.user.id}/settings' class="buttons-all" rel="external" touch variant="outlined">
+			<Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all" rel="external" touch variant="outlined">
 			    	     <span>Settings</span>
 			    </Button>
 		{:else}
-			    <Button class="buttons-all disabled" touch variant="outlined" disabled>
+			    <Button class="buttons-all disabled" id="buttons-settings" touch variant="outlined" disabled>
 				    <span>Settings</span>
 			    </Button>
 		{/if}
