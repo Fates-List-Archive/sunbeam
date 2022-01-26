@@ -294,7 +294,7 @@
 			    </Button>
                 {/if}
 		{#if type == "bot"}
-			<Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all" rel="external" touch variant="outlined">
+			<Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all" touch variant="outlined">
 			    	     <span>Settings</span>
 			    </Button>
 		{:else}
