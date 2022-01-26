@@ -367,7 +367,11 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
                 return
             } else {
                 let json = await updateRes.json()
-                alert(JSON.stringify(json))
+                if(updateRes.status == 422) {
+                    alert(JSON.stringify(json))
+                } else {
+                    alert(json.reason)
+                }
                 return
             }
         } catch (err) {
