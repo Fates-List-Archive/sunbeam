@@ -262,20 +262,26 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
 
             // Fix known broken things
             if(mode == "add") {
-                bot["bot_id"] = document.querySelector("#bot_id").value
+                let botIdEl = document.querySelector("#bot_id")
+                if(!botIdEl) {
+                    alert("Internal Error: Bot ID not found!")
+                    return
+                }
+                bot["bot_id"] = botIdEl.value
             }
             bot["client_id"] = document.querySelector("#client_id").value
-            bot["webhook"] = document.querySelector("#webhook").value
-            bot["css"] = document.querySelector("#css").value
 
             // Handle the selects here
             // webhook_type, long_description_type, nsfw, system_bot, keep_banner_decor
             bot["webhook_type"] = parseInt(document.querySelector("#webhook_type").value)
             bot["long_description_type"] = parseInt(document.querySelector("#long_description_type").value)
             bot["nsfw"] = document.querySelector("#nsfw").value == "true"
-            bot["system_bot"] = document.querySelector("#system_bot").value == "true"
+            try {
+                bot["system_bot"] = document.querySelector("#system_bot").value == "true"
+            } catch (err) {
+                bot["system_bot"] = false
+            }
             bot["keep_banner_decor"] = document.querySelector("#keep_banner_decor").value == "true"
-
 
             if(mode == "edit") {
                 bot["bot_id"] = context.bot_id
