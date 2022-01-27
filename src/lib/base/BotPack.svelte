@@ -1,5 +1,6 @@
 <script lang="ts">
     export let pack: any;
+    export let centered: boolean = true;
 </script>
 <div class="pack-container">
     <h3>{pack.name}</h3>
@@ -18,6 +19,16 @@
         </div>
     {/each}
 </div>
+
+{#if centered}
+<style lang="scss">
+    .pack-container {
+        margin-left: auto;
+        margin-right: auto;
+    }
+</style>
+{/if}
+
 <style lang="scss">
     $img-width: 30px;
 
@@ -26,10 +37,14 @@
     }
 
     .pack-container {
-        background-color: black;
+        background: #111112;
         width: 80%;
-        margin-left: auto;
-        margin-right: auto;
+        -moz-box-shadow: 0px 0px 20px 5px #000;
+        -webkit-box-shadow: 0px 0px 20px 5px #000;
+        box-shadow: 0px 0px 20px 5px #000;
+        padding: 3px;
+        border-radius: 5px;
+        border: solid 1px;
     }
 
     .pack-bot {

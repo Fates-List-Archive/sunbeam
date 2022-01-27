@@ -38,6 +38,7 @@
     import SelectOption from '$lib/base/SelectOption.svelte'
     import Button from '@smui/button';
 import Tip from '$lib/base/Tip.svelte';
+import BotPack from '$lib/base/BotPack.svelte';
     let tabs = [{
         "name": "About",
         "id": "about"    
@@ -145,8 +146,7 @@ import Tip from '$lib/base/Tip.svelte';
         }
     }
 
-    async function delBotPack() {
-        let packId = document.querySelector("#del-pack-id").value
+    async function delBotPack(packId: string) {
         if(!packId) {
             alert("No Pack ID given")
             return
@@ -178,6 +178,14 @@ import Tip from '$lib/base/Tip.svelte';
 	    <pre id="user-token-field">{userToken}</pre>
             <Button href={"#"} on:click={showUserToken} class="button" id="user-token-show-btn" touch variant="outlined">Show</Button>
             <Button href={"#"} on:click={regenUserToken} class="button" id="user-token-regen-btn" touch variant="outlined">Regenerate</Button>
+        <h2>Your Packs</h2>
+            {#each data.packs as pack}
+                <p>Pack ID: <span class="opaque">{pack.id}</span></p>
+                <BotPack pack={pack} centered={false}></BotPack>
+                <Button href={"#"} on:click={() => {
+                    delBotPack(pack.id)
+                }} class="button" id="del-bot-pack-btn" touch variant="outlined">Delete {pack.name}</Button>        
+            {/each}
         <h2>Profile Info</h2>
             <p>Profile State: {enums.UserState[data.profile.state]} ({data.profile.state})</p>
             <p>Bot Logs: {JSON.stringify(data.profile.bot_logs)}</p>
@@ -223,7 +231,7 @@ import Tip from '$lib/base/Tip.svelte';
         <Button href={"#"} on:click={addBotPack} class="button" id="add-bot-pack-btn" touch variant="outlined">Add Pack</Button>
         
         <h2>Delete Bot Packs</h2>
-        <Tip>You can get a bot pack's ID from the Bot Pack List under About (coming soon) or using our API</Tip>
+        <Tip>You can get a bot pack's ID from the Bot Pack List under About or by using our API</Tip>
         <label for="del-pack-id">Pack ID</label>
         <input
             id="del-pack-id"
@@ -231,7 +239,10 @@ import Tip from '$lib/base/Tip.svelte';
             class="fform"
             placeholder="df3b4053-eaed-45d6-9e26-470be52cd80c etc."
         />
-        <Button href={"#"} on:click={delBotPack} class="button" id="del-bot-pack-btn" touch variant="outlined">Delete Pack</Button>
+        <Button href={"#"} on:click={() => {
+            let packId = document.querySelector("#del-pack-id").value
+            delBotPack(packId)
+        }} class="button" id="del-bot-pack-btn" touch variant="outlined">Delete Pack</Button>
     </section>
     <section id="basics-tab" class='tabcontent tabdesign'>
         <label for="site-lang">Site Language</label>
@@ -280,6 +291,10 @@ import Tip from '$lib/base/Tip.svelte';
         justify-content: center;
         align-items: center;
         margin: 0 auto;
+    }
+
+    .opaque {
+        opacity: 0.8 !important;
     }
     
     .user-username {
