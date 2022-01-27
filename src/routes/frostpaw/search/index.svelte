@@ -5,7 +5,7 @@
 	export async function load({ url, session, fetch }) {
         let query = url.searchParams.get("q")
         let targetType = url.searchParams.get("target_type")
-		const searchUrl = `/api/v2/search?target_type=${targetType}&q=${query}`;
+		const searchUrl = `/api/v2/search?q=${query}`;
 		const res = await fetchFates(searchUrl, "", fetch);
 
 		if (res.ok) {
@@ -39,9 +39,9 @@ import BotPack from "$lib/base/BotPack.svelte";
 </script>
 
 <BristlefrostMeta 
-	url="https://fateslist.xyz/frostpaw/search?q={query}&target_type={targetType}"
-	title="Search results for {targetType}s matching {query}"
-	description="Find, invite and discover the best {targetType}s matching {query}"
+	url="https://fateslist.xyz/frostpaw/search?q={query}"
+	title="Search results matching {query}!"
+	description="Find, invite and discover the best bots and servers matching {query}"
 	thumbnail="https://fateslist.xyz/static/botlisticon.webp"
 ></BristlefrostMeta>
 
@@ -51,22 +51,28 @@ import BotPack from "$lib/base/BotPack.svelte";
 </section>
 
 <SearchBar type={targetType} query={query}></SearchBar>
-<Tag targetType={targetType} tags={data.tags_fixed}></Tag>
+<Tag targetType={targetType} tags={data.tags[targetType]}></Tag>
 
-{#if targetType == "bot"}
-	<Section title="Bot Packs" icon="bx:bx-package" id="packs">
-		{#each data.extra as pack}
-			<BotPack pack={pack}></BotPack>
-		{/each}
-	</Section>
-{/if}
-
-<Section title="Search Results" icon="fa-solid:search" id="search-res">
+<Section title="Bots" icon="fa-solid:search" id="search-res-bots">
 	<CardContainer>
-		{#each data.search_res as bot}
-			<BotCard data={bot} type={targetType} rand={false}/>
+		{#each data.bots as bot}
+			<BotCard data={bot} type="bot" rand={false}/>
 		{/each}
 	</CardContainer>
+</Section>
+
+<Section title="Servers" icon="fa-solid:search" id="search-res-servers">
+	<CardContainer>
+		{#each data.servers as server}
+			<BotCard data={server} type="server" rand={false}/>
+		{/each}
+	</CardContainer>
+</Section>
+
+<Section title="Bot Packs" icon="bx:bx-package" id="search-res-packs">
+	{#each data.packs as pack}
+		<BotPack pack={pack}></BotPack>
+	{/each}
 </Section>
 
 <style lang="scss">
