@@ -53,27 +53,52 @@ import BotPack from "$lib/base/BotPack.svelte";
 <SearchBar type={targetType} query={query}></SearchBar>
 <Tag targetType={targetType} tags={data.tags[targetType+"s"]}></Tag>
 
-<Section title="Bots" icon="fa-solid:search" id="search-res-bots">
-	<CardContainer>
-		{#each data.bots as bot}
-			<BotCard data={bot} type="bot" rand={false}/>
-		{/each}
-	</CardContainer>
-</Section>
+<!--Ordering-->
+{#if targetType == "bot"}
+	<Section title="Bots" icon="fa-solid:search" id="search-res-bots">
+		<CardContainer>
+			{#each data.bots as bot}
+				<BotCard data={bot} type="bot" rand={false}/>
+			{/each}
+		</CardContainer>
+	</Section>
 
-<Section title="Servers" icon="fa-solid:search" id="search-res-servers">
-	<CardContainer>
-		{#each data.servers as server}
-			<BotCard data={server} type="server" rand={false}/>
+	<Section title="Bot Packs" icon="bx:bx-package" id="search-res-packs">
+		{#each data.packs as pack}
+			<BotPack pack={pack}></BotPack>
 		{/each}
-	</CardContainer>
-</Section>
+	</Section>
 
-<Section title="Bot Packs" icon="bx:bx-package" id="search-res-packs">
-	{#each data.packs as pack}
-		<BotPack pack={pack}></BotPack>
-	{/each}
-</Section>
+	<Section title="Servers" icon="fa-solid:search" id="search-res-servers">
+		<CardContainer>
+			{#each data.servers as server}
+				<BotCard data={server} type="server" rand={false}/>
+			{/each}
+		</CardContainer>
+	</Section>
+{:else}	
+	<Section title="Servers" icon="fa-solid:search" id="search-res-servers">
+		<CardContainer>
+			{#each data.servers as server}
+				<BotCard data={server} type="server" rand={false}/>
+			{/each}
+		</CardContainer>
+	</Section>
+
+	<Section title="Bots" icon="fa-solid:search" id="search-res-bots">
+		<CardContainer>
+			{#each data.bots as bot}
+				<BotCard data={bot} type="bot" rand={false}/>
+			{/each}
+		</CardContainer>
+	</Section>
+
+	<Section title="Bot Packs" icon="bx:bx-package" id="search-res-packs">
+		{#each data.packs as pack}
+			<BotPack pack={pack}></BotPack>
+		{/each}
+	</Section>
+{/if}
 
 <style lang="scss">
 	h1 {
