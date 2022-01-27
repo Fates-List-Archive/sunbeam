@@ -53,6 +53,9 @@ import BotPack from "$lib/base/BotPack.svelte";
 <SearchBar type={targetType} query={query}></SearchBar>
 <Tag targetType={targetType} tags={data.tags[targetType+"s"]}></Tag>
 
+{JSON.stringify(data.bots)}
+
+
 <Section title="Bots" icon="fa-solid:search" id="search-res-bots">
 	<CardContainer>
 		{#each data.bots as bot}
@@ -61,6 +64,7 @@ import BotPack from "$lib/base/BotPack.svelte";
 	</CardContainer>
 </Section>
 
+<!--
 <Section title="Servers" icon="fa-solid:search" id="search-res-servers">
 	<CardContainer>
 		{#each data.servers as server}
@@ -74,7 +78,7 @@ import BotPack from "$lib/base/BotPack.svelte";
 		<BotPack pack={pack}></BotPack>
 	{/each}
 </Section>
-
+-->
 <style lang="scss">
 	h1 {
 		font-size: 50px;
