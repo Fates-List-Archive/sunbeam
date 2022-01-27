@@ -78,7 +78,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
     }
 
     async function regenBotToken() {
-        let url = `https://api.fateslist.xyz/api/v2/bots/${context.bot_id}/token`
+        let url = `https://api.fateslist.xyz/api/v2/bots/${data.bot_id}/token`
         let headers = {"Authorization": data.api_token}
         let res = await fetch(url, {
             method: "PATCH",
@@ -95,7 +95,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
     }
 
     async function appealBot() {
-        let url = `https://api.fateslist.xyz/api/v2/users/${$session.session.user.id}/bots/${context.bot_id}/appeal`
+        let url = `https://api.fateslist.xyz/api/v2/users/${$session.session.user.id}/bots/${data.bot_id}/appeal`
         let headers = {
             "Content-Type": "application/json", 
             "Authorization": $session.session.token
@@ -118,7 +118,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
     }
 
     async function postStats() {
-        let url = `https://api.fateslist.xyz/api/v2/bots/${context.bot_id}/stats`
+        let url = `https://api.fateslist.xyz/api/v2/bots/${data.bot_id}/stats`
         let headers = {
             "Content-Type": "application/json", 
             "Authorization": data.api_token
@@ -148,11 +148,11 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
             return
         }
         let confirm = prompt("This action is irreversible. Please confirm you really want to transfer ownership by entering your Bots ID below")
-        if(confirm != context.bot_id) {
+        if(confirm != data.bot_id) {
             alert("Could not transfer ownership as you did not confirm you wanted to do this/inputted invalid Bot ID")
             return
         }
-        let url = `https://api.fateslist.xyz/api/v2/users/${$session.session.user.id}/bots/${context.bot_id}/ownership`
+        let url = `https://api.fateslist.xyz/api/v2/users/${$session.session.user.id}/bots/${data.bot_id}/ownership`
         let headers = {
             "Content-Type": "application/json", 
             "Authorization": $session.session.token
@@ -176,11 +176,11 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
 
     async function deleteBot() {
         let confirm = prompt("This action is irreversible. Please confirm you really want to delete this bot by entering your Bots ID below")
-        if(confirm != context.bot_id) {
+        if(confirm != data.bot_id) {
             alert("Could not delete this bot as you did not confirm you wanted to do this/inputted invalid Bot ID")
             return
         }
-        let url = `https://api.fateslist.xyz/api/v2/users/${$session.session.user.id}/bots/${context.bot_id}`
+        let url = `https://api.fateslist.xyz/api/v2/users/${$session.session.user.id}/bots/${data.bot_id}`
         let headers = {
             "Authorization": $session.session.token
         }
@@ -232,7 +232,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
     }
 
     async function sendTestWebhook() {
-        await voteHandler($session.session.user.id, $session.session.token, context.bot_id, true)
+        await voteHandler($session.session.user.id, $session.session.token, data.bot_id, true)
         return
     }
 
@@ -284,7 +284,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
             bot["keep_banner_decor"] = document.querySelector("#keep_banner_decor").value == "true"
 
             if(mode == "edit") {
-                bot["bot_id"] = context.bot_id
+                bot["bot_id"] = data.bot_id
             }
 
             let botId = bot["bot_id"] 
