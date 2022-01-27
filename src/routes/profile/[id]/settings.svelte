@@ -129,7 +129,7 @@ import Tip from '$lib/base/Tip.svelte';
             banner: document.querySelector("#pack-banner").value,
         }
         let bots = document.querySelector("#pack-bots").value
-        payload["bots"] = bots.split(" ")
+        payload["bots"] = bots.split(",")
         let headers = {"Authorization": $session.session.token, "Content-Type": "application/json"}
         let res = await fetch(`https://api.fateslist.xyz/api/v2/users/${data.user.id}/packs`, {
             method: "POST",
