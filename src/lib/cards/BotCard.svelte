@@ -54,12 +54,18 @@
         <Button aria-label="View" href="/{type}/{data.user.id}" class="bot-card-actions-link" touch variant="outlined">View</Button>
         {#if type != 'profile'}
             <Button aria-label="Invite" href="/{type}/{data.user.id}/invite" class="bot-card-actions-link" target="_blank" touch variant="outlined">{#if type == "server"}Join{:else}Invite{/if}</Button>
+        {:else}
+            <Button aria-label="Invite" aria-disabled="true" class="bot-card-actions-link disabled" touch variant="outlined">Invite</Button>
         {/if}
     </div>
 </div>
 </section>
 
 <style lang="scss">
+    .disabled {
+        opacity: 1 !important;
+    }
+
     a {
         opacity: 1 !important;
     }
