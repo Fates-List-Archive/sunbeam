@@ -397,7 +397,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
             </ul>
             <h3 class="section-title">Bot Owners</h3>
             <Icon icon="mdi-crown" inline={false} height="1.2em" style="margin-right: 1px"></Icon>
-            {@html context.owners_html}
+            {@html data.owners_html}
             <h2>API Token</h2>
             <pre>{token}</pre>            
             <Button href={"#"} on:click={showBotToken} class="button" id="bot-token-show-btn" touch variant="outlined">Show</Button>
