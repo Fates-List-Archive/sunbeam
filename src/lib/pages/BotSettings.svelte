@@ -72,14 +72,14 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
             token = "Click 'Show' to see your bots token"
             tokenShown = false
         } else {
-            token = context.token
+            token = data.token
             tokenShown = true
         }
     }
 
     async function regenBotToken() {
         let url = `https://api.fateslist.xyz/api/v2/bots/${context.bot_id}/token`
-        let headers = {"Authorization": context.token}
+        let headers = {"Authorization": data.token}
         let res = await fetch(url, {
             method: "PATCH",
             headers: headers
@@ -121,7 +121,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
         let url = `https://api.fateslist.xyz/api/v2/bots/${context.bot_id}/stats`
         let headers = {
             "Content-Type": "application/json", 
-            "Authorization": context.token
+            "Authorization": data.token
         }
         let res = await fetch(url, {
             method: "POST",
