@@ -72,14 +72,14 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
             token = "Click 'Show' to see your bots token"
             tokenShown = false
         } else {
-            token = context.bot_token
+            token = context.token
             tokenShown = true
         }
     }
 
     async function regenBotToken() {
         let url = `https://api.fateslist.xyz/api/v2/bots/${context.bot_id}/token`
-        let headers = {"Authorization": context.bot_token}
+        let headers = {"Authorization": context.token}
         let res = await fetch(url, {
             method: "PATCH",
             headers: headers
@@ -121,7 +121,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
         let url = `https://api.fateslist.xyz/api/v2/bots/${context.bot_id}/stats`
         let headers = {
             "Content-Type": "application/json", 
-            "Authorization": context.bot_token
+            "Authorization": context.token
         }
         let res = await fetch(url, {
             method: "POST",
@@ -568,7 +568,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
             <SelectOption value="false" masterValue="{data.nsfw}">No</SelectOption>
         </select>
         <br/><br/>
-        {#if context.staff.perm > 4 || data.system_bot}
+        {#if context.perm > 4 || data.system_bot}
             <label for="system_bot">System Bot (set this to no to claim your bot, only staff can set this to yes)</label>
             <select name="system_bot" id="system_bot">
                 <SelectOption value="true" masterValue="{data.system_bot}">Yes</SelectOption>
