@@ -51,7 +51,7 @@ import BotPack from "$lib/base/BotPack.svelte";
 </section>
 
 <SearchBar type={targetType} query={query}></SearchBar>
-<Tag targetType={targetType} tags={data.tags[targetType]}></Tag>
+<Tag targetType={targetType} tags={data.tags[targetType+"s"]}></Tag>
 
 <Section title="Bots" icon="fa-solid:search" id="search-res-bots">
 	<CardContainer>
