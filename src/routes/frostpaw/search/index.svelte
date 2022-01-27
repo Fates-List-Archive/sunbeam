@@ -100,6 +100,14 @@ import BotPack from "$lib/base/BotPack.svelte";
 	</Section>
 {/if}
 
+<Section title="Profiles" icon="fa-solid:search" id="search-res-profiles">
+	<CardContainer>
+		{#each data.profiles as profile}
+			<BotCard data={profile} type="profile" rand={false}/>
+		{/each}
+	</CardContainer>
+</Section>
+
 <style lang="scss">
 	h1 {
 		font-size: 50px;
