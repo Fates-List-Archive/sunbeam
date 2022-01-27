@@ -52,18 +52,22 @@ import BotPack from "$lib/base/BotPack.svelte";
 
 <SearchBar type={targetType} query={query}></SearchBar>
 <Tag targetType={targetType} tags={data.tags_fixed}></Tag>
-<CardContainer>
-	{#each data.search_res as bot}
-		<BotCard data={bot} type={targetType} rand={false}/>
-	{/each}
-</CardContainer>
 
 {#if targetType == "bot"}
-	<Section title="Bot Packs" icon="bx:bx-package"></Section>
-	{#each data.extra as pack}
-		<BotPack pack={pack}></BotPack>
-	{/each}
+	<Section title="Bot Packs" icon="bx:bx-package" id="packs">
+		{#each data.extra as pack}
+			<BotPack pack={pack}></BotPack>
+		{/each}
+	</Section>
 {/if}
+
+<Section title="Search Results" icon="fa-solid:search" id="search-res">
+	<CardContainer>
+		{#each data.search_res as bot}
+			<BotCard data={bot} type={targetType} rand={false}/>
+		{/each}
+	</CardContainer>
+</Section>
 
 <style lang="scss">
 	h1 {

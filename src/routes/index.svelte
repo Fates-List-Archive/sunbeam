@@ -53,27 +53,29 @@
 <Tag targetType="bot" tags={data.tags_fixed}></Tag>
 <RandomBot type="bot" randomBot={randomBot}/>
 
-<Section icon="fa-solid:certificate" title="Certified"></Section>
-<CardContainer>
-	{#each data.certified_bots as bot}
-		<BotCard data={bot} type="bot" rand={false}/>
-	{/each}
-</CardContainer>
+<Section icon="fa-solid:certificate" title="Certified" id="certified-index">
+	<CardContainer>
+		{#each data.certified_bots as bot}
+			<BotCard data={bot} type="bot" rand={false}/>
+		{/each}
+	</CardContainer>
+</Section>
 
-<Section icon="fa-solid:sort-amount-up" title="Top Voted"></Section>
-<CardContainer>
-	{#each data.top_voted as bot}
-		<BotCard data={bot} type="bot" rand={false}/>
-	{/each}
-</CardContainer>
+<Section icon="fa-solid:sort-amount-up" title="Top Voted" id="top-voted-index">
+	<CardContainer>
+		{#each data.top_voted as bot}
+			<BotCard data={bot} type="bot" rand={false}/>
+		{/each}
+	</CardContainer>
+</Section>
 
-<Section icon="fa-solid:plus" title="New Bots"></Section>
-<CardContainer>
-	{#each data.new_bots as bot}
-		<BotCard data={bot} type="bot" rand={false}/>
-	{/each}
-</CardContainer>
-
+<Section icon="fa-solid:plus" title="New Bots" id="new-bots">
+	<CardContainer>
+		{#each data.new_bots as bot}
+			<BotCard data={bot} type="bot" rand={false}/>
+		{/each}
+	</CardContainer>
+</Section>
 
 <style>
 	h1 {

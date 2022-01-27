@@ -37,38 +37,46 @@
 	<li>Banned Bots Length: {data.banned_amount}</li>
 	<li>Denied Bots Length: {data.denied_amount}</li>
 </ul>
-<Section icon="fa-solid:plus" title="Queue"></Section>
-<CardContainer>
-	{#each data.queue as bot}
-		<BotCard data={bot} type="bot" rand={false}/>
-	{/each}
-</CardContainer>
-<Section icon="fluent:thinking-24-regular" title="Under Review"></Section>
-<CardContainer>
-	{#each data.under_review as bot}
-		<BotCard data={bot} type="bot" rand={false}/>
-	{/each}
-</CardContainer>
-<Section icon="fa-solid:certificate" title="Certified"></Section>
-<CardContainer>
-	{#each data.certified as bot}
-		<BotCard data={bot} type="bot" rand={false}/>
-	{/each}
-</CardContainer>
+<Section icon="fa-solid:plus" title="Queue" id="queue">
+	<CardContainer>
+		{#each data.queue as bot}
+			<BotCard data={bot} type="bot" rand={false}/>
+		{/each}
+	</CardContainer>
+</Section>
+
+<Section icon="fluent:thinking-24-regular" title="Under Review" id="under-review">
+	<CardContainer>
+		{#each data.under_review as bot}
+			<BotCard data={bot} type="bot" rand={false}/>
+		{/each}
+	</CardContainer>
+</Section>
+
+<Section icon="fa-solid:certificate" title="Certified" id="certified">
+	<CardContainer>
+		{#each data.certified as bot}
+			<BotCard data={bot} type="bot" rand={false}/>
+		{/each}
+	</CardContainer>
+</Section>
 
 {#if full}
-	<Section icon="akar-icons:cross" title="Denied Bots"></Section>
-	<CardContainer>
-		{#each data.denied as bot}
-			<BotCard data={bot} type="bot" rand={false}/>
-		{/each}
-	</CardContainer>
-	<Section icon="bi:hammer" title="Banned Bots"></Section>
-	<CardContainer>
-		{#each data.banned as bot}
-			<BotCard data={bot} type="bot" rand={false}/>
-		{/each}
-	</CardContainer>
+	<Section icon="akar-icons:cross" title="Denied Bots" id="denied">
+		<CardContainer>
+			{#each data.denied as bot}
+				<BotCard data={bot} type="bot" rand={false}/>
+			{/each}
+		</CardContainer>
+	</Section>
+
+	<Section icon="bi:hammer" title="Banned Bots" id="banned">
+		<CardContainer>
+			{#each data.banned as bot}
+				<BotCard data={bot} type="bot" rand={false}/>
+			{/each}
+		</CardContainer>
+	</Section>
 {:else}
 	<a href="/frostpaw/stats?full=true">Click here to view banned and denied bots. Note that this request may timeout</a>
 {/if}
