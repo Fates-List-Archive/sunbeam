@@ -317,6 +317,9 @@
 			{#if type == "bot"}
 				{#if Object.keys(data.commands).length == 0}
 					<h2>This bot does not have any commands</h2>
+					{#if !data.prefix}
+						<h3>This bot uses slash commands, try typing / to see a list of commands</h3>
+					{/if}
 				{/if}
 				{#each Object.entries(data.commands) as cmd_group}
 					{#if cmd_group[0] == "default"}
