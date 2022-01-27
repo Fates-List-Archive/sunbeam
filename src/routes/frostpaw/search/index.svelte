@@ -51,7 +51,9 @@ import BotPack from "$lib/base/BotPack.svelte";
 </section>
 
 <SearchBar type={targetType} query={query}></SearchBar>
-<Tag targetType={targetType} tags={data.tags[targetType+"s"]}></Tag>
+{#if targetType == "bot" || targetType == "server"}
+	<Tag targetType={targetType} tags={data.tags[targetType+"s"]}></Tag>
+{/if}
 
 <!--Ordering-->
 {#if targetType == "bot"}
