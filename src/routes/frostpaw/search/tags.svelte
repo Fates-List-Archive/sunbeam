@@ -29,6 +29,7 @@
     import CardContainer from "$lib/cards/CardContainer.svelte"
     import BotCard from "$lib/cards/BotCard.svelte"
     import SearchBar from "$lib/base/SearchBar.svelte"
+	import Section from "$lib/base/Section.svelte";
     import Tag from "$lib/base/Tag.svelte";
 	import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
     export let data: any;
@@ -49,11 +50,14 @@
 </section>
 <SearchBar type={targetType} query=""></SearchBar>
 <Tag targetType={targetType} tags={data.tags_fixed}></Tag>
-<CardContainer>
-	{#each data.search_res as bot}
-		<BotCard data={bot} type={targetType} rand={false}/>
-	{/each}
-</CardContainer>
+
+<Section title="Search Results" icon="fa-solid:search" id="search-res-tags">
+	<CardContainer>
+		{#each data.search_res as bot}
+			<BotCard data={bot} type={targetType} rand={false}/>
+		{/each}
+	</CardContainer>
+</Section>
 
 <style lang="scss">
 	h1 {
