@@ -5,7 +5,7 @@
 			if(!session.session.token) {
 				return {
 					props: {
-						data: {}
+						context: {}
 					}
 				}
 			}
@@ -19,7 +19,7 @@
 			let data = await tagsRes.json()
 			return {
 				props: {
-					data: data
+					context: data
 				}
 			}
 		}
@@ -29,12 +29,14 @@
 	import BotSettings from "$lib/pages/BotSettings.svelte";
 	import { loginUser } from "$lib/request"
 	import { session } from "$app/stores"
-	export let data: any;
+	export let context: any;
 	let user = {
 		username: "Fates List",
 		avatar: "https://api.fateslist.xyz/static/botlisticon.webp"
 	}
-	data.data.user = user;
+	let data = {
+		user: user
+	}
 	if(!$session.session.token) {
 		if(browser) {
 			loginUser(false)
@@ -42,7 +44,7 @@
 	}
 </script>
 {#if $session.session.token}
-	<BotSettings mode="add" data={data.data} context={data.context}></BotSettings>
+	<BotSettings mode="add" data={data} context={context}></BotSettings>
 {:else}
 	<p>Logging you in, please wait...</p>
 {/if}
