@@ -41,6 +41,7 @@ export const getSession: GetSession = async (event) => {
 				sessionData = JSON.parse(rawData)
 			} catch (e) {
 				console.log(e)
+				sessionData = {error: e}
 			}
 		}
 	}
