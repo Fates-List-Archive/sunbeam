@@ -30,17 +30,13 @@ export const getSession: GetSession = async (event) => {
 		let key = cookies["sunbeam-key"]
 
 		if(newJwt) {
-			try {
-				// First base64 decode it
-				let data = Buffer.from(newJwt, "base64").toString("binary")
-				console.log(key)
-				// Then decode it using itsdanger
-				sessionData = JSON.parse(data)
-				if(sessionData["nonce"] != key) {
-					sessionData = {}
-				}
-			} catch (e) {
-				console.log(e)
+			// First base64 decode it
+			let data = Buffer.from(newJwt, "base64").toString("binary")
+			console.log(key)
+			// Then decode it using itsdanger
+			sessionData = JSON.parse(data)
+			if(sessionData["nonce"] != key) {
+				sessionData = {}
 			}
 		}
 	}
