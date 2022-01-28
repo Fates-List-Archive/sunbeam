@@ -36,7 +36,7 @@ export const getSession: GetSession = async (event) => {
 				let data = Buffer.from(newJwt, "base64").toString("binary")
 				console.log(key)
 				// Then decode it using itsdanger
-				let signer = new RD.TimestampSigner(key, "auth");
+				let signer = new RD.TimestampSigner(key, "auth")
 				let rawData = signer.unsign(data)
 				sessionData = JSON.parse(rawData)
 			} catch (e) {
