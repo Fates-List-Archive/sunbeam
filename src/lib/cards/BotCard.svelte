@@ -1,5 +1,6 @@
 <script lang="ts">
-    import Icon from '@iconify/svelte';
+    import { session } from '$app/stores';
+import Icon from '@iconify/svelte';
     import Button from '@smui/button';
     import { enums } from '../enums/enums'
     export let data: any;
@@ -55,15 +56,24 @@
         {#if type != 'profile'}
             <Button aria-label="Invite" href="/{type}/{data.user.id}/invite" class="bot-card-actions-link" target="_blank" touch variant="outlined">{#if type == "server"}Join{:else}Invite{/if}</Button>
         {:else}
-            <Button aria-label="Invite" aria-disabled="true" class="bot-card-actions-link disabled" touch variant="outlined">Invite</Button>
+            {#if $session.session.token && data.user.id == $session.session.user.id}
+                <Button aria-label="Settings" href="/{type}/{data.user.id}/settings" class="bot-card-actions-link profile-settings-btn" touch variant="outlined">Settings</Button>
+            {:else}
+                <Button aria-label="Settings" aria-disabled="true" class="bot-card-actions-link disabled-profile-btn" touch variant="outlined">Settings</Button>
+            {/if}
         {/if}
     </div>
 </div>
 </section>
 
 <style lang="scss">
-    .disabled {
-        opacity: 1 !important;
+    :global(.disabled-profile-btn) {
+        opacity: 0.8 !important;
+        color: white !important;
+    }
+
+    :global(.profile-settings-btn) {
+        font-size: 12px !important;
     }
 
     a {
