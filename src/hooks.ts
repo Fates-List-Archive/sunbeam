@@ -30,14 +30,14 @@ export const getSession: GetSession = async (event) => {
 
 		// First base64 decode it
 		let data = ""
-		if(Buffer) {
-			let data = Buffer.from(newJwt, "base64").toString("binary")
-		} else {
-			function base64_decode(s) {      
+		function base64_decode(s) {   
+			try {   
 				return decodeURIComponent(escape(atob(s)));
+			} catch (err) {
+				return Buffer.from(s, 'base64').toString('binary')
 			}
-			data = base64_decode(newJwt)
 		}
+		data = base64_decode(newJwt)
 		sessionData["rawData"] = data
 		// Then decode it using itsdanger
 		sessionData = JSON.parse(data)
