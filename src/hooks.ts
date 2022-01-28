@@ -47,6 +47,7 @@ export const getSession: GetSession = async (event) => {
 			"session": sessionData
 		}
 	} catch(err) {
+		throw err
 		return {
 			"url": "https://fateslist.xyz",
 			"query": {},
