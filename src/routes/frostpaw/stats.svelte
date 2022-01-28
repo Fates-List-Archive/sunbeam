@@ -1,10 +1,10 @@
 <script lang="ts" context="module">
 	import { fetchFates } from "$lib/request"
 	export const prerender = false
-	export async function load({ params, fetch, session, stuff }) {
-		const full = session.query.full == "true"
-		const url = `/api/blstats-full?api=true&full=${full}` // This will change
-		const res = await fetchFates(url, "", fetch);
+	export async function load({ params, url, fetch, session, stuff }) {
+		const full = url.searchParams.get("full") == "true"
+		const blUrl = `/api/blstats-full?api=true&full=${full}` // This will change
+		const res = await fetchFates(blUrl, "", fetch);
 		if(res.ok) {
 			return {
 				props: {
