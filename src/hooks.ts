@@ -1,6 +1,8 @@
 import cookie from 'cookie';
 import type { Handle } from '@sveltejs/kit';
 import type { GetSession } from '@sveltejs/kit';
+import { decode } from '@cfworker/base64url';
+
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const cookies = cookie.parse(event.request.headers.get("cookie") || '');
@@ -29,23 +31,7 @@ export const getSession: GetSession = async (event) => {
 		let newJwt = cookies["sunbeam-session:warriorcats"]
 
 		// First base64 decode it
-		let data = ""
-		function decodeUnicode(s: string): string {
-			try {
-			  return decodeURIComponent(
-				s.replace(/(.)/g, (_, p) => {
-				  const code = p.charCodeAt(0).toString(16).toUpperCase();
-				  if (code.length < 2) {
-					return '%0' + code;
-				  }
-				  return '%' + code;
-				})
-			  );
-			} catch {
-			  return s;
-			}
-		}		
-		data = decodeUnicode(newJwt)
+		let data = decode(newJwt)
 		sessionData["rawData"] = data
 		// Then decode it using itsdanger
 		sessionData = JSON.parse(data)
