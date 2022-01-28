@@ -7,4 +7,6 @@
 
 Sunbeam is also the new WIP frontend for Fates List.
 
+See SETUP.md for deploy instructions
+
 Why Svelte? It allows me to reuse my old HTML from Jinja2 and because it's easy!
