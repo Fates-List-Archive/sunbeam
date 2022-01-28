@@ -27,12 +27,19 @@ export const getSession: GetSession = async (event) => {
 	let sessionData = {}
 	if (cookies["sunbeam-session"]) {
 		let jwt = cookies["sunbeam-session"]
-		let sessionRes = await fetch(`https://api.fateslist.xyz/api/v2/jwtparse/_sunbeam?jwt=${jwt}`)
-		try {
-			sessionData = await sessionRes.json()
-		} catch(err) {
-			sessionData = {}
-		}
+		let key = cookies["sunbeam-key"]
+		console.log({jwt, key})
+
+		let res = await fetch("https://api.fateslist.xyz/api/v2/jwtparse/_sunbeam", {
+			method: "POST",
+			headers: {
+				"Frostpaw": "0.1.0",
+				"Content-Type": "application/json",
+			}, 
+			body: JSON.stringify({jwt: jwt, key: key})
+		})
+		let json = await res.json()
+		sessionData = json
 	}
 
 	try {

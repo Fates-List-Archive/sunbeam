@@ -43,14 +43,18 @@
   },
   "type": "module",
   "dependencies": {
+    "@constemi/itsdangerjs": "github:constemi/itsdangerjs",
     "@fontsource/fira-mono": "^4.5.0",
     "@lukeed/uuid": "^2.0.0",
     "@sveltejs/adapter-node": "^1.0.0-next.67",
     "cookie": "^0.4.1",
+    "itsdangerous": "^0.0.1",
+    "jwt-decode": "^3.1.2",
     "lozad": "^1.16.0",
     "marked": "^4.0.9",
     "node-sass": "^7.0.1",
     "postcss": "^8.4.5",
+    "reallydangerous": "^2.1.0",
     "rimraf": "^3.0.2",
     "sass": "^1.45.1",
     "svelte-lazy-image": "^0.2.0"
