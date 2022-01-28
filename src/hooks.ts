@@ -1,7 +1,6 @@
 import cookie from 'cookie';
 import type { Handle } from '@sveltejs/kit';
 import type { GetSession } from '@sveltejs/kit';
-import RD from "reallydangerous"
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const cookies = cookie.parse(event.request.headers.get("cookie") || '');
@@ -26,8 +25,8 @@ export const getSession: GetSession = async (event) => {
 	const cookies = cookie.parse(event.request.headers.get("cookie") || '');
 
 	let sessionData = {}
-	if (cookies["sunbeam-session"]) {
-		let newJwt = cookies["sunbeam-session-v2"]
+	if (cookies["sunbeam-key"]) {
+		let newJwt = cookies["sunbeam-session:warriorcats"]
 		let key = cookies["sunbeam-key"]
 
 		if(newJwt) {
@@ -36,9 +35,10 @@ export const getSession: GetSession = async (event) => {
 				let data = Buffer.from(newJwt, "base64").toString("binary")
 				console.log(key)
 				// Then decode it using itsdanger
-				let signer = new RD.TimestampSigner(key, "auth")
-				let rawData = signer.unsign(data)
-				sessionData = JSON.parse(rawData)
+				sessionData = JSON.parse(data)
+				if(sessionData["nonce"] != key) {
+					sessionData = {}
+				}
 			} catch (e) {
 				console.log(e)
 				sessionData = {error: e}
