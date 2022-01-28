@@ -41,7 +41,6 @@ export const getSession: GetSession = async (event) => {
 				}
 			} catch (e) {
 				console.log(e)
-				sessionData = {error: e}
 			}
 		}
 	}
