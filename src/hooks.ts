@@ -30,11 +30,15 @@ export const getSession: GetSession = async (event) => {
 	if (cookies["sunbeam-key"]) {
 		let newJwt = cookies["sunbeam-session:warriorcats"]
 
-		// First base64 decode it
-		let data = decode(newJwt)
-		sessionData["rawData"] = data
-		// Then decode it using itsdanger
-		sessionData = JSON.parse(data)
+		try {
+			// First base64 decode it
+			let data = decode(newJwt)
+			sessionData["rawData"] = data
+			// Then decode it using itsdanger
+			sessionData = JSON.parse(data)
+		} catch (e) {
+			console.log(e)
+		}
 	}
 
 	try {
@@ -44,7 +48,6 @@ export const getSession: GetSession = async (event) => {
 			"session": sessionData
 		}
 	} catch(err) {
-		throw err
 		return {
 			"url": "https://fateslist.xyz",
 			"query": {},
