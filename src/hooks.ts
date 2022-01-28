@@ -1,6 +1,7 @@
 import cookie from 'cookie';
 import type { Handle } from '@sveltejs/kit';
 import type { GetSession } from '@sveltejs/kit';
+import RD from "reallydangerous"
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const cookies = cookie.parse(event.request.headers.get("cookie") || '');
@@ -26,20 +27,22 @@ export const getSession: GetSession = async (event) => {
 
 	let sessionData = {}
 	if (cookies["sunbeam-session"]) {
-		let jwt = cookies["sunbeam-session"]
+		let newJwt = cookies["sunbeam-session-v2"]
 		let key = cookies["sunbeam-key"]
-		console.log({jwt, key})
 
-		let res = await fetch("https://api.fateslist.xyz/api/v2/jwtparse/_sunbeam", {
-			method: "POST",
-			headers: {
-				"Frostpaw": "0.1.0",
-				"Content-Type": "application/json",
-			}, 
-			body: JSON.stringify({jwt: jwt, key: key})
-		})
-		let json = await res.json()
-		sessionData = json
+		if(newJwt) {
+			try {
+				// First base64 decode it
+				let data = Buffer.from(newJwt, "base64").toString("binary")
+				console.log(key)
+				// Then decode it using itsdanger
+				let signer = new RD.TimestampSigner(key, "auth");
+				let rawData = signer.unsign(data)
+				sessionData = JSON.parse(rawData)
+			} catch (e) {
+				console.log(e)
+			}
+		}
 	}
 
 	try {
