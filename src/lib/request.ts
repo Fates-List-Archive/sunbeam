@@ -45,6 +45,10 @@ export async function loginUser(noSetStorage: boolean) {
 		body: JSON.stringify({"scopes": ["identify"]})
 	})
 	let json = await res.json()
+	if(!noSetStorage && localStorage.loginError == "1") {
+		json.url += "&prompt=none"
+		localStorage.removeItem("loginError")
+	}
 	window.location.href = json.url
 }
 

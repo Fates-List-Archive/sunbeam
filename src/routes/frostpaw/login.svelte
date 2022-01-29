@@ -3,7 +3,7 @@
 </script>
 <script>
     import { browser } from '$app/env';
-    import { getCookie } from "$lib/request"
+    import { getCookie, loginUser } from "$lib/request"
 
     let frostpawServer = ""
     let frostpawMsg = "Please wait..."
@@ -49,7 +49,9 @@
 		    if(json.banned) {
 			frostpawMsg = `<h1>${json.reason}</h1><br/><h2>This is a ${json.ban.type} ban and ${json.ban.desc}.</h2><br/>You can try to appeal this ban at <a href="https://fateslist.xyz/banappeal">our ban appeal server</a>`
 		    } else {
-                    	frostpawMsg = `Got error: ${JSON.stringify(json)}`
+			frostpawMsg = `Got error: ${JSON.stringify(json)}. Trying again...`
+			localStorage.loginError = "1"
+			loginUser(false)
 		    }	    
 		} else {
                     window.location.href = frostpawServer
