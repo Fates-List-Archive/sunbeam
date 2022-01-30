@@ -738,7 +738,9 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
         />
     </section>
 </Tab>
-<Button href={"#"} on:click={updateBot} class="button btn-save" id="submit" touch variant="outlined">{saveTxt}</Button>  
+<div class="center">
+    <Button href={"#"} on:click={updateBot} class="button btn-save" id="submit" touch variant="outlined">{saveTxt}</Button>  
+</div>
 <pre>{popUpMsg}</pre>
 <style lang="scss">
     .section-title {
@@ -774,5 +776,9 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
     :global(.button) {
         opacity: 1 !important;
         border: solid thin !important;
+    }
+
+    .center {
+        text-align: center;
     }
 </style>
