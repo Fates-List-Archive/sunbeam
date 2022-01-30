@@ -117,6 +117,29 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
         }
     }
 
+    async function requestCertification() {
+        let url = `https://api.fateslist.xyz/api/v2/users/${$session.session.user.id}/bots/${data.bot_id}/certification`
+        let headers = {
+            "Content-Type": "application/json", 
+            "Authorization": $session.session.token
+        }
+        let res = await fetch(url, {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify({
+                "appeal": document.querySelector("#certify-text").value
+            })
+        })
+        if(res.ok) {
+            alert("Successfully sent request!")
+            window.location.reload()
+            return
+        } else {
+            let json = await res.json()
+            alert(json.reason)
+        }
+    }
+
     async function postStats() {
         let url = `https://api.fateslist.xyz/api/v2/bots/${data.bot_id}/stats`
         let headers = {
@@ -452,6 +475,23 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
                 type="number"   
             /><br/>
             <Button href={"#"} on:click={postStats} class="button" id="post-stats" touch variant="outlined">Post Stats</Button>  
+            <h3 class="white section">Request Certification</h3>
+            <Tip>
+                You can request certification for your bot on Fates List. 
+                This will only be granted if you are a <em>high quality</em> 
+                bot. Please read our requirements <a href="https://fateslist.xyz/frostpaw/tos" target="_blank">here</a>
+                to see our minimum published requirements. Other factors and hidden
+                requirements may apply depending on your bot and its purpose.
+            </Tip>
+            <label for="certify-test">Message<RedStar></RedStar></label><br/>
+            <textarea
+                name="certify-text"
+                id="certify-text"
+                class="form-control fform text-input"
+                style="width: 100%"
+                placeholder="I wish to certify my bot and here's why. Use at least 7 characters"
+            ></textarea>
+            <Button href={"#"} on:click={requestCertification} class="button" id="request-certification" touch variant="outlined">Request Certification</Button>
             <h3 class="white section">Transfer Ownership</h3>
             <label for="new-owner">New Owner ID<RedStar></RedStar></label><br/>
             <input 
