@@ -111,7 +111,7 @@ import Button from '@smui/button';
     <h2>Do you have what it takes to become staff?</h2>
     <div class="staff-app">
         {#each app.questions as question}
-            <FormInput name={`${question.question} (${question.minlength} to ${question.maxlength} characters)`} id={question.id} placeholder={`Write your response here. Must be between ${question.minlength} and ${question.maxlength} characters`} type="text" textarea={question.maxlength >= 2000} required={true}/>
+            <FormInput name={`${question.question} (${question.minlength} to ${question.maxlength} characters)`} id={question.id} placeholder={`${question.title}: Write your response here. Must be between ${question.minlength} and ${question.maxlength} characters`} type="text" textarea={question.maxlength >= 2000} required={true}/>
         {/each}
     </div>
     <div class="center">
