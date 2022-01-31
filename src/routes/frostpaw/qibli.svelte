@@ -13,8 +13,10 @@ import { browser } from "$app/env";
     if(browser) {
         let url = new URL(window.location.href)
         let data = url.searchParams.get("data")
-        appURL = `https://api.fateslist.xyz/staff-apps/qibli/${data}`
-        getAppFromJSON(`https://api.fateslist.xyz/staff-apps/qibli/${data}`)
+	if(data) {
+		appURL = `https://api.fateslist.xyz/staff-apps/qibli/${data}`
+        	getAppFromJSON(`https://api.fateslist.xyz/staff-apps/qibli/${data}`)
+    	}
     }
 
     async function getAppFromJSON(url: string) {
@@ -34,7 +36,7 @@ import { browser } from "$app/env";
 <div class="center">
     <Button href={"#"} on:click={() => {
         let url = document.getElementById("app-url").value
-        getAppFromJSON(url)
+        getAppFromJSON("https://sunbeam.fateslist.xyz/frostpaw/qibli-fetch?url="+url)
     }} class="button" id="post-app-btn" touch variant="outlined">{saveTxt}</Button>
 </div>
 {#if appData}
