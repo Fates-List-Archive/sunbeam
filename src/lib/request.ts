@@ -71,8 +71,10 @@ export async function voteHandler(userID: string, token: string, botID: string, 
     })
     let data = await res.json()
     if(res.ok) {
-        alert("Successfully voted for this bot!")
-        window.location.reload()
+        alert(data.reason)
+	if(!test) {
+        	window.location.reload()
+	}
     } else {
         alert(data.reason)
     }
