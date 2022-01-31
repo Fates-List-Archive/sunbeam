@@ -6,7 +6,7 @@ export async function get({ url }) {
 			return {status: res.status}
 		} else {
 			let json = await res.json()
-			return {status: 200, body: JSON.stringify(json)}
+			return {status: 200, body: JSON.stringify(json), headers: {"Content-Type": "application/json"}}
 		}
 	} else {
 		return {status: 404}
