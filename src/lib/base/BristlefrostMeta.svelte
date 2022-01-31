@@ -15,6 +15,7 @@
 	<meta property="og:title" content="{title}">
 	<meta property="og:description" content="{description}">
 	<meta property="og:image" content="{thumbnail}">
+	<meta property="og:site_name" content="Fates List">
 	<meta property="twitter:card" content="summary">
 	<meta property="twitter:url" content="{url}">
 	<meta property="twitter:title" content="{title}">

@@ -1,7 +1,7 @@
 <BristlefrostMeta 
 	url="https://fateslist.xyz/{type}/{data.user.id}"
     pageTitle="{data.user.username}"
-	title="Discover {data.user.username} on Fates List!"
+	title="{data.user.username}"
 	description="{data.description}"
 	thumbnail="{data.user.avatar}"
 ></BristlefrostMeta>
