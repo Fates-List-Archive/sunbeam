@@ -172,6 +172,10 @@
 .cmd-group-header {
 	cursor: pointer;
 }
+
+.opaque {
+    opacity: 0.7;
+}
 </style>
 
 {@html data.css}
@@ -418,6 +422,12 @@
 								Not Available
 							{/if}
 						</p>
+
+						<h2>Bot Features</h2>
+						{#each data.features as feature}
+							<p>{feature.name}: <span class="opaque">{feature.description}. <em>According to our community, this feature is {feature.type}.</em></span></p>
+						{/each}
+
                         <h2>Statistics</h2>
                         <p>Guild Count: {data.guild_count}</p>
                         <p>User Count (according to bot): {data.user_count}</p>
@@ -427,11 +437,11 @@
                                 <span class="white">{shard}</span>, 
                             {/each}
                         </p>
+
                         <h2>Nerdville</h2>
                         <p>Last posted statistics on: {data.last_stats_post}</p>
                         <p>Added to the list on: {data.created_at}</p>
                         <p>Bot Flags: {data.flags}</p>
-                        <p>Bot Features: {data.features}</p>
 						<h4>User Audit Logs</h4>
 						{#each data.action_logs as log}
 							{JSON.stringify(log)}
