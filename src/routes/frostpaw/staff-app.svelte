@@ -107,6 +107,7 @@ import Button from '@smui/button';
 ></BristlefrostMeta>
 
 {#if $session.session.token}
+	<img class="user-avatar" loading="lazy" src="https://api.fateslist.xyz/static/assets/prod/232f1c31-4f53-4c27-979e-5029cb81d762.webp" id="user-avatar" alt="Staff App Frostpaw Wink">
     <h1>Staff Applications</h1>
     <h2>Do you have what it takes to become staff?</h2>
     <div class="staff-app">
@@ -122,6 +123,16 @@ import Button from '@smui/button';
 {/if}
 
 <style lang="scss">
+	.user-avatar {
+		display: flex;
+		opacity: 1 !important;
+		justify-content: center;
+		align-items: center;
+		margin: 0 auto;
+    	border-radius: 50%; 
+    	width: 120px;
+	}
+
     h1, h2 {
         text-align: center;
     }
