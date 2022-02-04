@@ -104,6 +104,7 @@ import BotPack from '$lib/base/BotPack.svelte';
             "profile_css": document.querySelector("#profile-css").value,
             "user_css": document.querySelector("#user-css").value,
             "site_lang": document.querySelector("#site-lang").value,
+            "vote_reminder_channel": document.querySelector("#vote-reminder-channel").value,
         }
         console.log(JSON.stringify(payload))
         let url = `https://api.fateslist.xyz/api/v2/users/${data.user.id}/preferences`
@@ -281,6 +282,15 @@ import BotPack from '$lib/base/BotPack.svelte';
             style="width: 100%"
             placeholder="Enter any profile CSS you want here. For security purposes, this does not allow Javascript whatsoever!"
         >{data.profile.profile_css}</textarea>
+        <label for="vote-reminder-channel">Vote Reminders Channel</label>
+        <input 
+            name="vote-reminder-channel"
+            id="vote-reminder-channel"
+            class="fform"
+            placeholder="Enter the channel ID here"
+            value={data.profile.vote_reminder_channel}
+            style="width: 100%"
+        />
     </section>
 </Tab>
 <Button href={"#"} on:click={updateProfile} class="button" id="update-profile-btn" touch variant="outlined">Update Profile</Button>
