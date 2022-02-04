@@ -7,18 +7,11 @@
 		
 		const res = await fetchFates(url, "", fetch);
 
-        if(!session.session.token) {
-            return {
-                status: 404,
-                error: "You must be logged in to view this page."
-            }
-        }
-
 		if (res.ok) {
             	    let data = await res.json()
 			return {
 				props: {
-					data: data,
+					data: data
 				}
 			};
 		}
@@ -34,8 +27,13 @@
     import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
     import Button from '@smui/button';
 import { session } from "$app/stores";
+import {loginUser} from "$lib/request"
 
     async function toggleReminders(mode: number) {
+        if(!$session.session.token) {
+            loginUser(false)
+            return
+        }
         let headers = {"Content-Type": "application/json", "Authorization": $session.session.token}
         let payload = {"mode": mode, "bot_id": data.user.id}
         console.log(payload)
