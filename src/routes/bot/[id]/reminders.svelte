@@ -61,7 +61,7 @@ import { session } from "$app/stores";
 
 <img class="user-avatar" loading="lazy" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="user-avatar" alt="{data.user.username}'s avatar">
 <h2 class="white user-username" id="user-name">Reminders for {data.user.username}</h2>
-
+<h3>All vote reminders are public</h3>
 <Button href={"#"} on:click={() => toggleReminders(1)} class="bot-card-actions-link" id="profiles-center" touch variant="outlined">Enable Vote Reminders</Button>
 <Button href={"#"} on:click={() => toggleReminders(0)} class="bot-card-actions-link" id="profiles-center" touch variant="outlined">Disable Vote Reminders</Button>
 
