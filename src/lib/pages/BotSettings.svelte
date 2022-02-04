@@ -743,6 +743,10 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
 </div>
 <pre>{popUpMsg}</pre>
 <style lang="scss">
+    .tabdesign {
+        overflow: visible !important;
+    }
+
     .section-title {
         text-decoration: underline;
     }

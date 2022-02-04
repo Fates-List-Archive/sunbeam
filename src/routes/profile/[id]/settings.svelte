@@ -295,6 +295,10 @@ import BotPack from '$lib/base/BotPack.svelte';
 </Tab>
 <Button href={"#"} on:click={updateProfile} class="button" id="update-profile-btn" touch variant="outlined">Update Profile</Button>
 <style>
+    .tabdesign {
+        overflow: visible !important;
+    }
+    
     .user-username, .user-avatar {
         display: flex;
         opacity: 1 !important;
