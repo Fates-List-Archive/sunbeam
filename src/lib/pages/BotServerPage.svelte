@@ -110,10 +110,10 @@
 	.buttons {
 		margin-left: 10px !important;
 		width: 100% !important;
-		white-space: nowrap;
+		overflow-wrap: break-word !important;
 	}
 
-	.disabled {
+	.auxillary {
 		display: none;
 	}
 
@@ -126,6 +126,7 @@
 	.buttons {
 		overflow-x: scroll;
 		overflow-y: hidden;
+		overflow-wrap: break-word !important;
 		font-size: 12px !important;
 	}
 }
@@ -156,7 +157,7 @@
 }
 
 #long-description img {
-	max-width: 100%;
+	max-width: 100% !important;
 }
 
 :global(.page-item) {
@@ -272,38 +273,38 @@
 			    </Button>
                 {/if}
                 {#if data.website}
-			    <Button href="{data.website}" id="buttons-website" class="buttons-all" touch variant="outlined">
+			    <Button href="{data.website}" id="buttons-website" class="buttons-all auxillary" touch variant="outlined">
 				    <span>Website</span>
 			    </Button>
                 {:else}
-			    <Button class="buttons-all disabled" id="buttons-website" touch variant="outlined" disabled>
+			    <Button class="buttons-all disabled auxillary" id="buttons-website auxillary" touch variant="outlined" disabled>
 				    <span>Website</span>
 			    </Button>
                 {/if}
                 {#if data.privacy_policy}
-			    <Button href="{data.privacy_policy}" id="buttons-privacy" class="buttons-all" touch variant="outlined">
+			    <Button href="{data.privacy_policy}" id="buttons-privacy" class="buttons-all auxillary" touch variant="outlined">
 				    <span class="mobile-small">Privacy Policy</span>
 			    </Button>
                 {:else}
-			    <Button class="buttons-all disabled" id="buttons-privacy" touch variant="outlined" disabled>
+			    <Button class="buttons-all disabled auxillary" id="buttons-privacy" touch variant="outlined" disabled>
 				    <span>Privacy Policy</span>
 			    </Button>
                 {/if}
                 {#if data.github}
-			    <Button href="{data.github}" id="buttons-github" class="buttons-all" touch variant="outlined">
+			    <Button href="{data.github}" id="buttons-github" class="buttons-all auxillary" touch variant="outlined">
 				    <span>Github</span>
 			    </Button>
                 {:else}
-			    <Button class="buttons-all disabled" id="buttons-github" touch variant="outlined" disabled>
+			    <Button class="buttons-all disabled auxillary" id="buttons-github" touch variant="outlined" disabled>
 				    <span>Github</span>
 			    </Button>
                 {/if}
                 {#if data.donate}
-			    <Button href="{data.donate}" id="buttons-donate" class="buttons-all" touch variant="outlined">
+			    <Button href="{data.donate}" id="buttons-donate" class="buttons-all auxillary" touch variant="outlined">
 				    <span>Donate</span>
 			    </Button>
                 {:else}
-			    <Button class="buttons-all disabled" id="buttons-donate" touch variant="outlined" disabled>
+			    <Button class="buttons-all disabled auxillary" id="buttons-donate" touch variant="outlined" disabled>
 				    <span>Donate</span>
 			    </Button>
                 {/if}
