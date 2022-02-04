@@ -153,10 +153,17 @@
 :global(.tabdesign) {
 	color: white !important; 
 	text-align: left !important; 
-	margin-left: 5%; 
-	margin-right: 5%; 
+	margin-left: 4%; 
+	margin-right: 4%; 
 	margin-top: 13px;
+	padding: 5px !important;
 	border: none !important;
+}
+
+:global(.tabdesign-alt), :global(.tabdesign) {
+	max-width: 100% !important;
+	padding: 5px !important;
+	border-radius: 5px !important;
 }
 
 .blackbar {
@@ -169,7 +176,7 @@
 }
 
 #switcher {
-	border-radius: 13px;
+	border-radius: 5px;
 	margin-left: 1.1%;
 	margin-right: 1.1%
 } /* Thanks Fearful */

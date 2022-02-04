@@ -320,7 +320,7 @@
     </div>
     <Tab tabs={tabs} defaultTabButton="long-description-tab-button">
 		<section id="long-description-tab" class='tabcontent tabdesign'>
-			<div id="long-description">
+			<div id="long-description" class="tabdesign-alt">
 				{#if data.long_description_type == enums.LongDescType.markdown_marked}
 					{@html marked.parse(data.long_description)}
 				{:else}
