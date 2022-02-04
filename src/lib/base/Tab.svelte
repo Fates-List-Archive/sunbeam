@@ -161,9 +161,11 @@
 }
 
 :global(.tabdesign-alt), :global(.tabdesign) {
+	position: relative;
 	max-width: 100% !important;
 	padding: 5px !important;
 	border-radius: 5px !important;
+	overflow: auto !important;
 }
 
 .blackbar {
