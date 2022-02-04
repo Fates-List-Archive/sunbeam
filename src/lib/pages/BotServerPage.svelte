@@ -100,7 +100,7 @@
     flex-flow: column-wrap;
     justify-content: center;
     align-items: center;
-    width: 93%;
+    min-width: 93%;
     height: 53px;
     margin: 0 auto;
     //white-space: nowrap;
@@ -108,8 +108,17 @@
 
 @media screen and (max-width: 768px) {
 	.buttons {
-		margin-left: 3px !important;
+		margin-left: 10px !important;
 		width: 100% !important;
+		white-space: nowrap;
+	}
+
+	.disabled {
+		display: none;
+	}
+
+	.mobile-small {
+		font-size: 11px !important;
 	}
 }
 
@@ -117,6 +126,7 @@
 	.buttons {
 		overflow-x: scroll;
 		overflow-y: hidden;
+		font-size: 12px !important;
 	}
 }
 
@@ -272,7 +282,7 @@
                 {/if}
                 {#if data.privacy_policy}
 			    <Button href="{data.privacy_policy}" id="buttons-privacy" class="buttons-all" touch variant="outlined">
-				    <span>Privacy Policy</span>
+				    <span class="mobile-small">Privacy Policy</span>
 			    </Button>
                 {:else}
 			    <Button class="buttons-all disabled" id="buttons-privacy" touch variant="outlined" disabled>
