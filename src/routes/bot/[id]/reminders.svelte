@@ -43,7 +43,7 @@ import {loginUser} from "$lib/request"
             body: JSON.stringify(payload)
         })
         if(res.ok) {
-            alert("Enabled")
+            alert("Toggled")
         } else {
             let json = await res.json()
             alert(json.reason)
