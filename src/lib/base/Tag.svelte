@@ -8,7 +8,7 @@
 <div class="tag-container">
     {#each tags as tag}
         <span>
-            <Button id="tags-{tag.id}" class="tag-item" href="/frostpaw/search/tags?tag={tag.id}&target_type={targetType}" title="{tag.name}" touch variant="outlined" rel="external">
+            <Button id="tags-{tag.id}" class="tag-item" href="/frostpaw/search/tags?tag={tag.id}&target_type={targetType}" title="{tag.name}" touch variant="outlined">
                 <Icon class="white tag-icon" icon="{tag.iconify_data}" inline={false} aria-hidden="true"></Icon>
                 <strong>{tag.name}</strong>
             </Button>
