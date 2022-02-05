@@ -565,32 +565,37 @@
     }
 
     async function getReviewPage(page: number) {
-        document.querySelector("#reviews").innerHTML = "<h2>Loading Reviews</h2><a href='#' onclick='getReviewPage(content.rev_page)'>Retry</a>"
-        if(!browser) {
-            return
-        }
-	
-	let userID = "0"
-	if($session.session.token) {
-		userID = $session.session.user.id
-	}
-
-	let targetType = enums.ReviewType.bot
-	if(type == "server") {
-		targetType = enums.ReviewType.server
-	}
-
-	let res = await fetch(`https://api.fateslist.xyz/api/v2/_sunbeam/reviews/${data.user.id}?page=${page}&user_id=${userID}&target_type=${targetType}`)
-        if(res.ok) {
-            let json = await res.json()
-	    	try {
-            	document.querySelector("#reviews").innerHTML = json.html
-            	window.contextR.rev_page = page
-            } 
-			catch(err) {
-				console.log("Error in fetching reviews", err)
-	    	}
+		try {
+			if(!browser) {
+            	return
+        	}
+        	document.querySelector("#reviews").innerHTML = "<h2>Loading Reviews</h2><a href='#' onclick='getReviewPage(content.rev_page)'>Retry</a>"
+		} catch (err) {
+			console.log(err)
+			return
 		}
+		
+		let userID = "0"
+		if($session.session.token) {
+			userID = $session.session.user.id
+		}
+
+		let targetType = enums.ReviewType.bot
+		if(type == "server") {
+			targetType = enums.ReviewType.server
+		}
+
+		let res = await fetch(`https://api.fateslist.xyz/api/v2/_sunbeam/reviews/${data.user.id}?page=${page}&user_id=${userID}&target_type=${targetType}`)
+			if(res.ok) {
+				let json = await res.json()
+				try {
+					document.querySelector("#reviews").innerHTML = json.html
+					window.contextR.rev_page = page
+				} 
+				catch(err) {
+					console.log("Error in fetching reviews", err)
+				}
+			}
     }
 
     if(browser) {

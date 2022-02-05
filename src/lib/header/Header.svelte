@@ -4,10 +4,12 @@
 	import Menu, { MenuComponentDev } from '@smui/menu';
 	import List, { Item, Text } from '@smui/list';
 	import { loginUser } from '$lib/request';
+import { goto } from '$app/navigation';
 
 	let username = null
 	let userID = null
 	let menu: MenuComponentDev;
+	let addMenu: MenuComponentDev;
 	if($session.session.user) {
 		username = $session.session.user.username
 		userID = $session.session.user.id
@@ -22,12 +24,25 @@
 
 	<nav class="nav1">
 		<ul>
+			<li><a href={"#"} on:click={() => addMenu.setOpen(true)}>Add</a></li>
 			<li class:active={$page.url.pathname === '/partners'}><a sveltekit:prefetch href="/partners">Partners</a></li>
 			<li class:active={$page.url.pathname === '/servers'}><a sveltekit:prefetch href="/servers">Servers</a></li>
-			<li class:active={$page.url.pathname === '/'} sveltekit:prefetch><a href="/">Bots</a></li>
-			<li><a href="/frostpaw/add-bot">Add Bot</a></li>
-			<li><a href="/frostpaw/add-server" sveltekit:prefetch>Add Server</a></li>
+			<li class:active={$page.url.pathname === '/'}><a sveltekit:prefetch href="/">Bots</a></li>
 		</ul>
+		<Menu bind:this={addMenu} class="nav add-nav">
+			<List>
+				<Item on:SMUI:action={() => {
+					goto(`/frostpaw/add-bot`)
+				}}>
+					<Text>Add Bot</Text>
+				</Item>
+				<Item on:SMUI:action={() => {
+					goto(`/frostpaw/add-server`)
+				}}>
+					<Text>Add Server</Text>
+				</Item>
+			</List>
+		</Menu>	
 	</nav>
 	<nav class="corner-two">
 		<div>
@@ -35,7 +50,7 @@
 				{username || "Not logged in"}
 			</a>
 		</div>
-		<Menu bind:this={menu} class="corner-nav">
+		<Menu bind:this={menu} class="corner-nav" style="margin-top: 3em !important;">
 			<List>
 				{#if username}
 				<Item on:SMUI:action={() => {
@@ -49,62 +64,62 @@
 					})
 					.then(res => res.json())
 					.then(json => {
-						window.location.href = "/"
+						goto("/")
 					})
 				}}>
 					<Text>Logout</Text>
 				</Item>
 
 				<Item on:SMUI:action={() => {
-					window.location.href = `/profile/${userID}`
+					goto(`/profile/${userID}`)
 				}}>
 					<Text>Profile</Text>
 				</Item>
 				{:else}
 				<Item on:SMUI:action={() => {
-					loginUser()
+					loginUser(false)
 				}}>
 					<Text>Login</Text>
 				</Item>
 				{/if}
 				<Item on:SMUI:action={() => {
-					window.location.href = "/servers"
+					goto("/servers")
 				}}>
 					<Text>Servers</Text>
 				</Item>
 				<Item on:SMUI:action={() => {
-					window.location.href = `/frostpaw/about`
+					goto("/frostpaw/about")
 				}}>
 					<Text>About</Text>
 				</Item>
 
 				<Item on:SMUI:action={() => {
-					window.location.href = `/bot/admin/add`
+					goto(`/bot/admin/add`)
 				}}>
 					<Text>Add Bot</Text>
 				</Item>
 				<Item on:SMUI:action={() => {
-					window,location.href = 'https://fateslist.xyz/frostpaw/add-server'
+					goto('https://fateslist.xyz/frostpaw/add-server')
 				}}>
 					<Text>Add Server</Text>
 				</Item>
 				<Item on:SMUI:action={() => {
-					window.location.href = "https://docs.fateslist.xyz"
+					goto("https://docs.fateslist.xyz")
 				}}>
 					<Text>API Docs</Text>
 				</Item>
 				<Item on:SMUI:action={() => {
-					window.location.href = "/frostpaw/tos"
+					goto("/frostpaw/tos")
 				}}>
-					<Text>Terms Of Service</Text>
+					<Text>TOS</Text>
 				</Item>
 				<Item on:SMUI:action={() => {
-					window.location.href = "https://fateslist.xyz/frostpaw/stats"
+					goto("https://fateslist.xyz/frostpaw/stats")
 				}}>
 					<Text>Stats</Text>
 				</Item>
 				<Item on:SMUI:action={() => {
-					window.location.href = "/server/789934742128558080/invite"
+					goto("/server/789934742128558080/invite")
 				}}>
 					<Text>Support</Text>
 				</Item>
@@ -123,6 +138,10 @@
 		z-index: 2;
 		background-color: black;
 		box-shadow: 1px 1px 1px black;	
+	}
+
+	:global(.add-nav) {
+		margin-top: 50px !important;
 	}
 
 	::-webkit-scrollbar {

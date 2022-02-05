@@ -21,12 +21,29 @@
 <script lang="ts">
 	import Header from '$lib/header/Header.svelte';
 	import lozad from 'lozad';
-    	import { browser } from '$app/env'; 
+    import { fade } from 'svelte/transition';
+
+    import navigationState from '$lib/navigationState';
+    import PageLoader from '$lib/base/PageLoader.svelte';
+
+    import { browser } from '$app/env'; 
 	if(browser) {
 		const observer = lozad(); // lazy loads elements with default selector as '.lozad'
 		observer.observe();
+		localStorage.currentPage = window.location.href;
 	}
 </script>
+<svelte:window
+    on:sveltekit:navigation-start={() => {
+		console.log("Set loading")
+        $navigationState = 'loading';
+    }}
+    on:sveltekit:navigation-end={() => {
+		console.log("Set loaded")
+        $navigationState = 'loaded';
+    }}
+/>
+
 <style lang="scss" global>
 	@import "./../css/base.scss";
 	.footer {
@@ -42,6 +59,8 @@
 
 <Header />
 <div id="mdiv"></div>
-<main>
-	<slot />
+<main style="background-color: #1D1E23 !important;">
+	<PageLoader>
+		<slot />
+	</PageLoader>
 </main>

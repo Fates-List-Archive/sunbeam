@@ -10,6 +10,7 @@
 <h3>Next steps</h3>
 <ul>
 	<li>Set a description (and a long description) otherwise it will be randomly generated!</li>
+	<li>See our full set of ever-growing features using /help!</li>
 </ul>
 <script lang="ts">
 	import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
