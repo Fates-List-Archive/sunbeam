@@ -391,8 +391,17 @@
 			{/if}
 		</section>
 		<section id="resources-tab" class="tabcontent tabdesign">
+			<h2>Basics</h2>
+			<a href="/bot/{data.user.id}/invite">Invite</a><br/>
+			{#each ["website", "support", "privacy_policy", "donate", "github"] as link}
+				{#if data[link]}
+					<a href={data[link]}>{title(link)}</a><br/>
+				{/if}
+			{/each}
+			<br/>
+			<h2>Community Resources</h2>
 			{#if !data.resources && data.resources.length < 0}
-				<h2>This {type} does not have any resources set!</h2>
+				<h2>This {type} does not have any custom resources!</h2>
 			{:else}
 				{#each data.resources as resource}
 					<a href={resource.resource_link}>{resource.resource_title}</a>
