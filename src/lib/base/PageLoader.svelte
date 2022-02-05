@@ -1,12 +1,13 @@
 <script>
     import navigationState from '$lib/navigationState';
+    import loadStore from "$lib/loadstore"
 </script>
 
 {#if $navigationState == "loading"}
     <style>
         #loading-opaque {
             height: 100%;
-            opacity: 0.6 !important;
+            opacity: 0.9 !important;
             background-color: #1D1E23 !important;
         }
 
@@ -19,38 +20,110 @@
 	        padding: 0px !important;
         }
 
-
-        .port {
-            position: fixed;
-            z-index: 10000 !important;
-        }
-
-        .loader {
-            margin-top: 0.5vh !important;
-            border: 16px solid #f3f3f3; /* Light grey */
-            border-top: 16px solid #3498db; /* Blue */
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-            animation: spin 2s linear infinite;
-        }
-
         .only-on-loading {
             display: block !important;
         }
 
+        /* https://codepen.io/WebSonata/pen/bRaONB */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 1 !important;
+            z-index: 9999;
+        }
+
+        .loader-on {
+            display: block;
+            position: relative;
+            left: 50%;
+            top: 50%;
+            width: 200px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+            border-radius: 50%;
+            overflow: visible !important;
+            z-index: 10000;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        #loader {
+            display: block;
+            position: relative;
+            left: 50%;
+            top: 50%;
+            width: 150px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #9370DB;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+            z-index: 9999;
+        }
+        #loader:before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #BA55D3;
+            -webkit-animation: spin 3s linear infinite;
+            animation: spin 3s linear infinite;
+        }
+        #loader:after {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #FF00FF;
+            -webkit-animation: spin 1.5s linear infinite;
+            animation: spin 1.5s linear infinite;
+        }
+        @-webkit-keyframes spin {
+            0%   {
+                -webkit-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0%   {
+                -webkit-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
         }
     </style>
 {/if}
+
 <div id="loading-opaque">
-    <div class="port">
-        <div class="loader"></div>
-        <div class="only-on-loading" style="display: none">
-            <h1 style="opacity: 1 !important;">Loading...</h1>
-        </div>
+    <div id="preloader">
+        <div id="loader"></div>
+        <div class='loader-on only-on-loading' style="display: none">
+            <h1 style="opacity: 1 !important;">{$loadStore || "Loading..."}</h1>
+        </div>    
     </div>
     <slot/>
 </div>
