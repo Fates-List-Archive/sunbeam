@@ -82,6 +82,23 @@ import { goto } from '$app/navigation';
 					<Text>Login</Text>
 				</Item>
 				{/if}
+
+				<Item on:SMUI:action={() => {
+					goto(`/bot/admin/add`)
+				}}>
+					<Text>Add Bot</Text>
+				</Item>
+				<Item on:SMUI:action={() => {
+					goto('/frostpaw/add-server')
+				}}>
+					<Text>Add Server</Text>
+				</Item>
+				<Item on:SMUI:action={() => {
+					goto('/frostpaw/staff-app')
+				}}>
+					<Text>Staff Apps</Text>
+				</Item>
+
 				<Item on:SMUI:action={() => {
 					goto("/servers")
 				}}>
@@ -91,17 +108,6 @@ import { goto } from '$app/navigation';
 					goto("/frostpaw/about")
 				}}>
 					<Text>About</Text>
-				</Item>
-
-				<Item on:SMUI:action={() => {
-					goto(`/bot/admin/add`)
-				}}>
-					<Text>Add Bot</Text>
-				</Item>
-				<Item on:SMUI:action={() => {
-					goto('https://fateslist.xyz/frostpaw/add-server')
-				}}>
-					<Text>Add Server</Text>
 				</Item>
 				<Item on:SMUI:action={() => {
 					goto("https://docs.fateslist.xyz")
@@ -114,7 +120,7 @@ import { goto } from '$app/navigation';
 					<Text>TOS</Text>
 				</Item>
 				<Item on:SMUI:action={() => {
-					goto("https://fateslist.xyz/frostpaw/stats")
+					goto("/frostpaw/stats")
 				}}>
 					<Text>Stats</Text>
 				</Item>
