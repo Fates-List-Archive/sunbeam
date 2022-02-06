@@ -16,6 +16,10 @@
 </style>
 {/if}
 <style lang="scss" global>
+#reviews-tab {
+	overflow: visible !important;
+} 
+
 #review-add {
 	opacity: 1 !important; 
 	border: solid thin; 
@@ -423,7 +427,38 @@
 		     required 
 		     ></textarea>
 		     <Button href={"#"} on:click={() => addReview()} id="review-add">Add Review</Button>
-                    <div id="reviews" use:onload>Loading reviews... <a href={"#"} on:click={() => window.location.reload()}>Retry</a></div>
+			 		{#if reviews.reviews && reviews.reviews.length > 0}
+					 	<br/>
+						<span style="font-size: 18px;" class="white">Showing reviews {reviews.pager.from} to {reviews.pager.to} of {reviews.pager.total_count} total reviews</span><br/>
+						<label for="rating-avg" style="font-size: 18px;" class="white">Average Rating: <i class="material-icons">star</i>{reviews.average_stars}/10.0</label><br/>
+						<span class="white">
+						<input disabled id="rating-avg" class='slider' type="range" name="rating" min="0.1" max="10" value='{reviews.average_stars}' style="width: 100%" step='0.1' tabindex="-1"/>
+						<p id="rating-desc-avg"></p>
+						</span>					 
+					 	{#each reviews.reviews as review, index}
+					 	<article class="review-root review-section">
+							 <Reviews review={review} index={index} reply={false} targetId={data.user.id} targetType={type}></Reviews>
+					 	</article>
+				 		{/each}				 
+					{/if}
+					<div class="text-center">
+						<nav aria-label="Bot Review Pagination">
+							<ul>
+								{#if reviewPage > 1}
+									<li class="page-item"><a href={"#"} class="page-link white" on:click={() => getReviewPage(reviewPage - 1)}>Previous</a></li>
+								{/if}
+								{#if reviews.pager}
+									{#each Array.from({length: reviews.pager.total_pages}, (_, i) => i + 1) as page}
+										<li class="page-item" id="page-{page}"><a href={"#"} class="page-link white" on:click={() => getReviewPage(page)}>{page}</a></li>
+									{/each}
+									{#if reviewPage !== reviews.pager.total_pages}
+										<li class="page-item"><a href={"#"} class="page-link white" on:click={() => getReviewPage(reviewPage + 1)}>Next</a></li>
+									{/if}
+								{/if}
+							</ul>
+						</nav>
+					</div>					
+                    <div id="reviews" use:onload><a href={"#"} on:click={() => window.location.reload()}>Retry</a></div>
                 </section>
                 <section id="about-tab" class='tabcontent tabdesign'>
                     <!--First main owner is guaranteed to be first in HTML-->
@@ -488,8 +523,12 @@
     import { marked } from 'marked'; 
     import { session } from '$app/stores';
     import Tab from '$lib/base/Tab.svelte';
+import Reviews from '$lib/base/Reviews.svelte';
     export let data: any;
     export let type: string;
+	let reviewPage = 1
+
+	let reviews: any = {}
 
     let tabs = [{
         "name": "Description",
@@ -564,45 +603,20 @@
         return await voteHandler(userID, token, data.user.id, false)
     }
 
-    async function getReviewPage(page: number) {
-		try {
-			if(!browser) {
-            	return
-        	}
-        	document.querySelector("#reviews").innerHTML = "<h2>Loading Reviews</h2><a href='#' onclick='getReviewPage(content.rev_page)'>Retry</a>"
-		} catch (err) {
-			console.log(err)
-			return
-		}
-		
-		let userID = "0"
-		if($session.session.token) {
-			userID = $session.session.user.id
-		}
-
+    async function getReviewPage(page: number) {		
 		let targetType = enums.ReviewType.bot
 		if(type == "server") {
 			targetType = enums.ReviewType.server
 		}
 
-		let res = await fetch(`https://api.fateslist.xyz/api/v2/_sunbeam/reviews/${data.user.id}?page=${page}&user_id=${userID}&target_type=${targetType}`)
-			if(res.ok) {
-				let json = await res.json()
-				try {
-					document.querySelector("#reviews").innerHTML = json.html
-					window.contextR.rev_page = page
-				} 
-				catch(err) {
-					console.log("Error in fetching reviews", err)
-				}
-			}
+		let res = await fetch(`https://api.fateslist.xyz/api/v2/reviews/${data.user.id}/all?page=${page}&target_type=${targetType}`)
+		if(res.ok) {
+			reviews = await res.json()
+			reviewPage = page
+		}
     }
 
     if(browser) {
-        window.getReviewPage = getReviewPage
-        window.contextR = {
-            "rev_page": 1
-        }
         getReviewPage(1)
     }
 
@@ -692,8 +706,6 @@ function parseState(v) {
 
 	if(browser) {
 		// Needed for dnyamic review injection
-		window.voteReview = voteReview
-		window.loginUser = loginUser
 	}
 
 	async function addReview() {
