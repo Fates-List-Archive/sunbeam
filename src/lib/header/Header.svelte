@@ -64,7 +64,7 @@ import { goto } from '$app/navigation';
 					})
 					.then(res => res.json())
 					.then(json => {
-						goto("/")
+						window.location.reload() // Only place its really needed
 					})
 				}}>
 					<Text>Logout</Text>

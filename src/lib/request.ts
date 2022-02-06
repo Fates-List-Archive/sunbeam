@@ -42,7 +42,6 @@ export async function loginUser(noSetStorage: boolean) {
 			"Frostpaw": "0.1.0",
 			"Frostpaw-Server": window.location.origin
 		},
-		body: JSON.stringify({"scopes": ["identify"]})
 	})
 	let json = await res.json()
 	if(!noSetStorage && localStorage.loginError == "1") {
