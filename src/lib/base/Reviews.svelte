@@ -15,6 +15,9 @@
         reviewUserClasses = "review-user review-user-reply"
     }
 
+    let editPaneOpen: boolean = false
+    let replyPaneOpen: boolean = false
+
     console.log(review)
 
     if(review.user.avatar) {
@@ -101,10 +104,28 @@
     }
 
     function replyReviewPane() {
-        document.querySelector(`#reviewreply-${review.id}`).style.display = "block"
+        if(editPaneOpen) {
+            return
+        }
+        if(replyPaneOpen) {
+            document.querySelector(`#reviewreply-${review.id}`).style.display = "none"
+            replyPaneOpen = false
+        } else {
+            document.querySelector(`#reviewreply-${review.id}`).style.display = "block"
+            replyPaneOpen = true
+        }
     }
     function editReviewPane() {
-        document.querySelector(`#reviewedit-${review.id}`).style.display = "block"
+        if(replyPaneOpen) {
+            return
+        }
+        if(editPaneOpen) {
+            document.querySelector(`#reviewopt-${review.id}`).style.display = "none"
+            editPaneOpen = false
+        } else {
+            document.querySelector(`#reviewopt-${review.id}`).style.display = "block"
+            editPaneOpen = true
+        }
     }
 
 </script>
