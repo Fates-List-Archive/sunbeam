@@ -2,6 +2,7 @@
     import { browser } from "$app/env";
     import { loginUser } from '$lib/request';
     import { session } from '$app/stores';
+import Button from "@smui/button/src/Button.svelte";
 
     export let review: any;
     export let index: number;
@@ -100,7 +101,25 @@
     }
 
     async function deleteReview() {
-        // TODO: Implement delete review
+        // User is already logged in
+        let userID = $session.session.user.id;
+
+        let res = await fetch(`https://api.fateslist.xyz/api/v2/users/${userID}/reviews/${review.id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Frostpaw": "0.1.0",
+                "Authorization": $session.session.token
+            },
+        })
+
+        if(res.ok) {
+            alert("Successfully deleted this review")
+            window.location.reload()
+            return
+        }
+        let err = await res.json()
+        alert(err.reason)
     }
 
     function replyReviewPane() {
@@ -188,7 +207,7 @@
                 <p id='rating-reply-desc-{review.id}-{index}' style="color: white;"></p>
                 <label for="review">Please write a few words about the bot (in your opinion)</label>
                 <textarea id='review-{review.id}-reply' type="text" class="form-control fform" style="min-height: 100px; height: 100px;" required minlength="9" placeholder="This bot is a really good bot because of X, Y and Z however..."></textarea>
-                <button on:click={() => replyReview()} class="btn btn-outline-light">Reply</button> <!-- Change this-->
+                <Button on:click={() => replyReview()} href={"#"} class="bot-card-actions-link" touch variant="outlined">Reply</Button>
             </section>
             {/if}
             {#if $session.session.token && $session.session.user.id == review.user.id}
@@ -199,9 +218,9 @@
                         <strong><p id='rating-desc-{review.id}-{index}' style="color: white;"></p></strong>
                         <label for="review">Please write a few words about the bot (in your opinion)</label>
                         <textarea id='r-{review.id}-edit-text' name="review" class="form-control fform" style="height: 100px; resize: none;" required placeholder="This bot is a really good bot because of X, Y and Z however...">{review.review}</textarea>
-                        <button onclick={() => editReview()} class="btn btn-outline-light" style="float: left; margin-right: 10px">Edit</button>
+                        <Button on:click={() => editReview()} href={"#"} class="bot-card-actions-link" touch variant="outlined">Edit</Button>
+                        <Button on:click={() => deleteReview()} href={"#"} class="bot-card-actions-link" touch variant="outlined">Delete</Button>
                     </section>
-                <button class="btn btn-danger" on:click={() => deleteReview()}>Delete</button>
                 </div>
             {/if}
         </div>

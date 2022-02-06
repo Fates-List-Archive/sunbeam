@@ -27,6 +27,7 @@
     import PageLoader from '$lib/base/PageLoader.svelte';
 
     import { browser } from '$app/env'; 
+import loadstore from '$lib/loadstore';
 	if(browser) {
 		const observer = lozad(); // lazy loads elements with default selector as '.lozad'
 		observer.observe();
@@ -36,6 +37,7 @@
 <svelte:window
     on:sveltekit:navigation-start={() => {
 		console.log("Set loading")
+		$loadstore = "Loading..."
         $navigationState = 'loading';
     }}
     on:sveltekit:navigation-end={() => {

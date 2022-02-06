@@ -458,7 +458,7 @@
 							</ul>
 						</nav>
 					</div>					
-                    <div id="reviews" use:onload><a href={"#"} on:click={() => window.location.reload()}>Retry</a></div>
+                    <div id="reviews" use:onload></div>
                 </section>
                 <section id="about-tab" class='tabcontent tabdesign'>
                     <!--First main owner is guaranteed to be first in HTML-->
@@ -524,6 +524,8 @@
     import { session } from '$app/stores';
     import Tab from '$lib/base/Tab.svelte';
 import Reviews from '$lib/base/Reviews.svelte';
+import loadstore from '$lib/loadstore';
+import navigationState from '$lib/navigationState';
     export let data: any;
     export let type: string;
 	let reviewPage = 1
@@ -603,7 +605,11 @@ import Reviews from '$lib/base/Reviews.svelte';
         return await voteHandler(userID, token, data.user.id, false)
     }
 
-    async function getReviewPage(page: number) {		
+    async function getReviewPage(page: number) {
+		if(page != 1) {
+			$loadstore = "Loading..."
+        	$navigationState = 'loading';
+		}		
 		let targetType = enums.ReviewType.bot
 		if(type == "server") {
 			targetType = enums.ReviewType.server
@@ -613,7 +619,11 @@ import Reviews from '$lib/base/Reviews.svelte';
 		if(res.ok) {
 			reviews = await res.json()
 			reviewPage = page
+		} else {
+			let data = await res.json()
+			alert(data.reason)
 		}
+		$navigationState = "loaded"
     }
 
     if(browser) {
@@ -678,37 +688,13 @@ function parseState(v) {
 		setupInputs()
 	}
 
-
-	async function voteReview(reviewID: string, upvote: boolean) {
-		let token = $session.session.token;
-		if(!token) {
-			loginUser()
-			return
-		}
-		let userID = $session.session.user.id;
-		let res = await fetch(`https://api.fateslist.xyz/api/v2/users/${userID}/reviews/${reviewID}/votes`, {
-			method: "PATCH",
-			headers: {
-				"Content-Type": "application/json",
-				"Frostpaw": "0.1.0",
-				"Authorization": token
-			},
-			body: JSON.stringify({upvote: upvote})
-		})
-		if(res.ok) {
-			alert("Successfully voted for this review")
-			window.location.reload()
-			return
-		}
-		let err = await res.json()
-		alert(err.reason)
-	}
-
 	if(browser) {
 		// Needed for dnyamic review injection
 	}
 
 	async function addReview() {
+		$loadstore = "Adding..."
+		$navigationState = "loading"
 		let targetType = 0
 		if(type == "server") {
 			targetType = 1
@@ -733,8 +719,11 @@ function parseState(v) {
 			body: JSON.stringify(json)
 		})
 
+		$navigationState = "loaded"
+
 		if(res.ok) {
 			alert("Successfully posted your review")
+			return
 		}
 		let err = await res.json()
 		alert(err.reason)	
