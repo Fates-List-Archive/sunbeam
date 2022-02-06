@@ -714,6 +714,10 @@ function parseState(v) {
 			target_id: data.user.id
 		}
 		let token = $session.session.token;
+		if(!token) {
+			loginUser(false)
+			return
+		}
 		let userID = $session.session.user.id;
 		let res = await fetch(`https://api.fateslist.xyz/api/v2/users/${userID}/reviews`, {
 			method: "POST",
