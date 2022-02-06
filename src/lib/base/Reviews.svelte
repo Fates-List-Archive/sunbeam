@@ -97,7 +97,30 @@ import Button from "@smui/button/src/Button.svelte";
     }
 
     async function editReview() {
-        // TODO: Implement edit review
+        // User is logged in
+        let userID = $session.session.user.id;
+
+        let json = {
+			review: document.querySelector(`#review-${review.id}-edit-text`).value,
+			star_rating: document.querySelector(`#review-${review.id}-edit-slider`).value,
+		}
+
+        let res = await fetch(`https://api.fateslist.xyz/api/v2/users/${userID}/reviews/${review.id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "Frostpaw": "0.1.0",
+                "Authorization": $session.session.token
+            },
+            body: JSON.stringify(json)
+        })
+        if(res.ok) {
+            alert("Successfully edited this review")
+            window.location.reload()
+            return
+        }
+        let err = await res.json()
+        alert(err.reason)
     }
 
     async function deleteReview() {
@@ -214,10 +237,10 @@ import Button from "@smui/button/src/Button.svelte";
                 <div id="reviewopt-{review.id}" style="display: none;">
                     <section id="reviewedit-{review.id}" style="width: 100%;" class="white">
                         <label for="rating">On a scale of 1 to 10, how much do you like this bot?</label><br/>
-                        <input id="r-{review.id}-edit-slider" class='slider range-slider' type="range" name="rating" min="0.1" max="10" value='{review.star_rating}' step='0.1' style="width:100%;"/>
+                        <input id="review-{review.id}-edit-slider" class='slider range-slider' type="range" name="rating" min="0.1" max="10" value='{review.star_rating}' step='0.1' style="width:100%;"/>
                         <strong><p id='rating-desc-{review.id}-{index}' style="color: white;"></p></strong>
                         <label for="review">Please write a few words about the bot (in your opinion)</label>
-                        <textarea id='r-{review.id}-edit-text' name="review" class="form-control fform" style="height: 100px; resize: none;" required placeholder="This bot is a really good bot because of X, Y and Z however...">{review.review}</textarea>
+                        <textarea id='review-{review.id}-edit-text' name="review" class="form-control fform" style="height: 100px; resize: none;" required placeholder="This bot is a really good bot because of X, Y and Z however...">{review.review}</textarea>
                         <Button on:click={() => editReview()} href={"#"} class="bot-card-actions-link" touch variant="outlined">Edit</Button>
                         <Button on:click={() => deleteReview()} href={"#"} class="bot-card-actions-link" touch variant="outlined">Delete</Button>
                     </section>
