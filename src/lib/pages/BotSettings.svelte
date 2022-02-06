@@ -8,6 +8,8 @@ import SelectOption from "$lib/base/SelectOption.svelte";
     import Button from '@smui/button';
     import { page, session } from '$app/stores';
     import { voteHandler } from '$lib/request';
+    import loadstore from '$lib/loadstore';
+import navigationState from '$lib/navigationState';
 import RedStar from "$lib/base/RedStar.svelte";
 import FormInput from "$lib/base/FormInput.svelte";
 import MultiSelect from "$lib/base/MultiSelect.svelte";
@@ -25,6 +27,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
         } catch (err) {
             console.log(err)
         }
+        $navigationState = "loaded" // An alert = page loaded
     }
 
     export let data: any;
@@ -255,12 +258,17 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
     }
 
     async function sendTestWebhook() {
+        $loadstore = "Voting..."
+    	$navigationState = 'loading';
         await voteHandler($session.session.user.id, $session.session.token, data.bot_id, true)
+        $navigationState = "loaded";
         return
     }
 
     async function updateBot() {
         saveTxt = `${mode}ing`
+		$loadstore = "Adding..."
+		$navigationState = "loading"
         let bot = {}
         let errorFields = []
 

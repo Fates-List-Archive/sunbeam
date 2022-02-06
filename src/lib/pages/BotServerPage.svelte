@@ -415,7 +415,7 @@
 		</section>
         <section id="reviews-tab" class="tabcontent tabdesign">
 		   <label for="rating">On a scale of 1 to 10, how much did you like this {type}?</label><br/>
-		   <input class='slider range-slider' type="range" id="star-rating" min="0.1" max="10" style="width: 100%" value='5' step='0.1' output="rating-desc"/>
+		   <input class='slider range-slider' type="range" id="star-rating" min="0.1" max="10" style="width: 100%" value='5' step='0.1' data-output="rating-desc"/>
 		   <p id='rating-desc' style="color: white;"></p>
 		   <label for="review-text">Enter your review here</label><br/>
 		   <textarea 
@@ -602,13 +602,19 @@ import navigationState from '$lib/navigationState';
         if(token) {
             userID = $session.session.user.id
         }
-        return await voteHandler(userID, token, data.user.id, false)
+		$loadstore = "Voting..."
+    	$navigationState = 'loading';
+        await voteHandler(userID, token, data.user.id, false)
+		$navigationState = "loaded"
     }
+
+	let userHasMovedReviewPage = false
 
     async function getReviewPage(page: number) {
 		if(page != 1) {
 			$loadstore = "Loading..."
         	$navigationState = 'loading';
+			userHasMovedReviewPage = true
 		}		
 		let targetType = enums.ReviewType.bot
 		if(type == "server") {
@@ -619,7 +625,7 @@ import navigationState from '$lib/navigationState';
 		if(res.ok) {
 			reviews = await res.json()
 			reviewPage = page
-		} else {
+		} else if (userHasMovedReviewPage) {
 			let data = await res.json()
 			alert(data.reason)
 		}
@@ -641,12 +647,12 @@ import navigationState from '$lib/navigationState';
     let rating = 0;
     let setupInputs = () => {
     	let slider = document.querySelectorAll(".range-slider");
-   	// Update the current slider value (each time you drag the slider handle)
+   		// Update the current slider value (each time you drag the slider handle)
     	for(let i = 0; i < slider.length; i++) {
-		let outputId = slider[i].getAttribute("output")
+		let outputId = slider[i].getAttribute("data-output")
 		document.getElementById(outputId).innerHTML = "Drag the slider to change your rating"; // Display the default slider value
 		slider[i].oninput = function() {
-			let output = document.getElementById(this.getAttribute("output"))
+			let output = document.getElementById(this.getAttribute("data-output"))
 			console.log(output)
 			let state = parseState(this.value)
 			output.innerHTML = state + ", " + this.value;

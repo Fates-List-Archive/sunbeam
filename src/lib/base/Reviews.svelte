@@ -203,7 +203,7 @@ import Button from "@smui/button/src/Button.svelte";
             {#if $session.session.token}
             <section id="reviewreply-{review.id}" class="white review-reply-section">
                 <label for="rating">On a scale of 1 to 10, how much do you like this bot?</label><br/>
-                <input class='slider range-slider' id="rating-{review.id}-reply" type="range" min="0.1" max="10" step='0.1' style="width:100%;" output="rating-reply-desc-{review.id}-{index}"/>
+                <input class='slider range-slider' id="rating-{review.id}-reply" type="range" min="0.1" max="10" step='0.1' style="width:100%;"/>
                 <p id='rating-reply-desc-{review.id}-{index}' style="color: white;"></p>
                 <label for="review">Please write a few words about the bot (in your opinion)</label>
                 <textarea id='review-{review.id}-reply' type="text" class="form-control fform" style="min-height: 100px; height: 100px;" required minlength="9" placeholder="This bot is a really good bot because of X, Y and Z however..."></textarea>
@@ -214,7 +214,7 @@ import Button from "@smui/button/src/Button.svelte";
                 <div id="reviewopt-{review.id}" style="display: none;">
                     <section id="reviewedit-{review.id}" style="width: 100%;" class="white">
                         <label for="rating">On a scale of 1 to 10, how much do you like this bot?</label><br/>
-                        <input id="r-{review.id}-edit-slider" class='slider range-slider' type="range" name="rating" min="0.1" max="10" value='{review.star_rating}' step='0.1' style="width:100%;" output="rating-desc-{review.id}-{index}"/>
+                        <input id="r-{review.id}-edit-slider" class='slider range-slider' type="range" name="rating" min="0.1" max="10" value='{review.star_rating}' step='0.1' style="width:100%;"/>
                         <strong><p id='rating-desc-{review.id}-{index}' style="color: white;"></p></strong>
                         <label for="review">Please write a few words about the bot (in your opinion)</label>
                         <textarea id='r-{review.id}-edit-text' name="review" class="form-control fform" style="height: 100px; resize: none;" required placeholder="This bot is a really good bot because of X, Y and Z however...">{review.review}</textarea>
