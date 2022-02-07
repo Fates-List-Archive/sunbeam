@@ -22,15 +22,15 @@
         return str.replaceAll("_", " ").replace(/(^|\s)\S/g, function(t) { return t.toUpperCase() });
     }
 </script>
-<div id="{partner.id}">
+<div class="partner-shell" id="{partner.id}">
     <a href={partner.links.website}>
         <div class="partner">
             <img class="partner-img" src={partner.image} alt="{partner.name} image" width="100px" height="100px">
             <div class="partner-content">
-                <h2>{partner.name}</h2>
-                <p>{partner.description}</p>
+                <h2 style="opacity: 1 !important">{partner.name}</h2>
+                <p style="opacity: 1 !important">{partner.description}</p>
                 {#each Object.entries(partner.links) as link}
-                    <a href={link[1]}>
+			<a href={link[1]} style="margin-right: 3px;">
                         <Icon icon={icons[link[0]]}></Icon> {title(link[0])}
                     </a>
                 {/each}
@@ -38,17 +38,24 @@
         </div>
     </a>
 </div>
-
+<span class="divider"></span>
 <style lang="scss">
     $card-scale: 1.025;
 
     .partner {
-        border: solid thin white;
+	border-radius: 4px 4px 4px 4px;
+	background-color: #111112;
         width: 90%;
         margin-left: auto;
         margin-right: auto;
-        margin-bottom: 10px;
-        padding: 3px;
+        margin-bottom: 40px;
+	padding: 3px;
+    }
+
+    .partner {
+        -moz-box-shadow: 0px 0px 20px 5px #000;
+        -webkit-box-shadow: 0px 0px 20px 5px #000;
+        box-shadow: 0px 0px 20px 5px #000;
     }
 
     .partner:hover {
@@ -56,6 +63,7 @@
     }
 
     .partner-img {
+	opacity: 1 !important;
         border-radius: 50%;
         background-color: black;
         max-width: 100px;
