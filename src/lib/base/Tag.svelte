@@ -1,8 +1,8 @@
 <script lang="ts">
     import Icon from '@iconify/svelte';
     import Button from "@smui/button";
-    import type { TagInterface } from "$lib/types"
-    export let tags: TagInterface[];
+    import type { FLTags } from "$lib/apiTypes"
+    export let tags: FLTags;
     export let targetType: string;
 </script>
 <div class="tag-container">

@@ -29,10 +29,11 @@
 	import BotCard from "$lib/cards/BotCard.svelte";
 	import CardContainer from "$lib/cards/CardContainer.svelte";
 	import Icon from '@iconify/svelte';
+	import type { BotIndex } from '$lib/apiTypes'
 	import RandomBot from "$lib/base/RandomBot.svelte";
 	import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
 	import Section from "$lib/base/Section.svelte";
-	export let data: any;
+	export let data: BotIndex;
 	export let randomBot: any;
 	//
 </script>

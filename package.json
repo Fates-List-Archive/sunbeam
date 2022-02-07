@@ -2,6 +2,7 @@
   "name": "sunbeam",
   "version": "0.0.1",
   "scripts": {
+    "gentypes": "echo 'npx openapi-to-ts -i https://api.fateslist.xyz/docs/openapi -o src/lib/apiTypes.ts'",
     "dev": "svelte-kit dev --port 5000",
     "build": "svelte-kit build",
     "package": "svelte-kit package",
