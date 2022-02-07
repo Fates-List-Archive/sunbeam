@@ -10,6 +10,7 @@ import SelectOption from "$lib/base/SelectOption.svelte";
     import { voteHandler } from '$lib/request';
     import loadstore from '$lib/loadstore';
 import navigationState from '$lib/navigationState';
+import inputstore from "$lib/inputstore"
 import RedStar from "$lib/base/RedStar.svelte";
 import FormInput from "$lib/base/FormInput.svelte";
 import MultiSelect from "$lib/base/MultiSelect.svelte";
@@ -273,7 +274,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
         let errorFields = []
 
         try {
-            window.inputFields.forEach(field => {
+            $inputstore.forEach(field => {
                 let value = null
                 let fieldEl = document.querySelector(`#${field.id}`)
                 if(fieldEl) {

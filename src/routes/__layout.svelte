@@ -24,6 +24,7 @@
     import { fade } from 'svelte/transition';
 
     import navigationState from '$lib/navigationState';
+    import inputstore from "$lib/inputstore"
     import PageLoader from '$lib/base/PageLoader.svelte';
 
     import { browser } from '$app/env'; 
@@ -36,9 +37,10 @@ import loadstore from '$lib/loadstore';
 </script>
 <svelte:window
     on:sveltekit:navigation-start={() => {
-		console.log("Set loading")
+    		console.log("Set loading")
+		$inputstore = []
 		$loadstore = "Loading..."
-        $navigationState = 'loading';
+        	$navigationState = 'loading';
     }}
     on:sveltekit:navigation-end={() => {
 		console.log("Set loaded")

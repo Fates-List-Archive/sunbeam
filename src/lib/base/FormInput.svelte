@@ -1,6 +1,6 @@
 <script lang="ts">
 import { browser } from "$app/env";
-
+    import inputstore from "$lib/inputstore"
     import RedStar from "$lib/base/RedStar.svelte";
     export let required: boolean = false
     export let id: string
@@ -12,14 +12,8 @@ import { browser } from "$app/env";
     if(!data) {
         data = ""
     }
-
-    if(browser) {
-        if(!window.inputFields) {
-            window.inputFields = []
-        } else {
-            window.inputFields.push({id: id, required: required})
-        }
-    }
+ 
+    $inputstore.push({id: id, required: required})
 </script>
 <label for="{id}">{name}{#if required}<RedStar></RedStar>{/if}</label><br/>
 {#if !textarea}
