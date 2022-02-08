@@ -254,35 +254,3 @@ import Button from "@smui/button/src/Button.svelte";
     </div>
   </div>
 </div>
-{#if index < 3}
-   <script type="application/ld+json">
-        {
-          "@context" : "http://schema.org",
-         "@type" : "Product",
-          "name" : "{data.user.username}",
-          "image" : "{data.user.avatar}",
-          "description": "{data.description}",
-          "sku": "{review.id}",
-          "offers": "",
-          "aggregateRating" : {
-              "@type" : "AggregateRating",
-            "bestRating" : "10",
-            "ratingValue" : {review.star_rating},
-            "reviewCount": 1
-         },
-          "review" : [ {
-            "@type" : "Review",
-               "author" : {
-                    "@type" : "Person",
-                    "name" : "{review.user.username}"
-               },
-               "reviewRating" : {
-                   "bestRating" : "10",
-                   "@type" : "Rating",
-                 "ratingValue" : {review.star_rating}
-                },
-             "reviewBody" : "{review.review}"
-          } ]
-    }
-</script>
-{/if}

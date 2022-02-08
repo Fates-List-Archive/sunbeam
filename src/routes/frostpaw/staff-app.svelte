@@ -31,6 +31,9 @@
 import FormInput from "$lib/base/FormInput.svelte";
 import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
 import Button from '@smui/button';
+import inputstore from "$lib/inputstore";
+import navigationState from "$lib/navigationState";
+import loadstore from "$lib/loadstore";
 	export let app: any;
 
 	let saveTxt = "Submit"
@@ -42,16 +45,20 @@ import Button from '@smui/button';
 		}
 	}
 
+	function alert(msg: string) {
+		window.alert(msg)
+        $navigationState = "loaded" // An alert = page loaded
+    }
+
     async function postApplication() {
         saveTxt = `${mode}ing`
+		$navigationState = "loading"
+		$loadstore = `${mode}ing`
         let appData = {}
         let errorFields = []
 
-		// Usually needed
-		window.inputFields.push({id: "tz", required: true})
-
         try {
-            window.inputFields.forEach(field => {
+            $inputstore.forEach(field => {
                 let value = null
                 let fieldEl = document.querySelector(`#${field.id}`)
                 if(fieldEl) {
