@@ -11,7 +11,7 @@
       if(redirect && redirect.startsWith("/")) {
           redirect = "https://fateslist.xyz" + redirect
       }
-      if(!redirect || !redirect.startsWith("https://fateslist.xyz")) {
+      if(!redirect || !(redirect.startsWith("https://lynx.fateslist.xyz"))) {
           msg = "Invalid redirect"
           return
       }
