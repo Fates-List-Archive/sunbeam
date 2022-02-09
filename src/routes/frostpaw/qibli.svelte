@@ -42,8 +42,8 @@ import { browser } from "$app/env";
 {#if appData}
     <h2>App Format: {appData.app_version}</h2>
     <h2>User</h2>
-        <img class="user-avatar" src={appData.user.avatar} alt="user avatar" />
-        <h3>{appData.user.username}<span class="disc">#{appData.user.disc}</span></h3>
+        <img class="user-avatar" src="https://cdn.discordapp.com/avatars/{appData.user.id}/{appData.user.avatar}.png" alt="user avatar" />
+        <h3>{appData.user.username}<span class="disc">#{appData.user.discriminator}</span></h3>
         <h4>User ID: {appData.user.id}</h4>
     <h2>Application</h2>
     {#each appData.questions as pane}
