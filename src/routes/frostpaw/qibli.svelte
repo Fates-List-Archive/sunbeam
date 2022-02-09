@@ -36,7 +36,7 @@ import { browser } from "$app/env";
 <div class="center">
     <Button href={"#"} on:click={() => {
         let url = document.getElementById("app-url").value
-        getAppFromJSON("https://sunbeam.fateslist.xyz/frostpaw/qibli-fetch?url="+url)
+        getAppFromJSON("https://fateslist.xyz/frostpaw/qibli-fetch?url="+url)
     }} class="button" id="post-app-btn" touch variant="outlined">{saveTxt}</Button>
 </div>
 {#if appData}
@@ -46,10 +46,13 @@ import { browser } from "$app/env";
         <h3>{appData.user.username}<span class="disc">#{appData.user.disc}</span></h3>
         <h4>User ID: {appData.user.id}</h4>
     <h2>Application</h2>
-    {#each appData.questions.questions as question}
-        <h3>{question.title}</h3>
-        <h4>Question: <span class="disc">{question.question}</span></h4>
-        <h4>Answer: <span class="disc">{appData.app.answers[question.id]}</h4>
+    {#each appData.questions as pane}
+        <h3>{pane.title}</h3>
+        {#each pane.questions as question}
+            <h3>{question.title}</h3>
+            <h4>Question: <span class="disc">{question.question}</span></h4>
+            <h4>Answer: <span class="disc">{appData.app[question.id]}</h4>
+        {/each}
     {/each}
 {/if}
 <style lang="scss">
