@@ -94,12 +94,6 @@ import { goto } from '$app/navigation';
 					<Text>Add Server</Text>
 				</Item>
 				<Item on:SMUI:action={() => {
-					goto('/frostpaw/staff-app')
-				}}>
-					<Text>Staff Apps</Text>
-				</Item>
-
-				<Item on:SMUI:action={() => {
 					goto("/servers")
 				}}>
 					<Text>Servers</Text>

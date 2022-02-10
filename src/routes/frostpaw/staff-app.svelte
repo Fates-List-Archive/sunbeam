@@ -1,1 +1,0 @@
-<h2>See our support server to create a staff app</h2>
