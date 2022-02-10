@@ -45,21 +45,21 @@
 <SearchBar type="server" query=""></SearchBar>
 <Tag targetType="server" tags={data.tags_fixed}></Tag>
 
-<Section icon="fa-solid:certificate" title="Certified"></Section>
+<Section icon="fa-solid:certificate" title="Certified" id="certified"></Section>
 <CardContainer>
 	{#each data.certified_bots as bot}
-		<BotCard data={bot} type="server" rand={false}/>
+		<BotCard data={bot} type="server" rand={false} />
 	{/each}
 </CardContainer>
 
-<Section icon="fa-solid:sort-amount-up" title="Top Voted"></Section>
+<Section icon="fa-solid:sort-amount-up" title="Top Voted" id="top-voted"></Section>
 <CardContainer>
 	{#each data.top_voted as bot}
 		<BotCard data={bot} type="server" rand={false}/>
 	{/each}
 </CardContainer>
 
-<Section icon="fa-solid:plus" title="New Servers"></Section>
+<Section icon="fa-solid:plus" title="New Servers" id="new-servers"></Section>
 <CardContainer>
 	{#each data.new_bots as bot}
 		<BotCard data={bot} type="server" rand={false}/>
