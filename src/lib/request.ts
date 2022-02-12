@@ -1,4 +1,5 @@
 import { browser } from '$app/env';
+import { apiUrl } from './config';
 
 // Change this if cf will ever be used
 const usingCf = true
@@ -10,11 +11,11 @@ export async function fetchFates(url: string, auth: string, fetch: any) {
         headers["Frostpaw-Auth"] = auth
         headers["Authorization"] = auth
     }
-    return await fetch("https://api.fateslist.xyz"+url, {headers: headers})
+    return await fetch(apiUrl+url, {headers: headers})
 }
 
 export async function roll(type: string) {
-    const url = `https://api.fateslist.xyz/api/${type}s/0/random`
+    const url = `${apiUrl}/api/${type}s/0/random`
     const res = await fetch(url)
     const roll = await res.json()
     console.log(roll)
@@ -35,7 +36,7 @@ export async function loginUser(noSetStorage: boolean) {
 	if(!noSetStorage) {
                 localStorage.sunbeamLogin = window.location.href
 	}
-	let res = await fetch("https://api.fateslist.xyz/api/v2/oauth", {
+	let res = await fetch(`${apiUrl}/api/v2/oauth`, {
 		method: "POST",
 		headers: {
 			'Content-Type': 'application/json', 
@@ -59,7 +60,7 @@ export async function voteHandler(userID: string, token: string, botID: string, 
 		await loginUser(false)
 		return
 	}
-    let res = await fetch(`https://api.fateslist.xyz/api/dragon/bots/${botID}/votes`, {
+    let res = await fetch(`${apiUrl}/api/dragon/bots/${botID}/votes`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json', 

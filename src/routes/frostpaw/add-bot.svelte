@@ -9,7 +9,7 @@
 					}
 				}
 			}
-			let tagsRes = await fetch(`https://api.fateslist.xyz/api/v2/_sunbeam/add-bot?user_id=${session.session.user.id}`)
+			let tagsRes = await fetch(`${apiUrl}/api/v2/_sunbeam/add-bot?user_id=${session.session.user.id}`)
 			if(!tagsRes.ok) {
 				return {
 					status: tagsRes.status,
@@ -29,10 +29,11 @@
 	import BotSettings from "$lib/pages/BotSettings.svelte";
 	import { loginUser } from "$lib/request"
 	import { session } from "$app/stores"
+import { apiUrl } from "$lib/config";
 	export let context: any;
 	let user = {
 		username: "Fates List",
-		avatar: "https://api.fateslist.xyz/static/botlisticon.webp"
+		avatar: `${apiUrl}/static/botlisticon.webp`
 	}
 	let data = {
 		user: user

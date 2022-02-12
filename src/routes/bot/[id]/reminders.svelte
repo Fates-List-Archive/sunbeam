@@ -28,6 +28,7 @@
     import Button from '@smui/button';
 import { session } from "$app/stores";
 import {loginUser} from "$lib/request"
+import { apiUrl } from "$lib/config";
 
     async function toggleReminders(mode: number) {
         if(!$session.session.token) {
@@ -37,7 +38,7 @@ import {loginUser} from "$lib/request"
         let headers = {"Content-Type": "application/json", "Authorization": $session.session.token}
         let payload = {"mode": mode, "bot_id": data.user.id}
         console.log(payload)
-        let res = await fetch(`https://api.fateslist.xyz/users/${$session.session.user.id}/vote-reminders`, {
+        let res = await fetch(`${apiUrl}/users/${$session.session.user.id}/vote-reminders`, {
             method: "PATCH",
             headers: headers,
             body: JSON.stringify(payload)

@@ -14,6 +14,7 @@ import inputstore from "$lib/inputstore"
 import RedStar from "$lib/base/RedStar.svelte";
 import FormInput from "$lib/base/FormInput.svelte";
 import MultiSelect from "$lib/base/MultiSelect.svelte";
+import { apiUrl } from "$lib/config";
 
     function title(str: string) {
         return str.replaceAll("_", " ").replace(/(^|\s)\S/g, function(t) { return t.toUpperCase() });
@@ -82,7 +83,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
     }
 
     async function regenBotToken() {
-        let url = `https://api.fateslist.xyz/api/v2/bots/${data.bot_id}/token`
+        let url = `${apiUrl}/api/v2/bots/${data.bot_id}/token`
         let headers = {"Authorization": data.api_token}
         let res = await fetch(url, {
             method: "PATCH",
@@ -99,7 +100,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
     }
 
     async function appealBot() {
-        let url = `https://api.fateslist.xyz/api/v2/users/${$session.session.user.id}/bots/${data.bot_id}/appeal`
+        let url = `${apiUrl}/api/v2/users/${$session.session.user.id}/bots/${data.bot_id}/appeal`
         let headers = {
             "Content-Type": "application/json", 
             "Authorization": $session.session.token
@@ -122,7 +123,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
     }
 
     async function requestCertification() {
-        let url = `https://api.fateslist.xyz/api/v2/users/${$session.session.user.id}/bots/${data.bot_id}/certification`
+        let url = `${apiUrl}/api/v2/users/${$session.session.user.id}/bots/${data.bot_id}/certification`
         let headers = {
             "Content-Type": "application/json", 
             "Authorization": $session.session.token
@@ -145,7 +146,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
     }
 
     async function postStats() {
-        let url = `https://api.fateslist.xyz/api/v2/bots/${data.bot_id}/stats`
+        let url = `${apiUrl}/api/v2/bots/${data.bot_id}/stats`
         let headers = {
             "Content-Type": "application/json", 
             "Authorization": data.api_token
@@ -179,7 +180,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
             alert("Could not transfer ownership as you did not confirm you wanted to do this/inputted invalid Bot ID")
             return
         }
-        let url = `https://api.fateslist.xyz/api/v2/users/${$session.session.user.id}/bots/${data.bot_id}/ownership`
+        let url = `${apiUrl}/api/v2/users/${$session.session.user.id}/bots/${data.bot_id}/ownership`
         let headers = {
             "Content-Type": "application/json", 
             "Authorization": $session.session.token
@@ -207,7 +208,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
             alert("Could not delete this bot as you did not confirm you wanted to do this/inputted invalid Bot ID")
             return
         }
-        let url = `https://api.fateslist.xyz/api/v2/users/${$session.session.user.id}/bots/${data.bot_id}`
+        let url = `${apiUrl}/api/v2/users/${$session.session.user.id}/bots/${data.bot_id}`
         let headers = {
             "Authorization": $session.session.token
         }
@@ -323,7 +324,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
 
             // Check if it exists
             if(mode == "add") {
-                let res = await fetch(`https://api.fateslist.xyz/api/v2/bots/${botId}`)
+                let res = await fetch(`${apiUrl}/api/v2/bots/${botId}`)
                 if(res.status == 200) {
                     alert("This bot already exists on Fates List")
                     saveTxt = mode
@@ -384,7 +385,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
 
             console.log(bot)
 
-            let url = `https://api.fateslist.xyz/api/v2/users/${$session.session.user.id}/bots/${bot['bot_id']}`
+            let url = `${apiUrl}/api/v2/users/${$session.session.user.id}/bots/${bot['bot_id']}`
             let headers = {
                 "Content-Type": "application/json", 
                 "Authorization": $session.session.token

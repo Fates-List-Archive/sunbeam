@@ -5,6 +5,7 @@
 	import List, { Item, Text } from '@smui/list';
 	import { loginUser } from '$lib/request';
 import { goto } from '$app/navigation';
+import { apiUrl } from '$lib/config';
 
 	let username = null
 	let userID = null
@@ -18,7 +19,7 @@ import { goto } from '$app/navigation';
 <header>
 	<div class="corner">
 		<a href="/">
-			<img src="https://api.fateslist.xyz/static/botlisticon.webp" alt="Fates List Logo" />
+			<img src="{apiUrl}/static/botlisticon.webp" alt="Fates List Logo" />
 		</a>
 	</div>
 
@@ -54,7 +55,7 @@ import { goto } from '$app/navigation';
 			<List>
 				{#if username}
 				<Item on:SMUI:action={() => {
-					fetch("https://api.fateslist.xyz/api/v2/logout/_sunbeam", {
+					fetch(`${apiUrl}/api/v2/logout/_sunbeam`, {
 						method: "POST",
 						credentials: "include",
 						headers: {

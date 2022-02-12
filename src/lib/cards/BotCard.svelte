@@ -1,5 +1,6 @@
 <script lang="ts">
     import { session } from '$app/stores';
+import { apiUrl } from '$lib/config';
 import Icon from '@iconify/svelte';
     import Button from '@smui/button';
     import { enums } from '../enums/enums'
@@ -11,7 +12,7 @@ import Icon from '@iconify/svelte';
     if(data.id && !data.user) {
         data.user = {"id": data.id}
     }
-    data.banner = data.banner || 'https://api.fateslist.xyz/static/assets/prod/banner.webp?v=2'
+    data.banner = data.banner || `${apiUrl}/static/assets/prod/banner.webp?v=2`
 </script>
 
   

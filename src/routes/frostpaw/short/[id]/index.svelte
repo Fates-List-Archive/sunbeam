@@ -2,7 +2,7 @@
 	import { fetchFates } from "$lib/request";
 		/** @type {import('@sveltejs/kit@next').Load} */
 		export async function load({params, fetch, session, stuff}) {
-			let res = await fetch(`https://api.fateslist.xyz/api/v2/short/${params.id}`)
+			let res = await fetch(`${apiUrl}/api/v2/short/${params.id}`)
 			if(!res.ok) {
 				return {
 					status: res.status,
@@ -20,6 +20,7 @@
 <script lang="ts">
 import { browser } from "$app/env";
 export let url: string
+import { apiUrl } from "$lib/config";
 
     if(browser) {
         window.location.href = url

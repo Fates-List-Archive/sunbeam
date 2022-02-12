@@ -39,6 +39,7 @@
     import Button from '@smui/button';
 import Tip from '$lib/base/Tip.svelte';
 import BotPack from '$lib/base/BotPack.svelte';
+import { apiUrl } from "$lib/config";
     let tabs = [{
         "name": "About",
         "id": "about"    
@@ -73,7 +74,7 @@ import BotPack from '$lib/base/BotPack.svelte';
     }
 
     async function regenUserToken() {
-        let url = `https://api.fateslist.xyz/api/v2/users/${data.user.id}/token`
+        let url = `${apiUrl}/api/v2/users/${data.user.id}/token`
         let headers = {"Authorization": `User ${$session.session.token}`}
         let res = await fetch(url, {
             method: "PATCH",
@@ -81,7 +82,7 @@ import BotPack from '$lib/base/BotPack.svelte';
         })
         if(res.ok) {
             alert("Regenerated token, you will need to login again")
-            fetch("https://api.fateslist.xyz/api/v2/logout/_sunbeam", {
+            fetch(`${apiUrl}/api/v2/logout/_sunbeam`, {
                 method: "POST",
                 credentials: "include",
                 headers: {
@@ -107,7 +108,7 @@ import BotPack from '$lib/base/BotPack.svelte';
             "vote_reminder_channel": document.querySelector("#vote-reminder-channel").value,
         }
         console.log(JSON.stringify(payload))
-        let url = `https://api.fateslist.xyz/api/v2/users/${data.user.id}/preferences`
+        let url = `${apiUrl}/api/v2/users/${data.user.id}/preferences`
         let headers = {"Authorization": $session.session.token, "Content-Type": "application/json"}
         let res = await fetch(url, {
             method: "PATCH",
@@ -133,7 +134,7 @@ import BotPack from '$lib/base/BotPack.svelte';
         let bots = document.querySelector("#pack-bots").value
         payload["bots"] = bots.split(",")
         let headers = {"Authorization": $session.session.token, "Content-Type": "application/json"}
-        let res = await fetch(`https://api.fateslist.xyz/api/v2/users/${data.user.id}/packs`, {
+        let res = await fetch(`${apiUrl}/api/v2/users/${data.user.id}/packs`, {
             method: "POST",
             headers: headers,
             body: JSON.stringify(payload)
@@ -153,7 +154,7 @@ import BotPack from '$lib/base/BotPack.svelte';
             return
         }
         let headers = {"Authorization": $session.session.token}
-        let res = await fetch(`https://api.fateslist.xyz/api/v2/users/${data.user.id}/packs/${packId}`, {
+        let res = await fetch(`${apiUrl}/api/v2/users/${data.user.id}/packs/${packId}`, {
             method: "DELETE",
             headers: headers
         })
@@ -213,14 +214,14 @@ import BotPack from '$lib/base/BotPack.svelte';
             id="pack-icon"
             name="pack-icon"
             class="fform"
-            placeholder="https://api.fateslist.xyz/static/botlisticon.webp etc."
+            placeholder="{apiUrl}/static/botlisticon.webp etc."
         />
         <label for="pack-banner">Pack Banner</label>
         <input
             id="pack-banner"
             name="pack-banner"
             class="fform"
-            placeholder="https://api.fateslist.xyz/static/botlisticon.webp etc."
+            placeholder="{apiUrl}/static/botlisticon.webp etc."
         />
         <label for="pack-bots">Bots (comma seperated)</label>
         <input

@@ -526,6 +526,7 @@
 import Reviews from '$lib/base/Reviews.svelte';
 import loadstore from '$lib/loadstore';
 import navigationState from '$lib/navigationState';
+import { apiUrl } from '$lib/config';
     export let data: any;
     export let type: string;
 	let reviewPage = 1
@@ -621,7 +622,7 @@ import navigationState from '$lib/navigationState';
 			targetType = enums.ReviewType.server
 		}
 
-		let res = await fetch(`https://api.fateslist.xyz/api/v2/reviews/${data.user.id}/all?page=${page}&target_type=${targetType}`)
+		let res = await fetch(`${apiUrl}/api/v2/reviews/${data.user.id}/all?page=${page}&target_type=${targetType}`)
 		if(res.ok) {
 			reviews = await res.json()
 			reviewPage = page
@@ -719,7 +720,7 @@ function parseState(v) {
 			return
 		}
 		let userID = $session.session.user.id;
-		let res = await fetch(`https://api.fateslist.xyz/api/v2/users/${userID}/reviews`, {
+		let res = await fetch(`${apiUrl}/api/v2/users/${userID}/reviews`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

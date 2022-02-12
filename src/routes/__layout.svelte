@@ -1,18 +1,18 @@
 <svelte:head>
-	<link href="https://api.fateslist.xyz/static/assets/prod/material-icons.min.css" rel="stylesheet" />
+	<link href="{apiUrl}/static/assets/prod/material-icons.min.css" rel="stylesheet" />
 	<!-- SMUI Styles -->	
 	<link
   		rel="stylesheet"
-  		href="https://api.fateslist.xyz/static/smui.css?v=8"
+  		href="{apiUrl}/static/smui.css?v=8"
 	/>
 	<link
   		rel="stylesheet"
-  		href="https://api.fateslist.xyz/static/smui.css?v=8"
+  		href="{apiUrl}/static/smui.css?v=8"
   		media="(prefers-color-scheme: light)"
 	/>
 	<link
   		rel="stylesheet"
-  		href="https://api.fateslist.xyz/static/smui-dark.css?v=8"
+  		href="{apiUrl}/static/smui-dark.css?v=8"
   		media="(prefers-color-scheme: dark)"
 	/>
 	<meta name="keywords" content="discord bot, discord bot list, fateslist, fates list, bot list, discord list, list of bost, discord bots, fateslist bots, fates list">
@@ -29,6 +29,7 @@
 
     import { browser } from '$app/env'; 
 import loadstore from '$lib/loadstore';
+import { apiUrl } from '$lib/config';
 	if(browser) {
 		const observer = lozad(); // lazy loads elements with default selector as '.lozad'
 		observer.observe();

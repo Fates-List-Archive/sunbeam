@@ -3,6 +3,7 @@
     import { loginUser } from '$lib/request';
     import { session } from '$app/stores';
 import Button from "@smui/button/src/Button.svelte";
+import { apiUrl } from "$lib/config";
 
     export let review: any;
     export let index: number;
@@ -37,7 +38,7 @@ import Button from "@smui/button/src/Button.svelte";
 			return
 		}
 		let userID = $session.session.user.id;
-		let res = await fetch(`https://api.fateslist.xyz/api/v2/users/${userID}/reviews/${reviewID}/votes`, {
+		let res = await fetch(`${apiUrl}/api/v2/users/${userID}/reviews/${reviewID}/votes`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
@@ -78,7 +79,7 @@ import Button from "@smui/button/src/Button.svelte";
             reply: true
 		}
 
-        let res = await fetch(`https://api.fateslist.xyz/api/v2/users/${userID}/reviews`, {
+        let res = await fetch(`${apiUrl}/api/v2/users/${userID}/reviews`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -105,7 +106,7 @@ import Button from "@smui/button/src/Button.svelte";
 			star_rating: document.querySelector(`#review-${review.id}-edit-slider`).value,
 		}
 
-        let res = await fetch(`https://api.fateslist.xyz/api/v2/users/${userID}/reviews/${review.id}`, {
+        let res = await fetch(`${apiUrl}/api/v2/users/${userID}/reviews/${review.id}`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json",
@@ -127,7 +128,7 @@ import Button from "@smui/button/src/Button.svelte";
         // User is already logged in
         let userID = $session.session.user.id;
 
-        let res = await fetch(`https://api.fateslist.xyz/api/v2/users/${userID}/reviews/${review.id}`, {
+        let res = await fetch(`${apiUrl}/api/v2/users/${userID}/reviews/${review.id}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",

@@ -3,6 +3,7 @@
 </script>
 <script>
     import { browser } from '$app/env';
+import { apiUrl } from '$lib/config';
     import { getCookie, loginUser } from "$lib/request"
 
     let frostpawServer = ""
@@ -31,7 +32,7 @@
                 frostpawMsg = ("Invalid code/state" + retry)
             }
 
-            fetch("https://api.fateslist.xyz/api/v2/users", {
+            fetch(`${apiUrl}/api/v2/users`, {
                 credentials: 'include',
                 method: "POST",
                 headers: {
