@@ -3,7 +3,7 @@
 	export const prerender = false
 	export async function load({ params, url, fetch, session, stuff }) {
 		const full = url.searchParams.get("full") == "true"
-		const blUrl = `/api/blstats-full?api=true&full=${full}` // This will change
+		const blUrl = `/api/blstats-full?full=${full}` // This will change
 		const res = await fetchFates(blUrl, "", fetch);
 		if(res.ok) {
 			return {
@@ -30,9 +30,15 @@
 </script>
 <h1>Statistics</h1>
 <ul class="white" style="font-size: 24px">
+	<li>Current Worker PID: {data.pid}</li>
+	<li>Worker List: {data.workers.join(" | ")}</li>
+	<li>Worker Uptime: {data.uptime}</li>
+	<li>Worker UP: {data.up}</li>
+	<li>Server Uptime: {data.server_uptime}</li>
 	<li>Queue Length: {data.queue.length}</li>
 	<li>Under Review Length: {data.under_review.length}</li>
-	<li>Total Bot Length: {data.bot_amount}</li>
+	<li>Total Bot Length: {data.bot_amount_total}</li>
+	<li>Approved+Certified Bot Length: {data.bot_amount}</li>
 	<li>Certified Bots Length: {data.certified.length}</li>
 	<li>Banned Bots Length: {data.banned_amount}</li>
 	<li>Denied Bots Length: {data.denied_amount}</li>
