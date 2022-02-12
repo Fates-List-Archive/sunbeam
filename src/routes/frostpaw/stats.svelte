@@ -27,6 +27,20 @@
 	import Section from "$lib/base/Section.svelte";
 	export let data: any
 	export let full: boolean
+
+	function secondsToDhms(seconds) {
+		seconds = Number(seconds);
+		var d = Math.floor(seconds / (3600*24));
+		var h = Math.floor(seconds % (3600*24) / 3600);
+		var m = Math.floor(seconds % 3600 / 60);
+		var s = Math.floor(seconds % 60);
+
+		var dDisplay = d > 0 ? d + (d == 1 ? " day, " : " days, ") : "";
+		var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+		var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+		var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+		return dDisplay + hDisplay + mDisplay + sDisplay;
+	}
 </script>
 <h1>Statistics</h1>
 <ul class="white" style="font-size: 24px">
@@ -34,7 +48,8 @@
 	<li>Worker List: {data.workers.join(" | ")}</li>
 	<li>Worker Uptime: {data.uptime}</li>
 	<li>Worker UP: {data.up}</li>
-	<li>Server Uptime: {data.server_uptime}</li>
+	<li>Server Uptime (Formatted): {secondsToDhms(data.server_uptime)}</li>
+	<li>Server Uptime (Raw): {data.server_uptime}</li>
 	<li>Queue Length: {data.queue.length}</li>
 	<li>Under Review Length: {data.under_review.length}</li>
 	<li>Total Bot Length: {data.bot_amount_total}</li>
