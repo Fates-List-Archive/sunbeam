@@ -474,8 +474,6 @@
 						{#each data.action_logs as log}
 							{JSON.stringify(log)}
 						{/each}
-		    		{:else}
-						<h2>Servers do not support this feature <em>yet</em> :(</h2>
                     {/if}
                 </section>
             </Tab>
