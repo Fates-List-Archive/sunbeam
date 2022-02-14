@@ -50,12 +50,18 @@ enum Flag {
     system =        5,
 }
 
+enum PageStyle {
+    tabs = 0,
+    single_view = 1,
+}
+
 export let enums = {
     BotState: BotState,
     UserState: UserState,
     UserBotAction: UserBotAction,
     CommandType: CommandType,
     ReviewType: ReviewType,
+    PageStyle: PageStyle,
     Flags: Flag,
     LongDescType: {
 	    html:                0,

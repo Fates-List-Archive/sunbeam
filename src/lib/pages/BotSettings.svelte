@@ -309,6 +309,7 @@ import { apiUrl } from "$lib/config";
             bot["webhook_type"] = parseInt(document.querySelector("#webhook_type").value)
             bot["long_description_type"] = parseInt(document.querySelector("#long_description_type").value)
             bot["nsfw"] = document.querySelector("#nsfw").value == "true"
+            bot["page_style"] = document.querySelector("#page_style").value
             try {
                 bot["system_bot"] = document.querySelector("#system_bot").value == "true"
             } catch (err) {
@@ -616,6 +617,11 @@ import { apiUrl } from "$lib/config";
         <select name="nsfw" id="nsfw">
             <SelectOption value="true" masterValue="{data.nsfw}">Yes</SelectOption>
             <SelectOption value="false" masterValue="{data.nsfw}">No</SelectOption>
+        </select>
+        <label for="page_style">Page Style</label>
+        <select name="page_style" id="page_style">
+            <SelectOption value="0" masterValue="{data.page_style}">Tabs (classic)</SelectOption>
+            <SelectOption value="1" masterValue="{data.page_style}">Single-scroll (new)</SelectOption>
         </select>
         <br/><br/>
         {#if context.perm > 4 || data.system_bot}

@@ -167,7 +167,7 @@
 
 {@html data.css}
 
-<div id="long-description" class="lozad bot-page-banner" data-background-image="{data.banner}">
+<div class="lozad bot-page-banner" data-background-image="{data.banner}">
     <img class="bot-avatar" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="bot-avatar" alt="{data.user.username}'s avatar">
     <article class="bot-page">
         <a href="/{type}/{data.user.id}/invite" class="banner-decor bot-username bot-username-link">
@@ -294,21 +294,22 @@
 			    </Button>
 		{/if}
     </div>
-    <Tab>
-		<section id="long-description-real" class='tabs-v2'>
-			{#if data.long_description_type == enums.LongDescType.markdown_marked}
-				{@html marked.parse(data.long_description)}
-			{:else}
-				{@html data.long_description}
-			{/if}
+    <Tab tabs={tabs} defaultTabButton="long-description-tab-button">
+		<section id="long-description-tab" class='tabcontent tabdesign'>
+			<div id="long-description" class="tabdesign-alt">
+				{#if data.long_description_type == enums.LongDescType.markdown_marked}
+					{@html marked.parse(data.long_description)}
+				{:else}
+					{@html data.long_description}
+				{/if}
+			</div>
 		</section>
-		<section id="commands-tab" class="tabs-v2">
-			<h2>Commands</h2>
+		<section id="commands-tab" class="tabcontent tabdesign">
 			{#if type == "bot"}
 				{#if Object.keys(data.commands).length == 0}
-					<h3>This bot does not have any commands</h3>
+					<h2>This bot does not have any commands</h2>
 					{#if !data.prefix}
-						<h4>This bot uses slash commands, try typing / to see a list of commands</h4>
+						<h3>This bot uses slash commands, try typing / to see a list of commands</h3>
 					{/if}
 				{/if}
 				{#each Object.entries(data.commands) as cmd_group}
@@ -365,9 +366,8 @@
 				<span>Servers do not have commands</span>
 			{/if}
 		</section>
-		<section id="resources-tab" class="tabs-v2">
-			<h2>Some cool resources!</h2>
-			<h3>Basics</h3>
+		<section id="resources-tab" class="tabcontent tabdesign">
+			<h2>Basics</h2>
 			<a href="/bot/{data.user.id}/invite">Invite</a><br/>
 			{#each ["website", "support", "privacy_policy", "donate", "github"] as link}
 				{#if data[link]}
@@ -375,9 +375,9 @@
 				{/if}
 			{/each}
 			<br/>
-			<h3>Community Resources</h3>
+			<h2>Community Resources</h2>
 			{#if !data.resources && data.resources.length < 0}
-				<h4>This {type} does not have any custom resources!</h4>
+				<h2>This {type} does not have any custom resources!</h2>
 			{:else}
 				{#each data.resources as resource}
 					<a href={resource.resource_link}>{resource.resource_title}</a>
@@ -385,8 +385,7 @@
 				{/each}
 			{/if}
 		</section>
-        <section id="reviews-tab" class="tabs-v2">
-			<h2>Lets review!</h2>
+        <section id="reviews-tab" class="tabcontent tabdesign">
 		   <label for="rating">On a scale of 1 to 10, how much did you like this {type}?</label><br/>
 		   <input class='slider range-slider' type="range" id="star-rating" min="0.1" max="10" style="width: 100%" value='5' step='0.1' data-output="rating-desc"/>
 		   <p id='rating-desc' style="color: white;"></p>
@@ -433,7 +432,7 @@
 					</div>					
                     <div id="reviews" use:onload></div>
                 </section>
-                <section id="about-tab" class='tabs-v2'>
+                <section id="about-tab" class='tabcontent tabdesign'>
                     <!--First main owner is guaranteed to be first in HTML-->
                     {#if type == "bot"}
                         <h2>Owners</h2>
@@ -495,7 +494,7 @@
     import { voteHandler, loginUser } from '$lib/request';
     import { marked } from 'marked'; 
     import { session } from '$app/stores';
-    import Tab from '$lib/base/TabV2.svelte';
+    import Tab from '$lib/base/Tab.svelte';
 import Reviews from '$lib/base/Reviews.svelte';
 import loadstore from '$lib/loadstore';
 import navigationState from '$lib/navigationState';
@@ -504,6 +503,23 @@ import { apiUrl } from '$lib/config';
     export let type: string;
 	let reviewPage = 1
 	let reviews: any = {}
+    let tabs = [{
+        "name": "Description",
+        "id": "long-description"    
+    }, 
+    {
+        "name": "About",
+        "id": "about"
+    }, {
+		"name": "Resources",
+		"id": "resources"
+    }, {
+        "name": "Reviews",
+        "id": "reviews"
+    }, {
+		"name": "Commands",
+		"id": "commands"
+	}]
 	function fade(element) {
     	var op = 1;  // initial opacity
     	var timer = setInterval(function () {
