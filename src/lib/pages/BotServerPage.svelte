@@ -376,8 +376,8 @@
 			{/each}
 			<br/>
 			<h3>Community Resources</h3>
-			{#if !data.resources && data.resources.length < 0}
-				<h4>This {type} does not have any custom resources!</h4>
+			{#if !data.resources || data.resources.length <= 0}
+				<h4>This {type} does not have any community resources!</h4>
 			{:else}
 				{#each data.resources as resource}
 					<a href={resource.resource_link}>{resource.resource_title}</a>
