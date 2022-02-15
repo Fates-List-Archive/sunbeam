@@ -20,10 +20,13 @@ $link-opacity: 0.63;
 }
 
 html, body {
-	overflow-x: hidden !important; 
 	background-color: #1D1E23;
 	margin: 0px;
 	padding: 0px;
+}
+
+main {
+	overflow-x: hidden !important; 
 }
 
 h1, h2, h3, h4, h5, h6, p, nav, .fform, a, ol, .tab {

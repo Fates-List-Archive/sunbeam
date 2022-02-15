@@ -132,7 +132,10 @@ import { apiUrl } from '$lib/config';
 <style lang="scss">
 	header {
 		display: flex;
-		position: fixed;
+		position: sticky;
+		align-self: flex-start;
+		top: 0;
+		height: auto;
 		width: 100%;
 		margin: 0px;
 		padding: 3px;

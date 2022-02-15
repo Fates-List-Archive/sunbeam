@@ -57,13 +57,9 @@ import { apiUrl } from '$lib/config';
 	pre {
 		color: white !important;
 	}
-	#mdiv {
-		height: 70px;
-	}
 </style>
 
 <Header />
-<div id="mdiv"></div>
 <main style="background-color: #1D1E23 !important;">
 	<PageLoader>
 		<slot />
