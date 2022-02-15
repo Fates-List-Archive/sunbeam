@@ -11,15 +11,14 @@
 			let id: string = data.redirect
 			let type: string = data.type
 
-			const pageUrl = `/api/v2/${type}s/${id}/_sunbeam`;
+			const pageUrl = `/api/v2/${type}s/${id}`;
 			const pageRes = await fetchFates(pageUrl, "", fetch);
 			if (pageRes.ok) {
 				let pageData = await pageRes.json()
 				console.log(pageData)
 				return {
 					props: {
-						data: pageData.data,
-            	        cacheVersion: pageData.fl_cache_ver,
+						data: pageData,
 						type: type
 					}
 				};

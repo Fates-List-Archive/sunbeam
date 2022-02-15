@@ -3,15 +3,14 @@
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
-		const url = `/api/v2/bots/${params.id}/_sunbeam`;
+		const url = `/api/v2/bots/${params.id}`;
 		const res = await fetchFates(url, "", fetch);
 
 		if (res.ok) {
             let data = await res.json()
 			return {
 				props: {
-					data: data.data,
-                    cacheVersion: data.fl_cache_ver
+					data: data,
 				}
 			};
 		}
