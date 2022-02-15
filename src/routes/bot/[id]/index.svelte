@@ -17,8 +17,7 @@
             	    let data = await res.json()
 			return {
 				props: {
-					data: data.data,
-                    cacheVersion: data.fl_cache_ver
+					data: data
 				}
 			};
 		}
