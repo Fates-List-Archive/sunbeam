@@ -12,7 +12,7 @@
 			let type: string = data.type
 
 			const pageUrl = `/api/v2/${type}s/${id}`;
-			const pageRes = await fetchFates(pageUrl, "", fetch);
+			const pageRes = await fetchFates(pageUrl, "", fetch, true);
 			if (pageRes.ok) {
 				let pageData = await pageRes.json()
 				console.log(pageData)

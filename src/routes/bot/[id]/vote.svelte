@@ -4,7 +4,7 @@
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		const url = `/api/v2/bots/${params.id}`;
-		const res = await fetchFates(url, "", fetch);
+		const res = await fetchFates(url, "", fetch, true);
 
 		if (res.ok) {
             let data = await res.json()
