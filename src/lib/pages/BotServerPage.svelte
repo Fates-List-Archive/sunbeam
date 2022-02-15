@@ -239,15 +239,17 @@
 			    <Button href="/{type}/{data.user.id}/invite" class="buttons-all" id="buttons-invite" touch variant="outlined" rel="external">
 				    <span>{#if type == "server"}Join{:else}Invite{/if}</span>
 			    </Button>
-                {#if data.support}
-			    <Button href="{data.support}" id="buttons-support" class="buttons-all" touch variant="outlined">
-				    <span>Support</span>
-			    </Button>
-                {:else}
-			    <Button class="buttons-all disabled" id="buttons-support" touch variant="outlined" disabled>
-				    <span>Support</span>
-			    </Button>
-                {/if}
+				{#if type == "bot"}
+					{#if data.support}
+					<Button href="{data.support}" id="buttons-support" class="buttons-all" touch variant="outlined">
+						<span>Support</span>
+					</Button>
+					{:else}
+					<Button class="buttons-all disabled" id="buttons-support" touch variant="outlined" disabled>
+						<span>Support</span>
+					</Button>
+					{/if}
+				{/if}
                 {#if data.website}
 			    <Button href="{data.website}" id="buttons-website" class="buttons-all auxillary" touch variant="outlined">
 				    <span>Website</span>
