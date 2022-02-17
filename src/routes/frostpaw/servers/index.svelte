@@ -3,8 +3,8 @@
 	export const prerender = true;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
-		const url = `/api/v2/index?type=1`;
-		const res = await fetchFates(url, "", fetch);
+		const url = `/index?target_type=server`;
+		const res = await fetchFates(url, "", fetch, false, true);
 
 		if (res.ok) {
 			return {
@@ -43,12 +43,12 @@
 	<h2 class="best-bots">Find the best servers to join!</h2>
 </section>
 <SearchBar type="server" query=""></SearchBar>
-<Tag targetType="server" tags={data.tags_fixed}></Tag>
+<Tag targetType="server" tags={data.tags}></Tag>
 
 <Section icon="fa-solid:certificate" title="Certified" id="certified-servers">
 <CardContainer>
-	{#each data.certified_bots as bot}
-		<BotCard data={bot} type="server" rand={false} />
+	{#each data.certified as server}
+		<BotCard data={server} type="server" rand={false} />
 	{/each}
 </CardContainer>
 </Section>
@@ -56,16 +56,16 @@
 
 <Section icon="fa-solid:sort-amount-up" title="Top Voted" id="top-voted-servers">
 <CardContainer>
-	{#each data.top_voted as bot}
-		<BotCard data={bot} type="server" rand={false}/>
+	{#each data.top_voted as server}
+		<BotCard data={server} type="server" rand={false}/>
 	{/each}
 </CardContainer>
 </Section>
 
 <Section icon="fa-solid:plus" title="New Servers" id="new-servers">
 <CardContainer>
-	{#each data.new_bots as bot}
-		<BotCard data={bot} type="server" rand={false}/>
+	{#each data.new as server}
+		<BotCard data={server} type="server" rand={false}/>
 	{/each}
 </CardContainer>
 </Section>

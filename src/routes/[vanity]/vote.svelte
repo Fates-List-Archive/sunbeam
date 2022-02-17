@@ -3,13 +3,13 @@
 	import { fetchFates } from "$lib/request"
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
-		const url = `/api/v2/code/${params.vanity}`;
-		const res = await fetchFates(url, "", fetch);
+		const url = `/code/${params.vanity}`;
+		const res = await fetchFates(url, "", fetch, false, true);
 
 		if (res.ok) {
             let data = await res.json()
-			let id: string = data.redirect
-			let type: string = data.type
+			let id: string = data.target_id
+			let type: string = data.target_type
 
 			const pageUrl = `/api/v2/${type}s/${id}`;
 			const pageRes = await fetchFates(pageUrl, "", fetch, true);

@@ -4,8 +4,8 @@
 	export const prerender = true;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
-		const url = `/api/v2/index?type=0`;
-		const res = await fetchFates(url, "", fetch);
+		const url = `/index?target_type=bot`;
+		const res = await fetchFates(url, "", fetch, false, true);
 
 		if (res.ok) {
 			return {
@@ -51,12 +51,12 @@
 </section>
 
 <SearchBar type="bot" query=""></SearchBar>
-<Tag targetType="bot" tags={data.tags_fixed}></Tag>
+<Tag targetType="bot" tags={data.tags}></Tag>
 <RandomBot type="bot" randomBot={randomBot}/>
 
 <Section icon="fa-solid:certificate" title="Certified" id="certified-index">
 	<CardContainer>
-		{#each data.certified_bots as bot}
+		{#each data.certified as bot}
 			<BotCard data={bot} type="bot" rand={false}/>
 		{/each}
 	</CardContainer>
@@ -72,7 +72,7 @@
 
 <Section icon="fa-solid:plus" title="New Bots" id="new-bots">
 	<CardContainer>
-		{#each data.new_bots as bot}
+		{#each data.new as bot}
 			<BotCard data={bot} type="bot" rand={false}/>
 		{/each}
 	</CardContainer>

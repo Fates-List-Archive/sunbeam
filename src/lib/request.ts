@@ -4,7 +4,7 @@ import { apiUrl } from './config';
 // Change this if cf will ever be used
 const usingCf = true
 
-export async function fetchFates(url: string, auth: string, fetch: any, votePage = false) {
+export async function fetchFates(url: string, auth: string, fetch: any, votePage = false, nextApi: boolean = false) {
     // Always use direct if browser
     let headers = {"Frostpaw": "0.1"}
 
@@ -16,7 +16,11 @@ export async function fetchFates(url: string, auth: string, fetch: any, votePage
         console.log("Adding vote page headers")
         headers["Frostpaw-Vote-Page"] = "1"
     }
-    return await fetch(apiUrl+url, {headers: headers})
+    let capiUrl = apiUrl
+    if(nextApi) {
+    	capiUrl = "https://next.fateslist.xyz"
+    } 
+    return await fetch(capiUrl+url, {headers: headers})
 }
 
 export async function roll(type: string) {

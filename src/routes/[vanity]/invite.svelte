@@ -2,13 +2,13 @@
 	import { fetchFates } from "$lib/request"
 	export const prerender = false;
     export async function load({ params, fetch, session, stuff }) {
-		const codeUrl = `/api/v2/code/${params.vanity}`;
-		const codeRes = await fetchFates(codeUrl, "", fetch);
+		const codeUrl = `/code/${params.vanity}`;
+		const codeRes = await fetchFates(codeUrl, "", fetch, false, true);
 
 		if (codeRes.ok) {
             let data = await codeRes.json()
-			let id: string = data.redirect
-			let type: string = data.type
+			let id: string = data.target_id
+			let type: string = data.target_type
 
             if(type == "bot") {
                 return {
