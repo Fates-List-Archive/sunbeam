@@ -3,7 +3,7 @@
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
-		const url = `/api/v2/bots/${params.id}`;
+		const url = `/bots/${params.id}`;
 		
 		let auth = ""
         	
@@ -11,7 +11,7 @@
 			auth = `${session.session.user.id}|${session.session.token}`
 		}
 		
-		const res = await fetchFates(url, auth, fetch);
+		const res = await fetchFates(url, auth, fetch, false, true);
 
 		if (res.ok) {
             	    let data = await res.json()
