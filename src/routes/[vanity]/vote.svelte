@@ -11,8 +11,9 @@
 			let id: string = data.target_id
 			let type: string = data.target_type
 
-			const pageUrl = `/api/v2/${type}s/${id}`;
-			const pageRes = await fetchFates(pageUrl, "", fetch, true);
+			const pageUrl = `/${type}s/${id}`;
+			// Votes via site are not supported outside of bots anyways...
+			const pageRes = await fetchFates(pageUrl, "", fetch, true, true);
 			if (pageRes.ok) {
 				let pageData = await pageRes.json()
 				console.log(pageData)
