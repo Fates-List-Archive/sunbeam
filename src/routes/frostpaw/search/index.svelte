@@ -5,16 +5,16 @@
 	export async function load({ url, session, fetch }) {
         let query = url.searchParams.get("q")
         let targetType = url.searchParams.get("target_type")
-		const searchUrl = `/api/v2/search?q=${query}`;
-		const res = await fetchFates(searchUrl, "", fetch);
+		const searchUrl = `/search?q=${query}`;
+		const res = await fetchFates(searchUrl, "", fetch, false, true);
 
 		if (res.ok) {
-            let data = await res.json()
+			let data = await res.json()
 			return {
 				props: {
 					data: data,
-                    targetType: targetType,
-                    query: query
+                    			targetType: targetType,
+                    			query: query
 				}
 			};
 		}
@@ -36,6 +36,7 @@ import BotPack from "$lib/base/BotPack.svelte";
     export let data: any;
     export let targetType: string;
     export let query: string;
+
 </script>
 
 <BristlefrostMeta 

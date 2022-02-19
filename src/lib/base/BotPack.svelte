@@ -1,18 +1,19 @@
 <script lang="ts">
     export let pack: any;
     export let centered: boolean = true;
+
 </script>
 <div class="pack-container">
     <h3>{pack.name}</h3>
     <h4 class="opaque">{pack.description}</h4>
     {#each pack.resolved_bots as bot}
         <div class="pack-bot">
-            <a href="/bot/{bot.id}">
-                <img class="pack-user-avatar" alt="{bot.username}s avatar" src={bot.avatar} loading="lazy">
+            <a href="/bot/{bot.id || bot.user.id}">
+                <img class="pack-user-avatar" alt="{bot.username || bot.user.username}s avatar" src={bot.avatar || bot.user.avatar} loading="lazy">
             </a>
             <span class="pack-data">
-                <a href="/bot/{bot.id}">
-                    {bot.username}<br/>
+                <a href="/bot/{bot.id || bot.user.id}">
+                    {bot.username || bot.user.username}<br/>
                 </a>
                 <span class="indent">{bot.description}</span>
             </span>
