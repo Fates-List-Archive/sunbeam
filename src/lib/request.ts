@@ -24,8 +24,8 @@ export async function fetchFates(url: string, auth: string, fetch: any, votePage
 }
 
 export async function roll(type: string) {
-    const url = `${apiUrl}/api/${type}s/0/random`
-    const res = await fetch(url)
+    const url = `/random-bot`
+    const res = await fetchFates(url, "", fetch, false, true)
     const roll = await res.json()
     console.log(roll)
     return roll
