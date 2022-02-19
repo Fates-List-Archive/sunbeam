@@ -17,8 +17,14 @@
 			let id: string = data.target_id
 			let type: string = data.target_type
 
-			const pageUrl = `/api/v2/${type}s/${id}`;
-			const pageRes = await fetchFates(pageUrl, "", fetch);
+			let useNextApi = false
+
+			if(type == "bot") {
+				useNextApi = true
+			}
+
+			const pageUrl = `/${type}s/${id}`;
+			const pageRes = await fetchFates(pageUrl, "", fetch, false, useNextApi);
 			if (pageRes.ok) {
 				let pageData = await pageRes.json()
 				console.log(pageData)
