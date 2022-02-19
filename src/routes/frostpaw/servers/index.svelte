@@ -1,5 +1,6 @@
 <script context="module" lang="ts">
 	import { fetchFates } from "$lib/request"
+        import { roll } from '$lib/request'
 	export const prerender = true;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
@@ -9,7 +10,8 @@
 		if (res.ok) {
 			return {
 				props: {
-					data: await res.json()
+					data: await res.json(),
+					randomBot: await roll("server")
 				}
 			};
 		}
@@ -27,7 +29,9 @@
 	import CardContainer from "$lib/cards/CardContainer.svelte"
 	import Section from "$lib/base/Section.svelte"
 	import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte"
+        import RandomBot from "$lib/base/RandomBot.svelte";
 	export let data: any;
+	export let randomBot: any;
 </script>
 
 <BristlefrostMeta 
@@ -44,6 +48,7 @@
 </section>
 <SearchBar type="server" query=""></SearchBar>
 <Tag targetType="server" tags={data.tags}></Tag>
+<RandomBot type="server" randomBot={randomBot}/>
 
 <Section icon="fa-solid:certificate" title="Certified" id="certified-servers">
 <CardContainer>
