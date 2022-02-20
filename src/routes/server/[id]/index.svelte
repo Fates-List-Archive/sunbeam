@@ -3,8 +3,8 @@
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
-		const url = `/api/v2/guilds/${params.id}`;
-		const res = await fetchFates(url, "", fetch);
+		const url = `/servers/${params.id}`;
+		const res = await fetchFates(url, "", fetch, false, true);
 
 		if (res.ok) {
             let data = await res.json()
