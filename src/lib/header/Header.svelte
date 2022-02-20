@@ -5,7 +5,7 @@
 	import List, { Item, Text } from '@smui/list';
 	import { loginUser } from '$lib/request';
 import { goto } from '$app/navigation';
-import { apiUrl } from '$lib/config';
+import { apiUrl, nextUrl } from '$lib/config';
 
 	let username = null
 	let userID = null
@@ -55,8 +55,8 @@ import { apiUrl } from '$lib/config';
 			<List>
 				{#if username}
 				<Item on:SMUI:action={() => {
-					fetch(`${apiUrl}/api/v2/logout/_sunbeam`, {
-						method: "POST",
+					fetch(`${nextUrl}/oauth2`, {
+						method: "DELETE",
 						credentials: "include",
 						headers: {
 							'Content-Type': 'application/json', 

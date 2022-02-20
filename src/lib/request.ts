@@ -1,5 +1,5 @@
 import { browser } from '$app/env';
-import { apiUrl } from './config';
+import { apiUrl, nextUrl } from './config';
 
 // Change this if cf will ever be used
 const usingCf = true
@@ -18,7 +18,7 @@ export async function fetchFates(url: string, auth: string, fetch: any, votePage
     }
     let capiUrl = apiUrl
     if(nextApi) {
-    	capiUrl = "https://next.fateslist.xyz"
+    	capiUrl = nextUrl
     } 
     return await fetch(capiUrl+url, {headers: headers})
 }
@@ -45,8 +45,8 @@ export async function loginUser(noSetStorage: boolean) {
 	if(!noSetStorage) {
                 localStorage.sunbeamLogin = window.location.href
 	}
-	let res = await fetch(`${apiUrl}/api/v2/oauth`, {
-		method: "POST",
+	let res = await fetch(`${nextUrl}/oauth2`, {
+		method: "GET",
 		headers: {
 			'Content-Type': 'application/json', 
 			"Frostpaw": "0.1.0",
@@ -55,10 +55,10 @@ export async function loginUser(noSetStorage: boolean) {
 	})
 	let json = await res.json()
 	if(!noSetStorage && localStorage.loginError == "1") {
-		json.url += "&prompt=none"
+		json.context += "&prompt=none"
 		localStorage.removeItem("loginError")
 	}
-	window.location.href = json.url
+	window.location.href = json.context
 }
 
 export async function voteHandler(userID: string, token: string, botID: string, test: boolean) {
