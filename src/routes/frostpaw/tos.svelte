@@ -3,8 +3,8 @@
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
-        let url = "/api/v2/policies/all"
-        let res = await fetchFates(url, "", fetch)
+        let url = "/policies"
+        let res = await fetchFates(url, "", fetch, false, true)
         if(!res.ok) {
             return {
                 status: res.status,
