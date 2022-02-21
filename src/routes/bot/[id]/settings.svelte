@@ -11,8 +11,8 @@
 					}
 				}
 			}
-			let url = `/api/v2/bots/${params.id}/_sunbeam/settings?user_id=${session.session.user.id}`
-			let res = await fetchFates(url, "User " + session.session.token, fetch)
+			let url = `/users//${session.session.user.id}/bots/${params.id}/settings`
+			let res = await fetchFates(url, "User " + session.session.token, fetch, false, true)
 			if(!res.ok) {
 				let json = await res.json()
 				return {
@@ -24,7 +24,7 @@
 			return {
 				props: {
 					failed: false,
-					data: json.data,
+					data: json.bot,
 					context: json.context
 				}
 			}

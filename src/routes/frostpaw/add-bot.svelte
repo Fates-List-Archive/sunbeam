@@ -9,7 +9,7 @@
 					}
 				}
 			}
-			let tagsRes = await fetch(`${apiUrl}/api/v2/_sunbeam/add-bot?user_id=${session.session.user.id}`)
+			let tagsRes = await fetchFates('/mini-index', "", fetch, false, true)
 			if(!tagsRes.ok) {
 				return {
 					status: tagsRes.status,

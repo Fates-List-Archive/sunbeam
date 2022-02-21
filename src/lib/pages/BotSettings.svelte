@@ -38,6 +38,10 @@ import { apiUrl } from "$lib/config";
 
     let user = data.user;
 
+    if(mode == "edit") {
+        data.bot_id = data.user.id;
+    }
+
     let tabs = []
     let defaultTabButton = "basics-tab-button"
     let token = "Click 'Show' to see your bots token"
@@ -585,15 +589,15 @@ import { apiUrl } from "$lib/config";
             required={true}
         />
         <label for="tags">Tags <RedStar/></label>
-        <MultiSelect initialValues={data.tags} id="tags" bind:value={tags}> <!-- value={data.tags}-->
+        <MultiSelect initialValues={data.tags.map(el => el.id)} id="tags" bind:value={tags}>
             {#each context.tags as tag}
-                <SelectOptionMulti value={tag} valueList={data.tags}>{title(tag)}</SelectOptionMulti>
+                <SelectOptionMulti value={tag.id} valueList={data.tags}>{tag.name}</SelectOptionMulti>
             {/each}
         </MultiSelect>
         <label for="features">Features</label>
-        <MultiSelect initialValues={data.features} id="features" bind:value={features}>
+        <MultiSelect initialValues={data.features.map(el => el.id)} id="features" bind:value={features}>
             {#each context.features as feature}
-                <SelectOptionMulti value={feature} valueList={data.features}>{title(feature)}</SelectOptionMulti>
+                <SelectOptionMulti value={feature.id} valueList={data.features}>{feature.name}</SelectOptionMulti>
             {/each}
         </MultiSelect>
         <br/>
@@ -609,7 +613,7 @@ import { apiUrl } from "$lib/config";
             name="Long Description"
             id="long_description"
             placeholder="Write over 300 characters for your long description. Trying to put a placeholder to bypass this limit will get your bot denied or banned if found out!"
-            data={data.long_description}
+            data={data.long_description_raw}
             required={true}
             textarea={true}
         />
