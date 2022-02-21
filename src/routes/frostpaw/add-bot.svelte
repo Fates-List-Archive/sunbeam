@@ -19,6 +19,7 @@
 			let data = await tagsRes.json()
 			return {
 				props: {
+					data: {tags: [], features: []},
 					context: data
 				}
 			}
@@ -31,13 +32,12 @@
 	import { session } from "$app/stores"
 import { apiUrl } from "$lib/config";
 	export let context: any;
+	export let data: any;
 	let user = {
 		username: "Fates List",
 		avatar: `${apiUrl}/static/botlisticon.webp`
 	}
-	let data = {
-		user: user
-	}
+	data.user = user
 	if(!$session.session.token) {
 		if(browser) {
 			loginUser(false)
