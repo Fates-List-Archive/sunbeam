@@ -39,7 +39,19 @@ import { apiUrl } from "$lib/config";
     let user = data.user;
 
     if(mode == "edit") {
+        // Make some basic attributes
         data.bot_id = data.user.id;
+        data.extra_owners = "";
+        let i = 1;
+        data.owners.forEach(owner => {
+            if(!owner.main) {
+                data.extra_owners += owner.user.id
+                if(data.owners.length > i) {
+                    data.extra_owners += ", "
+                }
+            }
+            i+=1
+        })
     }
 
     let tabs = []
