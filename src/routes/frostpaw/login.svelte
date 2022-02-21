@@ -3,8 +3,9 @@
 </script>
 <script>
     import { browser } from '$app/env';
-import { apiUrl } from '$lib/config';
+import { apiUrl, nextUrl } from '$lib/config';
     import { getCookie, loginUser } from "$lib/request"
+import { enums } from '$lib/enums/enums'
 
     let frostpawServer = ""
     let frostpawMsg = "Please wait..."
@@ -32,28 +33,27 @@ import { apiUrl } from '$lib/config';
                 frostpawMsg = ("Invalid code/state" + retry)
             }
 
-            fetch(`${apiUrl}/api/v2/users`, {
+            fetch(`${nextUrl}/oauth2`, {
                 credentials: 'include',
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json', 
-                    "Frostpaw": "0.1.0"
+		    "Frostpaw": "0.1.0",
+		    "Frostpaw-Server": window.location.origin
                 },
                 body: JSON.stringify({
-                    scopes: ["identify"],
-                    code: code
+			code: code,
+			state: state
                 })
             })
             .then((res) => res.json())
             .then((json) => {
-		if(!json.done) {
-		    if(json.banned) {
-			frostpawMsg = `<h1>${json.reason}</h1><br/><h2>This is a ${json.ban.type} ban and ${json.ban.desc}.</h2><br/>You can try to appeal this ban at <a href="https://fateslist.xyz/banappeal">our ban appeal server</a>`
-		    } else {
+		if(json.state == enums.UserState.global_ban) {
+			frostpawMsg = `<h1>You are global banned</h1><br/><h2>This is a global ban and as such, you may not login/use our API.</h2><br/>You can try to appeal this ban at <a href="https://fateslist.xyz/banappeal">our ban appeal server</a>` 	
+		} else if(!json.token) {
 			frostpawMsg = `Got error: ${JSON.stringify(json)}. Trying again...`
 			localStorage.loginError = "1"
 			loginUser(false)
-		    }	    
 		} else {
                     window.location.href = frostpawServer
                 }
