@@ -1,6 +1,5 @@
 <script context="module">
-import { apiUrl } from "$lib/config";
-
+    import { nextUrl } from "$lib/config"
 
     export const prerender = false;
     export async function load({ params, fetch, session, stuff }) {
@@ -8,11 +7,12 @@ import { apiUrl } from "$lib/config";
         if(session.session.user) {
             auth = `${session.session.user.id}|${session.session.token}`
         }
-        let inviteUrl = await fetch(`${apiUrl}/api/v2/guilds/${params.id}/_sunbeam/invite`, {
+        let inviteUrl = await fetch(`${nextUrl}/servers/${params.id}`, {
             method: "GET",
             headers: {
                 "Frostpaw": "0.1.0",
-                "Frostpaw-Auth": auth
+                "Frostpaw-Auth": auth,
+                "Frostpaw-Invite": "1"
             }
         })
 
@@ -24,11 +24,17 @@ import { apiUrl } from "$lib/config";
                 error: new Error(inviteJson.reason)
             }
         }
+
+        if(!inviteJson.invite_link.startsWith("https://")) {
+            return {
+                status: 400,
+                error: new Error(inviteJson.invite_link)
+            }
+        }
         
-        // JS and URLS do not go well together
         return {
             status: 307,
-            redirect: inviteJson.invite
+            redirect: inviteJson.invite_link
         };
     }
 </script>

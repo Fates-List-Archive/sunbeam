@@ -1,8 +1,19 @@
 <script context="module">
     export const prerender = false;
-	import { fetchFates } from "$lib/request"
+    import { nextUrl } from "$lib/config"
     export async function load({ params, fetch, session, stuff }) {
-        let inviteUrl = await fetchFates(`/api/v2/bots/${params.id}/_sunbeam/invite`, "", fetch)
+        let auth = ""
+        if(session.session.user) {
+            auth = `${session.session.user.id}|${session.session.token}`
+        }
+        let inviteUrl = await fetch(`${nextUrl}/bots/${params.id}`, {
+            method: "GET",
+            headers: {
+                "Frostpaw": "0.1.0",
+                "Frostpaw-Auth": auth,
+                "Frostpaw-Invite": "1"
+            }
+        })
         let inviteJson = await inviteUrl.json()
 
         if(!inviteUrl.ok) {
@@ -13,10 +24,10 @@
         }
         
         // JS and URLS do not go well together
-        console.log(inviteJson, decodeURIComponent(inviteJson.invite))
+        console.log(inviteJson, decodeURIComponent(inviteJson.invite_link))
         return {
             status: 307,
-            redirect: decodeURIComponent(inviteJson.invite)
+            redirect: decodeURIComponent(inviteJson.invite_link)
         };
     }
 </script>
