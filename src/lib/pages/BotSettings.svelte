@@ -14,7 +14,7 @@ import inputstore from "$lib/inputstore"
 import RedStar from "$lib/base/RedStar.svelte";
 import FormInput from "$lib/base/FormInput.svelte";
 import MultiSelect from "$lib/base/MultiSelect.svelte";
-import { apiUrl } from "$lib/config";
+import { apiUrl, nextUrl } from "$lib/config";
 
     function title(str: string) {
         return str.replaceAll("_", " ").replace(/(^|\s)\S/g, function(t) { return t.toUpperCase() });
@@ -99,10 +99,10 @@ import { apiUrl } from "$lib/config";
     }
 
     async function regenBotToken() {
-        let url = `${apiUrl}/api/v2/bots/${data.bot_id}/token`
+        let url = `${nextUrl}/bots/${data.bot_id}/token`
         let headers = {"Authorization": data.api_token}
         let res = await fetch(url, {
-            method: "PATCH",
+            method: "DELETE",
             headers: headers
         })
         if(res.ok) {

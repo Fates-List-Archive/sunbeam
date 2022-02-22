@@ -39,7 +39,7 @@
     import Button from '@smui/button';
 import Tip from '$lib/base/Tip.svelte';
 import BotPack from '$lib/base/BotPack.svelte';
-import { apiUrl } from "$lib/config";
+import { apiUrl, nextUrl } from "$lib/config";
     let tabs = [{
         "name": "About",
         "id": "about"    
@@ -74,10 +74,10 @@ import { apiUrl } from "$lib/config";
     }
 
     async function regenUserToken() {
-        let url = `${apiUrl}/api/v2/users/${data.user.id}/token`
+        let url = `${nextUrl}/users/${data.user.id}/token`
         let headers = {"Authorization": `User ${$session.session.token}`}
         let res = await fetch(url, {
-            method: "PATCH",
+            method: "DELETE",
             headers: headers
         })
         if(res.ok) {
