@@ -317,6 +317,8 @@ import { apiUrl, nextUrl } from "$lib/config";
                     return
                 }
                 bot["bot_id"] = botIdEl.value
+            } else {
+                bot["bot_id"] = data.bot_id;
             }
             bot["client_id"] = document.querySelector("#client_id").value
 
@@ -325,29 +327,17 @@ import { apiUrl, nextUrl } from "$lib/config";
             bot["webhook_type"] = parseInt(document.querySelector("#webhook_type").value)
             bot["long_description_type"] = parseInt(document.querySelector("#long_description_type").value)
             bot["nsfw"] = document.querySelector("#nsfw").value == "true"
-            bot["page_style"] = document.querySelector("#page_style").value
-            try {
-                bot["system_bot"] = document.querySelector("#system_bot").value == "true"
-            } catch (err) {
-                bot["system_bot"] = false
-            }
+            bot["page_style"] = parseInt(document.querySelector("#page_style").value)
             bot["keep_banner_decor"] = document.querySelector("#keep_banner_decor").value == "true"
-
-            if(mode == "edit") {
-                bot["bot_id"] = data.bot_id
+            bot["user"] = {
+                id: bot["bot_id"],
+                username: "",
+                disc: "",
+                avatar: "",
+                bot: true,
             }
 
-            let botId = bot["bot_id"] 
-
-            // Check if it exists
-            if(mode == "add") {
-                let res = await fetch(`${apiUrl}/api/v2/bots/${botId}`)
-                if(res.status == 200) {
-                    alert("This bot already exists on Fates List")
-                    saveTxt = mode
-                    return
-                }
-            }
+            let botId = bot["user"]["bot_id"] 
 
             // Check if the bot is public
             let clientId = bot["client_id"]
@@ -380,29 +370,73 @@ import { apiUrl, nextUrl } from "$lib/config";
                 alert("You need to specify tags for your bot")
                 return
             } else {
-                bot["tags"] = tags
+                bot["tags"] = tags.map(el => {
+                    return {
+                        id: el,
+                        name: "",
+                        iconify_data: ""
+                    }
+                })
             }
-            bot["features"] = features
+            bot["features"] = features.map(el => {
+                return {
+                    id: el,
+                    name: "",
+                    viewed_as: "",
+                    description: ""
+                }
+            })
 
             // Extra owners
-            if(data["extra_owners"]) {
-                bot["extra_owners"] = bot["extra_owners"].replace(" ", "").split(",")
+            if(bot["extra_owners"]) {
+                bot["owners"] = bot["extra_owners"].replace(" ", "").split(",").map(el => {
+                    return {
+                        user: {
+                            id: el,
+                            username: "",
+                            disc: "",
+                            avatar: "",
+                            bot: false,
+                        },
+                        main: false
+                    }
+                })
             } else {
-                bot["extra_owners"] = []
+                bot["owners"] = []
             }
+
+            // Add extra fields
+            bot["created_at"] = "1970-01-01T00:00:00Z"
+            bot["last_stats_post"] = "1970-01-01T00:00:00Z"
+            bot["long_description_raw"] = bot["long_description"]
+            bot["invite_link"] = bot["invite"] || ""
+            bot["invite_amount"] = 0
+            bot["owners_html"] = ""
+            bot["total_votes"] = 0
+            bot["flags"] = []
+            bot["action_logs"] = []
+            bot["commands"] = {} // TODO (maybe?)
+            bot["resources"] = [] // TODO (maybe?)
+            bot["shard_count"] = 0 // Never used
+            bot["guild_count"] = 0 // Never used
+            bot["user_count"] = 0 // Never used
+            bot["shards"] = []
+            bot["state"] = 0
+            bot["css"] = bot["css"] || ""
+            bot["votes"] = 0
 
             // Method stuff
             let method = "PATCH"
             let mod = "editted successfully"
 
             if(mode != "edit") {
-                method = "PUT"
+                method = "POST"
                 mod = "added to our queue"
             }
 
             console.log(bot)
 
-            let url = `${apiUrl}/api/v2/users/${$session.session.user.id}/bots/${bot['bot_id']}`
+            let url = `${nextUrl}/users/${$session.session.user.id}/bots`
             let headers = {
                 "Content-Type": "application/json", 
                 "Authorization": $session.session.token
@@ -417,9 +451,7 @@ import { apiUrl, nextUrl } from "$lib/config";
                 return
             } else {
                 let json = await updateRes.json()
-                if(updateRes.status == 422) {
-                    alert(JSON.stringify(json))
-                } else {
+                if(updateRes.status == 400) {
                     alert(json.reason)
                 }
                 return
