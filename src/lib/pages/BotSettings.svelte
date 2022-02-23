@@ -198,7 +198,7 @@ import { apiUrl, nextUrl } from "$lib/config";
             alert("Could not transfer ownership as you did not confirm you wanted to do this/inputted invalid Bot ID")
             return
         }
-        let url = `${apiUrl}/api/v2/users/${$session.session.user.id}/bots/${data.bot_id}/ownership`
+        let url = `${nextUrl}/users/${$session.session.user.id}/bots/${data.bot_id}/main-owner`
         let headers = {
             "Content-Type": "application/json", 
             "Authorization": $session.session.token
@@ -207,7 +207,14 @@ import { apiUrl, nextUrl } from "$lib/config";
             method: "PATCH",
             headers: headers,
             body: JSON.stringify({
-                "new_owner": newOwner
+                "user": {
+                    "id": newOwner,
+                    "username": "",
+                    "disc": "",
+                    "avatar": "",
+                    "bot": false,
+                },
+                "main": true
             })
         })
         if(res.ok) {
