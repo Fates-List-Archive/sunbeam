@@ -5,8 +5,8 @@
 	export async function load({ url, session, fetch }) {
 		let tag = url.searchParams.get("tag")
 		let targetType = url.searchParams.get("target_type")
-		const searchUrl = `/api/v2/search/tags?target_type=${targetType}&tag=${tag}`;
-		const res = await fetchFates(searchUrl, "", fetch);
+		const searchUrl = `/search-tags?q=${tag}`;
+		const res = await fetchFates(searchUrl, "", fetch, false, true);
 
 		if (res.ok) {
             let data = await res.json()
@@ -49,12 +49,20 @@
 	<h2 class="best-bots">Find the best bots for your servers!</h2>
 </section>
 <SearchBar type={targetType} query=""></SearchBar>
-<Tag targetType={targetType} tags={data.tags_fixed}></Tag>
+<Tag targetType={"bot"} tags={data.tags.bots}></Tag>
+<Tag targetType={"server"} tags={data.tags.servers}></Tag>
 
-<Section title="Search Results" icon="fa-solid:search" id="search-res-tags">
+<Section title="Bots" icon="fa-solid:search" id="bots-res-tags">
 	<CardContainer>
-		{#each data.search_res as bot}
-			<BotCard data={bot} type={targetType} rand={false}/>
+		{#each data.bots as bot}
+			<BotCard data={bot} type={"bot"} rand={false}/>
+		{/each}
+	</CardContainer>
+</Section>
+<Section title="Servers" icon="fa-solid:search" id="servers-res-tags">
+	<CardContainer>
+		{#each data.servers as server}
+			<BotCard data={server} type={"server"} rand={false}/>
 		{/each}
 	</CardContainer>
 </Section>
