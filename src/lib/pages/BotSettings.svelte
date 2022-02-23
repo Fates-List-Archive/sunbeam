@@ -116,7 +116,7 @@ import { apiUrl, nextUrl } from "$lib/config";
     }
 
     async function appealBot() {
-        let url = `${apiUrl}/api/v2/users/${$session.session.user.id}/bots/${data.bot_id}/appeal`
+        let url = `${nextUrl}/users/${$session.session.user.id}/bots/${data.bot_id}/appeal`
         let headers = {
             "Content-Type": "application/json", 
             "Authorization": $session.session.token
@@ -125,6 +125,7 @@ import { apiUrl, nextUrl } from "$lib/config";
             method: "POST",
             headers: headers,
             body: JSON.stringify({
+                "request_type": 0,
                 "appeal": document.querySelector("#appeal-text").value
             })
         })
@@ -139,7 +140,7 @@ import { apiUrl, nextUrl } from "$lib/config";
     }
 
     async function requestCertification() {
-        let url = `${apiUrl}/api/v2/users/${$session.session.user.id}/bots/${data.bot_id}/certification`
+        let url = `${nextUrl}/users/${$session.session.user.id}/bots/${data.bot_id}/appeal`
         let headers = {
             "Content-Type": "application/json", 
             "Authorization": $session.session.token
@@ -148,6 +149,7 @@ import { apiUrl, nextUrl } from "$lib/config";
             method: "POST",
             headers: headers,
             body: JSON.stringify({
+                "request_type": 1,
                 "appeal": document.querySelector("#certify-text").value
             })
         })
