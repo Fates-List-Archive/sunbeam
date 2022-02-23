@@ -49,10 +49,9 @@
 	<h2 class="best-bots">Find the best bots for your servers!</h2>
 </section>
 <SearchBar type={targetType} query=""></SearchBar>
-<Tag targetType={"bot"} tags={data.tags.bots}></Tag>
-<Tag targetType={"server"} tags={data.tags.servers}></Tag>
 
 <Section title="Bots" icon="fa-solid:search" id="bots-res-tags">
+	<Tag targetType={"bot"} tags={data.tags.bots}></Tag>
 	<CardContainer>
 		{#each data.bots as bot}
 			<BotCard data={bot} type={"bot"} rand={false}/>
@@ -60,6 +59,7 @@
 	</CardContainer>
 </Section>
 <Section title="Servers" icon="fa-solid:search" id="servers-res-tags">
+	<Tag targetType={"server"} tags={data.tags.servers}></Tag>
 	<CardContainer>
 		{#each data.servers as server}
 			<BotCard data={server} type={"server"} rand={false}/>
