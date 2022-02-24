@@ -4,17 +4,15 @@
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, url, fetch, session, stuff }) {
-		let reqUrl = `/api/v2/users/${params.id}?bot_logs=true`;
+		let reqUrl = `/profiles/${params.id}`;
 
-        if(url.searchParams.get("system_bots") == "true") {
-            reqUrl += "&system_bots=true"
-        }
-
-        const res = await fetchFates(reqUrl, "", fetch);
+        const res = await fetchFates(reqUrl, "", fetch, false, true);
 
 		if (res.ok) {
             let data = await res.json()
 
+			/* TODO stuff:
+			
 			let approvedBots = data.profile.bot_logs.filter(v => {
 				if(v.action == enums.UserBotAction.approve) {
 					return true
@@ -32,16 +30,16 @@
 					return true
 				}
 				return false
-			})
+			})*/
 
 
 			return {
 				props: {
 					data: data,
                     systemBots: url.searchParams.get("system_bots") == "true",
-					approvedBots: approvedBots,
+					/* approvedBots: approvedBots,
 					deniedBots: deniedBots,
-					certifiedBots: certifiedBots
+					certifiedBots: certifiedBots */
 				}
 			};
 		}
@@ -64,9 +62,9 @@
 
     export let data: any;
     export let systemBots: any;
-	export let approvedBots: any;
+	/* export let approvedBots: any;
 	export let deniedBots: any;
-	export let certifiedBots: any;
+	export let certifiedBots: any; */
     let type = "profile"
     import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
 import BotPack from "$lib/base/BotPack.svelte";
@@ -74,22 +72,25 @@ import BotPack from "$lib/base/BotPack.svelte";
 <BristlefrostMeta 
 	url="https://fateslist.xyz/profile/{data.user.id}"
 	title="{data.user.username}"
-	description="{data.profile.description}"
+	description="{data.description}"
 	thumbnail="{data.user.avatar}"
 ></BristlefrostMeta>
 
 <img class="user-avatar" loading="lazy" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="user-avatar" alt="{data.user.username}'s avatar">
 <h2 class="white user-username" id="user-name">{data.user.username}</h2>
-<p id="user-description">{@html data.profile.description.replace("p>", "span>") }</p>
+<p id="user-description">{@html data.description.replace("p>", "span>") }</p>
 
 <div class="badges">
-	{#each data.profile.badges as badge}
-		<a class="badge-link" href={"#"} on:click={() => alert(badge.description)}>
-			<img class="badge-img" src={badge.image} width="50px" height="50px" alt={badge.description}>
-		</a>
-	{/each}
+	{#if data.badges}
+		{#each data.badges as badge}
+			<a class="badge-link" href={"#"} on:click={() => alert(badge.description)}>
+				<img class="badge-img" src={badge.image} width="50px" height="50px" alt={badge.description}>
+			</a>
+		{/each}
+	{/if}
 </div>
 
+<!--
 <p class="bot-action-log">Approved Bots: {approvedBots.length}</p>
 <ul>
 	{#each approvedBots as bot}
@@ -108,13 +109,16 @@ import BotPack from "$lib/base/BotPack.svelte";
 		<li class="white">{bot.bot_id} - {bot.action_time}</li>
 	{/each}
 </ul>
+-->
 
 {#if loggedIn}
 	<Button href="/profile/{data.user.id}/settings" class="bot-card-actions-link" id="profiles-center" touch variant="outlined">Settings</Button>
 {/if}
 <CardContainer>
 	{#each data.bots as bot}
-		<BotCard data={bot} type="bot" rand={false}/>
+		{#if systemBots || (!systemBots && !enums.helpers.flagCheck(enums.Flags.system, bot.flags)) }
+			<BotCard data={bot} type="bot" rand={false}/>
+		{/if}
 	{/each}
 </CardContainer>
 

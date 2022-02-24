@@ -13,8 +13,8 @@
         }
 
         // Get profile
-		let url = `/api/v2/users/${params.id}?bot_logs=true`;
-        const res = await fetchFates(url, "", fetch);
+		let url = `/profiles/${params.id}`;
+        const res = await fetchFates(url, "", fetch, false, true);
 		if (res.ok) {
             let data = await res.json()
 
@@ -211,8 +211,8 @@ import { apiUrl, nextUrl } from "$lib/config";
                 }} class="button" id="del-bot-pack-btn" touch variant="outlined">Delete {pack.name}</Button>        
             {/each}
         <h2>Profile Info</h2>
-            <p>Profile State: {enums.UserState[data.profile.state]} ({data.profile.state})</p>
-            <p>Bot Logs: {JSON.stringify(data.profile.bot_logs)}</p>
+            <p>Profile State: {enums.UserState[data.state]} ({data.state})</p>
+            <p>Bot Logs: {JSON.stringify(data.bot_logs)}</p>
     </section>
     <section id="actions-tab" class='tabcontent tabdesign'>
         <h2>Create Bot Packs</h2>
@@ -271,11 +271,11 @@ import { apiUrl, nextUrl } from "$lib/config";
     <section id="basics-tab" class='tabcontent tabdesign'>
         <label for="site-lang">Site Language</label>
         <select name="site-lang" id="site-lang">
-            <SelectOption value="en" masterValue={data.profile.site_lang}>English</SelectOption>
-            <SelectOption value="es" masterValue={data.profile.site_lang}>Spanish</SelectOption>
-            <SelectOption value="fr" masterValue={data.profile.site_lang}>French</SelectOption>
-            <SelectOption value="hi" masterValue={data.profile.site_lang}>Hindi</SelectOption>
-            <SelectOption value="ru" masterValue={data.profile.site_lang}>Russian</SelectOption>
+            <SelectOption value="en" masterValue={data.site_lang}>English</SelectOption>
+            <SelectOption value="es" masterValue={data.site_lang}>Spanish</SelectOption>
+            <SelectOption value="fr" masterValue={data.site_lang}>French</SelectOption>
+            <SelectOption value="hi" masterValue={data.site_lang}>Hindi</SelectOption>
+            <SelectOption value="ru" masterValue={data.site_lang}>Russian</SelectOption>
         </select>
         <label for="vote-reminder-channel">Vote Reminders Channel</label>
         <input 
@@ -283,7 +283,7 @@ import { apiUrl, nextUrl } from "$lib/config";
             id="vote-reminder-channel"
             class="fform"
             placeholder="Enter the channel ID here"
-            value={data.profile.vote_reminder_channel}
+            value={data.vote_reminder_channel}
             style="width: 100%"
         />
         <label for="description">Description</label>
@@ -293,7 +293,7 @@ import { apiUrl, nextUrl } from "$lib/config";
             class="form-control fform text-input" 
             style="width: 100%"
             placeholder="Enter a description for your profile here"
-        >{data.profile.description}</textarea>
+        >{data.description}</textarea>
     </section>
     <section id="actions-tab" class='tabcontent tabdesign'>
     </section>
@@ -305,7 +305,7 @@ import { apiUrl, nextUrl } from "$lib/config";
             class="form-control fform text-input"
             style="width: 100%"
             placeholder="{placeholderUserCss.replaceAll("LT", "<").replaceAll("GT", ">")}"
-        >{data.profile.user_css}</textarea>
+        >{data.user_css}</textarea>
         <label for="profile-css">Profile CSS</label>
         <textarea
             name="profile-css"
@@ -313,7 +313,7 @@ import { apiUrl, nextUrl } from "$lib/config";
             class="form-control fform text-input"
             style="width: 100%"
             placeholder="Enter any profile CSS you want here. For security purposes, this does not allow Javascript whatsoever!"
-        >{data.profile.profile_css}</textarea>
+        >{data.profile_css}</textarea>
     </section>
 </Tab>
 <Button href={"#"} on:click={updateProfile} class="button" id="update-profile-btn" touch variant="outlined">Update Profile</Button>
