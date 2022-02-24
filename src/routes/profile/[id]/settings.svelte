@@ -60,11 +60,13 @@ import { apiUrl, nextUrl } from "$lib/config";
 
     function showUserToken() {
         let b = document.querySelector("#user-token-show-btn")
+        if(!firstTimeShowedWarning) {
+            userToken = $session.session.token
+            alert("Warning: Do not share this with anyone")
+            firstTimeShowedWarning = true
+            return
+        }
         if(b.textContent == "Show") {
-            if(!firstTimeShowedWarning) {
-                alert("Warning: Do not share this with anyone")
-                firstTimeShowedWarning = true
-            }
             userToken = $session.session.token
             b.textContent = "Hide"
         } else {
@@ -126,15 +128,35 @@ import { apiUrl, nextUrl } from "$lib/config";
 
     async function addBotPack() {
         let payload = {
+            id: "",
             name: document.querySelector("#pack-name").value,
             description: document.querySelector("#pack-desc").value,
             icon: document.querySelector("#pack-icon").value,
             banner: document.querySelector("#pack-banner").value,
+            owner: {
+                id: data.user.id,
+                username: "",
+                avatar: "",
+                disc: "",
+                bot: false
+            },
+            created_at: "1970-01-01T00:00:00Z"
         }
         let bots = document.querySelector("#pack-bots").value
-        payload["bots"] = bots.split(",")
+        payload["resolved_bots"] = bots.replace(" ", "").split(",").map(el => {
+            return {
+                user: {
+                    id: el,
+                    username: "",
+                    avatar: "",
+                    disc: "",
+                    bot: true
+                },
+                description: ""
+            }
+        })
         let headers = {"Authorization": $session.session.token, "Content-Type": "application/json"}
-        let res = await fetch(`${apiUrl}/api/v2/users/${data.user.id}/packs`, {
+        let res = await fetch(`${nextUrl}/users/${data.user.id}/packs`, {
             method: "POST",
             headers: headers,
             body: JSON.stringify(payload)
@@ -154,7 +176,7 @@ import { apiUrl, nextUrl } from "$lib/config";
             return
         }
         let headers = {"Authorization": $session.session.token}
-        let res = await fetch(`${apiUrl}/api/v2/users/${data.user.id}/packs/${packId}`, {
+        let res = await fetch(`${nextUrl}/users/${data.user.id}/packs/${packId}`, {
             method: "DELETE",
             headers: headers
         })
