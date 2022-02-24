@@ -233,7 +233,7 @@ import { apiUrl, nextUrl } from "$lib/config";
             alert("Could not delete this bot as you did not confirm you wanted to do this/inputted invalid Bot ID")
             return
         }
-        let url = `${apiUrl}/api/v2/users/${$session.session.user.id}/bots/${data.bot_id}`
+        let url = `${nextUrl}/users/${$session.session.user.id}/bots/${data.bot_id}`
         let headers = {
             "Authorization": $session.session.token
         }
