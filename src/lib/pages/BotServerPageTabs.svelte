@@ -401,7 +401,7 @@
 		     <Button href={"#"} on:click={() => addReview()} id="review-add">Add Review</Button>
 			 		{#if reviews.reviews && reviews.reviews.length > 0}
 					 	<br/>
-						<span style="font-size: 18px;" class="white">Showing reviews {reviews.pager.from} to {reviews.pager.to} of {reviews.pager.total_count} total reviews</span><br/>
+						<span style="font-size: 18px;" class="white">Showing reviews {reviews.from} to {reviews.from + reviews.reviews.length} of {reviews.total} total reviews</span><br/>
 						<label for="rating-avg" style="font-size: 18px;" class="white">Average Rating: <i class="material-icons">star</i>{reviews.average_stars}/10.0</label><br/>
 						<span class="white">
 						<input disabled id="rating-avg" class='slider' type="range" name="rating" min="0.1" max="10" value='{reviews.average_stars}' style="width: 100%" step='0.1' tabindex="-1"/>
@@ -419,11 +419,11 @@
 								{#if reviewPage > 1}
 									<li class="page-item"><a href={"#"} class="page-link white" on:click={() => getReviewPage(reviewPage - 1)}>Previous</a></li>
 								{/if}
-								{#if reviews.pager}
-									{#each Array.from({length: reviews.pager.total_pages}, (_, i) => i + 1) as page}
+								{#if reviews.total}
+									{#each Array.from({length: Math.ceil(reviews.total/reviews.per_page)}, (_, i) => i + 1) as page}
 										<li class="page-item" id="page-{page}"><a href={"#"} class="page-link white" on:click={() => getReviewPage(page)}>{page}</a></li>
 									{/each}
-									{#if reviewPage !== reviews.pager.total_pages}
+									{#if reviewPage !== Math.ceil(reviews.total/reviews.per_page)}
 										<li class="page-item"><a href={"#"} class="page-link white" on:click={() => getReviewPage(reviewPage + 1)}>Next</a></li>
 									{/if}
 								{/if}
@@ -498,7 +498,7 @@
 import Reviews from '$lib/base/Reviews.svelte';
 import loadstore from '$lib/loadstore';
 import navigationState from '$lib/navigationState';
-import { apiUrl } from '$lib/config';
+import { apiUrl, nextUrl } from '$lib/config';
     export let data: any;
     export let type: string;
 	let reviewPage = 1
@@ -584,7 +584,7 @@ import { apiUrl } from '$lib/config';
 		if(type == "server") {
 			targetType = enums.ReviewType.server
 		}
-		let res = await fetch(`${apiUrl}/api/v2/reviews/${data.user.id}/all?page=${page}&target_type=${targetType}`)
+		let res = await fetch(`${nextUrl}/reviews/${data.user.id}?page=${page}&target_type=${targetType}`)
 		if(res.ok) {
 			reviews = await res.json()
 			reviewPage = page

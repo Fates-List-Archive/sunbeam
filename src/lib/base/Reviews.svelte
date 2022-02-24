@@ -223,7 +223,7 @@ import { apiUrl } from "$lib/config";
                 <a href={"#"} style='font-weight: bold; margin-left: 3px;' class="long-desc-link" on:click={() => editReviewPane()}>Edit</a>
             {/if}
             </div>
-            <span class="review-text" style="margin-left: 30px !important; color: white" id="review_text-{review.id}">{review.review}</span>
+            <span class="review-text" style="margin-left: 30px !important; color: white" id="review_text-{review.id}">{review.review_text}</span>
             {#if $session.session.token}
             <section id="reviewreply-{review.id}" class="white review-reply-section">
                 <label for="rating">On a scale of 1 to 10, how much do you like this bot?</label><br/>
@@ -241,7 +241,7 @@ import { apiUrl } from "$lib/config";
                         <input id="review-{review.id}-edit-slider" class='slider range-slider' type="range" name="rating" min="0.1" max="10" value='{review.star_rating}' step='0.1' style="width:100%;"/>
                         <strong><p id='rating-desc-{review.id}-{index}' style="color: white;"></p></strong>
                         <label for="review">Please write a few words about the bot (in your opinion)</label>
-                        <textarea id='review-{review.id}-edit-text' name="review" class="form-control fform" style="height: 100px; resize: none;" required placeholder="This bot is a really good bot because of X, Y and Z however...">{review.review}</textarea>
+                        <textarea id='review-{review.id}-edit-text' name="review" class="form-control fform" style="height: 100px; resize: none;" required placeholder="This bot is a really good bot because of X, Y and Z however...">{review.review_text}</textarea>
                         <Button on:click={() => editReview()} href={"#"} class="bot-card-actions-link" touch variant="outlined">Edit</Button>
                         <Button on:click={() => deleteReview()} href={"#"} class="bot-card-actions-link" touch variant="outlined">Delete</Button>
                     </section>
