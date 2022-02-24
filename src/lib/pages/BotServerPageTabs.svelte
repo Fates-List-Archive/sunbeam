@@ -401,10 +401,10 @@
 		     <Button href={"#"} on:click={() => addReview()} id="review-add">Add Review</Button>
 			 		{#if reviews.reviews && reviews.reviews.length > 0}
 					 	<br/>
-						<span style="font-size: 18px;" class="white">Showing reviews {reviews.from} to {reviews.from + reviews.reviews.length} of {reviews.total} total reviews</span><br/>
-						<label for="rating-avg" style="font-size: 18px;" class="white">Average Rating: <i class="material-icons">star</i>{reviews.average_stars}/10.0</label><br/>
+						<span style="font-size: 18px;" class="white">Showing reviews {reviews.from} to {reviews.from + reviews.reviews.length} of {reviews.stats.total} total reviews</span><br/>
+						<label for="rating-avg" style="font-size: 18px;" class="white">Average Rating: <i class="material-icons">star</i>{reviews.stats.average_stars}/10.0</label><br/>
 						<span class="white">
-						<input disabled id="rating-avg" class='slider' type="range" name="rating" min="0.1" max="10" value='{reviews.average_stars}' style="width: 100%" step='0.1' tabindex="-1"/>
+						<input disabled id="rating-avg" class='slider' type="range" name="rating" min="0.1" max="10" value='{reviews.stats.average_stars}' style="width: 100%" step='0.1' tabindex="-1"/>
 						<p id="rating-desc-avg"></p>
 						</span>					 
 					 	{#each reviews.reviews as review, index}
@@ -419,11 +419,11 @@
 								{#if reviewPage > 1}
 									<li class="page-item"><a href={"#"} class="page-link white" on:click={() => getReviewPage(reviewPage - 1)}>Previous</a></li>
 								{/if}
-								{#if reviews.total}
-									{#each Array.from({length: Math.ceil(reviews.total/reviews.per_page)}, (_, i) => i + 1) as page}
+								{#if reviews.stats}
+									{#each Array.from({length: Math.ceil(reviews.stats.total/reviews.per_page)}, (_, i) => i + 1) as page}
 										<li class="page-item" id="page-{page}"><a href={"#"} class="page-link white" on:click={() => getReviewPage(page)}>{page}</a></li>
 									{/each}
-									{#if reviewPage !== Math.ceil(reviews.total/reviews.per_page)}
+									{#if reviewPage !== Math.ceil(reviews.stats.total/reviews.per_page)}
 										<li class="page-item"><a href={"#"} class="page-link white" on:click={() => getReviewPage(reviewPage + 1)}>Next</a></li>
 									{/if}
 								{/if}
