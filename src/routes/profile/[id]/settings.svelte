@@ -306,6 +306,7 @@ import { apiUrl, nextUrl } from "$lib/config";
             style="width: 100%"
             placeholder="{placeholderUserCss.replaceAll("LT", "<").replaceAll("GT", ">")}"
         >{data.user_css}</textarea>
+        <br/>
         <label for="profile-css">Profile CSS</label>
         <textarea
             name="profile-css"
