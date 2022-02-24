@@ -128,6 +128,7 @@ import Icon from '@iconify/svelte';
         width: 100%;
         height: 35%;
         background: center / cover no-repeat;
+        border-radius: 10px 10px 0px 0px !important;
     }
 
     .bot-card-avatar {
