@@ -409,8 +409,8 @@
 						</span>		
 						{#if reviews.user_review}
 							<Reviews review={reviews.user_review} index={-1} reply={false} targetId={data.user.id} targetType={type}></Reviews>
+							<hr/>	 
 						{/if}		
-						<hr/>	 
 					 	{#each reviews.reviews as review, index}
 						 {#if !reviews.user_review || review.id != reviews.user_review.id}
 						 		<article class="review-root review-section">
