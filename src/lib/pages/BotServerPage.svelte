@@ -665,7 +665,10 @@ function parseState(v) {
     	}
     	let userID = $session.session.user.id;
 
-		let res = await addReviewHandler(userID, token, data.user.id, type, null);
+		let review = document.querySelector("#review-text")
+    	let starRating = document.querySelector("#star-rating")
+
+		let res = await addReviewHandler(userID, token, data.user.id, type, null, review.value, starRating.value);
 		if(res) {
 			window.location.reload()
 		}
