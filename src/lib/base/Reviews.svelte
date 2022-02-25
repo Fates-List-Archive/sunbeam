@@ -41,14 +41,14 @@ import { apiUrl, nextUrl } from "$lib/config";
 			return
 		}
 		let userID = $session.session.user.id;
-		let res = await fetch(`${apiUrl}/api/v2/users/${userID}/reviews/${reviewID}/votes`, {
+		let res = await fetch(`${nextUrl}/reviews/${reviewID}/votes`, {
 			method: "PATCH",
 			headers: {
 				"Content-Type": "application/json",
 				"Frostpaw": "0.1.0",
 				"Authorization": token
 			},
-			body: JSON.stringify({upvote: upvote})
+			body: JSON.stringify({upvote: upvote, user_id: userID})
 		})
 		if(res.ok) {
 			alert("Successfully voted for this review")
