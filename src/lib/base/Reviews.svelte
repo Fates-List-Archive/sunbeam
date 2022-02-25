@@ -200,7 +200,7 @@ import { apiUrl, nextUrl } from "$lib/config";
             </a>
             <span style="margin-right: 6px"></span>
 	    <i class="material-icons pointer" on:click={() => voteReview(review.id, true)}>keyboard_arrow_up</i>
-            <span class="white">{review.review_upvotes.length - review.review_downvotes.length}</span>
+            <span class="white">{review.votes.upvotes.length - review.votes.downvotes.length}</span>
 	    <i class="material-icons pointer" on:click={() => voteReview(review.id, false)}>keyboard_arrow_down</i>
             <span class="white" style="font-weight: bold">
 		<i class="material-icons">star</i>
