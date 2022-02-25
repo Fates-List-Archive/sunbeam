@@ -88,3 +88,52 @@ export async function voteHandler(userID: string, token: string, botID: string, 
         alert(data.reason)
     }
 }
+
+export async function addReviewHandler(user_id, token, target_id, type, parent_id) {
+    if(!browser) {
+        return
+    }
+
+    let targetType = 0
+    if(type == "server") {
+        targetType = 1
+    }
+    let review = document.querySelector("#review-text")
+    let starRating = document.querySelector("#star-rating")
+    let json = {
+        review_text: review.value,
+        star_rating: starRating.value,
+        flagged: false,
+        review_downvotes: [],
+        review_upvotes: [],
+        reply: parent_id != null,
+        parent_id: parent_id,
+        epoch: [],
+        replies: []
+    }
+
+    json.user = {
+        id: user_id,
+        username: "",
+        avatar: "",
+        disc: "",
+        bot: false
+    }
+
+    let res = await fetch(`${nextUrl}/reviews/${target_id}?user_id=${user_id}&target_type=${targetType}`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Frostpaw": "0.1.0",
+            "Authorization": token
+        },
+        body: JSON.stringify(json)
+    })
+    if(res.ok) {
+        alert("Successfully posted your review")
+        return true
+    }
+    let err = await res.json()
+    alert(err.reason)	
+    return false;
+}

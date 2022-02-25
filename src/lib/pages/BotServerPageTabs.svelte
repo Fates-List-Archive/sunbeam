@@ -402,15 +402,25 @@
 			 		{#if reviews.reviews && reviews.reviews.length > 0}
 					 	<br/>
 						<span style="font-size: 18px;" class="white">Showing reviews {reviews.from} to {reviews.from + reviews.reviews.length} of {reviews.stats.total} total reviews</span><br/>
-						<label for="rating-avg" style="font-size: 18px;" class="white">Average Rating: <i class="material-icons">star</i>{reviews.stats.average_stars}/10.0</label><br/>
+						<label for="rating-avg" style="font-size: 18px;" class="white">Average Rating: <i class="material-icons">star</i>{Number(parseFloat(reviews.stats.average_stars)).toFixed(1)}/10.0</label><br/>
 						<span class="white">
 						<input disabled id="rating-avg" class='slider' type="range" name="rating" min="0.1" max="10" value='{reviews.stats.average_stars}' style="width: 100%" step='0.1' tabindex="-1"/>
 						<p id="rating-desc-avg"></p>
-						</span>					 
+						</span>		
+						{#if reviews.user_review}
+							<Reviews review={reviews.user_review} index={-1} reply={false} targetId={data.user.id} targetType={type}></Reviews>
+						{/if}		
+						<hr/>	 
 					 	{#each reviews.reviews as review, index}
-					 	<article class="review-root review-section">
-							 <Reviews review={review} index={index} reply={false} targetId={data.user.id} targetType={type}></Reviews>
-					 	</article>
+						 {#if !reviews.user_review || review.id != reviews.user_review.id}
+						 		<article class="review-root review-section">
+							 		<Reviews review={review} index={index} reply={false} targetId={data.user.id} targetType={type}></Reviews>
+						 		</article>
+							{:else}
+								<article class="review-root review-section">
+									<Reviews review={review} index={index} reply={false} targetId={data.user.id} targetType={type} edittable={false}></Reviews>
+								</article>
+							{/if}
 				 		{/each}				 
 					{/if}
 					<div class="text-center">
@@ -491,7 +501,7 @@
     import Button from '@smui/button';
     import { enums } from '../enums/enums';
     import { browser } from "$app/env";
-    import { voteHandler, loginUser } from '$lib/request';
+    import { voteHandler, loginUser, addReviewHandler } from '$lib/request';
     import { marked } from 'marked'; 
     import { session } from '$app/stores';
     import Tab from '$lib/base/Tab.svelte';
@@ -584,7 +594,14 @@ import { apiUrl, nextUrl } from '$lib/config';
 		if(type == "server") {
 			targetType = enums.ReviewType.server
 		}
-		let res = await fetch(`${nextUrl}/reviews/${data.user.id}?page=${page}&target_type=${targetType}`)
+
+		let url = `${nextUrl}/reviews/${data.user.id}?page=${page}&target_type=${targetType}`
+
+		if($session.session.token) {
+			url += `&user_id=${$session.session.user.id}`
+		}
+
+		let res = await fetch(url)
 		if(res.ok) {
 			reviews = await res.json()
 			reviewPage = page
@@ -655,40 +672,19 @@ function parseState(v) {
 	}
 	async function addReview() {
 		$loadstore = "Adding..."
-		$navigationState = "loading"
-		let targetType = 0
-		if(type == "server") {
-			targetType = 1
-		}
-		let review = document.querySelector("#review-text")
-		let starRating = document.querySelector("#star-rating")
-		let json = {
-			review: review.value,
-			star_rating: starRating.value,
-			target_type: targetType,
-			target_id: data.user.id
-		}
+    	$navigationState = "loading"
 		let token = $session.session.token;
-		if(!token) {
-			loginUser(false)
-			return
+    	if(!token) {
+        	loginUser(false)
+        	return false
+    	}
+    	let userID = $session.session.user.id;
+
+		let res = await addReviewHandler(userID, token, data.user.id, type, null);
+		if(res) {
+			window.location.reload()
 		}
-		let userID = $session.session.user.id;
-		let res = await fetch(`${apiUrl}/api/v2/users/${userID}/reviews`, {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				"Frostpaw": "0.1.0",
-				"Authorization": token
-			},
-			body: JSON.stringify(json)
-		})
+		$navigationState = "loading"
 		$navigationState = "loaded"
-		if(res.ok) {
-			alert("Successfully posted your review")
-			return
-		}
-		let err = await res.json()
-		alert(err.reason)	
 	}
 </script>

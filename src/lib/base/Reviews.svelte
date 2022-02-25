@@ -9,7 +9,8 @@ import { apiUrl } from "$lib/config";
     export let index: number;
     export let reply: boolean;
     export let targetId: string;
-    export let targetType: string
+    export let targetType: string;
+    export let edittable: boolean = true;
 
     let reviewUserClasses = "review-user"
 
@@ -212,19 +213,19 @@ import { apiUrl } from "$lib/config";
 	    <i class="material-icons" on:click={() => voteReview(review.id, false)}>keyboard_arrow_down</i>
             <span class="white" style="font-weight: bold">
 		<i class="material-icons">star</i>
-                <span>{review.star_rating}/10.0</span>
+                <span>{Number(parseFloat(review.star_rating)).toFixed(1)}/10.0</span>
             </span>
-            {#if $session.session.token}
+            {#if $session.session.token && edittable}
             <a class="long-desc-link" style="color: white !important" href={"#"} on:click={() => replyReviewPane()}>
                   <span class="white" style="margin-left: 3px;">Reply</span>
             </a>
             {/if}
-            {#if $session.session.token && $session.session.user.id == review.user.id}
+            {#if $session.session.token && $session.session.user.id == review.user.id && edittable}
                 <a href={"#"} style='font-weight: bold; margin-left: 3px;' class="long-desc-link" on:click={() => editReviewPane()}>Edit</a>
             {/if}
             </div>
             <span class="review-text" style="margin-left: 30px !important; color: white" id="review_text-{review.id}">{review.review_text}</span>
-            {#if $session.session.token}
+            {#if $session.session.token && edittable}
             <section id="reviewreply-{review.id}" class="white review-reply-section">
                 <label for="rating">On a scale of 1 to 10, how much do you like this bot?</label><br/>
                 <input class='slider range-slider' id="rating-{review.id}-reply" type="range" min="0.1" max="10" step='0.1' style="width:100%;"/>
@@ -234,7 +235,7 @@ import { apiUrl } from "$lib/config";
                 <Button on:click={() => replyReview()} href={"#"} class="bot-card-actions-link" touch variant="outlined">Reply</Button>
             </section>
             {/if}
-            {#if $session.session.token && $session.session.user.id == review.user.id}
+            {#if $session.session.token && $session.session.user.id == review.user.id && edittable}
                 <div id="reviewopt-{review.id}" style="display: none;">
                     <section id="reviewedit-{review.id}" style="width: 100%;" class="white">
                         <label for="rating">On a scale of 1 to 10, how much do you like this bot?</label><br/>
