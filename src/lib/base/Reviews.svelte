@@ -111,7 +111,12 @@ import { apiUrl, nextUrl } from "$lib/config";
         // User is already logged in
         let userID = $session.session.user.id;
 
-        let res = await fetch(`${apiUrl}/api/v2/users/${userID}/reviews/${review.id}`, {
+        let type = 0
+        if(targetType == "server") {
+            type = 1
+        }
+
+        let res = await fetch(`${nextUrl}/reviews/${review.id}?user_id=${userID}&target_type=${type}`, {
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
