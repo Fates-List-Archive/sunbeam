@@ -5,7 +5,7 @@
     import loadstore from '$lib/loadstore';
 import navigationState from '$lib/navigationState';
 import Button from "@smui/button/src/Button.svelte";
-import { apiUrl } from "$lib/config";
+import { apiUrl, nextUrl } from "$lib/config";
 
     export let review: any;
     export let index: number;
@@ -76,35 +76,35 @@ import { apiUrl } from "$lib/config";
 		if(res) {
 			window.location.reload()
 		}
-		$navigationState = "loading"
 		$navigationState = "loaded"
     }
 
     async function editReview() {
         // User is logged in
         let userID = $session.session.user.id;
+        let token = $session.session.token;
 
-        let json = {
-			review: document.querySelector(`#review-${review.id}-edit-text`).value,
-			star_rating: document.querySelector(`#review-${review.id}-edit-slider`).value,
+        $loadstore = "Editing..."
+    	$navigationState = "loading"
+
+        let reviewText = document.querySelector(`#review-${review.id}-edit-text`)
+        let starRating = document.querySelector(`#review-${review.id}-edit-slider`)
+
+		let res = await addReviewHandler(
+            userID, 
+            token, 
+            targetId, 
+            targetType,
+            null, 
+            reviewText.value, 
+            starRating.value,
+            "PATCH",
+            review.id
+        );
+		if(res) {
+			window.location.reload()
 		}
-
-        let res = await fetch(`${apiUrl}/api/v2/users/${userID}/reviews/${review.id}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-                "Frostpaw": "0.1.0",
-                "Authorization": $session.session.token
-            },
-            body: JSON.stringify(json)
-        })
-        if(res.ok) {
-            alert("Successfully edited this review")
-            window.location.reload()
-            return
-        }
-        let err = await res.json()
-        alert(err.reason)
+		$navigationState = "loaded"
     }
 
     async function deleteReview() {
@@ -179,6 +179,10 @@ import { apiUrl } from "$lib/config";
     .review-user-reply {
         margin-left: 3%;
     }
+
+    .pointer {
+        cursor: pointer;
+    }
 </style>
 
 <div style="text-align: left;">
@@ -190,9 +194,9 @@ import { apiUrl } from "$lib/config";
                 <span class="white">{review.user.username}</span>
             </a>
             <span style="margin-right: 6px"></span>
-	    <i class="material-icons" on:click={() => voteReview(review.id, true)}>keyboard_arrow_up</i>
+	    <i class="material-icons pointer" on:click={() => voteReview(review.id, true)}>keyboard_arrow_up</i>
             <span class="white">{review.review_upvotes.length - review.review_downvotes.length}</span>
-	    <i class="material-icons" on:click={() => voteReview(review.id, false)}>keyboard_arrow_down</i>
+	    <i class="material-icons pointer" on:click={() => voteReview(review.id, false)}>keyboard_arrow_down</i>
             <span class="white" style="font-weight: bold">
 		<i class="material-icons">star</i>
                 <span>{Number(parseFloat(review.star_rating)).toFixed(1)}/10.0</span>
@@ -233,7 +237,7 @@ import { apiUrl } from "$lib/config";
         </div>
     <div style="margin-left: 17px">
         {#each review.replies as review, index}
-            <svelte:self review={review} index={index} reply={true} targetId={targetId} targetType={targetType}></svelte:self>
+            <svelte:self review={review} index={index} reply={true} targetId={targetId} targetType={targetType} edittable={edittable}></svelte:self>
         {/each}
     </div>
   </div>

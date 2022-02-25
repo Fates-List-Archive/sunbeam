@@ -96,7 +96,9 @@ export async function addReviewHandler(
     type, 
     parent_id,
     review_text,
-    star_rating
+    star_rating,
+    method="POST",
+    review_id=null,
 ) {
     if(!browser) {
         return
@@ -118,6 +120,10 @@ export async function addReviewHandler(
         replies: []
     }
 
+    if(review_id) {
+        json.id = review_id
+    }
+
     json.user = {
         id: user_id,
         username: "",
@@ -127,7 +133,7 @@ export async function addReviewHandler(
     }
 
     let res = await fetch(`${nextUrl}/reviews/${target_id}?user_id=${user_id}&target_type=${targetType}`, {
-        method: "POST",
+        method: method,
         headers: {
             "Content-Type": "application/json",
             "Frostpaw": "0.1.0",
