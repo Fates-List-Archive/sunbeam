@@ -89,7 +89,15 @@ export async function voteHandler(userID: string, token: string, botID: string, 
     }
 }
 
-export async function addReviewHandler(user_id, token, target_id, type, parent_id) {
+export async function addReviewHandler(
+    user_id, 
+    token, 
+    target_id, 
+    type, 
+    parent_id,
+    review_text,
+    star_rating
+) {
     if(!browser) {
         return
     }
@@ -98,11 +106,9 @@ export async function addReviewHandler(user_id, token, target_id, type, parent_i
     if(type == "server") {
         targetType = 1
     }
-    let review = document.querySelector("#review-text")
-    let starRating = document.querySelector("#star-rating")
     let json = {
-        review_text: review.value,
-        star_rating: starRating.value,
+        review_text: review_text,
+        star_rating: star_rating,
         flagged: false,
         review_downvotes: [],
         review_upvotes: [],

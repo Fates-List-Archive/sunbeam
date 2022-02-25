@@ -1,7 +1,9 @@
 <script lang="ts">
     import { browser } from "$app/env";
-    import { loginUser } from '$lib/request';
+    import { loginUser, addReviewHandler } from '$lib/request';
     import { session } from '$app/stores';
+    import loadstore from '$lib/loadstore';
+import navigationState from '$lib/navigationState';
 import Button from "@smui/button/src/Button.svelte";
 import { apiUrl } from "$lib/config";
 
@@ -57,45 +59,25 @@ import { apiUrl } from "$lib/config";
 		alert(err.reason)
 	}
 
-    async function replyReview() {
-        let token = $session.session.token;
-        if(!token) {
-            loginUser(false)
-            return
-        }
+    async function replyReview(id) {
+		$loadstore = "Replying..."
+    	$navigationState = "loading"
+		let token = $session.session.token;
+    	if(!token) {
+        	loginUser(false)
+        	return false
+    	}
+    	let userID = $session.session.user.id;
 
-		let targetTypeI = 0
-		if(targetType == "server") {
-			targetTypeI = 1
+        let reviewText = document.querySelector(`#review-${review.id}-reply`)
+        let starRating = document.querySelector(`#rating-${review.id}-reply`)
+
+		let res = await addReviewHandler(userID, token, targetId, targetType, id, reviewText.value, starRating.value);
+		if(res) {
+			window.location.reload()
 		}
-
-        let userID = $session.session.user.id;
-
-        let json = {
-            id: review.id,
-			review: document.querySelector(`#review-${review.id}-reply`).value,
-			star_rating: document.querySelector(`#rating-${review.id}-reply`).value,
-			target_type: targetTypeI,
-			target_id: targetId,
-            reply: true
-		}
-
-        let res = await fetch(`${apiUrl}/api/v2/users/${userID}/reviews`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Frostpaw": "0.1.0",
-                "Authorization": token
-            },
-            body: JSON.stringify(json)
-        })
-        if(res.ok) {
-            alert("Successfully replied to this review")
-            window.location.reload()
-            return
-        }
-        let err = await res.json()
-        alert(err.reason)
+		$navigationState = "loading"
+		$navigationState = "loaded"
     }
 
     async function editReview() {
@@ -232,7 +214,7 @@ import { apiUrl } from "$lib/config";
                 <p id='rating-reply-desc-{review.id}-{index}' style="color: white;"></p>
                 <label for="review">Please write a few words about the bot (in your opinion)</label>
                 <textarea id='review-{review.id}-reply' type="text" class="form-control fform" style="min-height: 100px; height: 100px;" required minlength="9" placeholder="This bot is a really good bot because of X, Y and Z however..."></textarea>
-                <Button on:click={() => replyReview()} href={"#"} class="bot-card-actions-link" touch variant="outlined">Reply</Button>
+                <Button on:click={() => replyReview(review.id)} href={"#"} class="bot-card-actions-link" touch variant="outlined">Reply</Button>
             </section>
             {/if}
             {#if $session.session.token && $session.session.user.id == review.user.id && edittable}

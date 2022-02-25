@@ -509,7 +509,7 @@
 import Reviews from '$lib/base/Reviews.svelte';
 import loadstore from '$lib/loadstore';
 import navigationState from '$lib/navigationState';
-import { apiUrl, nextUrl } from '$lib/config';
+import { nextUrl } from '$lib/config';
     export let data: any;
     export let type: string;
 	let reviewPage = 1
