@@ -108,9 +108,20 @@ import { apiUrl, nextUrl } from "$lib/config";
             "user_css": document.querySelector("#user-css").value,
             "site_lang": document.querySelector("#site-lang").value,
             "vote_reminder_channel": document.querySelector("#vote-reminder-channel").value,
+            "packs": [],
+            "bots": [],
+            "action_logs": [],
+            "state": 0,
+            "user": {
+                "id": data.user.id,
+                "username": "",
+                "disc": "",
+                "avatar": "",
+                "bot": false,
+            }
         }
         console.log(JSON.stringify(payload))
-        let url = `${apiUrl}/api/v2/users/${data.user.id}/preferences`
+        let url = `${nextUrl}/profiles/${data.user.id}`
         let headers = {"Authorization": $session.session.token, "Content-Type": "application/json"}
         let res = await fetch(url, {
             method: "PATCH",
@@ -122,7 +133,7 @@ import { apiUrl, nextUrl } from "$lib/config";
             window.location.href = `/profile/${data.user.id}`
         } else {
             let json = await res.json()
-            alert(JSON.stringify(json))
+            alert(json.context + ": " + json.reason)
         }
     }
 
@@ -212,7 +223,7 @@ import { apiUrl, nextUrl } from "$lib/config";
             {/each}
         <h2>Profile Info</h2>
             <p>Profile State: {enums.UserState[data.state]} ({data.state})</p>
-            <p>Bot Logs: {JSON.stringify(data.bot_logs)}</p>
+            <p>Bot Logs: {JSON.stringify(data.action_logs)}</p>
     </section>
     <section id="actions-tab" class='tabcontent tabdesign'>
         <h2>Create Bot Packs</h2>
