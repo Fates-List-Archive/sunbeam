@@ -251,6 +251,39 @@ import { apiUrl, nextUrl } from "$lib/config";
         }
     }
 
+    async function createResource() {
+        /* 
+            pub id: Option<String>,
+            pub resource_title: String,
+            pub resource_link: String,
+            pub resource_description: String,
+        */
+       let title = document.querySelector("#resource-title").value
+       let link = document.querySelector("#resource-link").value
+       let description = document.querySelector("#resource-description").value
+       // Currently this function only supports bots anyways.
+       let res = await fetch(`${nextUrl}/resources/${data.user.id}?target_type=0`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json", 
+                "Authorization": data.api_token
+            },
+            body: JSON.stringify({
+                "resource_title": title,
+                "resource_link": link,
+                "resource_description": description
+            })
+        })
+        if(res.ok) {
+            alert("Successfully created resource!")
+            window.location.reload()
+            return
+        } else {
+            let json = await res.json()
+            alert(json.reason)
+        }
+    }
+
     async function autofillBot() {
         function qs(q: string) {
 		    return document.querySelector(q)
@@ -543,6 +576,36 @@ import { apiUrl, nextUrl } from "$lib/config";
                 type="number"   
             /><br/>
             <Button href={"#"} on:click={postStats} class="button" id="post-stats" touch variant="outlined">Post Stats</Button>  
+            <h3 class="white section">Add a resource</h3>
+            <Tip>
+                Resources are a <em>great</em> way of allowing new users to
+                quickly understand your bot and its features!
+            </Tip>
+            <label for="resource-title">Title<RedStar></RedStar></label><br/>
+            <input 
+                name="resource-title" 
+                id="resource-title" 
+                class="fform" 
+                placeholder="How to catch pokemon for dummies!"
+                type="text"
+            /><br>
+            <label for="resource-title">Link<RedStar></RedStar></label><br/>
+            <input 
+                name="resource-link" 
+                id="resource-link" 
+                class="fform" 
+                placeholder="https://google.com"
+                type="text"
+            /><br>
+            <label for="resource-title">Description<RedStar></RedStar></label><br/>
+            <input 
+                name="resource-description" 
+                id="resource-description" 
+                class="fform" 
+                placeholder="Something short and snazzy to explain who this is for!"
+                type="text"
+            /><br>
+            <Button href={"#"} on:click={createResource} class="button" id="create-resource" touch variant="outlined">Add Resource</Button>
             <h3 class="white section">Request Certification</h3>
             <Tip>
                 You can request certification for your bot on Fates List. 
@@ -551,7 +614,7 @@ import { apiUrl, nextUrl } from "$lib/config";
                 to see our minimum published requirements. Other factors and hidden
                 requirements may apply depending on your bot and its purpose.
             </Tip>
-            <label for="certify-test">Message<RedStar></RedStar></label><br/>
+            <label for="certify-text">Message<RedStar></RedStar></label><br/>
             <textarea
                 name="certify-text"
                 id="certify-text"
