@@ -9,11 +9,18 @@
 				redirect: "/frostpaw/servers/"
 			}
 		}
+
+                let auth = ""
+
+                if(session.session.user) {
+                       auth = `${session.session.user.id}|${session.session.token}`
+                }
+
 		const url = `/code/${params.vanity}`;
-		const res = await fetchFates(url, "", fetch, false, true);
+		const res = await fetchFates(url, auth, fetch, false, true);
 
 		if (res.ok) {
-            let data = await res.json()
+       		        let data = await res.json()
 			let id: string = data.target_id
 			let type: string = data.target_type
 
@@ -24,7 +31,7 @@
 			}
 
 			const pageUrl = `/${type}s/${id}`;
-			const pageRes = await fetchFates(pageUrl, "", fetch, false, useNextApi);
+			const pageRes = await fetchFates(pageUrl, auth, fetch, false, useNextApi);
 			if (pageRes.ok) {
 				let pageData = await pageRes.json()
 				console.log(pageData)

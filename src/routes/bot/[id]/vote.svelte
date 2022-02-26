@@ -4,11 +4,18 @@
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		const url = `/bots/${params.id}`;
-		const res = await fetchFates(url, "", fetch, true, true);
+
+                let auth = ""
+
+                if(session.session.user) {
+                        auth = `${session.session.user.id}|${session.session.token}`
+                }
+
+		const res = await fetchFates(url, auth, fetch, true, true);
 
 		if (res.ok) {
-            let data = await res.json()
-			return {
+	            let data = await res.json()
+		    return {
 				props: {
 					data: data,
 				}
