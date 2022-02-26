@@ -2,14 +2,11 @@
 	import { fetchFates } from "$lib/request"
 	export const prerender = false
 	export async function load({ params, url, fetch, session, stuff }) {
-		const full = url.searchParams.get("full") == "true"
-		const blUrl = `/api/blstats-full` // This will change
-		const res = await fetchFates(blUrl, "", fetch);
+		const res = await fetchFates("/stats", "", fetch, false, true);
 		if(res.ok) {
 			return {
 				props: {
 					data: await res.json(),
-					full: full
 				}
 			}
 		}
@@ -25,8 +22,38 @@
 	import BotCard from "$lib/cards/BotCard.svelte";
 	import CardContainer from "$lib/cards/CardContainer.svelte";
 	import Section from "$lib/base/Section.svelte";
+	import {enums} from "$lib/enums/enums"
 	export let data: any
-	export let full: boolean
+
+	let approvedBots = []
+	let bannedBots = []
+	let deniedBots = []
+	let pendingBots = []
+	let certifiedBots = []
+	let underReviewBots = []
+
+	data.bots.forEach(bot => {
+		switch(bot.state) {
+			case enums.BotState.denied:
+				deniedBots.push(bot)
+				break;
+			case enums.BotState.banned:
+				bannedBots.push(bot)
+				break;
+			case enums.BotState.certified:
+				certifiedBots.push(bot)
+				break;
+			case enums.BotState.pending:
+				pendingBots.push(bot)
+				break;
+			case enums.BotState.under_review:
+				underReviewBots.push(bot)
+				break;
+			case enums.BotState.approved:
+				approvedBots.push(bot)
+				break;
+		}
+	})
 
 	function secondsToDhms(seconds) {
 		seconds = Number(seconds);
@@ -44,23 +71,19 @@
 </script>
 <h1>Statistics</h1>
 <ul class="white" style="font-size: 24px">
-	<li>Current Worker PID: {data.pid}</li>
-	<li>Worker List: {data.workers.join(" | ")}</li>
-	<li>Worker Uptime: {data.uptime}</li>
-	<li>Worker UP: {data.up}</li>
-	<li>Server Uptime (Formatted): {secondsToDhms(data.server_uptime)}</li>
-	<li>Server Uptime (Raw): {data.server_uptime}</li>
-	<li>Queue Length: {data.queue.length}</li>
-	<li>Under Review Length: {data.under_review.length}</li>
-	<li>Total Bot Length: {data.bot_amount_total}</li>
-	<li>Approved or Certified Bot Length: {data.bot_amount}</li>
-	<li>Certified Bots Length: {data.certified.length}</li>
-	<li>Banned Bots Length: {data.banned_amount}</li>
-	<li>Denied Bots Length: {data.denied_amount}</li>
+	<li>Server Uptime: {secondsToDhms(data.uptime)}</li>
+	<li>Server Uptime (Raw): {data.uptime}</li>
+	<li>Queue Length: {pendingBots.length}</li>
+	<li>Under Review Length: {underReviewBots.length}</li>
+	<li>Total Bot Length: {data.total_bots}</li>
+	<li>Approved or Certified Bot Length: {approvedBots.length + certifiedBots.length}</li>
+	<li>Certified Bots Length: {certifiedBots.length}</li>
+	<li>Banned Bots Length: {bannedBots.length}</li>
+	<li>Denied Bots Length: {deniedBots.length}</li>
 </ul>
 <Section icon="fa-solid:plus" title="Queue" id="queue">
 	<CardContainer>
-		{#each data.queue as bot}
+		{#each pendingBots as bot}
 			<BotCard data={bot} type="bot" rand={false}/>
 		{/each}
 	</CardContainer>
@@ -68,7 +91,7 @@
 
 <Section icon="fluent:thinking-24-regular" title="Under Review" id="under-review">
 	<CardContainer>
-		{#each data.under_review as bot}
+		{#each underReviewBots as bot}
 			<BotCard data={bot} type="bot" rand={false}/>
 		{/each}
 	</CardContainer>
@@ -76,28 +99,24 @@
 
 <Section icon="fa-solid:certificate" title="Certified" id="certified">
 	<CardContainer>
-		{#each data.certified as bot}
+		{#each certifiedBots as bot}
 			<BotCard data={bot} type="bot" rand={false}/>
 		{/each}
 	</CardContainer>
 </Section>
 
-{#if full}
-	<Section icon="akar-icons:cross" title="Denied Bots" id="denied">
-		<CardContainer>
-			{#each data.denied as bot}
-				<BotCard data={bot} type="bot" rand={false}/>
-			{/each}
-		</CardContainer>
-	</Section>
+<Section icon="bi:hammer" title="Banned Bots" id="banned">
+        <CardContainer>
+                {#each bannedBots as bot}
+                        <BotCard data={bot} type="bot" rand={false}/>
+                {/each}
+        </CardContainer>
+</Section>
 
-	<Section icon="bi:hammer" title="Banned Bots" id="banned">
-		<CardContainer>
-			{#each data.banned as bot}
-				<BotCard data={bot} type="bot" rand={false}/>
-			{/each}
-		</CardContainer>
-	</Section>
-{:else}
-	<a href="/frostpaw/stats?full=true">Click here to view banned and denied bots. Note that this request may timeout</a>
-{/if}
+<Section icon="akar-icons:cross" title="Denied Bots" id="denied">
+	<CardContainer>
+		{#each deniedBots as bot}
+			<BotCard data={bot} type="bot" rand={false}/>
+		{/each}
+	</CardContainer>
+</Section>
