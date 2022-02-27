@@ -92,7 +92,7 @@ import { apiUrl, nextUrl } from "$lib/config";
     // Functions
     async function showBotToken() {
         if(tokenShown) {
-            token = "Click 'Show' to see your bots token"
+            token = 'Click "Show" to see your bot\'s token'
             tokenShown = false
             showBtn = "show"
         } else {
