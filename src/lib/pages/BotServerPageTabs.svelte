@@ -330,7 +330,7 @@
 						</tr>
 						{#each cmd_group[1] as cmd}
 							<tr>
-								<td class="commands-item">{cmd["cmd_name"]}</td>
+								<td class="commands-item">{cmd["name"]}</td>
 								<td class="commands-item">{enums.CommandType[cmd["cmd_type"]]}</td>
 								<td class="commands-item">{cmd["args"]}</td>
 								<td class="commands-item">{cmd["description"]}</td>
@@ -349,7 +349,7 @@
 								</td>
 								<td class="commands-item">
 									<ul class="command-group-list">
-										{#each cmd["cmd_groups"] as group}
+										{#each cmd["groups"] as group}
 											{#if group == "default"}
 												<li>Uncategorized</li>
 											{:else}
