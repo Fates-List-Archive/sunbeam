@@ -8,16 +8,7 @@ import { browser } from "$app/env";
 
     let appURL = ""
 
-    let appData
-
-    if(browser) {
-        let url = new URL(window.location.href)
-        let data = url.searchParams.get("data")
-	if(data) {
-		appURL = `https://api.fateslist.xyz/staff-apps/qibli/${data}`
-        	getAppFromJSON(`https://api.fateslist.xyz/staff-apps/qibli/${data}`)
-    	}
-    }
+    let appData;
 
     async function getAppFromJSON(url: string) {
         let response = await fetch(url)
@@ -37,6 +28,15 @@ import { browser } from "$app/env";
     <Button href={"#"} on:click={() => {
         let url = document.getElementById("app-url").value
         getAppFromJSON("https://fateslist.xyz/frostpaw/qibli-fetch?url="+url)
+    }} class="button" id="post-app-btn" touch variant="outlined">{saveTxt}</Button>
+</div>
+<div class="staff-app">
+    <FormInput id="app-json" data={""} required={true} name="Fallback: Paste JSON here" placeholder="Enter the staff application json" textarea={true}></FormInput>
+</div>
+<div class="center">
+    <Button href={"#"} on:click={() => {
+        let data = document.getElementById("app-json").value
+        getApplication(JSON.parse(data))
     }} class="button" id="post-app-btn" touch variant="outlined">{saveTxt}</Button>
 </div>
 {#if appData}
