@@ -69,7 +69,7 @@ export async function voteHandler(userID: string, token: string, botID: string, 
 		await loginUser(false)
 		return
 	}
-    let res = await fetch(`${nextUrl}/api/flamepaw/bots/${botID}/votes`, {
+    let res = await fetch(`${nextUrl}/flamepaw/bots/${botID}/votes`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json', 
