@@ -87,14 +87,18 @@ import { apiUrl, nextUrl } from "$lib/config";
         "id": "extras"
     })
 
+    let showBtn = "show"
+
     // Functions
     async function showBotToken() {
         if(tokenShown) {
             token = "Click 'Show' to see your bots token"
             tokenShown = false
+            showBtn = "show"
         } else {
             token = data.api_token
             tokenShown = true
+            showBtn = "hide"
         }
     }
 
@@ -282,6 +286,10 @@ import { apiUrl, nextUrl } from "$lib/config";
             let json = await res.json()
             alert(json.reason)
         }
+    }
+
+    async function deleteResource(id: string) {
+        alert("Upcoming :)")
     }
 
     async function autofillBot() {
@@ -511,21 +519,48 @@ import { apiUrl, nextUrl } from "$lib/config";
     {#if mode == "edit"}
         <section id="about-tab" class='tabcontent tabdesign'>
             <h2>Bot Information</h2>
-            <h3 class="section-title">Bot State</h3>
-            <p>{title(enums.BotState[data.state])} ({data.state})</p>
-            <h3 class="section-title">Bot Flags</h3>
-            <ul class="flag-ul">
-                {#each data.flags as flag}
-                    <li>{enums.Flags[flag]} ({flag})</li>
-                {/each}
-            </ul>
-            <h3 class="section-title">Bot Owners</h3>
-            <Icon icon="mdi-crown" inline={false} height="1.2em" style="margin-right: 1px"></Icon>
-            {@html data.owners_html}
+            <table id="info-table">
+                <tr class="info-table-row">
+                    <th class="section-title">Bot State</th>
+                    <th class="section-title">Bot Flags</th>
+                    <th class="section-title">Bot Owners</th>
+                </tr>
+                <tr class="info-table-row">
+                    <td class="info-table-row">
+                        {title(enums.BotState[data.state])} ({data.state})
+                    </td>
+                    <td class="info-table-row"> 
+                        <ul class="flag-ul">
+                            {#each data.flags as flag}
+                                <li>{enums.Flags[flag]} ({flag})</li>
+                            {/each}
+                            {#if data.flags.length == 0}
+                                <li><span class="value">No flags on your bot! You're all clear!</span></li>
+                            {/if}
+                        </ul>            
+                    </td>                    
+                    <td class="info-table-row">
+                        <Icon icon="mdi-crown" inline={false} height="1.2em" style="margin-right: 1px"></Icon>
+                        {@html data.owners_html}
+                    </td>
+                </tr>
+            </table>
+
             <h2>API Token</h2>
             <pre>{token}</pre>            
-            <Button href={"#"} on:click={showBotToken} class="button" id="bot-token-show-btn" touch variant="outlined">Show</Button>
-            <Button href={"#"} on:click={regenBotToken} class="button" id="bot-token-regen-btn" touch variant="outlined">Regenerate</Button>
+            <Button href={"#"} on:click={showBotToken} class="button" id="bot-token-show-btn" touch variant="outlined"><span class="regen-btn">{showBtn}</span></Button>
+            <Button href={"#"} on:click={regenBotToken} class="button" style="background-color: red" id="bot-token-regen-btn" touch variant="text"><span class="regen-btn">Regenerate</span></Button>
+            
+            <h2>Resources</h2>
+            {#each data.resources as resource}
+                <h3>{resource.resource_title}</h3>
+                    <ul class="resource">
+                        <li>ID: <span class="value">{resource.id}</span></li>
+                        <li>Link: <span class="value">{resource.resource_link}</span></li>
+                        <li>Description: <span class="value">{resource.resource_description}</span></li>
+                    </ul>
+                    <Button href={"#"} on:click={() => deleteResource(resource.id)} class="button" touch variant="outlined">Delete {resource.resource_title}</Button>
+            {/each}
         </section>
         <section id="actions-tab" class='tabcontent tabdesign'>
             <h2>Critical Actions Needed</h2>
@@ -921,4 +956,29 @@ import { apiUrl, nextUrl } from "$lib/config";
     .center {
         text-align: center;
     }
+
+    .value {
+        opacity: 0.8 !important;
+    }
+
+    #info-table {
+        table-layout : fixed;
+        width: 100%;
+    }
+
+    .info-table-row {
+        padding: 3px;
+        margin-right: 50px;
+        width: 33%;
+    }
+
+    .resource {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+    }
+
+   .regen-btn {
+       font-size: 12px !important;
+   }
 </style>
