@@ -56,7 +56,7 @@ import { apiUrl, nextUrl } from "$lib/config";
 
     let tabs = []
     let defaultTabButton = "basics-tab-button"
-    let token = "Click 'Show' to see your bots token"
+    let token = 'Click "Show" to see your bot\'s token'
     let tokenShown = false
     let saveTxt = mode
 
