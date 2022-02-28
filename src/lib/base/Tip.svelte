@@ -13,7 +13,7 @@
     }
 
     :global(.tip-blue) {
-        background: #259db0 !important;
+        background: rgba(37, 157, 176, 0.75) !important;
     }
     
     :global(.alert-info) {

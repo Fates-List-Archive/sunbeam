@@ -71,6 +71,13 @@ h1 {
 	overflow-y: scroll !important;
 }
 
+select, :global(.multiselect) {
+	margin-bottom: 30px !important;
+	margin-top: 7px !important;
+	width: 100%;
+	border-radius: $form-radius $form-radius $form-radius $form-radius;
+}
+
 .fform-white {
 	color: black !important;
 }

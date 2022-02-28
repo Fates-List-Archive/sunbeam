@@ -255,6 +255,28 @@ import { apiUrl, nextUrl } from "$lib/config";
         }
     }
 
+    async function createCommand() {
+        /*
+            pub cmd_type: CommandType, DONE
+            pub groups: Vec<String>, DONE
+            pub name: String, DONE
+            pub vote_locked: bool, DONE
+            pub description: String,
+            pub args: Vec<String>,
+            pub examples: Vec<String>,
+            pub premium_only: bool,
+            pub notes: Vec<String>,
+            pub doc_link: String,
+            pub id: Option<String>,    
+            pub nsfw: bool, DONE
+        */
+        let name = document.querySelector("#command-name").value
+        let type = parseInt(document.querySelector("#command-type").value)
+        let groups = document.querySelector("#command-groups").value.split(",").map(el => el.trim())
+        let vote_locked = document.querySelector("#command-vote-locked").checked
+        let nsfw = document.querySelector("#command-nsfw").checked
+    }
+
     async function createResource() {
         /* 
             pub id: Option<String>,
@@ -289,7 +311,19 @@ import { apiUrl, nextUrl } from "$lib/config";
     }
 
     async function deleteResource(id: string) {
-        alert("Upcoming :)")
+        let res = await fetch(`${nextUrl}/resources/${data.user.id}?id=${id}&target_type=0`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json", 
+                "Authorization": data.api_token
+            }
+        })
+        if(res.ok) {
+            alert("Successfully deleted resource!")
+        } else {
+            let json = await res.json()
+            alert(json.reason)
+        }
     }
 
     async function autofillBot() {
@@ -545,22 +579,32 @@ import { apiUrl, nextUrl } from "$lib/config";
                     </td>
                 </tr>
             </table>
-
-            <h2>API Token</h2>
-            <pre>{token}</pre>            
-            <Button href={"#"} on:click={showBotToken} class="button" id="bot-token-show-btn" touch variant="outlined"><span class="regen-btn">{showBtn}</span></Button>
-            <Button href={"#"} on:click={regenBotToken} class="button" style="background-color: red" id="bot-token-regen-btn" touch variant="text"><span class="regen-btn">Regenerate</span></Button>
             
             <h2>Resources</h2>
-            {#each data.resources as resource}
-                <h3>{resource.resource_title}</h3>
-                    <ul class="resource">
-                        <li>ID: <span class="value">{resource.id}</span></li>
-                        <li>Link: <span class="value">{resource.resource_link}</span></li>
-                        <li>Description: <span class="value">{resource.resource_description}</span></li>
-                    </ul>
-                    <Button href={"#"} on:click={() => deleteResource(resource.id)} class="button" touch variant="outlined">Delete {resource.resource_title}</Button>
-            {/each}
+                {#each data.resources as resource}
+                    <h3>{resource.resource_title}</h3>
+                        <ul class="resource">
+                            <li>ID: <span class="value">{resource.id}</span></li>
+                            <li>Link: <span class="value">{resource.resource_link}</span></li>
+                            <li>Description: <span class="value">{resource.resource_description}</span></li>
+                        </ul>
+                        <Button href={"#"} on:click={() => deleteResource(resource.id)} class="button" touch variant="outlined">Delete {resource.resource_title}</Button>
+                {/each}
+                {#if data.resources.length == 0}
+                    <p>No resources on your bot!</p>
+                {/if}
+            <h2>Commands</h2>
+                {#each Object.entries(data.commands) as group}
+                    <h3>{group[0]}</h3>
+                {/each}
+                {#if Object.keys(data.commands).length == 0}
+                    <p>No commands on your bot!</p>
+                {/if}
+            
+            <h2>API Token</h2>
+                <pre>{token}</pre>            
+                <Button href={"#"} on:click={showBotToken} class="button" id="bot-token-show-btn" touch variant="outlined"><span class="regen-btn">{showBtn}</span></Button>
+                <Button href={"#"} on:click={regenBotToken} class="button" style="background-color: red" id="bot-token-regen-btn" touch variant="text"><span class="regen-btn">Regenerate</span></Button>    
         </section>
         <section id="actions-tab" class='tabcontent tabdesign'>
             <h2>Critical Actions Needed</h2>
@@ -611,6 +655,7 @@ import { apiUrl, nextUrl } from "$lib/config";
                 type="number"   
             /><br/>
             <Button href={"#"} on:click={postStats} class="button" id="post-stats" touch variant="outlined">Post Stats</Button>  
+            
             <h3 class="white section">Add a resource</h3>
             <Tip>
                 Resources are a <em>great</em> way of allowing new users to
@@ -641,6 +686,50 @@ import { apiUrl, nextUrl } from "$lib/config";
                 type="text"
             /><br>
             <Button href={"#"} on:click={createResource} class="button" id="create-resource" touch variant="outlined">Add Resource</Button>
+            
+            <h3 class="white section">Add a command</h3>
+            <Tip>
+                Commands are a <em>great</em> way to make it easier to
+                figure out how to use your bot!<br/>
+
+                You can also use the API to post all commands at once!
+            </Tip>
+            <label for="command-name">Name<RedStar></RedStar></label><br/>
+            <input 
+                name="command-name" 
+                id="command-name" 
+                class="fform" 
+                placeholder="ban, kick"
+                type="text"
+            /><br>
+            <label for="command-type">Command Type</label>
+            <select name="command-type" id="command-type">
+                <!--
+                    PrefixCommand = 0,
+                    SlashCommandGlobal = 1,
+                    SlashCommandGuild = 2,
+                -->
+                <option value="0">Prefix/Message Command</option>
+                <option value="1">Global Command</option>
+                <option value="2">Guild Command</option>
+            </select>
+            <label for="command-groups">Groups (comma seperated)<RedStar></RedStar></label><br/>
+            <input 
+                name="command-groups" 
+                id="command-groups" 
+                class="fform" 
+                placeholder="moderation, utility"
+                type="text"
+            /><br>
+            <input type="checkbox" id="command-vote-locked" name="command-vote-locked">
+            <label for="command-vote-locked">Vote Locked</label>
+            <br/>
+            <input type="checkbox" id="command-nsfw" name="command-nsfw">
+            <label for="command-nsfw">NSFW</label>
+            <br/>
+   
+            <Button href={"#"} on:click={createCommand} class="button" id="create-resource" touch variant="outlined">Add Command</Button>
+            
             <h3 class="white section">Request Certification</h3>
             <Tip>
                 You can request certification for your bot on Fates List. 
@@ -751,8 +840,6 @@ import { apiUrl, nextUrl } from "$lib/config";
                 <SelectOptionMulti value={feature.id} valueList={data.features}>{feature.name}</SelectOptionMulti>
             {/each}
         </MultiSelect>
-        <br/>
-        <br/>
         <label for="site-lang">Long Description Type</label>
         <select name="long_description_type" id="long_description_type">
             <SelectOption value="0" masterValue={data.long_description_type}>HTML</SelectOption>
