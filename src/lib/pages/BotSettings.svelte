@@ -905,8 +905,7 @@ import Checkbox from "$lib/base/Checkbox.svelte"
         <label for="site-lang">Long Description Type</label>
         <select name="long_description_type" id="long_description_type">
             <SelectOption value="0" masterValue={data.long_description_type}>HTML</SelectOption>
-            <SelectOption value="1" masterValue={data.long_description_type}>Markdown (python-markdown)</SelectOption>
-            <SelectOption value="2" masterValue={data.long_description_type}>Markdown (marked)</SelectOption>
+            <SelectOption value="1" masterValue={data.long_description_type}>Markdown (pulldown-cmark)</SelectOption>
         </select>
         <br/>
         <FormInput
