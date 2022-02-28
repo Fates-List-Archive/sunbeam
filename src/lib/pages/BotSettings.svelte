@@ -15,6 +15,7 @@ import RedStar from "$lib/base/RedStar.svelte";
 import FormInput from "$lib/base/FormInput.svelte";
 import MultiSelect from "$lib/base/MultiSelect.svelte";
 import { apiUrl, nextUrl } from "$lib/config";
+import Checkbox from "$lib/base/Checkbox.svelte"
 
     function title(str: string) {
         return str.replaceAll("_", " ").replace(/(^|\s)\S/g, function(t) { return t.toUpperCase() });
@@ -261,20 +262,44 @@ import { apiUrl, nextUrl } from "$lib/config";
             pub groups: Vec<String>, DONE
             pub name: String, DONE
             pub vote_locked: bool, DONE
-            pub description: String,
-            pub args: Vec<String>,
-            pub examples: Vec<String>,
-            pub premium_only: bool,
-            pub notes: Vec<String>,
-            pub doc_link: String,
-            pub id: Option<String>,    
+            pub description: String, DONE
+            pub args: Vec<String>, DONE
+            pub examples: Vec<String>, DONE
+            pub premium_only: bool, DONE
+            pub notes: Vec<String>, DONE
+            pub doc_link: String, DONE
+            pub id: Option<String>, SKIP  
             pub nsfw: bool, DONE
         */
-        let name = document.querySelector("#command-name").value
-        let type = parseInt(document.querySelector("#command-type").value)
-        let groups = document.querySelector("#command-groups").value.split(",").map(el => el.trim())
-        let vote_locked = document.querySelector("#command-vote-locked").checked
-        let nsfw = document.querySelector("#command-nsfw").checked
+        let json = {
+            name: document.querySelector("#command-name").value,
+            cmd_type: parseInt(document.querySelector("#command-type").value),
+            groups: document.querySelector("#command-groups").value.replaceAll(",", "|").split(",").map(el => el.trim()),
+            description: document.querySelector("#command-description").value,
+            args: document.querySelector("#command-args").value.replaceAll(",", "|").split("|").map(el => el.trim()),
+            examples: document.querySelector("#command-examples").value.replaceAll(",", "|").split("|").map(el => el.trim()),
+            notes: document.querySelector("#command-notes").value.replaceAll(",", "|").split("|").map(el => el.trim()),
+            doc_link: document.querySelector("#command-doc-link").value,
+            vote_locked: document.querySelector("#command-vote-locked").checked,
+            nsfw: document.querySelector("#command-nsfw").checked,
+            premium_only: document.querySelector("#command-premium-only").checked,
+        }
+        let res = await fetch(`${nextUrl}/bots/${data.user.id}/commands`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json", 
+                "Authorization": data.api_token
+            },
+            body: JSON.stringify({commands: [json]})
+        })
+        if(res.ok) {
+            alert("Successfully created command!")
+            window.location.reload()
+            return
+        } else {
+            let json = await res.json()
+            alert(json.reason)
+        }
     }
 
     async function createResource() {
@@ -410,7 +435,7 @@ import { apiUrl, nextUrl } from "$lib/config";
             // webhook_type, long_description_type, nsfw, system_bot, keep_banner_decor
             bot["webhook_type"] = parseInt(document.querySelector("#webhook_type").value)
             bot["long_description_type"] = parseInt(document.querySelector("#long_description_type").value)
-            bot["nsfw"] = document.querySelector("#nsfw").value == "true"
+            bot["nsfw"] = document.querySelector("#nsfw").checked
             bot["page_style"] = parseInt(document.querySelector("#page_style").value)
             bot["keep_banner_decor"] = document.querySelector("#keep_banner_decor").value == "true"
             bot["user"] = {
@@ -702,6 +727,46 @@ import { apiUrl, nextUrl } from "$lib/config";
                 placeholder="ban, kick"
                 type="text"
             /><br>
+            <label for="command-description">Description<RedStar></RedStar></label><br/>
+            <input 
+                name="command-description" 
+                id="command-description" 
+                class="fform" 
+                placeholder="Bans a member from the server"
+                type="text"
+            /><br>
+            <label for="command-args">Arguments (| seperated)</label><br/>
+            <input 
+                name="command-args" 
+                id="command-args" 
+                class="fform" 
+                placeholder="<user> | <role> | <member>"
+                type="text"
+            /><br>
+            <label for="command-examples">Examples (| seperated)</label><br/>
+            <input 
+                name="command-examples" 
+                id="command-examples" 
+                class="fform" 
+                placeholder="+ban @user | +ban @user ?hack | +ban @user ?d 10hr"
+                type="text"
+            /><br>
+            <label for="command-notes">Notes (| seperated)<RedStar></RedStar></label><br/>
+            <input 
+                name="command-notes" 
+                id="command-notes" 
+                class="fform" 
+                placeholder="This commands needs you to have the Ban Members permission"
+                type="text"
+            /><br>
+            <label for="command-doc-link">Link To Documentation</label><br/>
+            <input 
+                name="command-doc-link" 
+                id="command-doc-link" 
+                class="fform" 
+                placeholder="https://mybot.com/ban.html"
+                type="text"
+            /><br>
             <label for="command-type">Command Type</label>
             <select name="command-type" id="command-type">
                 <!--
@@ -713,7 +778,7 @@ import { apiUrl, nextUrl } from "$lib/config";
                 <option value="1">Global Command</option>
                 <option value="2">Guild Command</option>
             </select>
-            <label for="command-groups">Groups (comma seperated)<RedStar></RedStar></label><br/>
+            <label for="command-groups">Groups (| seperated)<RedStar></RedStar></label><br/>
             <input 
                 name="command-groups" 
                 id="command-groups" 
@@ -721,12 +786,9 @@ import { apiUrl, nextUrl } from "$lib/config";
                 placeholder="moderation, utility"
                 type="text"
             /><br>
-            <input type="checkbox" id="command-vote-locked" name="command-vote-locked">
-            <label for="command-vote-locked">Vote Locked</label>
-            <br/>
-            <input type="checkbox" id="command-nsfw" name="command-nsfw">
-            <label for="command-nsfw">NSFW</label>
-            <br/>
+            <Checkbox id="command-vote-locked" data={false}>Vote Locked</Checkbox>
+            <Checkbox id="command-premium-only" data={false}>Premium Only</Checkbox>
+            <Checkbox id="command-nsfw" data={false}>NSFW</Checkbox>
    
             <Button href={"#"} on:click={createCommand} class="button" id="create-resource" touch variant="outlined">Add Command</Button>
             
@@ -855,24 +917,14 @@ import { apiUrl, nextUrl } from "$lib/config";
             required={true}
             textarea={true}
         />
-        <label for="nsfw">NSFW</label>
-        <select name="nsfw" id="nsfw">
-            <SelectOption value="true" masterValue="{data.nsfw}">Yes</SelectOption>
-            <SelectOption value="false" masterValue="{data.nsfw}">No</SelectOption>
-        </select>
+
         <label for="page_style">Page Style</label>
         <select name="page_style" id="page_style">
             <SelectOption value="0" masterValue="{data.page_style}">Tabs (classic)</SelectOption>
             <SelectOption value="1" masterValue="{data.page_style}">Single-scroll (new)</SelectOption>
         </select>
+        <Checkbox id="nsfw" data={data.nsfw}>NSFW</Checkbox>
         <br/><br/>
-        {#if context.perm > 4 || data.system_bot}
-            <label for="system_bot">System Bot (set this to no to claim your bot, only staff can set this to yes)</label>
-            <select name="system_bot" id="system_bot">
-                <SelectOption value="true" masterValue="{data.system_bot}">Yes</SelectOption>
-                <SelectOption value="false" masterValue="{data.system_bot}">No</SelectOption>
-            </select>
-        {/if}
     </section>
     <section id="webhooks-tab" class='tabcontent tabdesign'>
         <Tip>Everything in this section is completely optional</Tip>

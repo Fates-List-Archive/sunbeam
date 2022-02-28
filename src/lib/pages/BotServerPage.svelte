@@ -8,6 +8,10 @@
 
 {#if data.banner && data.keep_banner_decor}
 <style lang="scss">
+.opaque {
+	opacity: 0.83;
+}
+
 .banner-decor {
   opacity: 0.7;
   background-color: black; 
@@ -155,7 +159,8 @@
 }
 .command-group-list {
 	padding: 0;
-	list-style-position: inside;
+	margin: 0;
+	list-style-type: none !important;
 }
 .cmd-group-header {
 	cursor: pointer;
@@ -322,18 +327,16 @@
 
 					<table id="{cmd_group[0]}-table" class="commands-table" rules="all">
 						<tr>
-							<th class="commands-header">Name</th>
+							<th class="commands-header">Command</th>
 							<th class="commands-header">Type</th>
-							<th class="commands-header">Args</th>
 							<th class="commands-header">Description</th>
 							<th class="commands-header">Notes</th>
 							<th class="commands-header">Groups</th>
 						</tr>
 						{#each cmd_group[1] as cmd}
 							<tr>
-								<td class="commands-item">{cmd["name"]}</td>
+								<td class="commands-item">{data.prefix || "/"}{cmd["name"]} <span class="opaque">{cmd["args"].join(" | ")}</span></td>
 								<td class="commands-item">{enums.CommandType[cmd["cmd_type"]]}</td>
-								<td class="commands-item">{cmd["args"]}</td>
 								<td class="commands-item">{cmd["description"]}</td>
 								<td class="commands-item">
 									<ul class="command-group-list">

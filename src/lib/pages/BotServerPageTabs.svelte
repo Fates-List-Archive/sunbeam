@@ -16,6 +16,10 @@
 </style>
 {/if}
 <style lang="scss" global>
+.opaque {
+	opacity: 0.83;
+}
+
 #reviews-tab {
 	overflow: visible !important;
 } 
@@ -153,9 +157,10 @@
 .commands-table, .commands-item, .commands-header {
 	padding: 1rem;
 }
-.command-group-list {
+.command-group-list, .command-list-item {
 	padding: 0;
-	list-style-position: inside;
+	margin: 0;
+	list-style-type: none !important;
 }
 .cmd-group-header {
 	cursor: pointer;
@@ -321,29 +326,27 @@
 
 					<table id="{cmd_group[0]}-table" class="commands-table" rules="all">
 						<tr>
-							<th class="commands-header">Name</th>
+							<th class="commands-header">Command</th>
 							<th class="commands-header">Type</th>
-							<th class="commands-header">Args</th>
 							<th class="commands-header">Description</th>
 							<th class="commands-header">Notes</th>
 							<th class="commands-header">Groups</th>
 						</tr>
 						{#each cmd_group[1] as cmd}
 							<tr>
-								<td class="commands-item">{cmd["name"]}</td>
+								<td class="commands-item">{data.prefix || "/"}{cmd["name"]} <span class="opaque">{cmd["args"].join(" | ")}</span></td>
 								<td class="commands-item">{enums.CommandType[cmd["cmd_type"]]}</td>
-								<td class="commands-item">{cmd["args"]}</td>
 								<td class="commands-item">{cmd["description"]}</td>
 								<td class="commands-item">
 									<ul class="command-group-list">
 										{#if cmd["vote_locked"]}
-											<li>Requires Voting (vote-locked)</li>
+											<li class="command-list-item">Requires Voting (vote-locked)</li>
 										{/if}
 										{#if cmd["premium_only"]}
-											<li>Premium Only</li>
+											<li class="command-list-item">Premium Only</li>
 										{/if}
 										{#each cmd["notes"] as note}
-											<li>{note}</li>
+											<li class="command-list-item">{note}</li>
 										{/each}
 									</ul>
 								</td>
@@ -351,9 +354,9 @@
 									<ul class="command-group-list">
 										{#each cmd["groups"] as group}
 											{#if group == "default"}
-												<li>Uncategorized</li>
+												<li class="command-list-item">Uncategorized</li>
 											{:else}
-												<li>{title(group)}</li>
+												<li class="command-list-item">{title(group)}</li>
 											{/if}
 										{/each}
 									</ul>
