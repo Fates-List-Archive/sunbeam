@@ -303,11 +303,7 @@
     </div>
     <Tab>
 		<section id="long-description-real" class='tabs-v2'>
-			{#if data.long_description_type == enums.LongDescType.markdown_marked}
-				{@html marked.parse(data.long_description)}
-			{:else}
-				{@html data.long_description}
-			{/if}
+			{@html data.long_description}
 		</section>
 		<section id="commands-tab" class="tabs-v2">
 			<h2>Commands</h2>
@@ -506,7 +502,6 @@
     import { enums } from '../enums/enums';
     import { browser } from "$app/env";
     import { voteHandler, loginUser, addReviewHandler } from '$lib/request';
-    import { marked } from 'marked'; 
     import { session } from '$app/stores';
     import Tab from '$lib/base/TabV2.svelte';
 import Reviews from '$lib/base/Reviews.svelte';
