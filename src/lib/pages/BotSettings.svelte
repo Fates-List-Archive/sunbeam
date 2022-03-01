@@ -468,8 +468,9 @@ import Checkbox from "$lib/base/Checkbox.svelte"
             bot["client_id"] = document.querySelector("#client_id").value
 
             // Handle the selects here
-            // webhook_type, long_description_type, nsfw, system_bot, keep_banner_decor
+            // webhook_type, webhook_hmac_only, long_description_type, nsfw, system_bot, keep_banner_decor
             bot["webhook_type"] = parseInt(document.querySelector("#webhook_type").value)
+            bot["webhook_hmac_only"] = document.querySelector("#webhook_hmac_only").checked
             bot["long_description_type"] = parseInt(document.querySelector("#long_description_type").value)
             bot["nsfw"] = document.querySelector("#nsfw").checked
             bot["page_style"] = parseInt(document.querySelector("#page_style").value)
@@ -992,10 +993,9 @@ import Checkbox from "$lib/base/Checkbox.svelte"
         />
         <Tip>
             API Token is used as the webhook secret if you do not set a 
-            webhook secret below. It is recommended to use that unless 
-            you need a specific webhook secret to be used by Fates List 
-            or you need extra security that cannot be provided using 
-            your bots token.
+            webhook secret below. It is recommended to use a webhook secret
+            if you are a large bot. Using a service like <a href="https://randomkeygen.com/">https://randomkeygen.com/</a>
+            is recommended if you will be using this.
         </Tip>
         <FormInput
             name="Webhook Secret"
@@ -1003,6 +1003,13 @@ import Checkbox from "$lib/base/Checkbox.svelte"
             placeholder="Make sure that this is random and secure!"
             data={data.webhook_secret}
         />
+        <Tip>
+            HMAC request signing can be more secure than just a 'Authorization' 
+            header. This is recommended for large bots. Once you have enabled HMAC,
+            it is a good idea to tick this option to remove the 'Authorization' header
+            to avoid leaks.
+        </Tip>
+        <Checkbox id="webhook_hmac_only" data={data.webhook_hmac_only}>HMAC Only (no 'Authorization' header)</Checkbox>
         <Button href={"#"} on:click={sendTestWebhook} class="button" id="submit" touch variant="outlined">Test Webhook</Button>  
         <Tip>
             Didn't get anything? Make sure you have <em>saved</em> your 
