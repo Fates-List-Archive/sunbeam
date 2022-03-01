@@ -69,14 +69,13 @@ export async function voteHandler(userID: string, token: string, botID: string, 
 		await loginUser(false)
 		return
 	}
-    let res = await fetch(`${nextUrl}/flamepaw/bots/${botID}/votes`, {
+    let res = await fetch(`${nextUrl}/users/${userID}/bots/${botID}/votes?test=${test}`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json', 
             "Frostpaw": "0.1.0", 
             "Authorization": token
         },
-        body: JSON.stringify({user_id: userID, test: test})
     })
     let data = await res.json()
     if(res.ok) {

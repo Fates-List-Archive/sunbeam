@@ -9,6 +9,8 @@ import { browser } from "$app/env";
     export let placeholder: string;
     export let data: any = "";
     export let textarea: boolean = false;
+    export let onchange: any = () => {};
+    export let oninput: any = () => {};
     if(!data) {
         data = ""
     }
@@ -36,5 +38,7 @@ import { browser } from "$app/env";
         type={type}
         aria-required={required}
         required={required}
+        on:change={onchange}
+        on:input={oninput}
     >{data || ""}</textarea><br/>
 {/if}

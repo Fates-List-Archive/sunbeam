@@ -256,6 +256,42 @@ import Checkbox from "$lib/base/Checkbox.svelte"
         }
     }
 
+    let previewHtml: string = "<h3>Start typing to generate a preview!</h3>"
+
+    let startStyle = "LTstyleGT".replace("LT", "<").replace("GT", ">")
+    let endStyle = "LT/styleGT".replace("LT", "<").replace("GT", ">")
+
+    let charsTyped: number = 0;
+
+    async function preview() {
+        if(charsTyped % 4 == 0) {
+            await previewInput()
+        }
+        charsTyped++
+    }
+
+    async function previewInput() {
+        let css = document.querySelector("#css").value
+        let res = await fetch(`${nextUrl}/preview`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json", 
+            },
+            body: JSON.stringify({
+                long_description_type: parseInt(document.querySelector("#long_description_type").value),
+                text: document.querySelector("#long_description").value,
+            })
+        })
+        if(res.ok) {
+            let json = await res.json()
+            previewHtml = startStyle+css.replaceAll("long-description", "preview-tab")+endStyle+json.preview
+        }
+    }
+
+    if(mode == "edit") {
+        previewInput()
+    }
+
     async function createCommand() {
         /*
             pub cmd_type: CommandType, DONE
@@ -915,7 +951,11 @@ import Checkbox from "$lib/base/Checkbox.svelte"
             data={data.long_description_raw}
             required={true}
             textarea={true}
+            oninput={() => preview()}
         />
+        <div id="preview-tab">
+            {@html previewHtml}
+        </div>
 
         <label for="page_style">Page Style</label>
         <select name="page_style" id="page_style">
@@ -1042,7 +1082,7 @@ import Checkbox from "$lib/base/Checkbox.svelte"
             name="Custom CSS"
             id="css"
             placeholder="See w3schools if you need a tutorial on CSS. See our API Documentation for more informatiom about what CSS Fates List has and allows! Have fun :)"
-            data={data.css}
+            data={data.css.replaceAll(startStyle, "").replaceAll(endStyle, "")}
             textarea={true}
         />
     </section>
