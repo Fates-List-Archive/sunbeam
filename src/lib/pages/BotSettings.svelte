@@ -53,6 +53,8 @@ import Checkbox from "$lib/base/Checkbox.svelte"
             }
             i+=1
         })
+    } else {
+        data.css = ""
     }
 
     let tabs = []
