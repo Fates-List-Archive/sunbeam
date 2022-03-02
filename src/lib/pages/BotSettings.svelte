@@ -291,7 +291,7 @@ import Checkbox from "$lib/base/Checkbox.svelte"
     }
 
     if(mode == "edit") {
-        previewInput()
+        setTimeout(previewInput, 1000)
     }
 
     async function createCommand() {
@@ -955,6 +955,7 @@ import Checkbox from "$lib/base/Checkbox.svelte"
             required={true}
             textarea={true}
             oninput={() => preview()}
+            onclick={() => previewInput()}
         />
         <div id="preview-tab">
             {@html previewHtml}
