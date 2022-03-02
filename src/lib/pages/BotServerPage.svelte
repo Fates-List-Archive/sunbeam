@@ -486,8 +486,14 @@
 							<p class="opaque">Warning Agent P! You probably shouldn't be here unless you're solving a crisis!</p>
 							{#each data.action_logs as log}
 								<p>
-									{title(enums.UserBotAction[log.action])} by user {log.user_id} at {log.action_time} with context: {log.context || "None"}
-									Raw JSON: <code>{JSON.stringify(log)}</code>
+									<span class="opaque">Action</span>  <em>{title(enums.UserBotAction[log.action])}</em>  <span class="opaque">by user (ID)</span>  <em>{log.user_id}</em> <span class="opaque">at time</span>  <em>{log.action_time}</em>  <br/>
+									{#if log.context}
+										Context: <span class="opaque">{log.context}</span>
+									{/if}
+									<details>
+										<summary>Raw JSON (for machines and robots!)</summary>
+										<code>{JSON.stringify(log)}</code>
+									</details>
 								</p>
 							{/each}
 						</details>
