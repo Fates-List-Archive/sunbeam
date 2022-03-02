@@ -481,10 +481,16 @@
                         <p>Last posted statistics on: {data.last_stats_post}</p>
                         <p>Added to the list on: {data.created_at}</p>
                         <p>Bot Flags: {data.flags}</p>
-						<h4>User Audit Logs</h4>
-						{#each data.action_logs as log}
-							{JSON.stringify(log)}
-						{/each}
+						<details>
+							<summary>View Public Audit Logs</summary>
+							<p class="opaque">Warning Agent P! You probably shouldn't be here unless you're solving a crisis!</p>
+							{#each data.action_logs as log}
+								<p>
+									{title(enums.UserBotAction[log.action])} by user {log.user_id} at {log.action_time} with context: {log.context || "None"}
+									Raw JSON: <code>{JSON.stringify(log)}</code>
+								</p>
+							{/each}
+						</details>
                     {/if}
                 </section>
             </Tab>
