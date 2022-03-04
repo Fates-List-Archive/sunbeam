@@ -11,35 +11,10 @@
 		if (res.ok) {
             let data = await res.json()
 
-			/* TODO stuff:
-			
-			let approvedBots = data.profile.bot_logs.filter(v => {
-				if(v.action == enums.UserBotAction.approve) {
-					return true
-				}
-				return false
-			})
-			let deniedBots = data.profile.bot_logs.filter(v => {
-				if(v.action == enums.UserBotAction.deny) {
-					return true
-				}
-				return false
-			})
-			let certifiedBots = data.profile.bot_logs.filter(v => {
-				if(v.action == enums.UserBotAction.certify) {
-					return true
-				}
-				return false
-			})*/
-
-
 			return {
 				props: {
 					data: data,
                     systemBots: url.searchParams.get("system_bots") == "true",
-					/* approvedBots: approvedBots,
-					deniedBots: deniedBots,
-					certifiedBots: certifiedBots */
 				}
 			};
 		}
@@ -62,9 +37,6 @@
 
     export let data: any;
     export let systemBots: any;
-	/* export let approvedBots: any;
-	export let deniedBots: any;
-	export let certifiedBots: any; */
     let type = "profile"
     import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
 import BotPack from "$lib/base/BotPack.svelte";
@@ -89,27 +61,6 @@ import BotPack from "$lib/base/BotPack.svelte";
 		{/each}
 	{/if}
 </div>
-
-<!--
-<p class="bot-action-log">Approved Bots: {approvedBots.length}</p>
-<ul>
-	{#each approvedBots as bot}
-		<li class="white">{bot.bot_id} - {bot.action_time}</li>
-	{/each}
-</ul>
-<p class="bot-action-log">Denied Bots: {deniedBots.length}</p>
-<ul>
-	{#each deniedBots as bot}
-		<li class="white">{bot.bot_id} - {bot.action_time}</li>
-	{/each}
-</ul>
-<p class="bot-action-log">Certified Bots: {certifiedBots.length}</p> 
-<ul>
-	{#each certifiedBots as bot}
-		<li class="white">{bot.bot_id} - {bot.action_time}</li>
-	{/each}
-</ul>
--->
 
 {#if loggedIn}
 	<Button href="/profile/{data.user.id}/settings" class="bot-card-actions-link" id="profiles-center" touch variant="outlined">Settings</Button>
