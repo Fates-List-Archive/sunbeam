@@ -149,7 +149,7 @@ import { apiUrl, nextUrl } from "$lib/config";
                 username: "",
                 avatar: "",
                 disc: "",
-                status: 0,
+                status: "Unknown",
                 bot: false
             },
             created_at: "1970-01-01T00:00:00Z"
@@ -162,7 +162,7 @@ import { apiUrl, nextUrl } from "$lib/config";
                     username: "",
                     avatar: "",
                     disc: "",
-                    status: 0,
+                    status: "Unknown",
                     bot: true
                 },
                 description: ""

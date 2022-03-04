@@ -483,7 +483,7 @@ import Checkbox from "$lib/base/Checkbox.svelte"
                 username: "",
                 disc: "",
                 avatar: "",
-                status: 1,
+                status: "Unknown",
                 bot: true,
             }
 
@@ -546,7 +546,7 @@ import Checkbox from "$lib/base/Checkbox.svelte"
                             username: "",
                             disc: "",
                             avatar: "",
-                            status: 1,
+                            status: "Unknown",
                             bot: false,
                         },
                         main: false
