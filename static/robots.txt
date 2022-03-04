@@ -1,3 +1,4 @@
 User-agent: *
-Disallow: /static/tos.txt
+Disallow: https://fateslist.xyz/frostpaw/tos
+Disallow: https://api.fateslist.xyz/*
 Sitemap: https://fateslist.xyz/sitemap.xml
