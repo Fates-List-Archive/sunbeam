@@ -8,13 +8,13 @@ sitemap = f"""<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 	<loc>https://fateslist.xyz/</loc>
-	<lastmod>{datetime.datetime.now()}</lastmod>
+	<lastmod>{datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}</lastmod>
 	<priority>1.0</priority>
     <changefreq>weekly</changefreq>
 </url>
 <url>
 	<loc>https://docs.fateslist.xyz</loc>
-	<lastmod>{datetime.datetime.now()}</lastmod>
+	<lastmod>{datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")}</lastmod>
 	<priority>0.4</priority>
     <changefreq>weekly</changefreq>
 </url>
@@ -39,7 +39,7 @@ for bot in bots:
     sitemap += f"""
 <url>
 	<loc>https://fateslist.xyz/bots/{bot['bot_id']}</loc>
-	<lastmod>{bot['last_updated_at']}</lastmod>
+	<lastmod>{bot['last_updated_at'].strftime("%Y-%m-%d %H:%M:%S")}</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>{priority}</priority>
 </url>
