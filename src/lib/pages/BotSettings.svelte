@@ -558,6 +558,7 @@ import Checkbox from "$lib/base/Checkbox.svelte"
 
             // Add extra fields
             bot["created_at"] = "1970-01-01T00:00:00Z"
+            bot["last_updated_at"] = "1970-01-01T00:00:00Z"
             bot["last_stats_post"] = "1970-01-01T00:00:00Z"
             bot["long_description_raw"] = bot["long_description"]
             bot["invite_link"] = bot["invite"] || ""
