@@ -482,10 +482,7 @@
                         <p>Last posted statistics on: {data.last_stats_post}</p>
                         <p>Added to the list on: {data.created_at}</p>
                         <p>Bot Flags: {data.flags}</p>
-						<h4>User Audit Logs</h4>
-						{#each data.action_logs as log}
-							{JSON.stringify(log)}
-						{/each}
+						<AuditLogs logs={data.action_logs}></AuditLogs>
 		    		{:else}
 						<h2>Servers do not support this feature <em>yet</em> :(</h2>
                     {/if}
@@ -512,6 +509,7 @@ import Reviews from '$lib/base/Reviews.svelte';
 import loadstore from '$lib/loadstore';
 import navigationState from '$lib/navigationState';
 import { apiUrl, nextUrl } from '$lib/config';
+import AuditLogs from '$lib/base/AuditLogs.svelte';
     export let data: any;
     export let type: string;
 	let reviewPage = 1

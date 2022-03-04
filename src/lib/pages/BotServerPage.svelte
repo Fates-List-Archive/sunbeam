@@ -481,22 +481,7 @@
                         <p>Last posted statistics on: {data.last_stats_post}</p>
                         <p>Added to the list on: {data.created_at}</p>
                         <p>Bot Flags: {data.flags}</p>
-						<details>
-							<summary>View Public Audit Logs</summary>
-							<p class="opaque">Warning Agent P! You probably shouldn't be here unless you're solving a crisis!</p>
-							{#each data.action_logs as log}
-								<p>
-									<span class="opaque">Action</span>  <em>{title(enums.UserBotAction[log.action])}</em>  <span class="opaque">by user (ID)</span>  <em>{log.user_id}</em> <span class="opaque">at time</span>  <em>{log.action_time}</em>  <br/>
-									{#if log.context}
-										Context: <span class="opaque">{log.context}</span>
-									{/if}
-									<details>
-										<summary>Raw JSON (for machines and robots!)</summary>
-										<code>{JSON.stringify(log)}</code>
-									</details>
-								</p>
-							{/each}
-						</details>
+						<AuditLogs logs={data.action_logs}></AuditLogs>
                     {/if}
                 </section>
             </Tab>
@@ -520,6 +505,7 @@ import Reviews from '$lib/base/Reviews.svelte';
 import loadstore from '$lib/loadstore';
 import navigationState from '$lib/navigationState';
 import { nextUrl } from '$lib/config';
+import AuditLogs from '$lib/base/AuditLogs.svelte';
     export let data: any;
     export let type: string;
 	let reviewPage = 1
