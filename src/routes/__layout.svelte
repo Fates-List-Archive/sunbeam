@@ -21,7 +21,6 @@
 <script lang="ts">
 	import Header from '$lib/header/Header.svelte';
 	import lozad from 'lozad';
-    import { fade } from 'svelte/transition';
 
     import navigationState from '$lib/navigationState';
     import inputstore from "$lib/inputstore"
