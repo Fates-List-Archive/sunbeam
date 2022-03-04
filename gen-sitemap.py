@@ -11,11 +11,13 @@ sitemap = f"""
 	<loc>https://fateslist.xyz/</loc>
 	<lastmod>{datetime.datetime.now()}</lastmod>
 	<priority>1.0</priority>
+    <changefreq>weekly</changefreq>
 </url>
 <url>
 	<loc>https://docs.fateslist.xyz</loc>
 	<lastmod>{datetime.datetime.now()}</lastmod>
-	<priority>1.0</priority>
+	<priority>0.4</priority>
+    <changefreq>weekly</changefreq>
 </url>
 """
 
@@ -39,6 +41,7 @@ for bot in bots:
 <url>
 	<loc>https://fateslist.xyz/bots/{bot['bot_id']}</loc>
 	<lastmod>{bot['last_updated_at']}</lastmod>
+    <changefreq>weekly</changefreq>
 	<priority>{priority}</priority>
 </url>
     """
