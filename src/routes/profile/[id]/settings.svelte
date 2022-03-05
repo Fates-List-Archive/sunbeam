@@ -140,10 +140,10 @@ import { apiUrl, nextUrl } from "$lib/config";
     async function addBotPack() {
         let payload = {
             id: "",
-            name: document.querySelector("#pack-name").value,
-            description: document.querySelector("#pack-desc").value,
-            icon: document.querySelector("#pack-icon").value,
-            banner: document.querySelector("#pack-banner").value,
+            name: (document.querySelector("#pack-name") as HTMLInputElement).value,
+            description: (document.querySelector("#pack-desc") as HTMLInputElement).value,
+            icon: document.getElementById("#pack-icon").value,
+            banner: document.getElementById("#pack-banner").value,
             owner: {
                 id: data.user.id,
                 username: "",

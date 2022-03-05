@@ -128,6 +128,7 @@ export async function addReviewHandler(
         username: "",
         avatar: "",
         disc: "",
+        status: "Unknown",
         bot: false
     }
 
