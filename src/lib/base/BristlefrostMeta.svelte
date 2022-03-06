@@ -21,5 +21,5 @@
 	<meta property="twitter:title" content="{title}">
 	<meta property="twitter:description" content="{description}">
 	<meta property="twitter:image" content="{thumbnail}">
-	<link rel="canonical" href='{url || "https://fateslist.xyz/"}'>
+	<link rel="canonical" href='{url + "/" || "https://fateslist.xyz/"}'>
 </svelte:head>
