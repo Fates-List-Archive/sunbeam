@@ -5,6 +5,7 @@
 			if(!session.session.token) {
 				return {
 					props: {
+						data: {},
 						context: {}
 					}
 				}
