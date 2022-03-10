@@ -116,7 +116,8 @@ import { apiUrl, nextUrl } from "$lib/config";
                 "id": data.user.id,
                 "username": "",
                 "disc": "",
-                "avatar": "",
+		"avatar": "",
+		"status": "Unknown",
                 "bot": false,
             }
         }
