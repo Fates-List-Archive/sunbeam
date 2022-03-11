@@ -8,7 +8,7 @@
 
         return {
             status: 301,
-            redirect: `https://lynx.fateslist.xyz/frostpaw/tos`
+            redirect: `https://lynx.fateslist.xyz/privacy`
         }
     }
 </script>
