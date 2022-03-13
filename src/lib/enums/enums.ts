@@ -29,6 +29,10 @@ enum UserBotAction {
     transfer_ownership = 6,
     edit_bot = 7,
     delete_bot = 8,
+    unban = 9,
+    uncertify = 10,
+    unverify = 11,
+    requeue = 12,
 }
 
 enum ReviewType {
