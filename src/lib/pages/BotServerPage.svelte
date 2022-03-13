@@ -366,26 +366,6 @@
 				<span>Servers do not have commands</span>
 			{/if}
 		</section>
-		<section id="resources-tab" class="tabs-v2">
-			<h2>Some cool resources!</h2>
-			<h3>Basics</h3>
-			<a href="/bot/{data.user.id}/invite">Invite</a><br/>
-			{#each ["website", "support", "privacy_policy", "donate", "github"] as link}
-				{#if data[link]}
-					<a href={data[link]}>{title(link)}</a><br/>
-				{/if}
-			{/each}
-			<br/>
-			<h3>Community Resources</h3>
-			{#if !data.resources || data.resources.length <= 0}
-				<h4>This {type} does not have any community resources!</h4>
-			{:else}
-				{#each data.resources as resource}
-					<a href={resource.resource_link}>{resource.resource_title}</a>
-					<p>{resource.resource_description}</p>
-				{/each}
-			{/if}
-		</section>
         <section id="reviews-tab" class="tabs-v2">
 			<h2>Lets review!</h2>
 		   <label for="rating">On a scale of 1 to 10, how much did you like this {type}?</label><br/>
@@ -444,6 +424,26 @@
 					</div>					
                     <div id="reviews" use:onload></div>
                 </section>
+				<section id="resources-tab" class="tabs-v2">
+					<h2>Some cool resources!</h2>
+					<h3>Basics</h3>
+					<a href="/bot/{data.user.id}/invite">Invite</a><br/>
+					{#each ["website", "support", "privacy_policy", "donate", "github"] as link}
+						{#if data[link]}
+							<a href={data[link]}>{title(link)}</a><br/>
+						{/if}
+					{/each}
+					<br/>
+					<h3>Community Resources</h3>
+					{#if !data.resources || data.resources.length <= 0}
+						<h4>This {type} does not have any community resources!</h4>
+					{:else}
+						{#each data.resources as resource}
+							<a href={resource.resource_link}>{resource.resource_title}</a>
+							<p>{resource.resource_description}</p>
+						{/each}
+					{/if}
+				</section>		
                 <section id="about-tab" class='tabs-v2'>
                     <!--First main owner is guaranteed to be first in HTML-->
                     {#if type == "bot"}
