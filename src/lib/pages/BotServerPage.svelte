@@ -366,6 +366,7 @@
 				<span>Servers do not have commands</span>
 			{/if}
 		</section>
+		<hr/>
         <section id="reviews-tab" class="tabs-v2">
 			<h2>Lets review!</h2>
 		   <label for="rating">On a scale of 1 to 10, how much did you like this {type}?</label><br/>
@@ -424,6 +425,7 @@
 					</div>					
                     <div id="reviews" use:onload></div>
                 </section>
+				<hr/>
 				<section id="resources-tab" class="tabs-v2">
 					<h2>Some cool resources!</h2>
 					<h3>Basics</h3>
@@ -444,6 +446,7 @@
 						{/each}
 					{/if}
 				</section>		
+				<hr/>
                 <section id="about-tab" class='tabs-v2'>
                     <!--First main owner is guaranteed to be first in HTML-->
                     {#if type == "bot"}
