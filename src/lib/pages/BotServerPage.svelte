@@ -112,6 +112,11 @@
 	.mobile-small {
 		font-size: 11px !important;
 	}
+
+	#long-description-real {
+		padding: 3px !important;
+		border: none !important;
+	}
 }
 @media screen and (max-width: 992px) {
 	.buttons {
@@ -168,6 +173,14 @@
 .opaque {
     opacity: 0.7;
 }
+
+#long-description-real {
+	padding: 45px;
+	border: solid 1px;
+	width: 100%;
+	height: 100%;
+}
+
 </style>
 
 {@html data.css}
