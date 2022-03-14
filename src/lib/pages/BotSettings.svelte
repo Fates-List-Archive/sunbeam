@@ -16,6 +16,7 @@ import FormInput from "$lib/base/FormInput.svelte";
 import MultiSelect from "$lib/base/MultiSelect.svelte";
 import { apiUrl, nextUrl } from "$lib/config";
 import Checkbox from "$lib/base/Checkbox.svelte"
+import { browser } from "$app/env";
 
     function title(str: string) {
         return str.replaceAll("_", " ").replace(/(^|\s)\S/g, function(t) { return t.toUpperCase() });
@@ -266,29 +267,47 @@ import Checkbox from "$lib/base/Checkbox.svelte"
 
     let charsTyped: number = 0;
 
+    let wsUp = false;
+    let previewWs = null;
+
+    function setupWs() {
+        if(!browser) {
+            return
+        }
+        previewWs = new WebSocket("wss://api.fateslist.xyz/ws/_preview")
+        previewWs.onmessage = (e) => {
+            let json = JSON.parse(e.data)
+            let css = document.querySelector("#css").value
+            previewHtml = startStyle+css.replaceAll("long-description", "preview-tab")+endStyle+json.preview
+        }
+        wsUp = true
+    }
+
     async function preview() {
-        if(charsTyped % 4 == 0) {
+        /* if(charsTyped % 4 == 0) {
             await previewInput()
         }
-        charsTyped++
+        charsTyped++ */
+        previewInput()
     }
 
     async function previewInput() {
+        if(!browser) {
+            return
+        }
+
+        if(!wsUp) {
+            setupWs()
+        }
+        if(previewWs.readyState != WebSocket.OPEN) {
+            setTimeout(previewInput, 500)
+            return
+        }
         let css = document.querySelector("#css").value
-        let res = await fetch(`${nextUrl}/preview`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json", 
-            },
-            body: JSON.stringify({
+        previewWs.send(JSON.stringify({
                 long_description_type: parseInt(document.querySelector("#long_description_type").value),
                 text: document.querySelector("#long_description").value,
-            })
-        })
-        if(res.ok) {
-            let json = await res.json()
-            previewHtml = startStyle+css.replaceAll("long-description", "preview-tab")+endStyle+json.preview
-        }
+        }))
     }
 
     if(mode == "edit") {
