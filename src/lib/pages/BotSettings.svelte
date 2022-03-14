@@ -561,7 +561,7 @@ import { browser } from "$app/env";
                 bot["owners"] = bot["extra_owners"].replace(" ", "").split(",").map(el => {
                     return {
                         user: {
-                            id: el,
+                            id: el.trim(),
                             username: "",
                             disc: "",
                             avatar: "",
