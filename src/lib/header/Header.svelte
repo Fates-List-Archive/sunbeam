@@ -6,6 +6,7 @@
 	import { loginUser } from '$lib/request';
 import { goto } from '$app/navigation';
 import { apiUrl, nextUrl } from '$lib/config';
+import { browser } from '$app/env';
 
 	let username = null
 	let userID = null
@@ -14,6 +15,32 @@ import { apiUrl, nextUrl } from '$lib/config';
 	if($session.session.user) {
 		username = $session.session.user.username
 		userID = $session.session.user.id
+	}
+
+	function docReady(fn) {
+    	// see if DOM is already available
+    	if (document.readyState === "complete" || document.readyState === "interactive") {
+        	// call on next available tick
+        	setTimeout(fn, 1);
+    	} else {
+        	document.addEventListener("DOMContentLoaded", fn);
+    	}
+	}    
+
+	let scrolled = false;
+
+	if(browser) {
+		docReady(() => {
+			document.addEventListener("scroll", (e) => {
+				if(window.scrollY > 5) {
+					console.log("Set scrolled to true")
+					scrolled = true;
+				} else {
+					console.log("Set scrolled to false")
+					scrolled = false;
+				}
+			})
+		});
 	}
 </script>
 <header>
@@ -129,6 +156,15 @@ import { apiUrl, nextUrl } from '$lib/config';
 	</nav>
 </header>	
 
+{#if scrolled}
+	<style lang="scss">
+		header {
+			background-color: black !important;
+			box-shadow: 1px 1px 1px 1px black;
+		}
+	</style>
+{/if}
+
 <style lang="scss">
 	header {
 		display: flex;
@@ -140,8 +176,6 @@ import { apiUrl, nextUrl } from '$lib/config';
 		margin: 0px;
 		padding: 3px;
 		z-index: 2;
-		background-color: black;
-		box-shadow: 1px 1px 1px black;	
 	}
 
 	:global(.add-nav) {
