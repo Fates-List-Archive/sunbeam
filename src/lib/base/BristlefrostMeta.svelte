@@ -4,6 +4,10 @@
     export let thumbnail: string;
     export let url: string;
     export let pageTitle: string = title;
+
+	if(thumbnail.startsWith("https://fateslist.xyz")) {
+		thumbnail = thumbnail.replace("https://fateslist.xyz", "https://api.fateslist.xyz");
+	}
 </script>
 <svelte:head>
 	<title>{pageTitle}</title>
