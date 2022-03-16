@@ -288,6 +288,11 @@ import { browser } from "$app/env";
             }, 20*1000)
         }
 
+        previewWs.onclose = () => {
+            console.log("WS Closed")
+            wsUp = false;
+        }
+
         wsUp = true
     }
 
