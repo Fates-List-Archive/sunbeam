@@ -78,8 +78,7 @@ export async function voteHandler(userID: string, token: string, botID: string, 
             "Authorization": token
         },
     })
-    let data = await res.json()
-    return data
+    return res
 }
 
 export async function addReviewHandler(
