@@ -206,7 +206,7 @@ import alertstore from '$lib/alertstore';
             userID = $session.session.user.id
         }
         let res = await voteHandler(userID, token, data.user.id, false)
-		let data = await res.json()
+		data = await res.json()
 		if(res.ok) {
 			$alertstore = {
 				show: true,

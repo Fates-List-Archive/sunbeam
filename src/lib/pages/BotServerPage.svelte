@@ -578,7 +578,7 @@ import alertstore from '$lib/alertstore';
 		$loadstore = "Voting..."
     	$navigationState = 'loading';
         let res = await voteHandler(userID, token, data.user.id, false)
-		let data = await res.json()
+		data = await res.json()
 		if(res.ok) {
 			$alertstore = {
 				show: true,
