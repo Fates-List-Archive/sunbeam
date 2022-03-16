@@ -45,7 +45,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background: transparent;  
+        background: transparent; 
+        color: black !important; 
     }
 
     dialog::after {
