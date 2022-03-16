@@ -277,6 +277,7 @@ import { browser } from "$app/env";
         previewWs = new WebSocket("wss://api.fateslist.xyz/ws/_preview")
         previewWs.onmessage = (e) => {
             let json = JSON.parse(e.data)
+            if(json.preview === undefined) return
             let css = document.querySelector("#css").value
             previewHtml = startStyle+css.replaceAll("long-description", "preview-tab")+endStyle+json.preview
         }
