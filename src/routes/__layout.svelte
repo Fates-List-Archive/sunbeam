@@ -68,5 +68,5 @@ import { apiUrl } from '$lib/config';
 </main>
 
 {#if $alertStore}
-  <Alert show={$alertStore.show} title={$alertStore.title} id={$alertStore.id}>{@html $alertStore.message}</Alert>
+  <Alert show={$alertStore.show} title={$alertStore.title} id={$alertStore.id}>{@html $alertStore.message.replaceAll("\n", "<br/>")}</Alert>
 {/if}
