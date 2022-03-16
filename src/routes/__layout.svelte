@@ -20,10 +20,12 @@
 </svelte:head>
 <script lang="ts">
 	import Header from '$lib/header/Header.svelte';
+	import Alert from "$lib/base/Alert.svelte"
 	import lozad from 'lozad';
 
     import navigationState from '$lib/navigationState';
     import inputstore from "$lib/inputstore"
+	import alertStore from "$lib/alertstore"
     import PageLoader from '$lib/base/PageLoader.svelte';
 
     import { browser } from '$app/env'; 
@@ -64,3 +66,7 @@ import { apiUrl } from '$lib/config';
 		<slot />
 	</PageLoader>
 </main>
+
+{#if $alertStore}
+  <Alert show={$alertStore.show} title={$alertStore.title} id={$alertStore.id}>{@html $alertStore.message}</Alert>
+{/if}

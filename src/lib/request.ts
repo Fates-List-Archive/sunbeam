@@ -1,5 +1,6 @@
 import { browser } from '$app/env';
 import { apiUrl, nextUrl } from './config';
+import alertstore  from "./alertstore";
 
 // Change this if cf will ever be used
 const usingCf = true
@@ -78,14 +79,7 @@ export async function voteHandler(userID: string, token: string, botID: string, 
         },
     })
     let data = await res.json()
-    if(res.ok) {
-        alert(data.reason)
-	if(!test) {
-        	window.location.reload()
-	}
-    } else {
-        alert(data.reason)
-    }
+    return data
 }
 
 export async function addReviewHandler(

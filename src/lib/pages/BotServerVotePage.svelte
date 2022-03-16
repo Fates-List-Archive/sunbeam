@@ -195,6 +195,7 @@
     import { enums } from '../enums/enums';
     import { voteHandler } from '$lib/request'
     import { session } from '$app/stores';
+import alertstore from '$lib/alertstore';
 	export let data: any;
     export let type: string;
 
@@ -204,6 +205,21 @@
         if(token) {
             userID = $session.session.user.id
         }
-        return await voteHandler(userID, token, data.user.id, false)
+        let res = await voteHandler(userID, token, data.user.id, false)
+		if(res.ok) {
+			$alertstore = {
+				show: true,
+				title: "Successful Vote",
+				message: res.reason,
+				id: "alert"
+			}
+		} else {
+			$alertstore = {
+				show: true,
+				title: "Oops :(",
+				message: res.reason,
+				id: "alert"
+			}		
+		}
     }
 </script>

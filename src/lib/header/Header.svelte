@@ -7,14 +7,22 @@
 import { goto } from '$app/navigation';
 import { apiUrl, nextUrl } from '$lib/config';
 import { browser } from '$app/env';
+import alertstore from '$lib/alertstore';
 
 	let username = null
 	let userID = null
+	let avatar = null
 	let menu: MenuComponentDev;
 	let addMenu: MenuComponentDev;
 	if($session.session.user) {
 		username = $session.session.user.username
 		userID = $session.session.user.id
+		if($session.session.user.avatar) {
+			avatar = `https://cdn.discordapp.com/avatars/${userID}/${$session.session.user.avatar}.webp`
+		} else {
+			avatar = "https://cdn.discordapp.com/embed/avatars/4.png"
+		}
+		console.log(avatar)
 	}
 
 	function docReady(fn) {
@@ -40,10 +48,11 @@ import { browser } from '$app/env';
 					scrolled = false;
 				}
 			})
+			scrolled = window.scrollY > 5;
 		});
 	}
 </script>
-<header>
+<header id="header">
 	<div class="corner">
 		<a href="/">
 			<img src="{apiUrl}/static/botlisticon.webp" alt="Fates List Logo" />
@@ -75,7 +84,12 @@ import { browser } from '$app/env';
 	<nav class="corner-two">
 		<div>
 			<a href={'#'} on:click={() => {menu.setOpen(true)} }>
-				{username || "Not logged in"}
+				{#if username}
+					<img src={avatar} alt="Avatar" id="avatar"/>
+					{username}
+				{:else}
+					Anonymous
+				{/if}
 			</a>
 		</div>
 		<Menu bind:this={menu} class="corner-nav" style="margin-top: 3em !important;">
@@ -158,7 +172,7 @@ import { browser } from '$app/env';
 
 {#if scrolled}
 	<style lang="scss">
-		header {
+		#header {
 			background-color: black !important;
 			box-shadow: 1px 1px 1px 1px black;
 		}
@@ -166,7 +180,7 @@ import { browser } from '$app/env';
 {/if}
 
 <style lang="scss">
-	header {
+	#header {
 		display: flex;
 		position: sticky;
 		align-self: flex-start;
@@ -270,5 +284,11 @@ import { browser } from '$app/env';
 		padding: 0 1em;
 		font-size: 0.75rem;
 		transition: color 0.2s linear;
+	}
+
+	#avatar {
+		border-radius: 50%;
+		width: 30px;
+		margin-right: 10px;
 	}
 </style>

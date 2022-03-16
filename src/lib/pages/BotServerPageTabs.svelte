@@ -510,6 +510,7 @@ import loadstore from '$lib/loadstore';
 import navigationState from '$lib/navigationState';
 import { apiUrl, nextUrl } from '$lib/config';
 import AuditLogs from '$lib/base/AuditLogs.svelte';
+import alertstore from '$lib/alertstore';
     export let data: any;
     export let type: string;
 	let reviewPage = 1
@@ -581,7 +582,22 @@ import AuditLogs from '$lib/base/AuditLogs.svelte';
         }
 		$loadstore = "Voting..."
     	$navigationState = 'loading';
-        await voteHandler(userID, token, data.user.id, false)
+        let res = await voteHandler(userID, token, data.user.id, false)
+		if(res.ok) {
+			$alertstore = {
+				show: true,
+				title: "Successful Vote",
+				message: res.reason,
+				id: "alert"
+			}
+		} else {
+			$alertstore = {
+				show: true,
+				title: "Oops :(",
+				message: res.reason,
+				id: "alert"
+			}		
+		}
 		$navigationState = "loaded"
     }
 	let userHasMovedReviewPage = false

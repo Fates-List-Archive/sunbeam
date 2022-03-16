@@ -268,7 +268,7 @@ import { browser } from "$app/env";
     let charsTyped: number = 0;
 
     let wsUp = false;
-    let previewWs = null;
+    let previewWs: WebSocket = null;
 
     function setupWs() {
         if(!browser) {
@@ -280,6 +280,13 @@ import { browser } from "$app/env";
             let css = document.querySelector("#css").value
             previewHtml = startStyle+css.replaceAll("long-description", "preview-tab")+endStyle+json.preview
         }
+
+        previewWs.onopen = () => {
+            setInterval(() => {
+                previewWs.send("PING")
+            }, 20*1000)
+        }
+
         wsUp = true
     }
 
