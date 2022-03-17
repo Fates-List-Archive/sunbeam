@@ -1,9 +1,9 @@
-<div class="container">
+<div class="card-container">
     <slot />
 </div>
 
 <style>
-  .container {
+  .card-container {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

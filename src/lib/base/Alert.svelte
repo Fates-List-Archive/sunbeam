@@ -25,7 +25,7 @@
         <div id={`${id}-content`}>
           <slot />
         </div>
-        <button on:click={close} id="alert-close">
+        <button on:click={close} id="alert-close" class="block mx-auto">
             Close
         </button>
       </section>
@@ -67,7 +67,8 @@
         width: 500px;
         min-height: 200px;
         max-height: 500px;
-        padding: 3px;
+        padding: 10px;
+        border-radius: 4px 4px 4px 4px;
         background: white;
     }
 
@@ -88,6 +89,6 @@
         font-weight: bold !important;
         border: black solid 1px !important;
         margin-top: 3px;
-        padding: 3px;
+        padding: 10px;
     }
   </style>

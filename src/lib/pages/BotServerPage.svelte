@@ -305,17 +305,17 @@
 			    </Button>
                 {/if}
 		{#if type == "bot"}
-			<Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all" touch variant="outlined">
+			<Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all auxillary" touch variant="outlined">
 			    	     <span>Settings</span>
 			    </Button>
 		{:else}
-			    <Button class="buttons-all disabled" id="buttons-settings" touch variant="outlined" disabled>
+			    <Button class="buttons-all disabled auxillary" id="buttons-settings" touch variant="outlined" disabled>
 				    <span>Settings</span>
 			    </Button>
 		{/if}
     </div>
     <Tab>
-		<section id="long-description-real" class='tabs-v2'>
+		<section id="long-description-real" class="tabs-v2 prose prose-zinc dark:prose-invert">
 			{@html data.long_description}
 		</section>
 		<section id="commands-tab" class="tabs-v2">
@@ -497,6 +497,10 @@
                         <p>Last posted statistics on: {data.last_stats_post}</p>
                         <p>Added to the list on: {data.created_at}</p>
                         <p>Bot Flags: {data.flags}</p>
+
+						<h2>Admin Actions</h2>
+						<a href="/bot/{data.user.id}/settings">Settings</a>
+
 						<AuditLogs logs={data.action_logs}></AuditLogs>
                     {/if}
                 </section>

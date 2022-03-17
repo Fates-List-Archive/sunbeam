@@ -290,18 +290,18 @@
 			    </Button>
                 {/if}
 		{#if type == "bot"}
-			<Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all" touch variant="outlined">
+			<Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all auxillary" touch variant="outlined">
 			    	     <span>Settings</span>
 			    </Button>
 		{:else}
-			    <Button class="buttons-all disabled" id="buttons-settings" touch variant="outlined" disabled>
+			    <Button class="buttons-all disabled auxillary" id="buttons-settings" touch variant="outlined" disabled>
 				    <span>Settings</span>
 			    </Button>
 		{/if}
     </div>
     <Tab tabs={tabs} defaultTabButton="long-description-tab-button">
 		<section id="long-description-tab" class='tabcontent tabdesign'>
-			<div id="long-description" class="tabdesign-alt">
+			<div id="long-description" class="tabdesign-alt prose prose-zinc dark:prose-invert">
 				{#if data.long_description_type == enums.LongDescType.markdown_marked}
 					{@html marked.parse(data.long_description)}
 				{:else}
@@ -483,6 +483,9 @@
                         <p>Added to the list on: {data.created_at}</p>
                         <p>Bot Flags: {data.flags}</p>
 						<AuditLogs logs={data.action_logs}></AuditLogs>
+
+						<h2>Admin Actions</h2>
+						<a href="/bot/{data.user.id}/settings">Settings</a>
 		    		{:else}
 						<h2>Servers do not support this feature <em>yet</em> :(</h2>
                     {/if}

@@ -17,6 +17,7 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
 import { apiUrl, nextUrl } from "$lib/config";
 import Checkbox from "$lib/base/Checkbox.svelte"
 import { browser } from "$app/env";
+import alertstore from "$lib/alertstore";
 
     function title(str: string) {
         return str.replaceAll("_", " ").replace(/(^|\s)\S/g, function(t) { return t.toUpperCase() });
@@ -24,12 +25,13 @@ import { browser } from "$app/env";
 
     let popUpMsg = "Errors will appear here (just in case you have popups disabled)"
 
-    function alert(msg: string) {
+    function alert(msg: string, title="Error") {
         popUpMsg = msg
-        try {
-            window.alert(msg)
-        } catch (err) {
-            console.log(err)
+        $alertstore = {
+            title: title,
+            message: msg,
+            show: true,
+            id: "error"
         }
         $navigationState = "loaded" // An alert = page loaded
     }
@@ -114,7 +116,7 @@ import { browser } from "$app/env";
             headers: headers
         })
         if(res.ok) {
-            alert("Successfully regenerated bot token")
+            alert("Successfully regenerated bot token", "Success!")
             window.location.reload()
             return
         } else {
@@ -138,7 +140,7 @@ import { browser } from "$app/env";
             })
         })
         if(res.ok) {
-            alert("Successfully sent appeal!")
+            alert("Successfully sent appeal!", "Success!")
             window.location.reload()
             return
         } else {
@@ -162,7 +164,7 @@ import { browser } from "$app/env";
             })
         })
         if(res.ok) {
-            alert("Successfully sent request!")
+            alert("Successfully sent request!", "Success!")
             window.location.reload()
             return
         } else {
@@ -186,7 +188,7 @@ import { browser } from "$app/env";
             })
         })
         if(res.ok) {
-            alert("Successfully sent stats!")
+            alert("Successfully sent stats!", "Success!")
             window.location.reload()
             return
         } else {
@@ -227,7 +229,7 @@ import { browser } from "$app/env";
             })
         })
         if(res.ok) {
-            alert("Successfully transferred ownership!")
+            alert("Successfully transferred ownership!", "Success!")
             window.location.reload()
             return
         } else {
@@ -251,7 +253,7 @@ import { browser } from "$app/env";
             headers: headers,
         })
         if(res.ok) {
-            alert("Successfully deleted this bot!")
+            alert("Successfully deleted this bot!", "Success!")
             window.location.href = "/"
             return
         } else {
@@ -364,7 +366,7 @@ import { browser } from "$app/env";
             body: JSON.stringify({commands: [json]})
         })
         if(res.ok) {
-            alert("Successfully created command!")
+            alert("Successfully created command!", "Success!")
             window.location.reload()
             return
         } else {
@@ -397,7 +399,7 @@ import { browser } from "$app/env";
             })
         })
         if(res.ok) {
-            alert("Successfully created resource!")
+            alert("Successfully created resource!", "Success!")
             window.location.reload()
             return
         } else {
@@ -415,7 +417,7 @@ import { browser } from "$app/env";
             }
         })
         if(res.ok) {
-            alert("Successfully deleted resource!")
+            alert("Successfully deleted resource!", "Success!")
         } else {
             let json = await res.json()
             alert(json.reason)
@@ -530,14 +532,14 @@ import { browser } from "$app/env";
 
             let res = await fetch(`https://discord.com/api/v9/applications/${botId}/rpc`)
             if(res.status != 200) {
-                alert("Error: This bot doesn't exist on discord or you need to provide a client id")
+                alert("This bot doesn't exist on discord or you need to provide a client id")
                 saveTxt = mode
                 return
             }
 
             let jsonP = await res.json()
             if(!jsonP.bot_public) {
-                alert("Error: This bot is not public")
+                alert("This bot is not public")
                 saveTxt = mode
                 return
             }
@@ -631,7 +633,7 @@ import { browser } from "$app/env";
                 body: JSON.stringify(bot)
             })
             if(updateRes.ok) {
-                alert(`This bot has been ${mod}`)
+                alert(`This bot has been ${mod}`, "Success!")
                 return
             } else {
                 let json = await updateRes.json()

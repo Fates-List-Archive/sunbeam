@@ -46,6 +46,7 @@
         padding: 3px;
         border-radius: 5px;
         border: solid 1px;
+        margin-bottom: 3px;
     }
 
     .pack-bot {

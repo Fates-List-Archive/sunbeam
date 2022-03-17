@@ -104,12 +104,15 @@ export async function addReviewHandler(
         review_text: review_text,
         star_rating: star_rating,
         flagged: false,
-        review_downvotes: [],
-        review_upvotes: [],
         reply: parent_id != null,
         parent_id: parent_id,
         epoch: [],
-        replies: []
+        replies: [],
+        votes: {
+            upvotes: [],
+            downvotes: [],
+            votes: []
+        }
     }
 
     if(review_id) {

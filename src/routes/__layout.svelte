@@ -36,6 +36,8 @@ import { apiUrl } from '$lib/config';
 		observer.observe();
 		localStorage.currentPage = window.location.href;
 	}
+
+	import "./../css/tailwind.css";
 </script>
 <svelte:window
     on:sveltekit:navigation-start={() => {
@@ -52,6 +54,7 @@ import { apiUrl } from '$lib/config';
 
 <style lang="scss" global>
 	@import "./../css/base.scss";
+	@import "./../css/tw-patch.scss";
 	.footer {
 		margin-left: 3px;
 	}
