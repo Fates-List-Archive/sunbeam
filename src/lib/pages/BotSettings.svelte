@@ -1000,8 +1000,8 @@ import alertstore from "$lib/alertstore";
 
         <label for="page_style">Page Style</label>
         <select name="page_style" id="page_style">
-            <SelectOption value="0" masterValue="{data.page_style}">Tabs (classic)</SelectOption>
             <SelectOption value="1" masterValue="{data.page_style}">Single-scroll (new)</SelectOption>
+            <SelectOption value="0" masterValue="{data.page_style}">Tabs (classic, deprecated)</SelectOption>
         </select>
         <Checkbox id="nsfw" data={data.nsfw}>NSFW</Checkbox>
         <br/><br/>
