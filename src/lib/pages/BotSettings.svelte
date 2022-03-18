@@ -633,7 +633,7 @@ import alertstore from "$lib/alertstore";
                 body: JSON.stringify(bot)
             })
             if(updateRes.ok) {
-                alert(`This bot has been ${mod}`, "Success!")
+                alert(`This bot has been ${mod}. Changes may take up to one minute to propogate!`, "Success!")
                 return
             } else {
                 let json = await updateRes.json()
