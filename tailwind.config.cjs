@@ -1,4 +1,5 @@
 module.exports = {
+    mode: 'jit',
     corePlugins: {
       preflight: false,
     },
@@ -8,6 +9,7 @@ module.exports = {
         typography: {
           DEFAULT: {
             css: {
+              "--tw-prose-headings": "white !important",
               color: "white !important",
               p: {
                 color: "white !important",
@@ -15,6 +17,12 @@ module.exports = {
               },
               pre: {
                 color: "white !important"
+              },
+              th: "white !important",
+              td: "white !important",
+              table: {
+                color: "white !important",
+                "border-color": "white",
               },
               code: {
                 color: "white !important"

@@ -279,9 +279,9 @@ import alertstore from "$lib/alertstore";
         previewWs = new WebSocket("wss://api.fateslist.xyz/ws/_preview")
         previewWs.onmessage = (e) => {
             let json = JSON.parse(e.data)
-            if(json.preview === undefined) return
+            if(json.preview === undefined || !json.preview) return
             let css = document.querySelector("#css").value
-            previewHtml = startStyle+css.replaceAll("long-description", "preview-tab")+endStyle+json.preview
+            previewHtml = startStyle+css.replaceAll("long-description", "preview-tab")+endStyle+json.preview.replaceAll("long-description", "preview-tab")
         }
 
         previewWs.onopen = () => {
@@ -993,9 +993,8 @@ import alertstore from "$lib/alertstore";
             required={true}
             textarea={true}
             oninput={() => preview()}
-            onclick={() => previewInput()}
         />
-        <div id="preview-tab">
+        <div id="preview-tab" class="prose prose-zinc dark:prose-invert">
             {@html previewHtml}
         </div>
 
