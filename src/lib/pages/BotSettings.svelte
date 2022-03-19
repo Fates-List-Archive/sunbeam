@@ -1017,12 +1017,17 @@ import alertstore from "$lib/alertstore";
             the webhooks and you may need to port forward or open your 
             firewall if your server has one. Note that the IP address 
             for Fates List may change but this is rare and the IP 
-            is safe to whitelist.
+            is safe to whitelist.<br/><br/>
+
+            Do not rely on 'Discord Integration' for votes. 
+            If you do not have a public IP, then use webhooks<br/><br/>
+
+            Discord Integration is also right now very buggy, use 'Vote Webhook' or 'Websockets' instead
         </Tip>
         <label for="webhook_type">Webhook Type</label>
         <select name="webhook_type" id="webhook_type">
             <SelectOption value="0" masterValue="{data.webhook_type}">Vote Webhook</SelectOption>
-            <SelectOption value="1" masterValue="{data.webhook_type}">Discord Integration</SelectOption>
+            <SelectOption value="1" masterValue="{data.webhook_type}">Discord Integration (not recommended, may not always work)</SelectOption>
         </select>
         <br/>
         <FormInput
