@@ -9,7 +9,7 @@
 
     let translations: TranslationData = {
         "index.best_bots": {
-            en: "Find the best bots for your servers!"
+            en: "Find the best bots for your servers!",
         }
     };
 
