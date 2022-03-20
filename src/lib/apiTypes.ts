@@ -155,7 +155,7 @@ export interface BotFeature {
 }
 
 export interface BotIndex {
-  tags_fixed: FLTags;
+  tags: FLTags;
   top_voted: BotPartialList;
   certified_bots: BotPartialList;
   new_bots: BotPartialList;

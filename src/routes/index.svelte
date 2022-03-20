@@ -33,6 +33,7 @@
 	import RandomBot from "$lib/base/RandomBot.svelte";
 	import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
 	import Section from "$lib/base/Section.svelte";
+import Intl from "$lib/base/Intl.svelte";
 	export let data: BotIndex;
 	export let randomBot: any;
 	//
@@ -47,7 +48,7 @@
 
 <section>
 	<h1>Fates List</h1>
-	<h2 class="best-bots">Find the best bots for your servers!</h2>
+	<h2 class="best-bots"><Intl key="index.best_bots"/></h2>
 </section>
 
 <SearchBar type="bot" query=""></SearchBar>
