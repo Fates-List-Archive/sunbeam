@@ -26,11 +26,8 @@
         }
 
         if(!inviteJson.invite_link.startsWith("https://")) {
-            return {
-                status: 400,
-                error: new Error(inviteJson.invite_link)
-            }
-        }
+		inviteJson.invite_link = `https://discord.gg/${inviteJson.invite_link}`
+	}
         
         return {
             status: 307,
