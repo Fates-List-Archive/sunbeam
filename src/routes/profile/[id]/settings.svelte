@@ -103,11 +103,11 @@ import { apiUrl, nextUrl } from "$lib/config";
 
     async function updateProfile() {
         let payload = {
-            "description": document.querySelector("#description").value,
-            "profile_css": document.querySelector("#profile-css").value,
-            "user_css": document.querySelector("#user-css").value,
-            "site_lang": document.querySelector("#site-lang").value,
-            "vote_reminder_channel": document.querySelector("#vote-reminder-channel").value,
+            "description": (document.querySelector("#description") as HTMLInputElement).value,
+            "profile_css": (document.querySelector("#profile-css") as HTMLInputElement).value,
+            "user_css": (document.querySelector("#user-css") as HTMLInputElement).value,
+            "site_lang":(document.querySelector("#site-lang") as HTMLInputElement).value,
+            "vote_reminder_channel": (document.querySelector("#vote-reminder-channel") as HTMLInputElement).value,
             "packs": [],
             "bots": [],
             "action_logs": [],
@@ -143,8 +143,8 @@ import { apiUrl, nextUrl } from "$lib/config";
             id: "",
             name: (document.querySelector("#pack-name") as HTMLInputElement).value,
             description: (document.querySelector("#pack-desc") as HTMLInputElement).value,
-            icon: document.getElementById("#pack-icon").value,
-            banner: document.getElementById("#pack-banner").value,
+            icon: (document.getElementById("#pack-icon") as HTMLInputElement).value,
+            banner: (document.getElementById("#pack-banner") as HTMLInputElement).value,
             owner: {
                 id: data.user.id,
                 username: "",
@@ -155,7 +155,7 @@ import { apiUrl, nextUrl } from "$lib/config";
             },
             created_at: "1970-01-01T00:00:00Z"
         }
-        let bots = document.querySelector("#pack-bots").value
+        let bots = (document.querySelector("#pack-bots") as HTMLInputElement).value
         payload["resolved_bots"] = bots.replace(" ", "").split(",").map(el => {
             return {
                 user: {
