@@ -521,14 +521,15 @@ import alertstore from "$lib/alertstore";
                 bot: true,
             }
 
-            let botId = bot["user"]["bot_id"] 
-
             // Check if the bot is public
             let clientId = bot["client_id"]
+	    let botId = bot["bot_id"]
 
             if(clientId) {
                 botId = clientId
-            }
+	    } else if(!botId) {
+		bot["bot_id"] = clientId
+	    }
 
             let res = await fetch(`https://discord.com/api/v9/applications/${botId}/rpc`)
             if(res.status != 200) {
