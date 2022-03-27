@@ -78,6 +78,11 @@ import alertstore from '$lib/alertstore';
 				}}>
 					<Text>Add Server</Text>
 				</Item>
+				<Item on:SMUI:action={() => {
+					goto(`/frostpaw/import-bot`)
+				}}>
+					<Text>Import Bot (BETA)</Text>
+				</Item>
 			</List>
 		</Menu>	
 	</nav>
