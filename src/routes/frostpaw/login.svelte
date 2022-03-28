@@ -31,15 +31,23 @@ import { enums } from '$lib/enums/enums'
             let state = searchParams.get("state")
             if(!code || !state) {
                 frostpawMsg = ("Invalid code/state" + retry)
+                return
             }
+
+            if(state != localStorage.sunbeamLoginState) {
+                frostpawMsg = ("Invalid state. Are you blocking localStorage?" + retry)
+                return
+            }
+
+            localStorage.removeItem("sunbeamLoginState")
 
             fetch(`${nextUrl}/oauth2`, {
                 credentials: 'include',
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json', 
-		    "Frostpaw": "0.1.0",
-		    "Frostpaw-Server": window.location.origin
+		            "Frostpaw": "0.1.0",
+		            "Frostpaw-Server": window.location.origin
                 },
                 body: JSON.stringify({
 			code: code,

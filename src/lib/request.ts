@@ -59,6 +59,11 @@ export async function loginUser(noSetStorage: boolean) {
 		json.context += "&prompt=none"
 		localStorage.removeItem("loginError")
 	}
+
+    if(!noSetStorage) {
+        localStorage.sunbeamLoginState = json.reason;
+    }
+
 	window.location.href = json.context
 }
 
