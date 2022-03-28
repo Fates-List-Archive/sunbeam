@@ -67,12 +67,34 @@ import loadstore from "$lib/loadstore";
         let botId = (document.querySelector("#bot_id") as HTMLInputElement).value
         let source = (document.querySelector("#source") as HTMLInputElement).value
 
+        let extData = {}
+    
+        if(source == "Topgg") {
+            // Top.gg has a shit API workaround
+            let topggData = await fetch(`https://top.gg/api/bots/${botId}`, {
+                "headers": {
+                    "Authorization": (document.querySelector("#topgg-api-token") as HTMLInputElement).value
+                }
+            })
+
+            if(topggData.status == 401) {
+                alert("Invalid Top.gg API token")
+                return
+            } else if(!topggData.ok) {
+                alert("Could not fetch bot data from top.gg")
+                return
+            }
+
+            extData = await topggData.json()
+        }
+
         let res = await fetch(`${apiUrl}/users/${$session.session.user.id}/bots/${botId}/import?src=${source}`, {
             method: "POST",
             headers: {
                 "Authorization": $session.session.token,
                 "Content-Type": "application/json"
             },
+            body: JSON.stringify({"ext_data": extData})
         })
 
         if(res.ok) {
@@ -88,14 +110,6 @@ import loadstore from "$lib/loadstore";
             let json = await res.json()
             alert(json.reason)
         }
-    }
-
-    async function importFromTopgg() {
-        fetch("https://top.gg/api/bots/733043768692965448", {
-            "headers": {
-                "Authorization": "application/json"
-            }
-        })
     }
 
     let source: string;
@@ -116,7 +130,7 @@ import loadstore from "$lib/loadstore";
         </select>
         <FormInput name="Bot ID (must be bot owner)" id="bot_id" type="number" placeholder="Bot ID here"/>
         {#if source == "Topgg"}
-            <FormInput name="Top.gg bot token" id="topgg" type="text" placeholder="Topgg bot token"/>
+            <FormInput name="Top.gg bot token" id="topgg-api-token" type="text" placeholder="Top.gg API token"/>
             <Tip>
                 This is only shared with top.gg and is not stored on Fates List
             </Tip>        
