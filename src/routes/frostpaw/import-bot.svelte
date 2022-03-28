@@ -89,6 +89,16 @@ import loadstore from "$lib/loadstore";
             alert(json.reason)
         }
     }
+
+    async function importFromTopgg() {
+        fetch("https://top.gg/api/bots/733043768692965448", {
+            "headers": {
+                "Authorization": "application/json"
+            }
+        })
+    }
+
+    let source: string;
 </script>
 {#if $session.session.token}
     <h1 class="text-center">Import A Bot!</h1>
@@ -99,12 +109,18 @@ import loadstore from "$lib/loadstore";
         As this feature evolves, more bot lists to import from may be added!
     </Tip>
         <label for="source">Import Source</label>
-        <select name="source" id="source">
+        <select name="source" id="source" bind:value={source}>
             {#each sources.sources as source}
                 <option value={source.id}>{source.name}</option>
             {/each}
         </select>
         <FormInput name="Bot ID (must be bot owner)" id="bot_id" type="number" placeholder="Bot ID here"/>
+        {#if source == "Topgg"}
+            <FormInput name="Top.gg bot token" id="topgg" type="text" placeholder="Topgg bot token"/>
+            <Tip>
+                This is only shared with top.gg and is not stored on Fates List
+            </Tip>        
+        {/if}
         <Button on:click={() => importBot()} variant="outlined" class="button btn-save">{saveTxt}</Button>
         <pre>{popUpMsg}</pre>
     </div>
