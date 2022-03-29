@@ -60,7 +60,7 @@ export async function loginUser(noSetStorage: boolean) {
 		localStorage.removeItem("loginError")
 	}
 
-    if(!noSetStorage) {
+    if(browser) {
         localStorage.sunbeamLoginState = json.reason;
     }
 
