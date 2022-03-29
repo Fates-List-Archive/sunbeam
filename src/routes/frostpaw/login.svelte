@@ -35,13 +35,13 @@ import { enums } from '$lib/enums/enums'
             }
 
             if(state != localStorage.sunbeamLoginState) {
-                frostpawMsg = ("Invalid state. Are you blocking localStorage?" + retry)
+                frostpawMsg = ("Invalid state. Are you blocking localStorage?<br/>Try reloading this page or using the application if logging in from a WebView/app embedded browser" + retry)
                 return
             }
 
             localStorage.removeItem("sunbeamLoginState")
 
-            fetch(`${nextUrl}/oauth2`, {
+            fetch(`${apiUrl}/oauth2`, {
                 credentials: 'include',
                 method: "POST",
                 headers: {
@@ -50,8 +50,8 @@ import { enums } from '$lib/enums/enums'
 		            "Frostpaw-Server": window.location.origin
                 },
                 body: JSON.stringify({
-			code: code,
-			state: state
+			        code: code,
+			        state: state
                 })
             })
             .then((res) => res.json())
