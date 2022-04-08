@@ -11,6 +11,7 @@ import { browser } from "$app/env";
     export let textarea: boolean = false;
     export let onchange: any = () => {};
     export let oninput: any = () => {};
+    export let onkeyup: any = () => {};
     if(!data) {
         data = ""
     }
@@ -28,6 +29,9 @@ import { browser } from "$app/env";
         type={type}
         aria-required={required}
         required={required}
+        on:change={onchange}
+        on:input={oninput}
+        on:keyup={onkeyup}
     /><br>
 {:else}
     <textarea
@@ -40,5 +44,6 @@ import { browser } from "$app/env";
         required={required}
         on:change={onchange}
         on:input={oninput}
+        on:keyup={onkeyup}
     >{data || ""}</textarea><br/>
 {/if}

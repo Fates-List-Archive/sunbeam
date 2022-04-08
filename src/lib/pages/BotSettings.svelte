@@ -475,7 +475,7 @@ import alertstore from "$lib/alertstore";
         try {
             $inputstore.forEach(field => {
                 let value = null
-                let fieldEl = document.querySelector(`#${field.id}`)
+                let fieldEl = (document.querySelector(`#${field.id}`) as HTMLInputElement)
                 if(fieldEl) {
                     value = fieldEl.value
                 } else {
@@ -917,7 +917,7 @@ import alertstore from "$lib/alertstore";
             />
         {/if}
         <FormInput
-            name="Client ID (older bots only)" 
+            name="Client ID (required, usually same as Bot ID)" 
             id="client_id" 
             placeholder="563808552288780322 etc."
             type="number" 

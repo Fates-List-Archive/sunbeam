@@ -1,20 +1,26 @@
 <script context="module" lang="ts">
-	import { fetchFates } from "$lib/request"
+	import { fetchFates } from "$lib/request";
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ url, session, fetch }) {
-        let query = url.searchParams.get("q")
-        let targetType = url.searchParams.get("target_type")
-		const searchUrl = `/search?q=${query}`;
-		const res = await fetchFates(searchUrl, "", fetch, false, true);
+		let search = {
+			query: url.searchParams.get("q"),
+			targetType: url.searchParams.get("target_type"),
+			gc_from: parseInt(url.searchParams.get("gc_from")) || 0,
+			gc_to: parseInt(url.searchParams.get("gc_to")) || -1
+		}
+
+		const res = await fetchFates(`/search?q=${search.query}&gc_from=${search.gc_from}&gc_to=${search.gc_to}`, "", fetch, false, true);
 
 		if (res.ok) {
 			let data = await res.json()
 			return {
 				props: {
 					data: data,
-                    			targetType: targetType,
-                    			query: query
+                    targetType: search.targetType,
+                    query: search.query,
+					gc_from: search.gc_from,
+					gc_to: search.gc_to
 				}
 			};
 		}
@@ -36,6 +42,8 @@ import BotPack from "$lib/base/BotPack.svelte";
     export let data: any;
     export let targetType: string;
     export let query: string;
+	export let gc_from: number;
+	export let gc_to: number;
 
 </script>
 
@@ -51,7 +59,7 @@ import BotPack from "$lib/base/BotPack.svelte";
 	<h2 class="best-bots">Find the best bots for your servers!</h2>
 </section>
 
-<SearchBar type={targetType} query={query}></SearchBar>
+<SearchBar type={targetType} query={query} gc_from={gc_from} gc_to={gc_to}></SearchBar>
 {#if targetType == "bot" || targetType == "server"}
 	<Tag targetType={targetType} tags={data.tags[targetType+"s"]}></Tag>
 {/if}
