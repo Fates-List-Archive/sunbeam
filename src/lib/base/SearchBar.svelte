@@ -15,31 +15,46 @@ import FormInput from "./FormInput.svelte";
 	}
 </script>
 <form id="search" method="GET" action="/frostpaw/search">
-	<input type="hidden" name="target_type" value="{type}" />
-	<input type="text" on:keyup={keyHandle} class="form-control fform search" placeholder="Search for {type}s (ENTER to search)" name="q" value="{query}" aria-label="Search for something.." style="width: 90%">
-	<div id="filters">
-		<details>
-			<summary>Search Filters</summary>
-			<h4>Filter by server count</h4>
-			<FormInput onkeyup={keyHandle} id="gc_from" name="From:" placeholder="From..." type="number" data={gc_from} />
-			<FormInput onkeyup={keyHandle} id="gc_to" name="To:" placeholder="To..." type="number" data={gc_to} />
+	<div class="search">
+		<input type="hidden" name="target_type" value="{type}" />
+		<input type="text" on:keyup={keyHandle} class="form-control fform search" placeholder="Search for {type}s (ENTER to search)" name="q" value="{query}" aria-label="Search for something.." style="width: 90%">
+		<details class="filters">
+			<summary>Advanced Search Options</summary>
+			<h3>Server Count Filter</h3>
+			<FormInput formclass="filter-inp filter-inp-left" onkeyup={keyHandle} id="gc_from" name="From:" placeholder="From..." type="number" data={gc_from} />
+			<FormInput formclass="filter-inp filter-inp-right" onkeyup={keyHandle} id="gc_to" name="To:" placeholder="To... (-1 means no limit)" type="number" data={gc_to} />
 		</details>
 	</div>
 </form>
 <style lang="scss">
     .search {
 	    display: block;
-	    width: 37%;
-	    font-size: 20px;
 	    padding: 12px !important;
-        margin-top: 50px !important;
-	    margin-bottom: 20px !important;
+		margin-top: 3px;
     }
 
-	#filters {
+	.filters {
+		max-width: 94%;
+		margin: 0 auto;
 		color: white;
-		width: 90% !important;
-		margin-left: 10px;
-		padding: 3px !important;
+	}
+
+	:global(.filter-inp) {
+		min-width: 45% !important;
+		max-width: 45% !important;
+		display: inline-block !important;
+		white-space: nowrap;
+		overflow-x: nowrap;
+	}
+
+	@media only screen and (min-width: 763px) {
+		:global(.filter-inp-left) {
+			margin-right: 65px;
+		}
+	}
+	@media only screen and (max-width: 763px) {
+		:global(.filter-inp-left) {
+			margin-right: 20px;
+		}
 	}
 </style>

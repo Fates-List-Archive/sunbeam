@@ -6,6 +6,7 @@ import { browser } from "$app/env";
     export let id: string
     export let name: string
     export let type: string = "text"
+    export let formclass = "form-inp";
     export let placeholder: string;
     export let data: any = "";
     export let textarea: boolean = false;
@@ -18,32 +19,34 @@ import { browser } from "$app/env";
  
     $inputstore.push({id: id, required: required})
 </script>
-<label for="{id}">{name}{#if required}<RedStar></RedStar>{/if}</label><br/>
-{#if !textarea}
-    <input 
-        name={id}
-        id={id}
-        value={data || ""}
-        class="fform" 
-        placeholder={placeholder}
-        type={type}
-        aria-required={required}
-        required={required}
-        on:change={onchange}
-        on:input={oninput}
-        on:keyup={onkeyup}
-    /><br>
-{:else}
-    <textarea
-        name={id}
-        id={id}
-        class="fform"
-        placeholder={placeholder}
-        type={type}
-        aria-required={required}
-        required={required}
-        on:change={onchange}
-        on:input={oninput}
-        on:keyup={onkeyup}
-    >{data || ""}</textarea><br/>
-{/if}
+<div class={formclass}>
+    <label for="{id}">{name}{#if required}<RedStar></RedStar>{/if}</label><br/>
+    {#if !textarea}
+        <input 
+            name={id}
+            id={id}
+            value={data || ""}
+            class="fform"  
+            placeholder={placeholder}
+            type={type}
+            aria-required={required}
+            required={required}
+            on:change={onchange}
+            on:input={oninput}
+            on:keyup={onkeyup}
+        /><br>
+    {:else}
+        <textarea
+            name={id}
+            id={id}
+            class="fform" 
+            placeholder={placeholder}
+            type={type}
+            aria-required={required}
+            required={required}
+            on:change={onchange}
+            on:input={oninput}
+            on:keyup={onkeyup}
+        >{data || ""}</textarea><br/>
+    {/if}
+</div>

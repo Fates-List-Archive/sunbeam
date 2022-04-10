@@ -265,3 +265,14 @@ select {
 	opacity: 1 !important;
 	font-size: 10px;
 }
+
+
+// CSS Reset Fix
+details summary { 
+	cursor: pointer;
+}
+  
+details summary > * {
+	display: inline;
+}
+  
