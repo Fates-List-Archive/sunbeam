@@ -90,5 +90,6 @@
         border: black solid 1px !important;
         margin-top: 3px;
         padding: 10px;
+        border-radius: 5px;
     }
   </style>
