@@ -5,7 +5,7 @@
 	export async function load({ url, session, fetch }) {
 		let search = {
 			query: url.searchParams.get("q"),
-			targetType: url.searchParams.get("target_type"),
+			targetType: url.searchParams.get("f"), // f stands for first display
 			gc_from: parseInt(url.searchParams.get("gc_from")) || 0,
 			gc_to: parseInt(url.searchParams.get("gc_to")) || -1
 		}

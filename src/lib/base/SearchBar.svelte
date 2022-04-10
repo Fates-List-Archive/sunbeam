@@ -16,7 +16,7 @@ import FormInput from "./FormInput.svelte";
 </script>
 <form id="search" method="GET" action="/frostpaw/search">
 	<div class="search">
-		<input type="hidden" name="target_type" value="{type}" />
+		<input type="hidden" name="f" value="{type}" />
 		<input type="text" on:keyup={keyHandle} class="form-control fform search" placeholder="Search for {type}s (ENTER to search)" name="q" value="{query}" aria-label="Search for something.." style="width: 90%">
 		<details class="filters">
 			<summary>Advanced Search Options</summary>
