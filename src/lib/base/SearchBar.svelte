@@ -21,8 +21,8 @@ import FormInput from "./FormInput.svelte";
 		<details class="filters">
 			<summary>Advanced Search Options</summary>
 			<h3>Server Count Filter</h3>
-			<FormInput formclass="filter-inp filter-inp-left" onkeyup={keyHandle} id="gc_from" name="From:" placeholder="From..." type="number" data={gc_from} />
-			<FormInput formclass="filter-inp filter-inp-right" onkeyup={keyHandle} id="gc_to" name="To:" placeholder="To... (-1 means no limit)" type="number" data={gc_to} />
+			<FormInput formclass="filter-inp filter-inp-left" onkeyup={keyHandle} id="gcf" name="From:" placeholder="From..." type="number" data={gc_from} />
+			<FormInput formclass="filter-inp filter-inp-right" onkeyup={keyHandle} id="gct" name="To:" placeholder="To... (-1 means no limit)" type="number" data={gc_to} />
 		</details>
 	</div>
 </form>

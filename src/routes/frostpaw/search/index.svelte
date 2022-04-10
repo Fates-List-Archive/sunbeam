@@ -6,8 +6,8 @@
 		let search = {
 			query: url.searchParams.get("q"),
 			targetType: url.searchParams.get("f"), // f stands for first display
-			gc_from: parseInt(url.searchParams.get("gc_from")) || 0,
-			gc_to: parseInt(url.searchParams.get("gc_to")) || -1
+			gc_from: parseInt(url.searchParams.get("gcf")) || 0,
+			gc_to: parseInt(url.searchParams.get("gct")) || -1
 		}
 
 		const res = await fetchFates(`/search?q=${search.query}&gc_from=${search.gc_from}&gc_to=${search.gc_to}`, "", fetch, false, true);
