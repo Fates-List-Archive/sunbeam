@@ -60,13 +60,11 @@ import BotPack from "$lib/base/BotPack.svelte";
 </section>
 
 <SearchBar type={targetType} query={query} gc_from={gc_from} gc_to={gc_to}></SearchBar>
-{#if targetType == "bot" || targetType == "server"}
-	<Tag targetType={targetType} tags={data.tags[targetType+"s"]}></Tag>
-{/if}
 
-<!--Ordering-->
+<!--First Display-->
 {#if targetType == "bot"}
 	<Section title="Bots" icon="fa-solid:search" id="search-res-bots">
+		<Tag targetType={targetType} tags={data.tags.bots}></Tag>
 		<CardContainer>
 			{#each data.bots as bot}
 				<BotCard data={bot} type="bot" rand={false}/>
@@ -81,22 +79,73 @@ import BotPack from "$lib/base/BotPack.svelte";
 	</Section>
 
 	<Section title="Servers" icon="fa-solid:search" id="search-res-servers">
+		<Tag targetType={targetType} tags={data.tags.servers}></Tag>
 		<CardContainer>
 			{#each data.servers as server}
 				<BotCard data={server} type="server" rand={false}/>
 			{/each}
 		</CardContainer>
 	</Section>
-{:else}	
+
+	<Section title="Profiles" icon="fa-solid:search" id="search-res-profiles">
+		<CardContainer>
+			{#each data.profiles as profile}
+				<BotCard data={profile} type="profile" rand={false}/>
+			{/each}
+		</CardContainer>
+	</Section>	
+{:else if targetType == "pack"}
+	<Section title="Bot Packs" icon="bx:bx-package" id="search-res-packs">
+		{#each data.packs as pack}
+			<BotPack pack={pack}></BotPack>
+		{/each}
+	</Section>
+
+	<Section title="Bots" icon="fa-solid:search" id="search-res-bots">
+		<Tag targetType={targetType} tags={data.tags.bots}></Tag>
+		<CardContainer>
+			{#each data.bots as bot}
+				<BotCard data={bot} type="bot" rand={false}/>
+			{/each}
+		</CardContainer>
+	</Section>
+
 	<Section title="Servers" icon="fa-solid:search" id="search-res-servers">
+		<Tag targetType={targetType} tags={data.tags.servers}></Tag>
 		<CardContainer>
 			{#each data.servers as server}
 				<BotCard data={server} type="server" rand={false}/>
+			{/each}
+		</CardContainer>
+	</Section>
+
+	<Section title="Profiles" icon="fa-solid:search" id="search-res-profiles">
+		<CardContainer>
+			{#each data.profiles as profile}
+				<BotCard data={profile} type="profile" rand={false}/>
+			{/each}
+		</CardContainer>
+	</Section>	
+{:else if targetType == "server"}
+	<Section title="Servers" icon="fa-solid:search" id="search-res-servers">
+		<Tag targetType={targetType} tags={data.tags.servers}></Tag>
+		<CardContainer>
+			{#each data.servers as server}
+				<BotCard data={server} type="server" rand={false}/>
+			{/each}
+		</CardContainer>
+	</Section>
+
+	<Section title="Profiles" icon="fa-solid:search" id="search-res-profiles">
+		<CardContainer>
+			{#each data.profiles as profile}
+				<BotCard data={profile} type="profile" rand={false}/>
 			{/each}
 		</CardContainer>
 	</Section>
 
 	<Section title="Bots" icon="fa-solid:search" id="search-res-bots">
+		<Tag targetType={targetType} tags={data.tags.bots}></Tag>
 		<CardContainer>
 			{#each data.bots as bot}
 				<BotCard data={bot} type="bot" rand={false}/>
@@ -109,15 +158,39 @@ import BotPack from "$lib/base/BotPack.svelte";
 			<BotPack pack={pack}></BotPack>
 		{/each}
 	</Section>
-{/if}
+{:else}
+	<Section title="Profiles" icon="fa-solid:search" id="search-res-profiles">
+		<CardContainer>
+			{#each data.profiles as profile}
+				<BotCard data={profile} type="profile" rand={false}/>
+			{/each}
+		</CardContainer>
+	</Section>
 
-<Section title="Profiles" icon="fa-solid:search" id="search-res-profiles">
-	<CardContainer>
-		{#each data.profiles as profile}
-			<BotCard data={profile} type="profile" rand={false}/>
+	<Section title="Servers" icon="fa-solid:search" id="search-res-servers">
+		<Tag targetType={targetType} tags={data.tags.servers}></Tag>
+		<CardContainer>
+			{#each data.servers as server}
+				<BotCard data={server} type="server" rand={false}/>
+			{/each}
+		</CardContainer>
+	</Section>
+
+	<Section title="Bot Packs" icon="bx:bx-package" id="search-res-packs">
+		{#each data.packs as pack}
+			<BotPack pack={pack}></BotPack>
 		{/each}
-	</CardContainer>
-</Section>
+	</Section>
+
+	<Section title="Bots" icon="fa-solid:search" id="search-res-bots">
+		<Tag targetType={targetType} tags={data.tags.bots}></Tag>
+		<CardContainer>
+			{#each data.bots as bot}
+				<BotCard data={bot} type="bot" rand={false}/>
+			{/each}
+		</CardContainer>
+	</Section>
+{/if}
 
 <style lang="scss">
 	h1 {
