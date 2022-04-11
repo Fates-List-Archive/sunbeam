@@ -103,7 +103,8 @@ import { apiUrl, nextUrl } from "$lib/config";
 
     async function updateProfile() {
         let payload = {
-            "description": (document.querySelector("#description") as HTMLInputElement).value,
+	    "description": (document.querySelector("#description") as HTMLInputElement).value,
+	    "description_raw": "", // Uneeded by API
             "profile_css": (document.querySelector("#profile-css") as HTMLInputElement).value,
             "user_css": (document.querySelector("#user-css") as HTMLInputElement).value,
             "site_lang":(document.querySelector("#site-lang") as HTMLInputElement).value,
