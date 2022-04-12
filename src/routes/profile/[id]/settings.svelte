@@ -83,19 +83,19 @@ import { apiUrl, nextUrl } from "$lib/config";
             headers: headers
         })
         if(res.ok) {
-            alert("Regenerated token, you will need to login again")
-            fetch(`${apiUrl}/api/v2/logout/_sunbeam`, {
-                method: "POST",
+	    alert("Regenerated token, you will need to login again")
+            fetch(`${nextUrl}/oauth2`, {
+            	method: "DELETE",
                 credentials: "include",
                 headers: {
-                    'Content-Type': 'application/json', 
-                    "Frostpaw": "0.1.0", 
-                }
-			})
-			.then(res => res.json())
-			.then(json => {
-				window.location.href = "/"
-			})
+          		'Content-Type': 'application/json',
+                      	"Frostpaw": "0.1.0",
+               	}
+            })
+            .then(res => res.json())
+            .then(json => {
+           	window.location.reload() // Only place its really needed
+            })
         } else {
             alert(`Error during token regeneration: ${res.status}`)
         }
