@@ -4,9 +4,34 @@
     import type { FLTags } from "$lib/apiTypes"
     export let tags: FLTags;
     export let targetType: string;
+    export let modWidth: boolean = true; // Whether to set width to 90% or not, needed in bot pages to make showing tags look decent
+
+    // Add first maxTags to initial render view
+    let maxTags = 5
+
+    let tagsToDisplay = tags.slice(0, maxTags)
+
+    let showingAllTags = false
+
+    function showAllTags() {
+        if(showingAllTags) {
+            showingAllTags = false
+            tagsToDisplay = tags.slice(0, maxTags)
+        } else {
+            showingAllTags = true;
+            tagsToDisplay = tags
+        }
+    }
+
+    let classList = "tag-container";
+
+    if(modWidth) {
+        classList += " width-90"
+    }
+
 </script>
-<div class="tag-container">
-    {#each tags as tag}
+<div class={classList}>
+    {#each tagsToDisplay as tag}
         <span>
             <Button id="tags-{tag.id}" class="tag-item" href="/frostpaw/search/tags?tag={tag.id}&target_type={targetType}" title="{tag.name}" touch variant="outlined">
                 <Icon class="white tag-icon" icon="{tag.iconify_data}" inline={false} aria-hidden="true"></Icon>
@@ -14,6 +39,11 @@
             </Button>
         </span>
     {/each}
+    {#if !showingAllTags}
+        <Button class="show-all" on:click={showAllTags} touch variant="outlined">+ {tags.length - maxTags}</Button>
+    {:else}
+        <Button class="show-all" on:click={showAllTags} touch variant="outlined">hide</Button>
+    {/if}
 </div>
 
 <style lang="scss">
@@ -24,6 +54,10 @@
 
     span {
         font-size: 13px;
+    }
+
+    .width-90 {
+        width: 90%;
     }
 
     :global(.tag-item) {
@@ -40,15 +74,16 @@
     }
 
     .tag-container {
-        height: 100%;
-        width: 90%;
         margin-left: auto;
         margin-right: auto;
-        overflow-x: scroll;
-        overflow-y: hidden;
-        white-space: nowrap;
         line-height: 13px;
         margin-top: 5px;
+    }
+
+    :global(.show-all) {
+        border: none !important;
+        background-color: white !important;
+        color: black !important
     }
 
 </style>

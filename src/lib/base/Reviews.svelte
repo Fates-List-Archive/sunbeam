@@ -240,7 +240,7 @@ import { apiUrl, nextUrl } from "$lib/config";
                 </div>
             {/if}
         </div>
-    <div style="margin-left: 17px">
+    <div style="margin-left: 19px">
         {#each review.replies as review, index}
             <svelte:self review={review} index={index} reply={true} targetId={targetId} targetType={targetType} edittable={edittable}></svelte:self>
         {/each}

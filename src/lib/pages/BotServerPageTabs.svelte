@@ -451,6 +451,10 @@
                         <h2>Owners</h2>
                         <Icon icon="mdi-crown" inline={false} height="1.2em" style="margin-right: 1px"></Icon>
 						{@html data.owners_html}
+
+						<h2>Tags</h2>
+						<Tag targetType={type} tags={data.tags} modWidth={false}></Tag>
+
 						<h2>Uptime</h2>
 						<p>Uptime Checks (Total): {data.uptime_checks_total}</p>
 						<p>Uptime Checks (Failed): {data.uptime_checks_failed}</p>
@@ -508,6 +512,8 @@
     import { marked } from 'marked'; 
     import { session } from '$app/stores';
     import Tab from '$lib/base/Tab.svelte';
+	import Tag from '$lib/base/Tag.svelte'
+
 import Reviews from '$lib/base/Reviews.svelte';
 import loadstore from '$lib/loadstore';
 import navigationState from '$lib/navigationState';
