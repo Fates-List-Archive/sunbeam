@@ -308,7 +308,7 @@ import { apiUrl, nextUrl } from "$lib/config";
             class="form-control fform text-input" 
             style="width: 100%"
             placeholder="Enter a description for your profile here"
-        >{data.description}</textarea>
+        >{data.description_raw}</textarea>
     </section>
     <section id="actions-tab" class='tabcontent tabdesign'>
     </section>
