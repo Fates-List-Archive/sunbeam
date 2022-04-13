@@ -222,7 +222,7 @@ import alertstore from "$lib/alertstore";
                     "username": "",
                     "disc": "",
                     "avatar": "",
-                    "status": 0,
+                    "status": "Unknown",
                     "bot": false,
                 },
                 "main": true
