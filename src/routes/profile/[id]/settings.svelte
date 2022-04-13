@@ -292,12 +292,14 @@ import { apiUrl, nextUrl } from "$lib/config";
             <SelectOption value="hi" masterValue={data.site_lang}>Hindi</SelectOption>
             <SelectOption value="ru" masterValue={data.site_lang}>Russian</SelectOption>
         </select>
-        <label for="vote-reminder-channel">Vote Reminders Channel</label>
+        <label for="vote-reminder-channel">Vote Reminders Channel (set using /vrchannel in Squirrelflight)</label>
         <input 
             name="vote-reminder-channel"
             id="vote-reminder-channel"
             class="fform"
-            placeholder="Enter the channel ID here"
+	    placeholder="Set using vrchannel command in Squirrelflight"
+	    disabled
+	    tabindex="-1"
             value={data.vote_reminder_channel}
             style="width: 100%"
         />
