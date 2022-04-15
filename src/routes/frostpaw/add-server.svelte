@@ -14,7 +14,7 @@
 </ul>
 <script lang="ts">
 	import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
-	let serverBotInvite = "https://discord.com/api/oauth2/authorize?client_id=811073947382579200&permissions=67649&scope=bot%20applications.commands"
+	let serverBotInvite = "https://fateslist.xyz/squirrelflight/invite"
 </script>
 <style lang="scss">
 	ul {
