@@ -6,7 +6,7 @@
 >
 </BristlefrostMeta>
 <h1>Add Server</h1>
-<h2>To add your server, add <a href='{serverBotInvite}'>our bot</a> to your server.</h2>
+<h2>To add your server, add <a href='{serverBotInvite}'>our bot</a> to your server then run /set.</h2>
 <h3>Next steps</h3>
 <ul>
 	<li>Set a description (and a long description) otherwise it will be randomly generated!</li>
