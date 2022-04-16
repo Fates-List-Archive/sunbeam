@@ -205,7 +205,7 @@ import { apiUrl, nextUrl } from "$lib/config";
     }
 
     async function getOldRoles() {
-        let url = `${nextUrl}/profiles/${data.user.id}/roles`
+        let url = `${nextUrl}/profiles/${data.user.id}/old-roles`
         let headers = {"Authorization": $session.session.token}
         let res = await fetch(url, {
             method: "PUT",
