@@ -204,6 +204,40 @@ import { apiUrl, nextUrl } from "$lib/config";
         }
     }
 
+    async function getOldRoles() {
+        let url = `${nextUrl}/profiles/${data.user.id}/roles`
+        let headers = {"Authorization": $session.session.token}
+        let res = await fetch(url, {
+            method: "PUT",
+            headers: headers
+        })
+        if(res.ok) {
+            let json = await res.json()
+
+            let roles = []
+
+            if(json.bot_developer) {
+                roles.push("Bot Developer")
+            }
+            if(json.certified_developer) {
+                roles.push("Certified Developer")
+            }
+
+            let rolesList = document.querySelector("#new-roles") as HTMLUListElement
+            rolesList.innerHTML = "Roles gotten"
+            roles.forEach(role => {
+                let li = document.createElement("li")
+                li.textContent = role
+                rolesList.appendChild(li)
+            })
+
+            document.querySelector("#gor-btn").remove()
+        } else {
+            let json = await res.json()
+            alert(json.reason)
+        }
+    }
+
     // Sigh svelte
     let placeholderUserCss = "Warning: Fates List is not responsible for any issues due to your custom user CSS. To use javascript in custom css, put your JS in a LT/styleGTLTscriptGTYOUR JS HERELT/scriptGTLTstyleGT tag"
 </script>
@@ -217,6 +251,12 @@ import { apiUrl, nextUrl } from "$lib/config";
 	    <pre id="user-token-field">{userToken}</pre>
             <Button href={"#"} on:click={showUserToken} class="button" id="user-token-show-btn" touch variant="outlined">Show</Button>
             <Button href={"#"} on:click={regenUserToken} class="button" id="user-token-regen-btn" touch variant="outlined">Regenerate</Button>
+        
+        <h2>Get Old Roles</h2>
+            <p>Just joined our support server and need to get your roles (Bot Developer, Certified Developer). Click here</p>
+            <div id="new-roles"></div>
+            <Button href={"#"} on:click={getOldRoles} class="button" id="gor-btn" touch variant="outlined">Get Old Roles</Button>
+
         <h2>Your Packs</h2>
             {#each data.packs as pack}
                 <p>Pack ID: <span class="opaque">{pack.id}</span></p>
