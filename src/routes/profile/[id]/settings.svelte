@@ -290,7 +290,7 @@ import SelectOptionMulti from "$lib/base/SelectOptionMulti.svelte";
         {#if availableRoleInfo}
             <h2>Get Support Server Roles</h2>
             {#if availableRoleInfo.user_roles}
-                <p>You currently have the following roles on our support serve:</p>
+                <p>You currently have the following roles on our support server:</p>
                 <ul>
                     {#each availableRoleInfo.user_roles as role}
                         <li>{getRole(role.id)}</li>
