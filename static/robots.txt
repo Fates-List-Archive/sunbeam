@@ -1,4 +1,3 @@
 User-agent: *
-Disallow: https://fateslist.xyz/frostpaw/tos
-Disallow: https://lynx.fateslist.xyz/*
+Disallow: /frostpaw/tos
 Sitemap: https://fateslist.xyz/sitemap.xml
