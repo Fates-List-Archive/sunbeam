@@ -18,24 +18,9 @@
 		if (res.ok) {
             let data = await res.json()
 
-            // Handle experiments
-            let availableRoleInfo = null
-            if(data.user_experiments.includes(enums.UserExperiments.GetRolesSelector)) {
-                availableRoleInfo = await fetchFates(`/profiles/${params.id}/server-roles`, session.session.token, fetch, false, true);
-
-                if(!availableRoleInfo.ok) {
-                    return {
-                        status: availableRoleInfo.status,
-                        error: new Error(availableRoleInfo.reason)
-                    }
-                }
-                availableRoleInfo = await availableRoleInfo.json()
-            }
-
 			return {
 				props: {
 					data: data,
-                    availableRoleInfo: availableRoleInfo
 				}
 			};
 		}
@@ -59,7 +44,6 @@ import MultiSelect from "$lib/base/MultiSelect.svelte";
 import SelectOptionMulti from "$lib/base/SelectOptionMulti.svelte";
 
     export let data: any;
-    export let availableRoleInfo: any;
 
     let tabs = [{
         "name": "About",
@@ -260,17 +244,6 @@ import SelectOptionMulti from "$lib/base/SelectOptionMulti.svelte";
         }
     }
 
-    function getRole(id: string) {
-        // Given id, return the name from roles
-        let bestRole = id
-        availableRoleInfo.roles.forEach(role => {
-            if(role.id == id) {
-                bestRole = role.name
-            }
-        })
-        return bestRole;
-    }
-
     // Sigh svelte
     let placeholderUserCss = "Warning: Fates List is not responsible for any issues due to your custom user CSS. To use javascript in custom css, put your JS in a LT/styleGTLTscriptGTYOUR JS HERELT/scriptGTLTstyleGT tag"
 
@@ -287,23 +260,6 @@ import SelectOptionMulti from "$lib/base/SelectOptionMulti.svelte";
             <Button href={"#"} on:click={showUserToken} class="button" id="user-token-show-btn" touch variant="outlined">Show</Button>
             <Button href={"#"} on:click={regenUserToken} class="button" id="user-token-regen-btn" touch variant="outlined">Regenerate</Button>
         
-        {#if availableRoleInfo}
-            <h2>Get Support Server Roles</h2>
-            {#if availableRoleInfo.user_roles}
-                <p>You currently have the following roles on our support server:</p>
-                <ul>
-                    {#each availableRoleInfo.user_roles as role}
-                        <li>{getRole(role.id)}</li>
-                    {/each}
-                </ul>
-            {/if}
-
-            <MultiSelect initialValues={[]} id="get-roles" bind:value={roles}>
-                {#each availableRoleInfo.roles as role}
-                    <SelectOptionMulti value={role.id} valueList={[]} alwaysOff={true}>{role.name}</SelectOptionMulti>
-                {/each}
-            </MultiSelect>    
-        {/if}
 
         <h2>Get Old Roles</h2>
             <p>Just joined our support server and need to get your roles (Bot Developer, Certified Developer). Click here</p>
