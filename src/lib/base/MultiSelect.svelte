@@ -147,7 +147,7 @@
       white-space: nowrap;
     }
     .token:hover {
-      background-color: hsl(214, 15%, 88%);
+      background-color: hsl(214, 15%, 55%);
     }
     .readonly .token {
       color: hsl(0, 0%, 40%);
@@ -223,7 +223,7 @@
       border-bottom-right-radius: .2rem;
     }
     li:not(.selected):hover {
-      background-color: hsl(214, 17%, 92%);
+      background-color: hsl(215, 21%, 43%);
     }
     li.selected {
       background-color: hsl(232, 54%, 41%);

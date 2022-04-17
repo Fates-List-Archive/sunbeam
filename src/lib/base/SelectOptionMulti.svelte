@@ -1,6 +1,7 @@
 <script lang="ts">
     export let value: string;
     export let valueList: string[];
+    export let alwaysOff: boolean = false;
     let inList = false
     try {
         valueList.forEach(k => {
@@ -10,6 +11,10 @@
         })
     }
     catch(err) {
+        inList = false
+    }
+
+    if(alwaysOff) {
         inList = false
     }
 </script>
