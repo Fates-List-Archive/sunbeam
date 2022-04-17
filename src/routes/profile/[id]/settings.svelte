@@ -274,7 +274,7 @@ import AuditLogs from "$lib/base/AuditLogs.svelte";
             <p>Don't worry about this if you don't know what it is!</p>
             <ul>
                 {#each data.user_experiments as exp}
-                    <li>{enums.UserExperiments[exp]} ({exp})</li>
+                    <li>{enums.UserExperiments[exp] || enums.UserExperiments[0]} ({exp})</li>
                 {/each}
             </ul>
     </section>
