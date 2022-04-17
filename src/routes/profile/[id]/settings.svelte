@@ -298,9 +298,9 @@ import SelectOptionMulti from "$lib/base/SelectOptionMulti.svelte";
                 </ul>
             {/if}
 
-            <MultiSelect initialValues={availableRoleInfo.roles.map(el => el.id)} id="get-roles" bind:value={roles}>
+            <MultiSelect initialValues={[]} id="get-roles" bind:value={roles}>
                 {#each availableRoleInfo.roles as role}
-                    <SelectOptionMulti value={role.id} valueList={availableRoleInfo.user_roles.map(el => el.id)} alwaysOff={true}>{role.name}</SelectOptionMulti>
+                    <SelectOptionMulti value={role.id} valueList={[]} alwaysOff={true}>{role.name}</SelectOptionMulti>
                 {/each}
             </MultiSelect>    
         {/if}
