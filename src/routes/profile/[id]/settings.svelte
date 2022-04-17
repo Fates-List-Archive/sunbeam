@@ -40,6 +40,7 @@
 import Tip from '$lib/base/Tip.svelte';
 import BotPack from '$lib/base/BotPack.svelte';
 import { apiUrl, nextUrl } from "$lib/config";
+import AuditLogs from "$lib/base/AuditLogs.svelte";
     let tabs = [{
         "name": "About",
         "id": "about"    
@@ -64,6 +65,7 @@ import { apiUrl, nextUrl } from "$lib/config";
             userToken = $session.session.token
             alert("Warning: Do not share this with anyone")
             firstTimeShowedWarning = true
+            b.textContent = "Hide"
             return
         }
         if(b.textContent == "Show") {
@@ -117,8 +119,8 @@ import { apiUrl, nextUrl } from "$lib/config";
                 "id": data.user.id,
                 "username": "",
                 "disc": "",
-		"avatar": "",
-		"status": "Unknown",
+		        "avatar": "",
+		        "status": "Unknown",
                 "bot": false,
             }
         }
@@ -267,7 +269,14 @@ import { apiUrl, nextUrl } from "$lib/config";
             {/each}
         <h2>Profile Info</h2>
             <p>Profile State: {enums.UserState[data.state]} ({data.state})</p>
-            <p>Bot Logs: {JSON.stringify(data.action_logs)}</p>
+            <AuditLogs logs={data.action_logs}></AuditLogs>
+        <h2>User Experiments</h2>
+            <p>Don't worry about this if you don't know what it is!</p>
+            <ul>
+                {#each data.user_experiments as exp}
+                    <li>{enums.UserExperiments[exp]} ({exp})</li>
+                {/each}
+            </ul>
     </section>
     <section id="actions-tab" class='tabcontent tabdesign'>
         <h2>Create Bot Packs</h2>

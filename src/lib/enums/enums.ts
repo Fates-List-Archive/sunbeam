@@ -19,6 +19,14 @@ enum UserState {
     api_ban = 4 // Unused
 }
 
+// This only covers site-supported user experiments
+enum UserExperiments {
+    Unknown = 0,
+    GetRolesSelector = 1,
+    LynxExperimentRolloutView = 2,
+    BotReport = 3,
+}
+
 enum UserBotAction {
     approve = 0,
     deny = 1,
@@ -68,6 +76,7 @@ export let enums = {
     ReviewType: ReviewType,
     PageStyle: PageStyle,
     Flags: Flag,
+    UserExperiments: UserExperiments,
     LongDescType: {
 	    html:                0,
 	    markdown_pymarkdown: 1,
