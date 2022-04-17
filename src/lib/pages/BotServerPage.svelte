@@ -279,20 +279,11 @@
                 {/if}
                 {#if data.privacy_policy}
 			    <Button href="{data.privacy_policy}" id="buttons-privacy" class="buttons-all auxillary" touch variant="outlined">
-				    <span class="mobile-small">Privacy Policy</span>
+				    <span class="mobile-small">Privacy</span>
 			    </Button>
                 {:else}
 			    <Button class="buttons-all disabled auxillary" id="buttons-privacy" touch variant="outlined" disabled>
-				    <span>Privacy Policy</span>
-			    </Button>
-                {/if}
-                {#if data.github}
-			    <Button href="{data.github}" id="buttons-github" class="buttons-all auxillary" touch variant="outlined">
-				    <span>Github</span>
-			    </Button>
-                {:else}
-			    <Button class="buttons-all disabled auxillary" id="buttons-github" touch variant="outlined" disabled>
-				    <span>Github</span>
+				    <span>Privacy</span>
 			    </Button>
                 {/if}
                 {#if data.donate}
@@ -304,17 +295,24 @@
 				    <span>Donate</span>
 			    </Button>
                 {/if}
-		{#if type == "bot"}
-			<Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all auxillary" touch variant="outlined">
-			    <span>Settings</span>
-			</Button>
-		{:else}
-			<Button class="buttons-all disabled auxillary" id="buttons-settings" touch variant="outlined" disabled>
-				<span>Settings</span>
-			</Button>
-		{/if}
-    </div>
-    <Tab>
+				{#if $session.session.token && $session.session.user_experiments.includes(enums.UserExperiments.BotReport)}
+					<Button on:click={() => {
+						$alertstore = reportView($session.session.user.id, $session.session.token, data.user.id, type)
+					}} id="buttons-report" class="buttons-all" touch variant="outlined">
+				    <span>Report</span>
+			    </Button>
+				{/if}
+				{#if type == "bot"}
+					<Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all auxillary" touch variant="outlined">
+						<span>Settings</span>
+					</Button>
+				{:else}
+					<Button class="buttons-all disabled auxillary" id="buttons-settings" touch variant="outlined" disabled>
+						<span>Settings</span>
+					</Button>
+				{/if}
+    		</div>
+    	<Tab>
 		<section id="long-description-real" class="tabs-v2 prose prose-zinc dark:prose-invert">
 			{@html data.long_description}
 		</section>
@@ -467,6 +465,9 @@
                         <Icon icon="mdi-crown" inline={false} height="1.2em" style="margin-right: 1px"></Icon>
 						{@html data.owners_html}
 
+						<h2>Admin Actions</h2>
+						<a href="/bot/{data.user.id}/settings">Settings</a>
+
 						<h2>Tags</h2>
 						<Tag targetType={type} tags={data.tags} modWidth={false}></Tag>
 
@@ -502,9 +503,6 @@
                         <p>Added to the list on: {data.created_at}</p>
                         <p>Bot Flags: {data.flags}</p>
 
-						<h2>Admin Actions</h2>
-						<a href="/bot/{data.user.id}/settings">Settings</a>
-
 						<AuditLogs logs={data.action_logs}></AuditLogs>
                     {/if}
                 </section>
@@ -522,7 +520,7 @@
     import Button from '@smui/button';
     import { enums } from '../enums/enums';
     import { browser } from "$app/env";
-    import { voteHandler, loginUser, addReviewHandler } from '$lib/request';
+    import { voteHandler, loginUser, addReviewHandler, reportView } from '$lib/request';
     import { session } from '$app/stores';
     import Tab from '$lib/base/TabV2.svelte';
 	import Tag from '$lib/base/Tag.svelte'
@@ -536,6 +534,7 @@ import alertstore from '$lib/alertstore';
     export let type: string;
 	let reviewPage = 1
 	let reviews: any = {}
+
 	function fade(element) {
     	var op = 1;  // initial opacity
     	var timer = setInterval(function () {
@@ -575,10 +574,6 @@ import alertstore from '$lib/alertstore';
         return str.replaceAll("_", " ").replace(/(^|\s)\S/g, function(t) { return t.toUpperCase() });
     }
     async function voteBot() {
-		if(type == "server") {
-			alert("To vote for a server, type /vote in the server.")
-			return
-		}
         let token = $session.session.token
         let userID = ""
         if(token) {
@@ -586,7 +581,7 @@ import alertstore from '$lib/alertstore';
         }
 		$loadstore = "Voting..."
     	$navigationState = 'loading';
-        let res = await voteHandler(userID, token, data.user.id, false)
+        let res = await voteHandler(userID, token, data.user.id, false, type)
 		let jsonDat = await res.json()
 		if(res.ok) {
 			$alertstore = {
@@ -637,7 +632,7 @@ import alertstore from '$lib/alertstore';
     if(browser) {
         getReviewPage(1)
     }
-    const onload = (_: any) => {
+    const onload = (..._) => {
         getReviewPage(1)
     }
     if(data.shards !== undefined && data.shards.length < 1) {
@@ -684,7 +679,7 @@ function parseState(v) {
 		state = "Without a doubt, perfect"
 	return state
 }
-	const onload2 = () => {
+	const onload2 = (..._) => {
 		if(!browser) {
 			return
 		}

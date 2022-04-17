@@ -67,7 +67,7 @@ export async function loginUser(noSetStorage: boolean) {
 	window.location.href = json.context
 }
 
-export async function voteHandler(userID: string, token: string, botID: string, test: boolean) {
+export async function voteHandler(userID: string, token: string, botID: string, test: boolean, type: string) {
     if(!browser) {
         return
     }
@@ -75,7 +75,7 @@ export async function voteHandler(userID: string, token: string, botID: string, 
 		await loginUser(false)
 		return
 	}
-    let res = await fetch(`${nextUrl}/users/${userID}/bots/${botID}/votes?test=${test}`, {
+    let res = await fetch(`${nextUrl}/users/${userID}/${type}s/${botID}/votes?test=${test}`, {
         method: "PATCH",
         headers: {
             'Content-Type': 'application/json', 
@@ -149,4 +149,47 @@ export async function addReviewHandler(
     let err = await res.json()
     alert(err.reason)	
     return false;
+}
+
+export function reportView(userID: string, token: string, id: string, type: string) {
+    if(!browser) {
+        return
+    }
+
+    // Hook onto window sigh
+    window["report"] = async function() { 
+        let res = await fetch(`${nextUrl}/users/${userID}/${type}s/${id}/appeal`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Frostpaw": "0.1.0",
+                "Authorization": token
+            },
+            body: JSON.stringify({
+                request_type: 2, // 2 means report
+                appeal: (document.querySelector("#report-reason") as HTMLInputElement).value
+            })
+        })
+        if(res.ok) {
+            alert("Successfully reported this bot")
+        } else {
+            let err = await res.json()
+            alert(err.reason)
+        }
+    }
+
+    return {
+        show: true,
+        title: "Report This Bot",
+        message: `Oh, we're sorry you are having an issue with this ${type}. 
+        
+Before you report, have you tried contacting the owner of this ${type} if possible?
+
+If you still wish to report, type the reason for reporting this ${type} below. Reports are <em>not</em> automated by Fates List and as such may take time to process.
+
+<textarea id="report-reason" placeholder="Report Reason" style="width: 100% !important; height: 50px !important;"></textarea>
+<button class="block mx-auto" style="background-color:white!important;font-weight:bold!important" onclick="window.report()">Report</button>
+`,
+        id: "alert"
+    }
 }
