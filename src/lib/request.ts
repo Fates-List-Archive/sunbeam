@@ -174,7 +174,7 @@ export function reportView(userID: string, token: string, id: string, type: stri
             })
         })
         if(res.ok) {
-            alert("Successfully reported this bot")
+            alert(`Successfully reported this ${type}`)
         } else {
             let err = await res.json()
             alert(err.reason)
