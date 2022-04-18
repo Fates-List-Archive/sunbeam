@@ -117,20 +117,19 @@ export async function addReviewHandler(
             upvotes: [],
             downvotes: [],
             votes: []
+        },
+        user: {
+            id: user_id,
+            username: "",
+            avatar: "",
+            disc: "",
+            status: "Unknown",
+            bot: false
         }
     }
 
     if(review_id) {
         json.id = review_id
-    }
-
-    json.user = {
-        id: user_id,
-        username: "",
-        avatar: "",
-        disc: "",
-        status: "Unknown",
-        bot: false
     }
 
     let res = await fetch(`${nextUrl}/reviews/${target_id}?user_id=${user_id}&target_type=${targetType}`, {
@@ -149,6 +148,10 @@ export async function addReviewHandler(
     let err = await res.json()
     alert(err.reason)	
     return false;
+}
+
+function capitalize(a: string) {
+    return a[0].toUpperCase() + a.slice(1);
 }
 
 export function reportView(userID: string, token: string, id: string, type: string) {
@@ -180,7 +183,7 @@ export function reportView(userID: string, token: string, id: string, type: stri
 
     return {
         show: true,
-        title: "Report This Bot",
+        title: `Report This ${capitalize(type)}`,
         message: `Oh, we're sorry you are having an issue with this ${type}. 
         
 Before you report, have you tried contacting the owner of this ${type} if possible?
