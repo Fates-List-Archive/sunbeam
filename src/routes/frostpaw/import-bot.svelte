@@ -70,7 +70,12 @@ import loadstore from "$lib/loadstore";
         let botId = (document.querySelector("#bot_id") as HTMLInputElement).value
         let source = (document.querySelector("#source") as HTMLInputElement).value
         
-        let extQuery = ""
+        if(!botId) {
+            alert("Please enter a bot ID", "Whoa there!")
+            return
+        }
+
+        let extQuery = ""  
 
         if(source == "Custom") {
             // Custom import source
