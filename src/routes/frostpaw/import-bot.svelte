@@ -59,6 +59,9 @@ import loadstore from "$lib/loadstore";
 
     let saveTxt = "Import"
 
+    let importWarnSent = false
+    let extData = {};
+
     async function importBot() {
         saveTxt = `${saveTxt}ing`
 		$loadstore = "Importing..."
@@ -66,29 +69,90 @@ import loadstore from "$lib/loadstore";
 
         let botId = (document.querySelector("#bot_id") as HTMLInputElement).value
         let source = (document.querySelector("#source") as HTMLInputElement).value
+        
+        let extQuery = ""
 
-        let extData = {}
-    
-        if(source == "Topgg") {
-            // Top.gg has a shit API workaround
-            let topggData = await fetch(`https://top.gg/api/bots/${botId}`, {
-                "headers": {
-                    "Authorization": (document.querySelector("#topgg-api-token") as HTMLInputElement).value
-                }
-            })
-
-            if(topggData.status == 401) {
-                alert("Invalid Top.gg API token")
-                return
-            } else if(!topggData.ok) {
-                alert("Could not fetch bot data from top.gg")
+        if(source == "Custom") {
+            // Custom import source
+            let importURL = (document.querySelector("#import-url") as HTMLInputElement).value
+            if(!importURL.startsWith("https://")) {
+                alert("Custom import source must be a valid URL", "Whoa there!")
                 return
             }
 
-            extData = await topggData.json()
+            if(!importURL.includes("/api/") && !importWarnSent) {
+                importWarnSent = true
+                alert("This does not appear to be a proper API. Click 'Import' again if you're sure this is a proper API URL", "Whoa there!")
+                return
+            }
+
+            let data;
+
+            try {
+                data = await fetch(importURL, {
+                    "headers": {
+                        "Authorization": (document.querySelector("#api-token") as HTMLInputElement).value
+                    }
+                })
+            } catch (err) {
+                alert(`Could not connect to API: ${err}`, "Whoa there!")
+                return
+            }
+
+            if(data.status == 401) {
+                alert("Invalid API token? Import source returned 401", "Whoa there!")
+                return
+            } else if(!data.ok) {
+                alert("Invalid URL? Import source returned an error", "Whoa there!")
+                return
+            }
+
+            extData = await data.json()
+
+            if(!extData["owners"]) {
+                if(extData["additional_owners"]) {
+                    extData["owners"] = extData["additional_owners"]
+                } else {
+                    extData["owners"] = [$session.session.user.id]
+                }
+            }
+            if(!extData["description"]) {
+                // Attempt to find data
+                if(extData["shortdesc"]) {
+                    extData["description"] = extData["shortdesc"]
+                } else if(extData["desc"]) {
+                    extData["description"] = extData["desc"]
+                } else {
+                    // Last resort to try
+                    let key = Object.keys(extData).filter(k => k.includes('desc') && !k.includes("long"))
+                    if(key.length > 0) {
+                        extData["description"] = extData[key[0]]
+                    } else {
+                        alert("Seems like this source doesn't provide a proper description", "Whoa there!")
+                        return
+                    }
+                }
+            }
+
+            if(!extData["long_description"]) {
+                if(extData["longdesc"]) {
+                    extData["long_description"] = extData["longdesc"]
+                } else {
+                    // Last resort to try
+                    let key = Object.keys(extData).filter(k => k.includes('desc') && k.includes("long"))
+                    if(key.length > 0) {
+                        extData["long_description"] = extData[key[0]]
+                    } else {
+                        alert("Seems like this source doesn't provide a proper long description", "Whoa there!")
+                        return
+                    }
+                }
+            }
+
+            extQuery = `&custom_source=${importURL.replace("https://", "").split('/')[0]}`
         }
 
-        let res = await fetch(`${apiUrl}/users/${$session.session.user.id}/bots/${botId}/import?src=${source}`, {
+        let res = await fetch(`${apiUrl}/users/${$session.session.user.id}/bots/${botId}/import?src=${source}${extQuery}`, {
             method: "POST",
             headers: {
                 "Authorization": $session.session.token,
@@ -129,13 +193,29 @@ import loadstore from "$lib/loadstore";
             {/each}
         </select>
         <FormInput name="Bot ID (must be bot owner)" id="bot_id" type="number" placeholder="Bot ID here"/>
-        {#if source == "Topgg"}
-            <FormInput name="Top.gg bot token" id="topgg-api-token" type="text" placeholder="Top.gg API token"/>
+        {#if source == "Custom"}
             <Tip>
-                This is only shared with top.gg and is not stored on Fates List
+                You can always contact us over DMs if you wish to blacklist a URL from being imported to for any reason.<br/><br/>
+
+                This feature is provided so bot developers can easily add their bot to Fates List. It requires their explicit knowledge and permission.<br/><br/>
+
+                Most (good) bot lists will have a API you can directly specify for import URL and many also support CORS. Examples:<br/><br/> 
+                
+                <ul>
+                    <li><a href="https://docs.top.gg">https://docs.top.gg</a> (yet another good bot list for discord) [Import URL: https://top.gg/api/bots/BOT_ID_HERE with API Token of your bots token]</li>
+                </ul>
+            </Tip>
+            <FormInput name="Import URL" id="import-url" type="text" placeholder="URL to import your bot from"/>
+            <FormInput name="API token for import (if required)" id="api-token" type="text" placeholder="API token (if the source you use requires this, many do)"/>
+            <Tip>
+                This is only shared with the import source in question and is not stored on Fates List.<br/><br/>
+
+                Due to this being fully client side, the source you specify here must support CORS (you can disable CORS in a temporary browsing session using <code>--disable-web-security</code> on chrome etc. but this is highly not recommended). 
+                If you do not know whether or not you're source supports CORS or not, then just try and see if it errors.
             </Tip>        
         {/if}
         <Button on:click={() => importBot()} variant="outlined" class="button btn-save">{saveTxt}</Button>
+        <pre>Recieved data (for debugging): {JSON.stringify(extData)}</pre>
         <pre>{popUpMsg}</pre>
     </div>
 {:else}
