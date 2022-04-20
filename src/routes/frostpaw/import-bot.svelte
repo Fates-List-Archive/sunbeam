@@ -189,8 +189,14 @@ import loadstore from "$lib/loadstore";
     <Tip>
         This feature is still in beta!<br/><br/>
 
-        As this feature evolves, more bot lists to import from may be added!
-    </Tip>
+	As this feature evolves, more bot lists to import from may be added!<br/><br/>
+
+	All listed bot lists have given their express permission to be added to this system. Furthermore, by continuing, you confirm that you are the owner of the bot in question.<br/><br/>
+
+	All bot lists/import sources can request to be blacklisted from this feature and we will do so immediately. However as bot owners are the creator of the bot in question, we believe this to be fair use with permission to access the bot provided by the bots owners (who are the content creators). <br/><br/>
+
+	Servers cannot and will never be importable due to privacy concerns<br/><br/>
+    	</Tip>
         <label for="source">Import Source</label>
         <select name="source" id="source" bind:value={source}>
             {#each sources.sources as source}
