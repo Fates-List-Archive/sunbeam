@@ -181,6 +181,12 @@ import loadstore from "$lib/loadstore";
         }
     }
 
+    function topggAutofill() {
+	let botId = (document.querySelector("#bot_id") as HTMLInputElement).value;
+	document.querySelector("#import-url").value = `https://top.gg/api/bots/${botId}`
+	alert("Autofill done, now specify a top.gg API token under the API token column and you'll be ready to go!", "Success")
+    }
+
     let source: string;
 </script>
 {#if $session.session.token}
@@ -216,7 +222,8 @@ import loadstore from "$lib/loadstore";
                     <li><a href="https://docs.top.gg">https://docs.top.gg</a> (yet another good bot list for discord) [Import URL: https://top.gg/api/bots/BOT_ID_HERE with API Token of your bots token]</li>
                 </ul>
             </Tip>
-            <FormInput name="Import URL" id="import-url" type="text" placeholder="URL to import your bot from"/>
+	    <Button on:click={topggAutofill} variant="outlined" class="button btn-save">Import from top.gg</Button>
+	    <FormInput name="Import URL" id="import-url" type="text" placeholder="URL to import your bot from"/>
             <FormInput name="API token for import (if required)" id="api-token" type="text" placeholder="API token (if the source you use requires this, many do)"/>
             <Tip>
                 This is only shared with the import source in question and is not stored on Fates List.<br/><br/>
