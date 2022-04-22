@@ -42,6 +42,8 @@ import { apiUrl, nextUrl } from "$lib/config";
 import AuditLogs from "$lib/base/AuditLogs.svelte";
 import MultiSelect from "$lib/base/MultiSelect.svelte";
 import SelectOptionMulti from "$lib/base/SelectOptionMulti.svelte";
+import Checkbox from "$lib/base/Checkbox.svelte"
+
 
     export let data: any;
 
@@ -108,8 +110,14 @@ import SelectOptionMulti from "$lib/base/SelectOptionMulti.svelte";
     }
 
     async function updateProfile() {
+    	let flags = []
+	if(data.user_experiments.includes(enums.UserExperiments.VotePrivacy)) {
+		if(document.querySelector("#vote-privacy").checked) {
+			flags.push(enums.UserFlags.VotesPrivate)
+		}
+	}
 	let payload = {
-	    "flags": [], // This will soon change to allow for users to control aspects of their profile
+	    "flags": flags,
 	    "user_experiments": [],
 	    "description": (document.querySelector("#description") as HTMLInputElement).value,
 	    "description_raw": "", // Uneeded by API
@@ -349,7 +357,10 @@ import SelectOptionMulti from "$lib/base/SelectOptionMulti.svelte";
             <SelectOption value="fr" masterValue={data.site_lang}>French</SelectOption>
             <SelectOption value="hi" masterValue={data.site_lang}>Hindi</SelectOption>
             <SelectOption value="ru" masterValue={data.site_lang}>Russian</SelectOption>
-        </select>
+	</select>
+	{#if data.user_experiments.includes(enums.UserExperiments.VotePrivacy)}
+		<Checkbox id="vote-privacy" data={data.flags.includes(enums.UserFlags.VotesPrivate)}>Hide votes to other users</Checkbox>
+	{/if}
         <label for="vote-reminder-channel">Vote Reminders Channel (set using /vrchannel in Squirrelflight)</label>
         <input 
             name="vote-reminder-channel"

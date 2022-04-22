@@ -19,12 +19,19 @@ enum UserState {
     api_ban = 4 // Unused
 }
 
+enum UserFlags {
+    Unknown = 0,
+    VotesPrivate = 1,
+}
+
 // This only covers site-supported user experiments
 enum UserExperiments {
     Unknown = 0,
     GetRolesSelector = 1,
     LynxExperimentRolloutView = 2,
     BotReport = 3,
+    ServerAppealCertification = 4,
+    VotePrivacy = 5
 }
 
 enum UserBotAction {
@@ -76,6 +83,7 @@ export let enums = {
     ReviewType: ReviewType,
     PageStyle: PageStyle,
     Flags: Flag,
+    UserFlags: UserFlags,
     UserExperiments: UserExperiments,
     LongDescType: {
 	    html:                0,
