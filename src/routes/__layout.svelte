@@ -31,6 +31,9 @@
     import { browser } from '$app/env'; 
 import loadstore from '$lib/loadstore';
 import { apiUrl } from '$lib/config';
+
+import { navigating } from '$app/stores';
+
 	if(browser) {
 		const observer = lozad(); // lazy loads elements with default selector as '.lozad'
 		observer.observe();
@@ -38,19 +41,24 @@ import { apiUrl } from '$lib/config';
 	}
 
 	import "./../css/tailwind.css";
+
+	$: {
+		if ($navigating) {
+			console.log(`isNavigating: ${$navigating.from} -> ${$navigating.to}`);
+			if($navigating.to.host != $navigating.from.host) {
+				console.log("navigating to different host");
+				$navigationState = 'loaded';
+			} else {
+				$inputstore = []
+				$loadstore = "Loading..."
+        		$navigationState = 'loading';
+			}
+		}
+		if (!$navigating) {
+			$navigationState = 'loaded';
+		}
+	}
 </script>
-<svelte:window
-    on:sveltekit:navigation-start={() => {
-    		console.log("Set loading")
-		$inputstore = []
-		$loadstore = "Loading..."
-        	$navigationState = 'loading';
-    }}
-    on:sveltekit:navigation-end={() => {
-		console.log("Set loaded")
-        $navigationState = 'loaded';
-    }}
-/>
 
 <style lang="scss" global>
 	@import "./../css/base.scss";

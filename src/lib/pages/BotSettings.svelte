@@ -982,8 +982,8 @@ import alertstore from "$lib/alertstore";
         </MultiSelect>
         <label for="site-lang">Long Description Type</label>
         <select name="long_description_type" id="long_description_type">
-            <SelectOption value="0" masterValue={data.long_description_type}>HTML</SelectOption>
-            <SelectOption value="1" masterValue={data.long_description_type}>Markdown (pulldown-cmark)</SelectOption>
+	    <SelectOption value="1" masterValue={data.long_description_type}>Markdown (pulldown-cmark)</SelectOption>
+	    <SelectOption value="0" masterValue={data.long_description_type}>HTML</SelectOption>
         </select>
         <br/>
         <FormInput
