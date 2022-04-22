@@ -109,6 +109,7 @@ import SelectOptionMulti from "$lib/base/SelectOptionMulti.svelte";
 
     async function updateProfile() {
 	let payload = {
+	    "flags": [], // This will soon change to allow for users to control aspects of their profile
 	    "user_experiments": [],
 	    "description": (document.querySelector("#description") as HTMLInputElement).value,
 	    "description_raw": "", // Uneeded by API
