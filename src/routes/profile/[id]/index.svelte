@@ -73,16 +73,15 @@ if(enums.helpers.flagCheck(enums.UserFlags.AvidVoter, data.flags)) {
 
 <img class="user-avatar" loading="lazy" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="user-avatar" alt="{data.user.username}'s avatar">
 <h2 class="white user-username" id="user-name">{data.user.username}</h2>
-<p id="user-description">{@html data.description.replace("p>", "span>") }</p>
-
-<!--Badges (might be its own component if it gets any more complex)-->
 <div class="badges">
 	{#if data.badges}
 		{#each data.badges as badge}
-			<Badge badge={badge}></Badge>
+			<Badge badge={badge} />
 		{/each}
 	{/if}
 </div>
+
+<p id="user-description">{@html data.description.replace("p>", "span>") }</p>
 
 {#if loggedIn}
 	<Button href="/profile/{data.user.id}/settings" class="bot-card-actions-link" id="profiles-center" touch variant="outlined">Settings</Button>

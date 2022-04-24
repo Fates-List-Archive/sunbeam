@@ -23,24 +23,22 @@
     </div>
 
     <div class="badge-link" on:click={() => alert(badge.description)} on:mouseenter={() => isHovering = true} on:mouseleave={() => isHovering = false}>
-        <img class="badge-img" src={badge.icon} width="55px" height="55px" alt={badge.description}>
+        <img class="badge-img" src={badge.icon} width="50px" height="50px" alt={badge.description}>
     </div>
 </div>
 
 <style>
     .badge-item {
-        max-width: 55px !important;
+        max-width: 50px !important;
     }
 
     .selected {
-        visibility: visible !important;
-        text-align: center !important;
+	visibility: visible !important;
     }
 
     .badge-hover-text {
-        display: inline;
         overflow: visible !important;
-        white-space: pre !important;
+        white-space: nowrap !important;
         text-align: center !important;
     }
 
@@ -50,9 +48,9 @@
         align-items: center;
         justify-content: center;
         background-color: black;
-        color: white;
-        margin-bottom: 10px;
-        visibility: hidden;
+	color: white;
+	visibility: hidden;
+	display: inline;
     }
 
     .badge-link {
@@ -67,6 +65,6 @@
 
     .badge-item {
         align-items: center;
-		justify-content: center;
+	justify-content: center;
     }
 </style>
