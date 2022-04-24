@@ -30,20 +30,10 @@
 	import Button from '@smui/button';
 	import CardContainer from "$lib/cards/CardContainer.svelte";
 	import { page, session } from '$app/stores';
-	import alertstore from "$lib/alertstore";
-	import navigationState from "$lib/navigationState";
     import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
 	import BotPack from "$lib/base/BotPack.svelte";
+import Badge from "$lib/base/Badge.svelte";
 
-	function alert(msg: string, title="Error") {
-        $alertstore = {
-            title: title,
-            message: msg,
-            show: true,
-            id: "error"
-        }
-        $navigationState = "loaded" // An alert = page loaded
-    }
 
 	let loggedIn = false;
     	if($session.session.user) {
@@ -85,12 +75,11 @@ if(enums.helpers.flagCheck(enums.UserFlags.AvidVoter, data.flags)) {
 <h2 class="white user-username" id="user-name">{data.user.username}</h2>
 <p id="user-description">{@html data.description.replace("p>", "span>") }</p>
 
+<!--Badges (might be its own component if it gets any more complex)-->
 <div class="badges">
 	{#if data.badges}
 		{#each data.badges as badge}
-			<a class="badge-link" href={"#"} on:click={() => alert(badge.description)}>
-				<img class="badge-img" src={badge.image} width="50px" height="50px" alt={badge.description}>
-			</a>
+			<Badge badge={badge}></Badge>
 		{/each}
 	{/if}
 </div>
@@ -114,22 +103,12 @@ if(enums.helpers.flagCheck(enums.UserFlags.AvidVoter, data.flags)) {
 <p>Click <a href="/profile/{data.user.id}?system_bots=true">here</a> to show system bots as well!</p>
 {/if}
 <style lang="scss" global>
-.badge-link {
-	opacity: 1 !important;
-}
-
-.badges {
-	margin-left: auto;
-	margin-right: auto;
-	text-align: center;
-}
-
-.badge-img {
-	border-radius: 50%;
-	display: inline-block;
-	margin-right: 3px;
-	background-color: black;
-}
+	.badges {
+		display: flex;
+		flex-wrap: nowrap;
+		align-items: center;
+		justify-content: center;
+	}
 
 .user-username, .user-avatar, .bot-action-log {
     display: flex;
