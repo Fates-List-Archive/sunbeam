@@ -628,7 +628,6 @@ export interface ProfileData {
   user_css?: string;
   profile_css?: string;
   vote_reminder_channel?: string;
-  js_allowed: boolean;
   bot_developer: boolean;
   certified_developer: boolean;
   state: UserState;

@@ -22,6 +22,7 @@ enum UserState {
 enum UserFlags {
     Unknown = 0,
     VotesPrivate = 1,
+    Staff = 2,
 }
 
 // This only covers site-supported user experiments
