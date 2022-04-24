@@ -14,7 +14,7 @@
 			return {
 				props: {
 					data: data,
-                    systemBots: url.searchParams.get("system_bots") == "true",
+                    			systemBots: url.searchParams.get("system_bots") == "true",
 				}
 			};
 		}
@@ -34,14 +34,22 @@
 	import BotPack from "$lib/base/BotPack.svelte";
 import Badge from "$lib/base/Badge.svelte";
 
+	export let data: any;
+	export let systemBots: boolean;
 
 	let loggedIn = false;
     	if($session.session.user) {
 		loggedIn = true;
 	}
 
-    export let data: any;
-    export let systemBots: any;
+	let personal = false
+	
+	console.log($session.session.user.id, data.user.id)
+
+	if(loggedIn && $session.session.user.id == data.user.id) {
+		personal = true
+	}
+
     let type = "profile"
 
 data.badges = [];
@@ -64,7 +72,7 @@ if(enums.helpers.flagCheck(enums.UserFlags.AvidVoter, data.flags)) {
 	})
 }
 
-if(loggedIn) {
+if(personal) {
 	data.badges.push({
 		"id": "settings",
 		"name": "View Profile Settings",
@@ -82,13 +90,17 @@ if(loggedIn) {
 ></BristlefrostMeta>
 
 <img class="user-avatar" loading="lazy" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="user-avatar" alt="{data.user.username}'s avatar">
-<a href="/profile/{data.user.id}/settings"><h2 class="white user-username" id="user-name">{data.user.username}</h2></a>
+
+{#if personal}
+	<a href="/profile/{data.user.id}/settings"><h2 class="white user-username" id="user-name">{data.user.username}</h2></a>
+{:else}
+	<h2 class="white user-username" id="user-name">{data.user.username}</h2>
+{/if}
+
 <div class="badges">
-	{#if data.badges}
-		{#each data.badges as badge}
-			<Badge badge={badge} />
-		{/each}
-	{/if}
+	{#each data.badges as badge}
+		<Badge badge={badge} />
+	{/each}
 </div>
 
 <p id="user-description">{@html data.description.replace("p>", "span>") }</p>

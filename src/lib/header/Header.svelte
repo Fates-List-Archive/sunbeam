@@ -146,11 +146,6 @@ import alertstore from '$lib/alertstore';
 					<Text>Servers</Text>
 				</Item>
 				<Item on:SMUI:action={() => {
-					goto("/frostpaw/about")
-				}}>
-					<Text>About</Text>
-				</Item>
-				<Item on:SMUI:action={() => {
 					goto("https://docs.fateslist.xyz")
 				}}>
 					<Text>API Docs</Text>
