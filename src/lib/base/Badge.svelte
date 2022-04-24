@@ -62,7 +62,7 @@
 
     .badge-img {
         border-radius: 50%;
-        margin-right: 5px;
+        margin-right: 15px;
     }
 
     .badge-item {
