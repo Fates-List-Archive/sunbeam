@@ -43,7 +43,21 @@ import AuditLogs from "$lib/base/AuditLogs.svelte";
 import MultiSelect from "$lib/base/MultiSelect.svelte";
 import SelectOptionMulti from "$lib/base/SelectOptionMulti.svelte";
 import Checkbox from "$lib/base/Checkbox.svelte"
+import alertstore from "$lib/alertstore";
+import navigationState from "$lib/navigationState";
 
+    let popUpMsg = "Errors will appear here (just in case you have popups disabled)"    
+
+    function alert(msg: string, title="Error") {
+        popUpMsg = msg
+        $alertstore = {
+            title: title,
+            message: msg,
+            show: true,
+            id: "error"
+        }
+        $navigationState = "loaded" // An alert = page loaded
+    }
 
     export let data: any;
 
@@ -69,7 +83,7 @@ import Checkbox from "$lib/base/Checkbox.svelte"
         let b = document.querySelector("#user-token-show-btn")
         if(!firstTimeShowedWarning) {
             userToken = $session.session.token
-            alert("Warning: Do not share this with anyone")
+            alert("Warning: Do not share this with anyone", "Important")
             firstTimeShowedWarning = true
             b.textContent = "Hide"
             return
@@ -91,7 +105,7 @@ import Checkbox from "$lib/base/Checkbox.svelte"
             headers: headers
         })
         if(res.ok) {
-	    alert("Regenerated token, you will need to login again")
+	    alert("Regenerated token, you will need to login again", "Important")
             fetch(`${nextUrl}/oauth2`, {
             	method: "DELETE",
                 credentials: "include",
@@ -147,11 +161,10 @@ import Checkbox from "$lib/base/Checkbox.svelte"
             body: JSON.stringify(payload)
         })
         if(res.ok) {
-            alert("Updated your profile successfully")
-            window.location.href = `/profile/${data.user.id}`
+            alert("Updated your profile successfully", "Success")
         } else {
             let json = await res.json()
-            alert(json.context + ": " + json.reason)
+            alert(json.reason)
         }
     }
 
@@ -193,7 +206,7 @@ import Checkbox from "$lib/base/Checkbox.svelte"
             body: JSON.stringify(payload)
         })
         if(res.ok) {
-            alert("Added pack successfully")
+            alert("Added pack successfully", "Success")
             return
         } else {
             let json = await res.json()
@@ -212,7 +225,7 @@ import Checkbox from "$lib/base/Checkbox.svelte"
             headers: headers
         })
         if(res.ok) {
-            alert("Delete pack successfully")
+            alert("Deleted pack successfully", "Success")
             return
         } else {
             let json = await res.json()
@@ -404,6 +417,7 @@ import Checkbox from "$lib/base/Checkbox.svelte"
     </section>
 </Tab>
 <Button href={"#"} on:click={updateProfile} class="button" id="update-profile-btn" touch variant="outlined">Update Profile</Button>
+<pre>{popUpMsg}</pre>
 <style>
     .tabdesign {
         overflow: visible !important;

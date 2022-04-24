@@ -30,6 +30,21 @@
 	import Button from '@smui/button';
 	import CardContainer from "$lib/cards/CardContainer.svelte";
 	import { page, session } from '$app/stores';
+	import alertstore from "$lib/alertstore";
+	import navigationState from "$lib/navigationState";
+    import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
+	import BotPack from "$lib/base/BotPack.svelte";
+
+	function alert(msg: string, title="Error") {
+        $alertstore = {
+            title: title,
+            message: msg,
+            show: true,
+            id: "error"
+        }
+        $navigationState = "loaded" // An alert = page loaded
+    }
+
 	let loggedIn = false;
     	if($session.session.user) {
 		loggedIn = true;
@@ -38,8 +53,26 @@
     export let data: any;
     export let systemBots: any;
     let type = "profile"
-    import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
-import BotPack from "$lib/base/BotPack.svelte";
+
+data.badges = [];
+
+if(enums.helpers.flagCheck(enums.UserFlags.Staff, data.flags)) {
+	data.badges.push({
+		"id": "staff",
+		"name": "Official Staff Member",
+		"description": "Official Staff Member Alert!",
+		"icon": "https://api.fateslist.xyz/static/assets/prod/staff.webp"
+	})
+}
+
+if(enums.helpers.flagCheck(enums.UserFlags.AvidVoter, data.flags)) {
+	data.badges.push({
+		"id": "avid-voter",
+		"name": "Avid Voter",
+		"description": "Whoa! Actively voting for bots and servers?",
+		"icon": "https://api.fateslist.xyz/static/assets/prod/avidvoter.webp"
+	})
+}
 </script>
 <BristlefrostMeta 
 	url="https://fateslist.xyz/profile/{data.user.id}"
@@ -49,7 +82,7 @@ import BotPack from "$lib/base/BotPack.svelte";
 ></BristlefrostMeta>
 
 <img class="user-avatar" loading="lazy" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="user-avatar" alt="{data.user.username}'s avatar">
-<h2 class="white user-username" id="user-name">{data.user.username} {#if enums.helpers.flagCheck(enums.UserFlags.Staff, data.flags)} <span class="opaque">(Official Staff Member)</span>{/if}</h2>
+<h2 class="white user-username" id="user-name">{data.user.username}</h2>
 <p id="user-description">{@html data.description.replace("p>", "span>") }</p>
 
 <div class="badges">
