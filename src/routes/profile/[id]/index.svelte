@@ -68,9 +68,9 @@ if(loggedIn) {
 	data.badges.push({
 		"id": "settings",
 		"name": "View Profile Settings",
-		"description": `This shouldn't be seen... Click <a href="/profiles/${data.user.id}/settings>here</a> if you see this to open Profile Settings"`,
+		"description": "This should never be seen and is a bug bud!",
 		"icon": "https://api.fateslist.xyz/static/assets/prod/settings.webp",
-		"link": `/profiles/${data.user.id}/settings`
+		"link": `/profile/${data.user.id}/settings`
 	})
 }
 </script>
