@@ -49,7 +49,7 @@ import BotPack from "$lib/base/BotPack.svelte";
 ></BristlefrostMeta>
 
 <img class="user-avatar" loading="lazy" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="user-avatar" alt="{data.user.username}'s avatar">
-<h2 class="white user-username" id="user-name">{data.user.username}</h2>
+<h2 class="white user-username" id="user-name">{data.user.username} {#if enums.helpers.flagCheck(enums.UserFlags.Staff, data.flags)} <span class="opaque">(Official Staff Member)</span>{/if}</h2>
 <p id="user-description">{@html data.description.replace("p>", "span>") }</p>
 
 <div class="badges">
@@ -121,6 +121,10 @@ import BotPack from "$lib/base/BotPack.svelte";
     text-align: center;
     margin: 0px;
     padding: 0px;
+}
+
+.opaque {
+	opacity: 0.7 !important;
 }
 
 #profiles-center {
