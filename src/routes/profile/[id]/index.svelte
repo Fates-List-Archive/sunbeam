@@ -63,6 +63,16 @@ if(enums.helpers.flagCheck(enums.UserFlags.AvidVoter, data.flags)) {
 		"icon": "https://api.fateslist.xyz/static/assets/prod/avidvoter.webp"
 	})
 }
+
+if(loggedIn) {
+	data.badges.push({
+		"id": "settings",
+		"name": "View Profile Settings",
+		"description": `This shouldn't be seen... Click <a href="/profiles/${data.user.id}/settings>here</a> if you see this to open Profile Settings"`,
+		"icon": "https://api.fateslist.xyz/static/assets/prod/settings.webp",
+		"link": `/profiles/${data.user.id}/settings`
+	})
+}
 </script>
 <BristlefrostMeta 
 	url="https://fateslist.xyz/profile/{data.user.id}"
@@ -72,7 +82,7 @@ if(enums.helpers.flagCheck(enums.UserFlags.AvidVoter, data.flags)) {
 ></BristlefrostMeta>
 
 <img class="user-avatar" loading="lazy" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="user-avatar" alt="{data.user.username}'s avatar">
-<h2 class="white user-username" id="user-name">{data.user.username}</h2>
+<a href="/profile/{data.user.id}/settings"><h2 class="white user-username" id="user-name">{data.user.username}</h2></a>
 <div class="badges">
 	{#if data.badges}
 		{#each data.badges as badge}
@@ -83,9 +93,6 @@ if(enums.helpers.flagCheck(enums.UserFlags.AvidVoter, data.flags)) {
 
 <p id="user-description">{@html data.description.replace("p>", "span>") }</p>
 
-{#if loggedIn}
-	<Button href="/profile/{data.user.id}/settings" class="bot-card-actions-link" id="profiles-center" touch variant="outlined">Settings</Button>
-{/if}
 <CardContainer>
 	{#each data.bots as bot}
 		{#if systemBots || (!systemBots && !enums.helpers.flagCheck(enums.Flags.system, bot.flags)) }

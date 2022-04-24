@@ -4,6 +4,8 @@
 	import alertstore from "$lib/alertstore";
 	import navigationState from "$lib/navigationState";
 
+import { goto } from '$app/navigation';
+
     function alert(msg: string, title=badge.name) {
         $alertstore = {
             title: title,
@@ -22,7 +24,13 @@
         <span class="badge-hover-text">{badge.name}</span>
     </div>
 
-    <div class="badge-link" on:click={() => alert(badge.description)} on:mouseenter={() => isHovering = true} on:mouseleave={() => isHovering = false}>
+    <div class="badge-link" on:click={() => { 
+	    if(badge.link) {
+		goto(badge.link)
+		return
+	    }
+	    alert(badge.description) 
+	} } on:mouseenter={() => isHovering = true} on:mouseleave={() => isHovering = false}>
         <img class="badge-img" src={badge.icon} width="50px" height="50px" alt={badge.description}>
     </div>
 </div>
