@@ -170,8 +170,6 @@
 }
 </style>
 
-{@html data.css}
-
 <div class="lozad bot-page-banner" data-background-image="{data.banner}">
     <img class="bot-avatar" src="{data.user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="bot-avatar" alt="{data.user.username}'s avatar">
     <article class="bot-page">
