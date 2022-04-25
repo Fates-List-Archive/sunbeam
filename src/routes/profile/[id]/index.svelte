@@ -44,8 +44,6 @@ import Badge from "$lib/base/Badge.svelte";
 
 	let personal = false
 	
-	console.log($session.session.user.id, data.user.id)
-
 	if(loggedIn && $session.session.user.id == data.user.id) {
 		personal = true
 	}
