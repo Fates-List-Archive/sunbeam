@@ -9,23 +9,27 @@
         return str.replaceAll("_", " ").replace(/(^|\s)\S/g, function(t) { return t.toUpperCase() });
     }
 
-    let groupedCmds = {}
-    let groups = {}
+    let groupedCmds = new Map()
+    let groups = new Map()
 
     data.commands.forEach(el => {
         // Insert each command into the correct group
-        el.groups.forEach(group => {
-            if(!group || group == "default") {
+	el.groups.forEach(group => {
+	    if(!group) {
+		return
+	    }
+
+            if(group == "default") {
                 group = "Uncategorized"
             }
 
             let groupId = group.replaceAll(",", "").replaceAll(" ", "").toLowerCase()
-            groups[groupId] = title(group)
-            if(groupedCmds.hasOwnProperty(groupId)) {
-                groupedCmds[groupId].push(el)
+            groups.set(groupId, title(group))
+            if(groupedCmds.has(groupId)) {
+                groupedCmds.get(groupId).push(el)
             }
             else {
-                groupedCmds[groupId] = [el]
+                groupedCmds.set(groupId, [el])
             }
         })
     })
@@ -33,15 +37,15 @@
     console.log(groupedCmds)
 </script>
 
-{#if Object.keys(data.commands).length == 0}
+{#if groupedCmds.size == 0}
 <h3>This bot does not have any commands</h3>
 {#if !data.prefix}
     <h4>This bot uses slash commands, try typing / to see a list of commands</h4>
 {/if}
 {/if}
-{#each Object.entries(groupedCmds) as cmd_group}
-    <Section icon={"bx:command"} id={cmd_group[0]} title={title(groups[cmd_group[0]])}>
-        <table id="{cmd_group[0]}-table" class="commands-table" rules="all">
+{#each [...groupedCmds] as [cmd_group, cmds]}
+    <Section icon={"bx:command"} id={cmd_group} title={title(groups.get(cmd_group))}>
+        <table id="{cmd_group}-table" class="commands-table" rules="all">
             <tr>
                 <th class="commands-header">Command</th>
                 <th class="commands-header">Type</th>
@@ -49,7 +53,7 @@
                 <th class="commands-header">Notes</th>
                 <th class="commands-header">Groups</th>
             </tr>
-            {#each cmd_group[1] as cmd}
+            {#each cmds as cmd}
                 <tr>
                     <td class="commands-item">{data.prefix || "/"}{cmd["name"]} <span class="opaque">{cmd["args"].join(" | ")}</span></td>
                     <td class="commands-item">{enums.CommandType[cmd["cmd_type"]]}</td>
