@@ -30,10 +30,6 @@
 	max-width: 250px;
 	margin-bottom: 10px;
 }
-:global(.buttons-all) {
-    background-color: black !important;
-    margin-right: 10px;
-}
 :global(.codehilite) {
     background-color: white;
 }
@@ -80,56 +76,6 @@
     text-align: center;
     margin: 0px;
     padding: 0px;
-}
-:global(.buttons-all) {
-    color: white !important;
-    border: solid thin !important;
-    opacity: 1 !important;
-    //min-width: 130px;
-    //max-width: 150px;
-	word-wrap: break-word !important;
-	font-size: 15px !important;
-}
-.buttons {
-    display: flex;
-    flex-flow: column-wrap;
-    justify-content: center;
-    align-items: center;
-    min-width: 93%;
-    height: 53px;
-    margin: 0 auto;
-    //white-space: nowrap;
-}
-@media screen and (max-width: 768px) {
-	.buttons {
-		margin-left: 10px !important;
-		width: 100% !important;
-		overflow-wrap: break-word !important;
-	}
-	.auxillary {
-		display: none;
-	}
-	.mobile-small {
-		font-size: 11px !important;
-	}
-}
-@media screen and (max-width: 992px) {
-	.buttons {
-		overflow-x: scroll;
-		overflow-y: hidden;
-		overflow-wrap: break-word !important;
-		font-size: 12px !important;
-	}
-}
-.buttons {
-	word-wrap: break-word;
-	text-overflow: ellipsis;
-}
-.buttons {
-	margin-bottom: 40px;
-}
-:global(.disabled) {
-    opacity: 0.63 !important;
 }
 :global(.review-user) {
     opacity: 1;
@@ -201,89 +147,29 @@
                             Please do not invite it until further notice!
                         </Content>
                     </Panel>
-		    {:else if data.state == enums.BotState.pending}
-		    <Panel color="secondary" open>
-		    	<Header ripple={false}>
-                    Bot Pending Review
-		  		</Header>
-			<Content class="accordian-container">
-			    This bot has not yet been tested and may be low quality or malicious. Please do not invite it yet
-			</Content>
-		    </Panel>
-		    {:else if data.state == enums.BotState.under_review}
-		    <Panel color="secondary" open>
-			<Header ripple={false}>
-			  Bot Under Review
-			</Header>
-			<Content class="accordian-container">
-			    This bot is currently being tested, Expect to hear from us soon!
-			</Content>
-		    </Panel>
-		    {/if}
-                </Accordion>
+				{:else if data.state == enums.BotState.pending}
+					<Panel color="secondary" open>
+						<Header ripple={false}>
+							Bot Pending Review
+						</Header>
+					<Content class="accordian-container">
+						This bot has not yet been tested and may be low quality or malicious. Please do not invite it yet
+					</Content>
+					</Panel>
+				{:else if data.state == enums.BotState.under_review}
+					<Panel color="secondary" open>
+					<Header ripple={false}>
+					Bot Under Review
+					</Header>
+					<Content class="accordian-container">
+						This bot is currently being tested, Expect to hear from us soon!
+					</Content>
+					</Panel>
+				{/if}
+				</Accordion>
             </div>
             <p class="banner-decor white" id="bot-description">{@html data.description.replace("p>", "span>") }</p>
-            <div class="buttons">
-			    <Button on:click={() => voteBot()} class="buttons-all" id="buttons-vote" touch variant="outlined">
-				    <Icon icon="fa-solid:thumbs-up" inline={false}/>
-				    <span style="margin-left: 3px;">{data.votes}</span>
-			    </Button>
-			    <Button href="/{type}/{data.user.id}/invite" class="buttons-all" id="buttons-invite" touch variant="outlined" rel="external">
-				    <span>{#if type == "server"}Join{:else}Invite{/if}</span>
-			    </Button>
-                {#if data.support}
-			    <Button href="{data.support}" id="buttons-support" class="buttons-all" touch variant="outlined">
-				    <span>Support</span>
-			    </Button>
-                {:else}
-			    <Button class="buttons-all disabled" id="buttons-support" touch variant="outlined" disabled>
-				    <span>Support</span>
-			    </Button>
-                {/if}
-                {#if data.website}
-			    <Button href="{data.website}" id="buttons-website" class="buttons-all auxillary" touch variant="outlined">
-				    <span>Website</span>
-			    </Button>
-                {:else}
-			    <Button class="buttons-all disabled auxillary" id="buttons-website auxillary" touch variant="outlined" disabled>
-				    <span>Website</span>
-			    </Button>
-                {/if}
-                {#if data.privacy_policy}
-			    <Button href="{data.privacy_policy}" id="buttons-privacy" class="buttons-all auxillary" touch variant="outlined">
-				    <span class="mobile-small">Privacy</span>
-			    </Button>
-                {:else}
-			    <Button class="buttons-all disabled auxillary" id="buttons-privacy" touch variant="outlined" disabled>
-				    <span>Privacy</span>
-			    </Button>
-                {/if}
-                {#if data.donate}
-			    <Button href="{data.donate}" id="buttons-donate" class="buttons-all auxillary" touch variant="outlined">
-				    <span>Donate</span>
-			    </Button>
-                {:else}
-			    <Button class="buttons-all disabled auxillary" id="buttons-donate" touch variant="outlined" disabled>
-				    <span>Donate</span>
-			    </Button>
-                {/if}
-				{#if $session.session.token && $session.session.user_experiments.includes(enums.UserExperiments.BotReport)}
-					<Button on:click={() => {
-						$alertstore = reportView($session.session.user.id, $session.session.token, data.user.id, type)
-					}} id="buttons-report" class="buttons-all" touch variant="outlined">
-				    <span>Report</span>
-			    </Button>
-				{/if}
-				{#if type == "bot"}
-					<Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all auxillary" touch variant="outlined">
-						<span>Settings</span>
-					</Button>
-				{:else}
-					<Button class="buttons-all disabled auxillary" id="buttons-settings" touch variant="outlined" disabled>
-						<span>Settings</span>
-					</Button>
-				{/if}
-    	</div>
+			<Actions data={data} type={type} />
     <Tab tabs={tabs} defaultTabButton="long-description-tab-button">
 		<section id="long-description-tab" class='tabcontent tabdesign'>
 			<div id="long-description" class="tabdesign-alt prose prose-zinc dark:prose-invert">
@@ -407,6 +293,7 @@ import { nextUrl } from '$lib/config';
 import alertstore from '$lib/alertstore';
 import Commands from './helpers/Commands.svelte';
 import About from './helpers/About.svelte';
+import Actions from './helpers/Actions.svelte';
     export let data: any;
     export let type: string;
 	let reviewPage = 1
