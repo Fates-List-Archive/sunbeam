@@ -70,11 +70,7 @@
                     <td class="commands-item">
                         <ul class="command-group-list">
                             {#each cmd["groups"] as group}
-                                {#if group == "default"}
-                                    <li>Uncategorized</li>
-                                {:else}
-                                    <li>{title(group)}</li>
-                                {/if}
+                                <li>{title(group)}</li>
                             {/each}
                         </ul>
                     </td>
