@@ -312,6 +312,7 @@
     		</div>
     	<Tab>
 		<section id="long-description-real" class="tabs-v2 prose prose-zinc dark:prose-invert">
+			{@html data.css}
 			{@html data.long_description}
 		</section>
 		<section id="commands-tab" class="tabs-v2">
