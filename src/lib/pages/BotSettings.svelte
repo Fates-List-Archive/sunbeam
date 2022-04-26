@@ -264,9 +264,6 @@ import alertstore from "$lib/alertstore";
 
     let previewHtml: string = "<h3>Start typing to generate a preview!</h3>"
 
-    let startStyle = "LTstyleGT".replace("LT", "<").replace("GT", ">")
-    let endStyle = "LT/styleGT".replace("LT", "<").replace("GT", ">")
-
     let charsTyped: number = 0;
 
     let wsUp = false;
@@ -1135,7 +1132,7 @@ import alertstore from "$lib/alertstore";
             name="Custom CSS"
             id="css"
             placeholder="See w3schools if you need a tutorial on CSS. See our API Documentation for more informatiom about what CSS Fates List has and allows! Have fun :)"
-            data={data.css.replaceAll(startStyle, "").replaceAll(endStyle, "")}
+            data={data.css_raw}
             textarea={true}
         />
     </section>
