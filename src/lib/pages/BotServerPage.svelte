@@ -295,7 +295,6 @@
 <script lang="ts">
     import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
     import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
-    import Icon from '@iconify/svelte';
     import Button from '@smui/button';
     import { enums } from '../enums/enums';
     import { browser } from "$app/env";

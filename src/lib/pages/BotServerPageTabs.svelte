@@ -278,7 +278,6 @@
 <script lang="ts">
     import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
     import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
-    import Icon from '@iconify/svelte';
     import Button from '@smui/button';
     import { enums } from '../enums/enums';
     import { browser } from "$app/env";
@@ -320,33 +319,7 @@ import Actions from './helpers/Actions.svelte';
     function title(str: string) {
         return str.replaceAll("_", " ").replace(/(^|\s)\S/g, function(t) { return t.toUpperCase() });
     }
-    async function voteBot() {
-        let token = $session.session.token
-        let userID = ""
-        if(token) {
-            userID = $session.session.user.id
-        }
-		$loadstore = "Voting..."
-    	$navigationState = 'loading';
-        let res = await voteHandler(userID, token, data.user.id, false, type)
-		let jsonDat = await res.json()
-		if(res.ok) {
-			$alertstore = {
-				show: true,
-				title: "Successful Vote",
-				message: jsonDat.reason,
-				id: "alert"
-			}
-		} else {
-			$alertstore = {
-				show: true,
-				title: "Oops :(",
-				message: jsonDat.reason,
-				id: "alert"
-			}		
-		}
-		$navigationState = "loaded"
-    }
+
 	let userHasMovedReviewPage = false
     async function getReviewPage(page: number) {
 		if(page != 1) {
