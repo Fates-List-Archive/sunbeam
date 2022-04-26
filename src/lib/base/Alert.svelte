@@ -77,6 +77,7 @@
         text-align: center !important;
         top: 0 !important;
         bottom: 0 !important;
+        cursor: pointer;
     }
 
     h2 {
