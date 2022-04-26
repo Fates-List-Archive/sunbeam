@@ -159,17 +159,6 @@
     margin-top: 0px !important;
     margin-bottom: 1px !important;
 }
-.commands-table, .commands-item, .commands-header {
-	padding: 1rem;
-}
-.command-group-list {
-	padding: 0;
-	margin: 0;
-	list-style-type: none !important;
-}
-.cmd-group-header {
-	cursor: pointer;
-}
 .opaque {
     opacity: 0.7;
 }
@@ -318,60 +307,7 @@
 		<section id="commands-tab" class="tabs-v2">
 			<h2>Commands</h2>
 			{#if type == "bot"}
-				{#if Object.keys(data.commands).length == 0}
-					<h3>This bot does not have any commands</h3>
-					{#if !data.prefix}
-						<h4>This bot uses slash commands, try typing / to see a list of commands</h4>
-					{/if}
-				{/if}
-				{#each Object.entries(data.commands) as cmd_group}
-					{#if cmd_group[0] == "default"}
-						<h2 class="cmd-group-header" on:click={() => showHideCommandGroup(cmd_group[0])}>Uncategorized</h2>
-					{:else}
-						<h2 class="cmd-group-header" on:click={() => showHideCommandGroup(cmd_group[0])}>{title(cmd_group[0])}</h2>
-					{/if}
-
-					<table id="{cmd_group[0]}-table" class="commands-table" rules="all">
-						<tr>
-							<th class="commands-header">Command</th>
-							<th class="commands-header">Type</th>
-							<th class="commands-header">Description</th>
-							<th class="commands-header">Notes</th>
-							<th class="commands-header">Groups</th>
-						</tr>
-						{#each cmd_group[1] as cmd}
-							<tr>
-								<td class="commands-item">{data.prefix || "/"}{cmd["name"]} <span class="opaque">{cmd["args"].join(" | ")}</span></td>
-								<td class="commands-item">{enums.CommandType[cmd["cmd_type"]]}</td>
-								<td class="commands-item">{cmd["description"]}</td>
-								<td class="commands-item">
-									<ul class="command-group-list">
-										{#if cmd["vote_locked"]}
-											<li>Requires Voting (vote-locked)</li>
-										{/if}
-										{#if cmd["premium_only"]}
-											<li>Premium Only</li>
-										{/if}
-										{#each cmd["notes"] as note}
-											<li>{note}</li>
-										{/each}
-									</ul>
-								</td>
-								<td class="commands-item">
-									<ul class="command-group-list">
-										{#each cmd["groups"] as group}
-											{#if group == "default"}
-												<li>Uncategorized</li>
-											{:else}
-												<li>{title(group)}</li>
-											{/if}
-										{/each}
-									</ul>
-								</td>
-							</tr>
-						{/each}	
-					</table>
-				{/each}
+				<Commands data={data}/>
 			{:else}
 				<span>Servers do not have commands</span>
 			{/if}
@@ -529,45 +465,13 @@ import navigationState from '$lib/navigationState';
 import { nextUrl } from '$lib/config';
 import AuditLogs from '$lib/base/AuditLogs.svelte';
 import alertstore from '$lib/alertstore';
+import Commands from './helpers/Commands.svelte';
     export let data: any;
     export let type: string;
 	let reviewPage = 1
 	let reviews: any = {}
 
-	function fade(element) {
-    	var op = 1;  // initial opacity
-    	var timer = setInterval(function () {
-        if (op <= 0.1){
-            clearInterval(timer);
-            element.style.display = 'none';
-        }
-        element.style.opacity = op;
-        element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-        op -= op * 0.1;
-    	}, 10);
-	}
-	function unfade(element) {
-    	var op = 0.1;  // initial opacity
-    	element.style.display = 'table';
-    	var timer = setInterval(function () {
-        	if (op >= 1){
-            	clearInterval(timer);
-        	}
-        	element.style.opacity = op;
-        	element.style.filter = 'alpha(opacity=' + op * 100 + ")";
-        	op += op * 0.1;
-    	}, 10);
-	}
-	function showHideCommandGroup(cmdGroup: string) {
-		let id = `#${cmdGroup}-table`
-		let group = document.querySelector(id)
-		if(group.style.display != 'none') {
-			fade(group)
-		}
-		else {
-			unfade(group)
-		}
-	}
+
     // https://stackoverflow.com/a/46959528
     function title(str: string) {
         return str.replaceAll("_", " ").replace(/(^|\s)\S/g, function(t) { return t.toUpperCase() });
