@@ -516,7 +516,8 @@ import alertstore from "$lib/alertstore";
                 avatar: "",
                 status: "Unknown",
                 bot: true,
-            }
+	    }
+	    bot["css_raw"] = ""
 
             // Check if the bot is public
             let clientId = bot["client_id"]
