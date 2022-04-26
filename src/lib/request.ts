@@ -1,9 +1,33 @@
 import { browser } from '$app/env';
 import { apiUrl, nextUrl } from './config';
-import alertstore  from "./alertstore";
 
-// Change this if cf will ever be used
-const usingCf = true
+// Parse review state from number
+export function parseState(v) {
+	let state = ""
+	if(v < 1)
+		state = "Atrocity"
+	else if(v < 2)
+		state = "Absymal"
+	else if(v < 3)
+		state = "Really Poor"
+	else if(v < 4)
+		state = "Poor"
+	else if(v < 5)
+		state = "Below Average"
+	else if(v < 6)
+		state = "Average"
+	else if(v < 7)
+		state = "Above Average"
+	else if(v < 8)
+		state = "Meets Expectations"
+	else if(v < 9)
+		state = "Great"
+	else if(v < 10)
+		state = "Exceeds Expectations"
+	else if(v == 10)
+		state = "Without a doubt, perfect"
+	return state
+}
 
 export async function fetchFates(url: string, auth: string, fetch: any, votePage = false, nextApi: boolean = false) {
     // Always use direct if browser

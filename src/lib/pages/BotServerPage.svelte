@@ -242,7 +242,7 @@
     import Button from '@smui/button';
     import { enums } from '../enums/enums';
     import { browser } from "$app/env";
-    import { loginUser, addReviewHandler } from '$lib/request';
+    import { loginUser, addReviewHandler, parseState } from '$lib/request';
     import { session } from '$app/stores';
     import Tab from '$lib/base/TabV2.svelte';
 import Reviews from '$lib/base/Reviews.svelte';
@@ -307,42 +307,17 @@ import Warns from './helpers/Warns.svelte';
     	let slider = document.querySelectorAll(".range-slider");
    		// Update the current slider value (each time you drag the slider handle)
     	for(let i = 0; i < slider.length; i++) {
-		let outputId = slider[i].getAttribute("data-output")
-		document.getElementById(outputId).innerHTML = "Drag the slider to change your rating"; // Display the default slider value
-		slider[i].oninput = function() {
-			let output = document.getElementById(this.getAttribute("data-output"))
-			console.log(output)
-			let state = parseState(this.value)
-			output.innerHTML = state + ", " + this.value;
+			let outputId = slider[i].getAttribute("data-output")
+			document.getElementById(outputId).innerHTML = "Drag the slider to change your rating"; // Display the default slider value
+			slider[i].oninput = function() {
+				let output = document.getElementById(this.getAttribute("data-output"))
+				console.log(output)
+				let state = parseState(this.value)
+				output.innerHTML = state + ", " + this.value;
+			}
 		}
-	}
     }
-function parseState(v) {
-	let state = ""
-	if(v < 1)
-		state = "Atrocity"
-	else if(v < 2)
-		state = "Absymal"
-	else if(v < 3)
-		state = "Really Poor"
-	else if(v < 4)
-		state = "Poor"
-	else if(v < 5)
-		state = "Below Average"
-	else if(v < 6)
-		state = "Average"
-	else if(v < 7)
-		state = "Above Average"
-	else if(v < 8)
-		state = "Meets Expectations"
-	else if(v < 9)
-		state = "Great"
-	else if(v < 10)
-		state = "Exceeds Expectations"
-	else if(v == 10)
-		state = "Without a doubt, perfect"
-	return state
-}
+
 	const onload2 = (..._) => {
 		if(!browser) {
 			return
