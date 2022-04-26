@@ -600,7 +600,7 @@ import alertstore from "$lib/alertstore";
             bot["total_votes"] = 0
             bot["flags"] = []
             bot["action_logs"] = []
-            bot["commands"] = {} // TODO (maybe?)
+            bot["commands"] = [] // TODO (maybe?)
             bot["resources"] = [] // TODO (maybe?)
             bot["shard_count"] = 0 // Never used
             bot["guild_count"] = 0 // Never used
