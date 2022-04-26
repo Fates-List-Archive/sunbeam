@@ -40,7 +40,7 @@
 {/if}
 {/if}
 {#each Object.entries(groupedCmds) as cmd_group}
-    <Section icon={""} id={cmd_group[0]} title={title(groups[cmd_group[0]])}>
+    <Section icon={"bx:command"} id={cmd_group[0]} title={title(groups[cmd_group[0]])}>
         <table id="{cmd_group[0]}-table" class="commands-table" rules="all">
             <tr>
                 <th class="commands-header">Command</th>
