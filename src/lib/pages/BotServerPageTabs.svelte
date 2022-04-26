@@ -112,62 +112,7 @@
             <h2 class="white" id="bot-name">{data.user.username} {#if type == "bot"}<span class="prefix">({data.prefix || "/"})</span>{/if}</h2>
         </a>
         <div class="bot-page-content">
-            <div class="accordion-container">
-                <Accordion multiple>
-                    {#if enums.helpers.flagCheck(enums.Flags.system, data.flags) }
-                    <Panel color="secondary" open>
-                        <Header ripple={false}>
-                          System Bot
-                        </Header>
-                        <Content class="accordian-container">
-                            This bot is a system bot and was added as a placeholder to avoid malicious use of your bot. 
-                            If you are the bots owner, please either edit your bot setting System to False if available or contact 
-                            Fates List Support to claim the bot. To avoid misinformation and false advertising, the actual owner of 
-                            the bot is listed in About who may edit their bot if they wish to change anything on it.
-                        </Content>
-                    </Panel>
-                    {/if}
-                    {#if data.state == enums.BotState.denied}
-                    <Panel color="primary" open>
-                        <Header ripple={false}>
-                          Bot Denied
-                        </Header>
-                        <Content class="accordian-container">
-                            This bot has been DENIED from this list for being a 
-                            low-quality bot. Please do not invite it.
-                        </Content>
-                    </Panel>
-                    {:else if data.state == enums.BotState.banned}
-                    <Panel color="primary" open>
-                        <Header ripple={false}>
-                          Bot Banned
-                        </Header>
-                        <Content class="accordian-container">
-                            This bot has been BANNED from this bot list for violating our rules or being a low-quality bot. 
-                            Please do not invite it until further notice!
-                        </Content>
-                    </Panel>
-				{:else if data.state == enums.BotState.pending}
-					<Panel color="secondary" open>
-						<Header ripple={false}>
-							Bot Pending Review
-						</Header>
-					<Content class="accordian-container">
-						This bot has not yet been tested and may be low quality or malicious. Please do not invite it yet
-					</Content>
-					</Panel>
-				{:else if data.state == enums.BotState.under_review}
-					<Panel color="secondary" open>
-					<Header ripple={false}>
-					Bot Under Review
-					</Header>
-					<Content class="accordian-container">
-						This bot is currently being tested, Expect to hear from us soon!
-					</Content>
-					</Panel>
-				{/if}
-				</Accordion>
-            </div>
+			<Warns data={data}></Warns>
             <p class="banner-decor white" id="bot-description">{@html data.description.replace("p>", "span>") }</p>
 			<Actions data={data} type={type} />
     <Tab tabs={tabs} defaultTabButton="long-description-tab-button">
@@ -276,12 +221,11 @@
 <span use:onload2></span>
 
 <script lang="ts">
-    import Accordion, { Panel, Header, Content } from '@smui-extra/accordion';
     import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
     import Button from '@smui/button';
     import { enums } from '../enums/enums';
     import { browser } from "$app/env";
-    import { voteHandler, loginUser, addReviewHandler, reportView } from '$lib/request';
+    import { loginUser, addReviewHandler } from '$lib/request';
     import { session } from '$app/stores';
     import Tab from '$lib/base/Tab.svelte';
 
@@ -289,10 +233,11 @@ import Reviews from '$lib/base/Reviews.svelte';
 import loadstore from '$lib/loadstore';
 import navigationState from '$lib/navigationState';
 import { nextUrl } from '$lib/config';
-import alertstore from '$lib/alertstore';
+import Warns from "./helpers/Warns.svelte"
 import Commands from './helpers/Commands.svelte';
 import About from './helpers/About.svelte';
 import Actions from './helpers/Actions.svelte';
+
     export let data: any;
     export let type: string;
 	let reviewPage = 1
