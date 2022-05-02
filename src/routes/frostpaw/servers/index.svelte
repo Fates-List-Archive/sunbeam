@@ -4,7 +4,7 @@
 	export const prerender = true;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
-		const url = `/index?target_type=server`;
+		const url = `/index?target_type=1`;
 		const res = await fetchFates(url, "", fetch, false, true);
 
 		if (res.ok) {
