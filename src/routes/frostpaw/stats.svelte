@@ -31,8 +31,9 @@
 	let pendingBots = []
 	let certifiedBots = []
 	let underReviewBots = []
-
-	data.bots.forEach(bot => {
+	
+	for(let i = data.bots.length; i--; i >= 0) {	
+		let bot = data.bots[i]
 		switch(bot.state) {
 			case enums.BotState.denied:
 				deniedBots.push(bot)
@@ -53,7 +54,7 @@
 				approvedBots.push(bot)
 				break;
 		}
-	})
+	}
 
 	function secondsToDhms(seconds) {
 		seconds = Number(seconds);
