@@ -405,6 +405,23 @@ import alertstore from "$lib/alertstore";
         }
     }
 
+    async function deleteCommand(id: string) {
+	let res = await fetch(`${nextUrl}/bots/${data.user.id}/commands?ids=${id}`, {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json",
+			"Authorization": data.api_token
+		}
+	})
+
+	if(res.ok) {
+		alert("Successfully deleted command!", "Success!")
+	} else {
+		let json = await res.json()
+		alert(json.reason)
+	}
+    }
+
     async function deleteResource(id: string) {
         let res = await fetch(`${nextUrl}/resources/${data.user.id}?id=${id}&target_type=0`, {
             method: "DELETE",
@@ -694,13 +711,20 @@ import alertstore from "$lib/alertstore";
                 {#if data.resources.length == 0}
                     <p>No resources on your bot!</p>
                 {/if}
-            <h2>Commands</h2>
-                {#each Object.entries(data.commands) as group}
-                    <h3>{group[0]}</h3>
-                {/each}
-                {#if Object.keys(data.commands).length == 0}
-                    <p>No commands on your bot!</p>
-                {/if}
+		<h2>Commands</h2>
+		{#if data.commands.length > 0}
+			{#each data.commands as command}
+			<h3>{command.name}</h3>
+			<ul class="command">
+				<li>ID: <span class="value">{command.id}</span></li>
+				<li>Name: <span class="value">{command.name}</span></li>
+				<li>Command Type: <span class="value">{enums.CommandType[command.cmd_type]}</span></li>
+			</ul>
+			<Button href={"#"} on:click={() => deleteCommand(command.id)} class="button" touch variant="outlined">Delete {command.name}</Button>
+			{/each}
+		{:else}
+			<p>No commands created for this bot</p>
+		{/if}
             
             <h2>API Token</h2>
                 <pre>{token}</pre>            
