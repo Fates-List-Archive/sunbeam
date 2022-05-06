@@ -46,12 +46,14 @@ import { enums } from '$lib/enums/enums'
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json', 
-		            "Frostpaw": "0.1.0",
-		            "Frostpaw-Server": window.location.origin
+		    "Frostpaw": "0.1.0",
+		    "Frostpaw-Server": window.location.origin
                 },
                 body: JSON.stringify({
-			        code: code,
-			        state: state
+			code: code,
+			state: state,
+			// We are not a custom client
+			frostpaw: false
                 })
             })
             .then((res) => res.json())

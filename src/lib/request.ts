@@ -88,7 +88,7 @@ export async function loginUser(noSetStorage: boolean) {
         localStorage.sunbeamLoginState = json.reason;
     }
 
-	window.location.href = json.context
+    window.location.href = json.context
 }
 
 export async function voteHandler(userID: string, token: string, botID: string, test: boolean, type: string) {
