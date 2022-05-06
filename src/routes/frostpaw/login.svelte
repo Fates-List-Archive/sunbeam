@@ -10,6 +10,7 @@ import { time_ranges_to_array } from 'svelte/internal';
 import Button from '@smui/button';
 import { goto } from '$app/navigation';
 import { encode } from '@cfworker/base64url';
+import alertstore from '$lib/alertstore';
 
     let frostpawServer = ""
     let frostpawMsg = "Please wait..."
@@ -126,6 +127,7 @@ import { encode } from '@cfworker/base64url';
     <Button on:click={() => {
         goto("/")
     }} style="background-color: #90EE90; color: black;">Back To Safety</Button>
+    <small>Client ID: {cliInfo.id}</small><br/>
     <Button on:click={async () => {
         let res = await fetch(`${apiUrl}/oauth2`, {
             credentials: 'include',
@@ -148,9 +150,15 @@ import { encode } from '@cfworker/base64url';
         let json = await res.json()
         if(res.ok) {
             window.location.href = `${cliInfo.domain}/frostpaw?data=${encode(JSON.stringify(json))}`
+        } else {
+            $alertstore = {
+                title: "Error",
+                id: "frostpaw-cli-error",
+                show: true,
+                message: `Error: ${json.error}`
+            }
         }
     }} style="background-color: red; color: black;">Authorize</Button>
-    <small>Client ID: {cliInfo.id}</small>
     <style>
         small {
             color: white;
