@@ -6,9 +6,22 @@
 import { apiUrl, nextUrl } from '$lib/config';
     import { getCookie, loginUser } from "$lib/request"
 import { enums } from '$lib/enums/enums'
+import { time_ranges_to_array } from 'svelte/internal';
+import Button from '@smui/button';
+import { goto } from '$app/navigation';
+import { encode } from '@cfworker/base64url';
 
     let frostpawServer = ""
     let frostpawMsg = "Please wait..."
+
+    let cliInfo = null;
+
+    let code = null;
+    let state = null;
+
+    let clientId = null;
+    let currentTime = null;
+    let hmacTime = null;
 
     if(browser) {
 	frostpawServer = localStorage.sunbeamLogin
@@ -27,10 +40,35 @@ import { enums } from '$lib/enums/enums'
                 return
             }
 
-            let code = searchParams.get("code")
-            let state = searchParams.get("state")
+            code = searchParams.get("code")
+            state = searchParams.get("state")
             if(!code || !state) {
                 frostpawMsg = ("Invalid code/state" + retry)
+                return
+            }
+
+            if(state.startsWith("Bayshine.")) {
+                // Bayshine custom client login
+                let stateSplit = state.split(".");
+                clientId = stateSplit[1];
+                currentTime = parseInt(stateSplit[2]);
+                hmacTime = stateSplit[3];
+                if(!clientId || !currentTime || !hmacTime) {
+                    frostpawMsg = ("Invalid state" + retry)
+                    return
+                }
+                if((new Date()).getTime()/1000 - currentTime > 60 || currentTime > (new Date()).getTime()/1000 || currentTime <= 0) {
+                    frostpawMsg = (`Current time nonce is too old! ${(new Date()).getTime()/1000}`)
+                    return
+                }
+                
+                // Fetch baypaw client info
+                fetch(`${apiUrl}/frostpaw/clients/${clientId}`)
+                .then(res => res.json())
+                .then(json => {
+                    cliInfo = json
+                })
+
                 return
             }
 
@@ -73,3 +111,49 @@ import { enums } from '$lib/enums/enums'
     }
 </script>
 <p style="font-size: bold;">{@html frostpawMsg}</p>
+
+{#if cliInfo}
+    <h1>Custom Client Alert!</h1>
+    <h2>Custom clients can add, edit and delete bots on your behalf and can also vote for bots and servers.</h2>
+    <p>
+        You are about to login to <span style="opacity: 0.8">{cliInfo.name}</span>!
+        <br/><br/>
+        Fates List cannot validate the authenticity of this client.
+        <br/><br/>
+        If you are not sure, <em>exit this page now</em>.
+        <br/><br/>
+    </p>
+    <Button on:click={() => {
+        goto("/")
+    }} style="background-color: #90EE90; color: black;">Back To Safety</Button>
+    <Button on:click={async () => {
+        let res = await fetch(`${apiUrl}/oauth2`, {
+            credentials: 'include',
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json', 
+                "Frostpaw": "0.1.0",
+                "Frostpaw-Server": window.location.origin
+            },
+            body: JSON.stringify({
+                code: code,
+                state: state,
+                // We are a custom client
+                frostpaw: true,
+                frostpaw_blood: clientId,
+                frostpaw_claw: hmacTime,
+                frostpaw_claw_unseathe_time: currentTime,
+            })
+        })
+        let json = await res.json()
+        if(res.ok) {
+            window.location.href = `${cliInfo.domain}/frostpaw?data=${encode(JSON.stringify(json))}`
+        }
+    }} style="background-color: red; color: black;">Authorize</Button>
+    <small>Client ID: {cliInfo.id}</small>
+    <style>
+        small {
+            color: white;
+        }
+    </style>
+{/if}
