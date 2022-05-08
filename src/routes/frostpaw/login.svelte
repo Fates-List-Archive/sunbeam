@@ -128,11 +128,11 @@ import alertstore from '$lib/alertstore';
 	<br/><br/>
         If you are not sure, <em>exit this page now</em>.
 	<br/><br/>
-    </p>
+    </p>    
+    <small>Client ID: {cliInfo.id}</small><br/>
     <Button on:click={() => {
         goto("/")
     }} style="background-color: #90EE90; color: black;">Back To Safety</Button>
-    <small>Client ID: {cliInfo.id}</small><br/>
     <Button on:click={async () => {
         let res = await fetch(`${apiUrl}/oauth2`, {
             credentials: 'include',
