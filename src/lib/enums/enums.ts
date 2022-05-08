@@ -33,7 +33,8 @@ enum UserExperiments {
     LynxExperimentRolloutView = 2,
     BotReport = 3,
     ServerAppealCertification = 4,
-    VotePrivacy = 5
+    VotePrivacy = 5,
+    DevPortal = 6
 }
 
 enum UserBotAction {
