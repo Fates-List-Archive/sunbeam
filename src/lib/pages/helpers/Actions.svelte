@@ -151,7 +151,15 @@ import Button from "@smui/button";
             $alertstore = {
                 show: true,
                 title: "Successful Vote",
-                message: jsonDat.reason,
+		message: `
+Successfully voted for this ${type}!
+
+<em>Pro Tip</em>: You can vote for ${type} directly on your server using Fates List Helper. Fates List Helper also supports vote reminders as well!
+
+You can invite Fates List Helper to your server by <a style="color: blue !important" href="https://discord.com/api/oauth2/authorize?client_id=811073947382579200&permissions=2048&scope=bot%20applications.commands">clicking here</a>!
+
+If you have previously invited Squirrelflight, please remove and add Fates List Helper instead.
+`,
                 id: "alert"
             }
         } else {
