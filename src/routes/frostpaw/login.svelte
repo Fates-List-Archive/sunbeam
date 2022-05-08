@@ -48,7 +48,8 @@ import alertstore from '$lib/alertstore';
                 return
             }
 
-            if(state.startsWith("Bayshine.")) {
+	    if(state.startsWith("Bayshine.")) {
+		frostpawMsg = "Custom client auth... checking"
                 // Bayshine custom client login
                 let stateSplit = state.split(".");
                 clientId = stateSplit[1];
@@ -120,9 +121,13 @@ import alertstore from '$lib/alertstore';
         You are about to login to <span style="opacity: 0.8">{cliInfo.name}</span>!
         <br/><br/>
         Fates List cannot validate the authenticity of this client.
-        <br/><br/>
+	<br/><br/>
+	You will be redirected to <span style="opacity: 0.8">{cliInfo.domain}</span>
+	which has a privacy policy of <span style="opacity: 0.8">{cliInfo.privacy_policy}</span>
+	and is owned by <span style="opacity: 0.8">{cliInfo.owner.username}</span>
+	<br/><br/>
         If you are not sure, <em>exit this page now</em>.
-        <br/><br/>
+	<br/><br/>
     </p>
     <Button on:click={() => {
         goto("/")
