@@ -283,6 +283,14 @@ import navigationState from "$lib/navigationState";
             <Button href={"#"} on:click={showUserToken} class="button" id="user-token-show-btn" touch variant="outlined">Show</Button>
             <Button href={"#"} on:click={regenUserToken} class="button" id="user-token-regen-btn" touch variant="outlined">Regenerate</Button>
         
+        <h2>Connections</h2>
+            {#each data.connections as conn}
+                <div class="connection-container">
+                    <ul>
+                        <li>Client ID: <span class="value">{conn.client_id}</span></li>
+                    </ul>
+                </div>
+            {/each}
 
         <h2>Get Old Roles</h2>
             <p>Just joined our support server and need to get your roles (Bot Developer, Certified Developer). Click here</p>
