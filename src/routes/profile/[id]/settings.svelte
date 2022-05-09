@@ -233,6 +233,21 @@ import navigationState from "$lib/navigationState";
         }
     }
 
+    async function revokeClient(cliId) {
+        let headers = {"Authorization": $session.session.token}
+        let res = await fetch(`${nextUrl}/users/${data.user.id}/frostpaw/clients/${cliId}`, {
+            method: "DELETE",
+            headers: headers
+        })
+        if(res.ok) {
+            alert("Revoked client successfully", "Success")
+            return
+        } else {
+            let json = await res.json()
+            alert(json.reason)
+        }
+    }
+
     async function getOldRoles() {
         let url = `${nextUrl}/profiles/${data.user.id}/old-roles`
         let headers = {"Authorization": $session.session.token}
@@ -286,11 +301,22 @@ import navigationState from "$lib/navigationState";
         <h2>Connections</h2>
             {#each data.connections as conn}
                 <div class="connection-container">
+                    <h3>{conn.client.name}</h3>
+                    <p>The last refresh token for this client after which you will need to reauthorize expires at {conn.expires_on}</p>
+                    <p>You have authorized this client {conn.repeats} times!</p>
                     <ul>
-                        <li>Client ID: <span class="value">{conn.client_id}</span></li>
+                        <li>Client ID: <span class="opaque">{conn.client.id}</span></li>
+                        <li>Client Owner: <span class="opaque">{conn.client.owner.username}</span></li>
+                        <li>Client Owner ID: <span class="opaque">{conn.client.owner.id}</span></li>
                     </ul>
+                    <Button href={"#"} on:click={() => {
+                        revokeClient(conn.client.id)
+                    }} class="button" id="danger-revoke-btn-{conn.client.id}" style="background-color: red" touch variant="outlined">Revoke</Button>            
                 </div>
             {/each}
+            {#if data.connections.length === 0}
+                <p class="white">You're all set! You have no connections with any custom clients.</p>
+            {/if}
 
         <h2>Get Old Roles</h2>
             <p>Just joined our support server and need to get your roles (Bot Developer, Certified Developer). Click here</p>
@@ -427,6 +453,11 @@ import navigationState from "$lib/navigationState";
 <Button href={"#"} on:click={updateProfile} class="button" id="update-profile-btn" touch variant="outlined">Update Profile</Button>
 <pre>{popUpMsg}</pre>
 <style>
+    .connection-container {
+        box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+        background-color: rgba(255, 255, 255, 0.1);;
+    }
+
     .tabdesign {
         overflow: visible !important;
     }
