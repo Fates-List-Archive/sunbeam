@@ -141,7 +141,8 @@ import navigationState from "$lib/navigationState";
             "vote_reminder_channel": (document.querySelector("#vote-reminder-channel") as HTMLInputElement).value,
             "packs": [],
             "bots": [],
-            "action_logs": [],
+	    "action_logs": [],
+	    "connections": [],
             "state": 0,
             "user": {
                 "id": data.user.id,
