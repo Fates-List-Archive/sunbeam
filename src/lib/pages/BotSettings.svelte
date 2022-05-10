@@ -1165,6 +1165,13 @@ import alertstore from "$lib/alertstore";
                 />
                 <a href={"#"} on:click={() => removeLink(extLink.id)} id="remove-link">Remove</a>
                 <a href={"#"} on:click={() => renameLink(extLink.id)} id="rename-link">Rename</a>
+                {#if extLink.id.startsWith("_")}
+                    <Tip>
+                        This is a hidden link. It will not be shown in the bot's page. 
+                        <br/><br/>
+                        This is typically used by custom clients.
+                    </Tip>
+                {/if}
             </div>
         {/each}
     </section>

@@ -112,6 +112,10 @@ If you have previously invited Squirrelflight, please remove and add Fates List 
     let extLinks = []
 
     for (const [key, value] of Object.entries(data.extra_links)) {
+        if(key.startsWith("_")) {
+            // Field is meant for custom clients only
+            continue
+        }
         extLinks.push({
             name: key,
             id: key,
