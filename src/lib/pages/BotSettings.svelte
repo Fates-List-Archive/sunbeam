@@ -372,39 +372,6 @@ import alertstore from "$lib/alertstore";
         }
     }
 
-    async function createResource() {
-        /* 
-            pub id: Option<String>,
-            pub resource_title: String,
-            pub resource_link: String,
-            pub resource_description: String,
-        */
-       let title = document.querySelector("#resource-title").value
-       let link = document.querySelector("#resource-link").value
-       let description = document.querySelector("#resource-description").value
-       // Currently this function only supports bots anyways.
-       let res = await fetch(`${nextUrl}/resources/${data.user.id}?target_type=0`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json", 
-                "Authorization": data.api_token
-            },
-            body: JSON.stringify({
-                "resource_title": title,
-                "resource_link": link,
-                "resource_description": description
-            })
-        })
-        if(res.ok) {
-            alert("Successfully created resource!", "Success!")
-            window.location.reload()
-            return
-        } else {
-            let json = await res.json()
-            alert(json.reason)
-        }
-    }
-
     async function deleteCommand(id: string) {
 	let res = await fetch(`${nextUrl}/bots/${data.user.id}/commands?ids=${id}`, {
 		method: "DELETE",
@@ -422,21 +389,6 @@ import alertstore from "$lib/alertstore";
 	}
     }
 
-    async function deleteResource(id: string) {
-        let res = await fetch(`${nextUrl}/resources/${data.user.id}?id=${id}&target_type=0`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json", 
-                "Authorization": data.api_token
-            }
-        })
-        if(res.ok) {
-            alert("Successfully deleted resource!", "Success!")
-        } else {
-            let json = await res.json()
-            alert(json.reason)
-        }
-    }
 
     async function autofillBot() {
         function qs(q: string) {
@@ -756,20 +708,7 @@ import alertstore from "$lib/alertstore";
                 </tr>
             </table>
             
-            <h2>Resources</h2>
-                {#each data.resources as resource}
-                    <h3>{resource.resource_title}</h3>
-                        <ul class="resource">
-                            <li>ID: <span class="value">{resource.id}</span></li>
-                            <li>Link: <span class="value">{resource.resource_link}</span></li>
-                            <li>Description: <span class="value">{resource.resource_description}</span></li>
-                        </ul>
-                        <Button href={"#"} on:click={() => deleteResource(resource.id)} class="button" touch variant="outlined">Delete {resource.resource_title}</Button>
-                {/each}
-                {#if data.resources.length == 0}
-                    <p>No resources on your bot!</p>
-                {/if}
-		<h2>Commands</h2>
+	<h2>Commands</h2>
 		{#if data.commands.length > 0}
 			{#each data.commands as command}
 			<h3>{command.name}</h3>
@@ -838,37 +777,6 @@ import alertstore from "$lib/alertstore";
                 type="number"   
             /><br/>
             <Button href={"#"} on:click={postStats} class="button" id="post-stats" touch variant="outlined">Post Stats</Button>  
-            
-            <h3 class="white section">Add a resource</h3>
-            <Tip>
-                Resources are a <em>great</em> way of allowing new users to
-                quickly understand your bot and its features!
-            </Tip>
-            <label for="resource-title">Title<RedStar></RedStar></label><br/>
-            <input 
-                name="resource-title" 
-                id="resource-title" 
-                class="fform" 
-                placeholder="How to catch pokemon for dummies!"
-                type="text"
-            /><br>
-            <label for="resource-title">Link<RedStar></RedStar></label><br/>
-            <input 
-                name="resource-link" 
-                id="resource-link" 
-                class="fform" 
-                placeholder="https://google.com"
-                type="text"
-            /><br>
-            <label for="resource-title">Description<RedStar></RedStar></label><br/>
-            <input 
-                name="resource-description" 
-                id="resource-description" 
-                class="fform" 
-                placeholder="Something short and snazzy to explain who this is for!"
-                type="text"
-            /><br>
-            <Button href={"#"} on:click={createResource} class="button" id="create-resource" touch variant="outlined">Add Resource</Button>
             
             <h3 class="white section">Add a command</h3>
             <Tip>
@@ -1144,7 +1052,8 @@ import alertstore from "$lib/alertstore";
         </Tip>
     </section>
     <section id="links-tab" class='tabcontent tabdesign'>
-        <Tip>Everything in this section is completely optional</Tip>
+	<Tip>Everything in this section is completely optional</Tip>
+	<p>Extra Links allow you to set links to websites, github profies and other resources used by your bot!<br/>Note that Fates List only has a few special cases for extra links. Website, Privacy, Donate, Github, Support. These may be required for certification in the future.</p>
         <a href={"#"} on:click={() => addLink()} id="add-link">Add New</a>
         {#each extLinks as extLink}
             <div class="link-pane">
@@ -1280,12 +1189,6 @@ import alertstore from "$lib/alertstore";
         padding: 3px;
         margin-right: 50px;
         width: 33%;
-    }
-
-    .resource {
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
     }
 
    .regen-btn {
