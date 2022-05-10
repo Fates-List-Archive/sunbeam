@@ -207,10 +207,8 @@
 					<h2>Some cool resources!</h2>
 					<h3>Basics</h3>
 					<a href="/bot/{data.user.id}/invite">Invite</a><br/>
-					{#each ["website", "support", "privacy_policy", "donate", "github"] as link}
-						{#if data[link]}
-							<a href={data[link]}>{title(link)}</a><br/>
-						{/if}
+					{#each Object.entries(data.extra_links) as link}
+						<a href={link[1]}>{link[0]}</a><br/>
 					{/each}
 					<br/>
 					<h3>Community Resources</h3>

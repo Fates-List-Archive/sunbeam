@@ -58,74 +58,10 @@
         }
     }
 </style>
-<span class="auxillary"></span>
-<div class="buttons">
-<Button on:click={() => voteBot()} class="buttons-all" id="buttons-vote" touch variant="outlined">
-    <Icon icon="fa-solid:thumbs-up" inline={false}/>
-    <span style="margin-left: 3px;">{data.votes}</span>
-</Button>
-<Button href="/{type}/{data.user.id}/invite" class="buttons-all" id="buttons-invite" touch variant="outlined" rel="external">
-    <span>{#if type == "server"}Join{:else}Invite{/if}</span>
-</Button>
-{#if type == "bot"}
-    {#if data.support}
-    <Button href="{data.support}" id="buttons-support" class="buttons-all" touch variant="outlined">
-        <span>Support</span>
-    </Button>
-    {:else}
-    <Button class="buttons-all disabled" id="buttons-support" touch variant="outlined" disabled>
-        <span>Support</span>
-    </Button>
-    {/if}
-{/if}
-{#if data.website}
-<Button href="{data.website}" id="buttons-website" class="buttons-all auxillary" touch variant="outlined">
-    <span>Website</span>
-</Button>
-{:else}
-<Button class="buttons-all disabled auxillary" id="buttons-website auxillary" touch variant="outlined" disabled>
-    <span>Website</span>
-</Button>
-{/if}
-{#if data.privacy_policy}
-<Button href="{data.privacy_policy}" id="buttons-privacy" class="buttons-all auxillary" touch variant="outlined">
-    <span class="mobile-small">Privacy</span>
-</Button>
-{:else}
-<Button class="buttons-all disabled auxillary" id="buttons-privacy" touch variant="outlined" disabled>
-    <span>Privacy</span>
-</Button>
-{/if}
-{#if data.donate}
-<Button href="{data.donate}" id="buttons-donate" class="buttons-all auxillary" touch variant="outlined">
-    <span>Donate</span>
-</Button>
-{:else}
-<Button class="buttons-all disabled auxillary" id="buttons-donate" touch variant="outlined" disabled>
-    <span>Donate</span>
-</Button>
-{/if}
-{#if $session.session.token && $session.session.user_experiments.includes(enums.UserExperiments.BotReport)}
-    <Button on:click={() => {
-        $alertstore = reportView($session.session.user.id, $session.session.token, data.user.id, type)
-    }} id="buttons-report" class="buttons-all" touch variant="outlined">
-    <span>Report</span>
-</Button>
-{/if}
-{#if type == "bot"}
-    <Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all auxillary" touch variant="outlined">
-        <span>Settings</span>
-    </Button>
-{:else}
-    <Button class="buttons-all disabled auxillary" id="buttons-settings" touch variant="outlined" disabled>
-        <span>Settings</span>
-    </Button>
-{/if}
-</div>
-
 <script lang="ts">
 import { session } from "$app/stores";
 import alertstore from "$lib/alertstore";
+import Tag from "$lib/base/Tag.svelte";
 
     import { enums } from "$lib/enums/enums";
 import loadstore from "$lib/loadstore";
@@ -151,7 +87,7 @@ import Button from "@smui/button";
             $alertstore = {
                 show: true,
                 title: "Successful Vote",
-		message: `
+        message: `
 Successfully voted for this ${type}!
 
 <em>Pro Tip</em>: You can vote for ${type} directly on your server using Fates List Helper. Fates List Helper also supports vote reminders as well!
@@ -172,4 +108,43 @@ If you have previously invited Squirrelflight, please remove and add Fates List 
         }
         $navigationState = "loaded"
     }
-</script>
+
+    let extLinks = []
+
+    for (const [key, value] of Object.entries(data.extra_links)) {
+        extLinks.push({
+            name: key,
+            id: key,
+            href: value
+        })
+    }
+</script>    
+
+<span class="auxillary"></span>
+<div class="buttons">
+<Button on:click={() => voteBot()} class="buttons-all" id="buttons-vote" touch variant="outlined">
+    <Icon icon="fa-solid:thumbs-up" inline={false}/>
+    <span style="margin-left: 3px;"><strong>{data.votes}</strong></span>
+</Button>
+<Button href="/{type}/{data.user.id}/invite" class="buttons-all" id="buttons-invite" touch variant="outlined" rel="external">
+    <span><strong>{#if type == "server"}Join{:else}Invite{/if}</strong></span>
+</Button>
+<Tag buttonTag={true} targetType={type} tags={extLinks}/>
+{#if $session.session.token && $session.session.user_experiments.includes(enums.UserExperiments.BotReport)}
+    <Button on:click={() => {
+        $alertstore = reportView($session.session.user.id, $session.session.token, data.user.id, type)
+    }} id="buttons-report" class="buttons-all" touch variant="outlined">
+    <span><strong>Report</strong></span>
+</Button>
+{/if}
+{#if type == "bot"}
+    <Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all auxillary" touch variant="outlined">
+        <span>Settings</span>
+    </Button>
+{:else}
+    <Button class="buttons-all disabled auxillary" id="buttons-settings" touch variant="outlined" disabled>
+        <span>Settings</span>
+    </Button>
+{/if}
+</div>
+<br/>
