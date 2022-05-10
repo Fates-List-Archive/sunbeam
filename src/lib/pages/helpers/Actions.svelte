@@ -129,7 +129,9 @@ If you have previously invited Squirrelflight, please remove and add Fates List 
 <Button href="/{type}/{data.user.id}/invite" class="buttons-all" id="buttons-invite" touch variant="outlined" rel="external">
     <span><strong>{#if type == "server"}Join{:else}Invite{/if}</strong></span>
 </Button>
-<Tag buttonTag={true} targetType={type} tags={extLinks}/>
+<span class="auxillary">
+    <Tag buttonTag={true} targetType={type} tags={extLinks}/>
+</span>
 {#if $session.session.token && $session.session.user_experiments.includes(enums.UserExperiments.BotReport)}
     <Button on:click={() => {
         $alertstore = reportView($session.session.user.id, $session.session.token, data.user.id, type)

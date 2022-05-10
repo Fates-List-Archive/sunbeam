@@ -278,7 +278,7 @@ import alertstore from "$lib/alertstore";
             let json = JSON.parse(e.data)
             if(json.preview === undefined || !json.preview) return
             let css = document.querySelector("#css").value
-            previewHtml = startStyle+css.replaceAll("long-description", "preview-tab")+endStyle+json.preview.replaceAll("long-description", "preview-tab")
+            previewHtml = "<" + "style" + ">"+css.replaceAll("long-description", "preview-tab")+"</"+"style"+">"+json.preview.replaceAll("long-description", "preview-tab")
         }
 
         previewWs.onopen = () => {
@@ -526,6 +526,20 @@ import alertstore from "$lib/alertstore";
             bot["nsfw"] = document.querySelector("#nsfw").checked
             bot["page_style"] = parseInt(document.querySelector("#page_style").value)
             bot["keep_banner_decor"] = document.querySelector("#keep_banner_decor").value == "true"
+            
+            // Handle ext links
+            let extLinksObj = {}
+            extLinks.reverse()
+            extLinks.forEach(link => {
+                if(link.value.length > 0) {
+                    extLinksObj[link.id] = link.value
+                }
+            })
+
+            
+            bot["extra_links"] = extLinksObj
+
+            // Other things
             bot["user"] = {
                 id: bot["bot_id"],
                 username: "",
@@ -533,18 +547,18 @@ import alertstore from "$lib/alertstore";
                 avatar: "",
                 status: "Unknown",
                 bot: true,
-	    }
-	    bot["css_raw"] = ""
+	        }
+	        bot["css_raw"] = ""
 
             // Check if the bot is public
             let clientId = bot["client_id"]
-	    let botId = bot["bot_id"]
+	        let botId = bot["bot_id"]
 
             if(clientId) {
                 botId = clientId
-	    } else if(!botId) {
-		bot["bot_id"] = clientId
-	    }
+	        } else if(!botId) {
+		        bot["bot_id"] = clientId
+	        }
 
             let res = await fetch(`https://discord.com/api/v9/applications/${botId}/rpc`)
             if(res.status != 200) {
@@ -661,6 +675,50 @@ import alertstore from "$lib/alertstore";
         } catch (err) {
             alert(err)
         }
+    }
+
+    let extLinks: any[] = []
+
+    // Give some default links
+    for (const [key, value] of Object.entries(data.extra_links || {
+        "Website": "",
+        "Github": "",
+        "Support": "",
+        "Donate": ""
+    })) {
+        extLinks.push({id: key, value: value})
+    }
+
+    function addLink() {
+        let link = prompt("Name of link to add?")
+        if(link) {
+            extLinks.push({
+                id: link,
+                value: ""
+            })
+        }
+        extLinks = extLinks // Rerender
+    }
+
+    function removeLink(id: string) {
+        let index = extLinks.findIndex(el => el.id == id)
+        if(index != -1) {
+            extLinks.splice(index, 1)
+        }
+        extLinks = extLinks // Rerender
+        console.log(extLinks)
+    }
+
+    function renameLink(id: string) {
+        let index = extLinks.findIndex(el => el.id == id)
+        if(index != -1) {
+            let newName = prompt("New name?")
+            if(newName) {
+                extLinks[index].id = newName
+            }
+        }
+        extLinks = extLinks // Rerender
+        console.log(extLinks)
     }
 </script>
 
@@ -1087,36 +1145,27 @@ import alertstore from "$lib/alertstore";
     </section>
     <section id="links-tab" class='tabcontent tabdesign'>
         <Tip>Everything in this section is completely optional</Tip>
-        <FormInput
-            name="Website"
-            id="website"
-            placeholder="https://mysite.com"
-            data={data.website}
-        />
-        <FormInput
-            name="Github"
-            id="github"
-            placeholder="https://github.com/..."
-            data={data.github}
-        />
-        <FormInput
-            name="Privacy Policy URL"
-            id="privacy_policy"
-            placeholder="https://myprivacypolicy.com"
-            data={data.privacy_policy}
-        />
-        <FormInput
-            name="Support Server"
-            id="support"
-            placeholder="https://discord.gg/supportserver"
-            data={data.support}
-        />
-        <FormInput
-            name="Donate URL (Patreon/Paypal.me/Buymeacoffee)"
-            id="donate"
-            placeholder="https://patreon.com/..."
-            data={data.donate}
-        />
+        <a href={"#"} on:click={() => addLink()} id="add-link">Add New</a>
+        {#each extLinks as extLink}
+            <div class="link-pane">
+                <FormInput
+                    name="{extLink.id}"
+                    id="{extLink.id}"
+                    placeholder="https://..."
+                    data={extLink.value}
+                    oninput={(e) => {
+                        console.log("input", e.target.value);
+                        let index = extLinks.findIndex(el => el.id == extLink.id)
+                        if(index != -1) {
+                            extLinks[index].value = e.target.value
+                        }
+                        console.log(extLinks)
+                    }}
+                />
+                <a href={"#"} on:click={() => removeLink(extLink.id)} id="remove-link">Remove</a>
+                <a href={"#"} on:click={() => renameLink(extLink.id)} id="rename-link">Rename</a>
+            </div>
+        {/each}
     </section>
     <section id="extras-tab" class='tabcontent tabdesign'>
         <Tip>Everything in this section is completely optional</Tip>
@@ -1233,5 +1282,9 @@ import alertstore from "$lib/alertstore";
 
    .regen-btn {
        font-size: 12px !important;
+   }
+
+   .link-pane {
+       margin-bottom: 10px;
    }
 </style>
