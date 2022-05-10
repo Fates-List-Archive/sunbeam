@@ -10,14 +10,17 @@ import { browser } from "$app/env";
     export let placeholder: string;
     export let data: any = "";
     export let textarea: boolean = false;
+    export let shouldUpdateInputStore = true;
     export let onchange: any = () => {};
     export let oninput: any = () => {};
     export let onkeyup: any = () => {};
     if(!data) {
         data = ""
     }
- 
-    $inputstore.push({id: id, required: required})
+    
+    if(shouldUpdateInputStore) {
+        $inputstore.push({id: id, required: required})
+    }
 </script>
 <div class={formclass}>
     <label for="{id}">{name}{#if required}<RedStar></RedStar>{/if}</label><br/>

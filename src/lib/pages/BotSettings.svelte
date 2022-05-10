@@ -1153,6 +1153,7 @@ import alertstore from "$lib/alertstore";
                     id="{extLink.id}"
                     placeholder="https://..."
                     data={extLink.value}
+                    shouldUpdateInputStore={false}
                     oninput={(e) => {
                         console.log("input", e.target.value);
                         let index = extLinks.findIndex(el => el.id == extLink.id)
