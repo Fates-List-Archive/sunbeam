@@ -210,16 +210,6 @@
 					{#each Object.entries(data.extra_links) as link}
 						<a href={link[1]}>{link[0]}</a><br/>
 					{/each}
-					<br/>
-					<h3>Community Resources</h3>
-					{#if !data.resources || data.resources.length <= 0}
-						<h4>This {type} does not have any community resources!</h4>
-					{:else}
-						{#each data.resources as resource}
-							<a href={resource.resource_link}>{resource.resource_title}</a>
-							<p>{resource.resource_description}</p>
-						{/each}
-					{/if}
 				</section>		
 				<hr/>
                 <section id="about-tab" class='tabs-v2'>

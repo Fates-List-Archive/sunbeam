@@ -130,21 +130,11 @@
 			{/if}
 		</section>
 		<section id="resources-tab" class="tabcontent tabdesign">
-			<h2>Basics</h2>
+			<h2>Some cool resources!</h2>
 			<a href="/bot/{data.user.id}/invite">Invite</a><br/>
 			{#each Object.entries(data.extra_links) as link}
 				<a href={link[1]}>{link[0]}</a><br/>
 			{/each}
-			<br/>
-			<h2>Community Resources</h2>
-			{#if !data.resources && data.resources.length < 0}
-				<h2>This {type} does not have any custom resources!</h2>
-			{:else}
-				{#each data.resources as resource}
-					<a href={resource.resource_link}>{resource.resource_title}</a>
-					<p>{resource.resource_description}</p>
-				{/each}
-			{/if}
 		</section>
         <section id="reviews-tab" class="tabcontent tabdesign">
 		   <label for="rating">On a scale of 1 to 10, how much did you like this {type}?</label><br/>
