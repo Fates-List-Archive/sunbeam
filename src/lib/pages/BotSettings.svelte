@@ -693,7 +693,7 @@ import alertstore from "$lib/alertstore";
         let link = prompt("Name of link to add?")
         if(link) {
             extLinks.push({
-                id: link,
+                id: title(link),
                 value: ""
             })
         }
