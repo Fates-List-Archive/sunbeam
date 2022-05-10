@@ -131,10 +131,10 @@
 		</section>
 		<section id="resources-tab" class="tabcontent tabdesign">
 			<h2>Basics</h2>
-			<a href="/bot/{data.user.id}/invite">Invite</a><br/>
+			<a href="/bot/{data.user.id}/invite" target="_blank">Invite</a><br/>
 			{#each ["website", "support", "privacy_policy", "donate", "github"] as link}
 				{#if data[link]}
-					<a href={data[link]}>{title(link)}</a><br/>
+					<a href={data[link]} target="_blank">{title(link)}</a><br/>
 				{/if}
 			{/each}
 			<br/>
