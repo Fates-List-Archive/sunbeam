@@ -214,9 +214,7 @@
 				<hr/>
                 <section id="about-tab" class='tabs-v2'>
                     <!--First main owner is guaranteed to be first in HTML-->
-                    {#if type == "bot"}
-						<About data={data} type="bot"></About>
-                    {/if}
+					<About data={data} type={type}></About>
                 </section>
             </Tab>
         </div>

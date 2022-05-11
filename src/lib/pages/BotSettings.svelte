@@ -16,6 +16,7 @@ import FormInput from "$lib/base/FormInput.svelte";
 import MultiSelect from "$lib/base/MultiSelect.svelte";
 import { apiUrl, nextUrl } from "$lib/config";
 import Checkbox from "$lib/base/Checkbox.svelte"
+import Owner from "$lib/base/Owner.svelte";
 import { browser } from "$app/env";
 import alertstore from "$lib/alertstore";
 
@@ -582,7 +583,6 @@ import alertstore from "$lib/alertstore";
             bot["long_description_raw"] = bot["long_description"]
             bot["invite_link"] = bot["invite"] || ""
             bot["invite_amount"] = 0
-            bot["owners_html"] = ""
             bot["total_votes"] = 0
             bot["flags"] = []
             bot["action_logs"] = []
@@ -706,7 +706,9 @@ import alertstore from "$lib/alertstore";
                     </td>                    
                     <td class="info-table-row">
                         <Icon icon="mdi-crown" inline={false} height="1.2em" style="margin-right: 1px"></Icon>
-                        {@html data.owners_html}
+                        {#each data.owners as owner}
+                            <Owner user={owner.user}/>
+                        {/each}
                     </td>
                 </tr>
             </table>

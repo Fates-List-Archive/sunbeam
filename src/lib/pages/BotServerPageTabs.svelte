@@ -195,11 +195,7 @@
                 </section>
                 <section id="about-tab" class='tabcontent tabdesign'>
                     <!--First main owner is guaranteed to be first in HTML-->
-                    {#if type == "bot"}
-						<About data={data} type="bot"></About>
-		    		{:else}
-						<h2>Servers do not support this feature <em>yet</em> :(</h2>
-                    {/if}
+					<About data={data} type={type}></About>
                 </section>
             </Tab>
         </div>
