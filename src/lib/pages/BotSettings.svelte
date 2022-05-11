@@ -654,9 +654,12 @@ import alertstore from "$lib/alertstore";
 
     function addLink() {
         let link = prompt("Name of link to add?")
-        if(link) {
+	if(link) {
+	    if(!link.startsWith("_")) {
+	    	link = title(link) 
+	    }
             extLinks.push({
-                id: title(link),
+                id: link,
                 value: ""
             })
         }
