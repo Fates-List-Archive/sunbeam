@@ -6,7 +6,7 @@
 	thumbnail="{data.user.avatar}"
 ></BristlefrostMeta>
 
-{#if data.banner && data.keep_banner_decor}
+{#if data.banner && data.flags.includes(enums.Flags.keep_banner_decor)}
 <style lang="scss">
 .opaque {
 	opacity: 0.83;

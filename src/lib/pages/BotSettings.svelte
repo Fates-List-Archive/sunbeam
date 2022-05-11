@@ -481,7 +481,12 @@ import alertstore from "$lib/alertstore";
             bot["long_description_type"] = parseInt(document.querySelector("#long_description_type").value)
             bot["nsfw"] = document.querySelector("#nsfw").checked
             bot["page_style"] = parseInt(document.querySelector("#page_style").value)
-            bot["keep_banner_decor"] = document.querySelector("#keep_banner_decor").value == "true"
+            
+            let flags = [];
+
+            if(document.querySelector("#keep_banner_decor").value == "true") {
+                flags.push(enums.Flags.keep_banner_decor)
+            }
             
             // Handle ext links
             let extLinksObj = {}
@@ -584,7 +589,7 @@ import alertstore from "$lib/alertstore";
             bot["invite_link"] = ""
             bot["invite_amount"] = 0
             bot["total_votes"] = 0
-            bot["flags"] = []
+            bot["flags"] = flags
             bot["action_logs"] = []
             bot["commands"] = [] // TODO (maybe?)
             bot["resources"] = [] // TODO (maybe?)

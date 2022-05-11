@@ -71,6 +71,8 @@ enum Flag {
     stats_locked =  3,
     vote_locked =   4,
     system =        5,
+    whitelist_only = 6,
+    keep_banner_decor = 7,
 }
 
 enum PageStyle {
