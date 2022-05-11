@@ -7,7 +7,7 @@
     export let buttonTag: boolean = false; // Button tag or not
 
     // Add first maxTags to initial render view
-    let maxTags = 3
+    let maxTags = 4
     let classList = "tag-container";
     let tagClasses = "tag-item";
     let spanClasses = "tag-span";
@@ -50,7 +50,11 @@
                 {#if !buttonTag}
                     <Icon class="white tag-icon" icon="{tag.iconify_data}" inline={false} aria-hidden="true"></Icon>
                 {/if}
-                <strong>{tag.name}</strong>
+                {#if buttonTag}
+                    {tag.name}
+                {:else}
+                    <strong>{tag.name}</strong>
+                {/if}
             </Button>
         </span>
     {/each}

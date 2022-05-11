@@ -57,6 +57,14 @@
             font-size: 11px !important;
         }
     }
+
+    .links-pane {
+        display: flex;
+        flex-flow: column-wrap;
+        justify-content: center;
+        align-items: center;
+        min-width: 93%;
+    }
 </style>
 <script lang="ts">
 import { session } from "$app/stores";
@@ -133,9 +141,6 @@ If you have previously invited Squirrelflight, please remove and add Fates List 
 <Button href="/{type}/{data.user.id}/invite" class="buttons-all" id="buttons-invite" touch variant="outlined" rel="external">
     <span><strong>{#if type == "server"}Join{:else}Invite{/if}</strong></span>
 </Button>
-<span class="auxillary">
-    <Tag buttonTag={true} targetType={type} tags={extLinks}/>
-</span>
 {#if $session.session.token && $session.session.user_experiments.includes(enums.UserExperiments.BotReport)}
     <Button on:click={() => {
         $alertstore = reportView($session.session.user.id, $session.session.token, data.user.id, type)
@@ -145,12 +150,16 @@ If you have previously invited Squirrelflight, please remove and add Fates List 
 {/if}
 {#if type == "bot"}
     <Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all auxillary" touch variant="outlined">
-        <span>Settings</span>
+        <span><strong>Settings</strong></span>
     </Button>
 {:else}
     <Button class="buttons-all disabled auxillary" id="buttons-settings" touch variant="outlined" disabled>
-        <span>Settings</span>
+        <span><strong>Settings</strong></span>
     </Button>
 {/if}
 </div>
-<br/>
+{#if extLinks.length > 0}
+    <div class="links-pane">
+        <Tag buttonTag={true} targetType={type} tags={extLinks}/>
+    </div>
+{/if}
