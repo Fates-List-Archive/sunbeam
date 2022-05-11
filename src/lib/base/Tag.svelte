@@ -7,7 +7,7 @@
     export let buttonTag: boolean = false; // Button tag or not
 
     // Add first maxTags to initial render view
-    let maxTags = 5
+    let maxTags = 3
     let classList = "tag-container";
     let tagClasses = "tag-item";
     let spanClasses = "tag-span";

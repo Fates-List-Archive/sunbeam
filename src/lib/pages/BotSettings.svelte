@@ -253,8 +253,11 @@ import alertstore from "$lib/alertstore";
             headers: headers,
         })
         if(res.ok) {
-            alert("Successfully deleted this bot!", "Success!")
-            window.location.href = "/"
+	    alert("Successfully deleted this bot!", "Success!")
+	    $alertstore.close = () => {
+		$alertstore.show = false
+		window.location.href = "/"
+	    }
             return
         } else {
             let json = await res.json()
