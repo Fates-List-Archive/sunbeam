@@ -148,10 +148,11 @@ import navigationState from "$lib/navigationState";
                 "id": data.user.id,
                 "username": "",
                 "disc": "",
-		        "avatar": "",
-		        "status": "Unknown",
+		"avatar": "",
+		"status": "Unknown",
                 "bot": false,
-            }
+	    },
+	    "extra_links": {} // TODO: Add support for this directly to sunbeam
         }
         console.log(JSON.stringify(payload))
         let url = `${nextUrl}/profiles/${data.user.id}`
