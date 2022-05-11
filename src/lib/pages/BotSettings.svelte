@@ -580,8 +580,8 @@ import alertstore from "$lib/alertstore";
             bot["created_at"] = "1970-01-01T00:00:00Z"
             bot["last_updated_at"] = "1970-01-01T00:00:00Z"
             bot["last_stats_post"] = "1970-01-01T00:00:00Z"
-            bot["long_description_raw"] = bot["long_description"]
-            bot["invite_link"] = bot["invite"] || ""
+            bot["long_description_raw"] = ""
+            bot["invite_link"] = ""
             bot["invite_amount"] = 0
             bot["total_votes"] = 0
             bot["flags"] = []
