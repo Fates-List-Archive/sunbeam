@@ -1109,8 +1109,8 @@ import alertstore from "$lib/alertstore";
         </Tip>
         <label for="keep_banner_decor">Keep Banner Decorations/Artifacts </label>
         <select name="keep_banner_decor" id="keep_banner_decor">
-            <SelectOption value="true" masterValue="{data.keep_banner_decor}">Yes</SelectOption>
-            <SelectOption value="false" masterValue="{data.keep_banner_decor}">No</SelectOption>
+            <SelectOption value="true" masterValue="{data.flags.includes(enums.Flags.keep_banner_decor)}">Yes</SelectOption>
+            <SelectOption value="false" masterValue="{data.flags.includes(enums.Flags.keep_banner_decor)}">No</SelectOption>
         </select>
         <br/>
         <FormInput
