@@ -356,6 +356,7 @@ import alertstore from "$lib/alertstore";
             doc_link: document.querySelector("#command-doc-link").value,
             vote_locked: document.querySelector("#command-vote-locked").checked,
             premium_only: document.querySelector("#command-premium-only").checked,
+            nsfw: document.querySelector("#command-nsfw").checked
         }
         let res = await fetch(`${nextUrl}/bots/${data.user.id}/commands`, {
             method: "POST",
@@ -478,7 +479,6 @@ import alertstore from "$lib/alertstore";
             bot["webhook_type"] = parseInt(document.querySelector("#webhook_type").value)
             bot["webhook_hmac_only"] = document.querySelector("#webhook_hmac_only").checked
             bot["long_description_type"] = parseInt(document.querySelector("#long_description_type").value)
-            bot["nsfw"] = document.querySelector("#nsfw").checked
             bot["page_style"] = parseInt(document.querySelector("#page_style").value)
             
             let flags = [];
@@ -487,7 +487,7 @@ import alertstore from "$lib/alertstore";
                 flags.push(enums.Flags.keep_banner_decor)
             }
 
-            if(document.querySelector("#command-nsfw").checked) {
+            if(document.querySelector("#nsfw").checked) {
                 flags.push(enums.Flags.nsfw)
             }
             
