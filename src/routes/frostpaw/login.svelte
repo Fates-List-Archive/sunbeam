@@ -66,7 +66,14 @@ import alertstore from '$lib/alertstore';
                 
                 // Fetch baypaw client info
                 fetch(`${apiUrl}/frostpaw/clients/${clientId}`)
-                .then(res => res.json())
+                .then(res => {
+                    if(res.ok) {
+                        return res.json()
+                    } else {
+                        frostpawMsg = "Client not found"
+                        return async () => {{}}
+                    }
+                })
                 .then(json => {
                     cliInfo = json
                 })
