@@ -73,6 +73,7 @@ enum Flag {
     system =        5,
     whitelist_only = 6,
     keep_banner_decor = 7,
+    nsfw = 8,
 }
 
 enum PageStyle {

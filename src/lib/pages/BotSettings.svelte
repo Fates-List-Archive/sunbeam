@@ -355,7 +355,6 @@ import alertstore from "$lib/alertstore";
             notes: document.querySelector("#command-notes").value.replaceAll(",", "|").split("|").map(el => el.trim()),
             doc_link: document.querySelector("#command-doc-link").value,
             vote_locked: document.querySelector("#command-vote-locked").checked,
-            nsfw: document.querySelector("#command-nsfw").checked,
             premium_only: document.querySelector("#command-premium-only").checked,
         }
         let res = await fetch(`${nextUrl}/bots/${data.user.id}/commands`, {
@@ -486,6 +485,10 @@ import alertstore from "$lib/alertstore";
 
             if(document.querySelector("#keep_banner_decor").value == "true") {
                 flags.push(enums.Flags.keep_banner_decor)
+            }
+
+            if(document.querySelector("#command-nsfw").checked) {
+                flags.push(enums.Flags.nsfw)
             }
             
             // Handle ext links
@@ -1002,7 +1005,7 @@ import alertstore from "$lib/alertstore";
             <SelectOption value="1" masterValue="{data.page_style}">Single-scroll (new)</SelectOption>
             <SelectOption value="0" masterValue="{data.page_style}">Tabs (classic, deprecated)</SelectOption>
         </select>
-        <Checkbox id="nsfw" data={data.nsfw}>NSFW</Checkbox>
+        <Checkbox id="nsfw" data={data.flags.includes(enums.Flags.nsfw)}>NSFW</Checkbox>
         <br/><br/>
     </section>
     <section id="webhooks-tab" class='tabcontent tabdesign'>
