@@ -671,6 +671,10 @@ import AuditLogs from "$lib/base/AuditLogs.svelte";
                 alert("Hmmm... we couldn't find this user <em>anywhere</em>")
                 return
             }
+            if(user.bot) {
+                alert("This user is a <em>bot</em>")
+                return
+            }
             extraOwners.push({user: user, main: false})
             extraOwners = extraOwners // Rerender
         }
