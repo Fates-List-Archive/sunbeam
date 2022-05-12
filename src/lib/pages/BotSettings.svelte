@@ -19,6 +19,7 @@ import Checkbox from "$lib/base/Checkbox.svelte"
 import Owner from "$lib/base/Owner.svelte";
 import { browser } from "$app/env";
 import alertstore from "$lib/alertstore";
+import AuditLogs from "$lib/base/AuditLogs.svelte";
 
     function title(str: string) {
         return str.replaceAll("_", " ").replace(/(^|\s)\S/g, function(t) { return t.toUpperCase() });
@@ -46,17 +47,6 @@ import alertstore from "$lib/alertstore";
     if(mode == "edit") {
         // Make some basic attributes
         data.bot_id = data.user.id;
-        data.extra_owners = "";
-        let i = 1;
-        data.owners.forEach(owner => {
-            if(!owner.main) {
-                data.extra_owners += owner.user.id
-                if(data.owners.length > i) {
-                    data.extra_owners += ", "
-                }
-            }
-            i+=1
-        })
     } else {
         data.css = ""
     }
@@ -198,12 +188,7 @@ import alertstore from "$lib/alertstore";
         }
     }
 
-    async function transferBot() {
-        let newOwner = document.querySelector("#new-owner").value
-        if(!newOwner) {
-            alert("You must specify a owner to transfer ownership to")
-            return
-        }
+    async function transferBot(newOwner: string) {
         let confirm = prompt("This action is irreversible. Please confirm you really want to transfer ownership by entering your Bots ID below")
         if(confirm != data.bot_id) {
             alert("Could not transfer ownership as you did not confirm you wanted to do this/inputted invalid Bot ID")
@@ -565,24 +550,8 @@ import alertstore from "$lib/alertstore";
                 }
             })
 
-            // Extra owners
-            if(bot["extra_owners"]) {
-                bot["owners"] = bot["extra_owners"].replace(" ", "").split(",").map(el => {
-                    return {
-                        user: {
-                            id: el.trim(),
-                            username: "",
-                            disc: "",
-                            avatar: "",
-                            status: "Unknown",
-                            bot: false,
-                        },
-                        main: false
-                    }
-                })
-            } else {
-                bot["owners"] = []
-            }
+            // Add owners
+            bot["owners"] = extraOwners
 
             // Add extra fields
             bot["created_at"] = "1970-01-01T00:00:00Z"
@@ -642,6 +611,8 @@ import alertstore from "$lib/alertstore";
 
     let extLinks: any[] = []
 
+    let extraOwners = data.owners.filter(el => !el.main)
+
     // Give some default links
     for (const [key, value] of Object.entries(data.extra_links || {
         "Website": "",
@@ -686,6 +657,32 @@ import alertstore from "$lib/alertstore";
         extLinks = extLinks // Rerender
         console.log(extLinks)
     }
+
+    async function addOwner() {
+        let userId = prompt("Enter User ID")
+        if(userId) {
+            let userReq = await fetch(`${nextUrl}/blazefire/${userId}`)
+            if(!userReq.ok) {
+                alert("Hmmm... we couldn't find this user <em>anywhere</em>")
+                return
+            }
+            let user = await userReq.json()
+            if(!user.id) {
+                alert("Hmmm... we couldn't find this user <em>anywhere</em>")
+                return
+            }
+            extraOwners.push({user: user, main: false})
+            extraOwners = extraOwners // Rerender
+        }
+    }
+
+    function deleteOwner(id: string) {
+        let index = extraOwners.findIndex(el => el.user.id == id)
+        if(index != -1) {
+            extraOwners.splice(index, 1)
+        }
+        extraOwners = extraOwners // Rerender
+    }
 </script>
 
 <img class="user-avatar" loading="lazy" src="{user.avatar.replace(".png", ".webp").replace("width=", "width=120px")}" id="user-avatar" alt="{user.username}'s avatar">
@@ -695,36 +692,31 @@ import alertstore from "$lib/alertstore";
     {#if mode == "edit"}
         <section id="about-tab" class='tabcontent tabdesign'>
             <h2>Bot Information</h2>
-            <table id="info-table">
-                <tr class="info-table-row">
-                    <th class="section-title">Bot State</th>
-                    <th class="section-title">Bot Flags</th>
-                    <th class="section-title">Bot Owners</th>
-                </tr>
-                <tr class="info-table-row">
-                    <td class="info-table-row">
-                        {title(enums.BotState[data.state])} ({data.state})
-                    </td>
-                    <td class="info-table-row"> 
-                        <ul class="flag-ul">
-                            {#each data.flags as flag}
-                                <li>{enums.Flags[flag]} ({flag})</li>
-                            {/each}
-                            {#if data.flags.length == 0}
-                                <li><span class="value">No flags on your bot! You're all clear!</span></li>
-                            {/if}
-                        </ul>            
-                    </td>                    
-                    <td class="info-table-row">
-                        <Icon icon="mdi-crown" inline={false} height="1.2em" style="margin-right: 1px"></Icon>
-                        {#each data.owners as owner}
-                            <Owner user={owner.user}/>
+            <section class="grid grid-cols-3 gap-4">
+                <div>
+                    <h3 class="section-title">Bot State</h3>
+                    <p>{title(enums.BotState[data.state])} ({data.state})</p>
+                </div>
+                <div>
+                    <h3 class="section-title">Bot Flags</h3>
+                    <ul class="flag-ul">
+                        {#each data.flags as flag}
+                            <li>{enums.Flags[flag]} ({flag})</li>
                         {/each}
-                    </td>
-                </tr>
-            </table>
-            
-	<h2>Commands</h2>
+                        {#if data.flags.length == 0}
+                            <li><span class="value">No flags on your bot! You're all clear!</span></li>
+                        {/if}
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="section-title">Bot Owners</h3>
+                    <Icon icon="mdi-crown" inline={false} height="1.2em" style="margin-right: 1px"></Icon>
+                    {#each data.owners as owner}
+                        <Owner user={owner.user}/>
+                    {/each}
+                </div>
+            </section>
+	    <h2>Commands</h2>
 		{#if data.commands.length > 0}
 			{#each data.commands as command}
 			<h3>{command.name}</h3>
@@ -739,12 +731,15 @@ import alertstore from "$lib/alertstore";
 			<p>No commands created for this bot</p>
 		{/if}
             
-            <h2>API Token</h2>
-                <pre>{token}</pre>            
-                <Button href={"#"} on:click={showBotToken} class="button" id="bot-token-show-btn" touch variant="outlined"><span class="regen-btn">{showBtn}</span></Button>
-                <Button href={"#"} on:click={regenBotToken} class="button" style="background-color: red" id="bot-token-regen-btn" touch variant="text"><span class="regen-btn">Regenerate</span></Button>    
-        </section>
-        <section id="actions-tab" class='tabcontent tabdesign'>
+        <h2>API Token</h2>
+        <pre>{token}</pre>            
+        <Button href={"#"} on:click={showBotToken} class="button" id="bot-token-show-btn" touch variant="outlined"><span class="regen-btn">{showBtn}</span></Button>
+        <Button href={"#"} on:click={regenBotToken} class="button danger" id="bot-token-regen-btn" touch variant="text"><span class="regen-btn">Regenerate</span></Button>    
+
+        <h2>Action Logs</h2>
+        <AuditLogs logs={data.action_logs}></AuditLogs>
+    </section>
+    <section id="actions-tab" class='tabcontent tabdesign'>
             <h2>Critical Actions Needed</h2>
             <Tip>These are actions you <em>must</em> take to continue using all features!</Tip>
             {#if data.state == enums.BotState.denied || data.state == enums.BotState.banned}
@@ -891,16 +886,6 @@ import alertstore from "$lib/alertstore";
                 placeholder="I wish to certify my bot and here's why. Use at least 7 characters"
             ></textarea>
             <Button href={"#"} on:click={requestCertification} class="button" id="request-certification" touch variant="outlined">Request Certification</Button>
-            <h3 class="white section">Transfer Ownership</h3>
-            <label for="new-owner">New Owner ID<RedStar></RedStar></label><br/>
-            <input 
-                name="new-owner" 
-                id="new-owner" 
-                class="fform" 
-                placeholder="563808552288780322 etc."
-                type="number"
-            /><br>
-            <Button href={"#"} on:click={transferBot} class="button" id="transfer-bot" touch variant="outlined">Transfer</Button>
             <h3 class="white section">Delete Bot</h3>
             <Tip icon="jam:triangle-danger-f" alertClass="tip-red alert-info">
                 This cannot be undone and you will lose any perks your bot may have such as 
@@ -908,7 +893,7 @@ import alertstore from "$lib/alertstore";
                 Think twice before proceeding as not even staff can revert bot deletions, 
                 even if accidental...
             </Tip>
-            <Button style="background-color: red" href={"#"} on:click={deleteBot} class="button" id="delete-bot" touch variant="text">Delete Bot</Button>
+            <Button href={"#"} on:click={deleteBot} class="button danger" id="delete-bot" touch variant="text">Delete Bot</Button>
         </section>
     {/if}
     <section id="basics-tab" class='tabcontent tabdesign'>
@@ -928,12 +913,27 @@ import alertstore from "$lib/alertstore";
             data={data.client_id} 
         />
         <Button href={"#"} on:click={autofillBot} class="button" id="autofill-bot" touch variant="outlined">Autofill</Button><br/><br/>
-        <FormInput
-            name="Extra Owners (comma seperated)"
-            id="extra_owners"
-            placeholder="790722073248661525, 563808552288780322"
-            data={data.extra_owners}
-        />
+        <h2>Extra Owners</h2>
+        <section class="grid grid-cols-3 gap-4 ext-owners">
+            {#each extraOwners as owner}
+                <div>
+                    <img src="{owner.user.avatar}" width="200px" class="owner-avatar" loading="lazy" alt="{owner.user.username}'s avatar"/><br/>
+                    <p>{owner.user.username}#{owner.user.disc.padStart(4, "0")}</p>
+                    <small class="value">{owner.user.id}</small><br/>
+                    <span>
+                        <a class="links-act" href={"#"} on:click={() => deleteOwner(owner.user.id)}>Delete</a>
+                        <a class="links-act" href={"#"} on:click={() => transferBot(owner.user.id)}>Transfer</a>
+                    </span>
+                </div>
+            {/each}
+            <div>
+                <a href={"#"} on:click={() => addOwner()} id="add-owner">
+                    <img src="https://api.iconify.design/ant-design/plus-outlined.svg" width="150px" loading="lazy" class="filter-white" alt="Add Bot Icon"/><br/>
+                    <p style="font-size: 18px;">Add new owner</p>
+                    <small class="value">Be sure to only add owners you trust</small><br/>
+                </a>
+            </div>
+        </section>
         <FormInput
             name="Prefix (leave blank for slash command only bot) "
             id="prefix"
@@ -1070,7 +1070,7 @@ import alertstore from "$lib/alertstore";
     <section id="links-tab" class='tabcontent tabdesign'>
 	<Tip>Everything in this section is completely optional</Tip>
 	<p>Extra Links allow you to set links to websites, github profies and other resources used by your bot!<br/>Note that Fates List only has a few special cases for extra links. Website, Privacy, Donate, Github, Support. These may be required for certification in the future.</p>
-        <a href={"#"} on:click={() => addLink()} id="add-link">Add New</a>
+        <a href={"#"} on:click={() => addLink()} id="add-link">Add</a>
         {#each extLinks as extLink}
             <div class="link-pane">
                 <FormInput
@@ -1088,8 +1088,8 @@ import alertstore from "$lib/alertstore";
                         console.log(extLinks)
                     }}
                 />
-                <a href={"#"} on:click={() => removeLink(extLink.id)} id="remove-link">Remove</a>
-                <a href={"#"} on:click={() => renameLink(extLink.id)} id="rename-link">Rename</a>
+                <a class="links-act" href={"#"} on:click={() => removeLink(extLink.id)} id="remove-link">Remove</a>
+                <a class="links-act" href={"#"} on:click={() => renameLink(extLink.id)} id="rename-link">Rename</a>
                 {#if extLink.id.startsWith("_")}
                     <Tip>
                         This is a hidden link. It will not be shown in the bot's page. 
@@ -1148,9 +1148,14 @@ import alertstore from "$lib/alertstore";
     <Button href={"#"} on:click={updateBot} class="button btn-save" id="submit" touch variant="outlined">{saveTxt}</Button>  
 </div>
 <pre>{popUpMsg}</pre>
+
 <style lang="scss">
     .tabdesign {
         overflow: visible !important;
+    }
+
+    :global(.danger) {
+        background-color: red !important;
     }
 
     .section-title {
@@ -1178,6 +1183,10 @@ import alertstore from "$lib/alertstore";
         width: 120px;
     }
 
+    .owner-avatar {
+        border-radius: 50%;
+    }
+
     .flag-ul {
         padding: 0;
         list-style-type: none;
@@ -1196,22 +1205,29 @@ import alertstore from "$lib/alertstore";
         opacity: 0.8 !important;
     }
 
-    #info-table {
-        table-layout : fixed;
-        width: 100%;
-    }
-
-    .info-table-row {
-        padding: 3px;
-        margin-right: 50px;
-        width: 33%;
-    }
-
    .regen-btn {
        font-size: 12px !important;
    }
 
    .link-pane {
        margin-bottom: 10px;
+   }
+
+   #add-owner {
+       opacity: 1 !important;
+       display: inline !important;
+       font-size: initial !important;
+   }
+
+   .ext-owners {
+       margin-bottom: 10px;
+   }
+
+   .links-act {
+       margin-right: 3px;
+   }
+
+   .filter-white {
+        filter: invert(100%) sepia(6%) saturate(7493%) hue-rotate(13deg) brightness(115%) contrast(135%);
    }
 </style>
