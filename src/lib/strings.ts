@@ -46,82 +46,82 @@ export let translations: TranslationData = {
     "NonceTooOld": {
         en: "Nonce too old. Please try logging in again!",
     },
-    "CheckBot.AlreadyExists": {
+    "CheckBotError.AlreadyExists": {
         en: "This bot already exists on Fates List",
     },
-    "CheckBot.ClientIDImmutable": {
+    "CheckBotError.ClientIDImmutable": {
         en: "Client ID cannot be changed once set",
     },
-    "CheckBot.PrefixTooLong": {
+    "CheckBotError.PrefixTooLong": {
         en: "Prefix must be shorter than 9 characters"
     },
-    "CheckBot.NoVanity": {
+    "CheckBotError.NoVanity": {
         en: "You must have a vanity for your bot. This can be your username. You can prefix it with _ (underscore) if you don't want the extra growth from it. For example _mewbot would disable the mewbot vanity"
     },
-    "CheckBot.VanityTaken": {
+    "CheckBotError.VanityTaken": {
         en: "This vanity has already been taken. Please contact Fates List staff if you wish to report this!",
     },
-    "CheckBot.InvalidInvitePermNum": {
+    "CheckBotError.InvalidInvitePermNum": {
         en: "This invites permissions are invalid!"
     },
-    "CheckBot.InvalidInvite": {
+    "CheckBotError.InvalidInvite": {
         en: "Your invite link must start with https://"
     },
-    "CheckBot.ShortDescLengthErr": {
+    "CheckBotError.ShortDescLengthErr": {
         en: "Your description must be at least 10 characters long and must be a maximum of 200 characters"
     },
-    "CheckBot.LongDescLengthErr": {
+    "CheckBotError.LongDescLengthErr": {
         en: "Your long description must be at least 200 characters long"
     },
-    "CheckBot.BotNotFound": {
+    "CheckBotError.BotNotFound": {
         en: "According to Discord's API and our cache, your bot does not exist. Please try again after 2 hours."
     },
-    "CheckBot.NoTags": {
+    "CheckBotError.NoTags": {
         en: "You must select tags for your bot"
     },
-    "CheckBot.TooManyTags": {
+    "CheckBotError.TooManyTags": {
         en: "You can only select up to 10 tags for your bot"
     },
-    "CheckBot.TooManyFeatures": {
+    "CheckBotError.TooManyFeatures": {
         en: "You can only select up to 5 features for your bot"
     },
-    "CheckBot.EditLocked": {
+    "CheckBotError.EditLocked": {
         en: "This bot has either been locked by staff or has been edit locked by the main owner of the bot"
     },
-    "CheckBot.OwnerListTooLong": {
+    "CheckBotError.OwnerListTooLong": {
         en: "The owner list is too long. You may only have a maximum of 5 extra owners"
     },
-    "CheckBot.ClientIDNeeded": {
+    "CheckBotError.ClientIDNeeded": {
         en: "Client ID is required for this bot or is incorrect"
     },
-    "CheckBot.InvalidClientID": {
+    "CheckBotError.InvalidClientID": {
         en: "Client ID inputted is invalid for this bot"
     },
-    "CheckBot.PrivateBot": {
+    "CheckBotError.PrivateBot": {
         en: "This bot is private and cannot be added to Fates List"
     },
-    "CheckBot.OwnerIDParseError": {
+    "CheckBotError.OwnerIDParseError": {
         en: "An owner ID in your owner list is invalid (hint: not a snowflake)"
     },
-    "CheckBot.OwnerNotFound": {
+    "CheckBotError.OwnerNotFound": {
         en: "An owner ID in your owner list does not exist",
     },
-    "CheckBot.MainOwnerAddAttempt": {
+    "CheckBotError.MainOwnerAddAttempt": {
         en: "You cannot add a main owner as an extra owner",
     },
-    "CheckBot.ExtraLinkKeyTooLong": {
+    "CheckBotError.ExtraLinkKeyTooLong": {
         en: "One of your extra link keys is too long"
     },
-    "CheckBot.ExtraLinkValueTooLong": {
+    "CheckBotError.ExtraLinkValueTooLong": {
         en: "One of your extra link values is too long"
     },
-    "CheckBot.ExtraLinkValueNotHTTPS": {
+    "CheckBotError.ExtraLinkValueNotHTTPS": {
         en: "One of your extra link values is not a valid URL (hint: check that its HTTPS and not HTTP)",
     },
-    "CheckBot.ExtraLinksTooManyRendered": {
+    "CheckBotError.ExtraLinksTooManyRendered": {
         en: "You have too many renderable extra links (extra links that do not start with an underscore)",
     },
-    "CheckBot.ExtraLinksTooMany": {
+    "CheckBotError.ExtraLinksTooMany": {
         en: "You have too many extra links. Try removing some?"
     },
     "CheckBotError.BannerPageError": {
