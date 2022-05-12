@@ -123,6 +123,18 @@ export let translations: TranslationData = {
     },
     "CheckBot.ExtraLinksTooMany": {
         en: "You have too many extra links. Try removing some?"
+    },
+    "CheckBotError.BannerPageError": {
+        en: "An error occurred while fetching the banner page for validation...",
+    },
+    "CheckBotError.BannerCardError": {
+        en: "An error occurred while fetching the banner card for validation...",
+    },
+    "CheckBotError.JAPIError": {
+        en: "An error occurred while our anti-abuse provider handled your bot...",
+    },
+    "CheckBotError.JAPIDeserError": {
+        en: "An error occurred while our anti-abuse provider handled your bot...",
     }
 };
 
