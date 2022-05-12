@@ -39,6 +39,7 @@ import { apiUrl } from "$lib/config";
 		avatar: `${apiUrl}/static/botlisticon.webp`
 	}
 	data.user = user
+	data.flags = []
 	if(!$session.session.token) {
 		if(browser) {
 			loginUser(false)
