@@ -922,7 +922,9 @@ import AuditLogs from "$lib/base/AuditLogs.svelte";
                     <small class="value">{owner.user.id}</small><br/>
                     <span>
                         <a class="links-act" href={"#"} on:click={() => deleteOwner(owner.user.id)}>Delete</a>
-                        <a class="links-act" href={"#"} on:click={() => transferBot(owner.user.id)}>Transfer</a>
+                        {#if mode == "edit"}
+                            <a class="links-act" href={"#"} on:click={() => transferBot(owner.user.id)}>Transfer</a>
+                        {/if}
                     </span>
                 </div>
             {/each}
