@@ -6,6 +6,8 @@ interface TranslationData {
     [key: string]: Translation;
 }
 
+// A work in progress
+
 export let translations: TranslationData = {
     "index.best_bots": {
         en: "Find the best bots for your servers!",
@@ -42,6 +44,12 @@ export let translations: TranslationData = {
     },
     "NoChannelFound": {
         en: "Could not find channel to invite you to... Please ask the owner of this server to set an invite or set the invite channel for this server",
+    },
+    "SQLError": {
+        en: "Whoa there! Something went wrong! We have detected a SQL error!",
+    },
+    "RequestError": {
+        en: "Something went wrong in our internal connections! Please try again later!",
     },
     "NonceTooOld": {
         en: "Nonce too old. Please try logging in again!",

@@ -1,6 +1,8 @@
 <script context="module">
     import { nextUrl } from "$lib/config"
 
+    import { getString } from "$lib/strings"
+
     export const prerender = false;
     export async function load({ params, fetch, session, stuff }) {
         let auth = ""
@@ -21,7 +23,7 @@
         if(!inviteUrl.ok) {
             return {
                 status: 400,
-                error: new Error(inviteJson.reason)
+                error: new Error(getString(json.reason) + "<br/><br/>" + (json.context || ""))
             }
         }
 
