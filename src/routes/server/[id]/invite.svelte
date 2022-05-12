@@ -23,7 +23,7 @@
         if(!inviteUrl.ok) {
             return {
                 status: 400,
-                error: new Error(getString(json.reason) + "<br/><br/>" + (json.context || ""))
+                error: new Error(getString(inviteJson.reason) + "<br/><br/>" + (inviteJson.context || ""))
             }
         }
 
