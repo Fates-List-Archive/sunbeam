@@ -5,13 +5,15 @@
     export let type: string;
 
     export let randomBot: any;
-
-    console.log(randomBot)
+	
+    async function roller() {
+	randomBot = await roll(type)
+    }
 
 </script>
 <div class="flex">
     <BotCard type={type} rand={false} data={randomBot}></BotCard>
-    <Button class="random-button white" on:click={() => {window.location.reload()} } touch variant="outlined">Roll</Button>
+    <Button class="random-button white" on:click={() => {roller()} } touch variant="outlined">Roll</Button>
 </div>
 <div class="spacer"></div>
 <style>
