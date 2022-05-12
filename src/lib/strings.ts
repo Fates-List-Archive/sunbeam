@@ -155,3 +155,7 @@ export function getString(key: string, lang: string = "en"): string {
         return key
     }
 }
+
+export function genError(json): string {
+    return getString(json.reason) + "<br/><br/>" + (json.context || "")
+}
