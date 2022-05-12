@@ -29,7 +29,8 @@
 	import CardContainer from "$lib/cards/CardContainer.svelte"
 	import Section from "$lib/base/Section.svelte"
 	import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte"
-        import RandomBot from "$lib/base/RandomBot.svelte";
+	import RandomBot from "$lib/base/RandomBot.svelte";
+	import Intl from "$lib/base/Intl.svelte";
 	export let data: any;
 	export let randomBot: any;
 </script>
@@ -44,7 +45,7 @@
 
 <section>
 	<h1>Fates List</h1>
-	<h2 class="best-bots">Find the best servers to join!</h2>
+	<h2 class="best-bots"><Intl key="index.best_servers"/></h2>
 </section>
 <SearchBar type="server" query=""></SearchBar>
 <Tag targetType="server" tags={data.tags}></Tag>

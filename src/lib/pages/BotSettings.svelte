@@ -20,6 +20,7 @@ import Owner from "$lib/base/Owner.svelte";
 import { browser } from "$app/env";
 import alertstore from "$lib/alertstore";
 import AuditLogs from "$lib/base/AuditLogs.svelte";
+import { getString } from "$lib/strings";
 
     function title(str: string) {
         return str.replaceAll("_", " ").replace(/(^|\s)\S/g, function(t) { return t.toUpperCase() });
@@ -600,7 +601,7 @@ import AuditLogs from "$lib/base/AuditLogs.svelte";
             } else {
                 let json = await updateRes.json()
                 if(updateRes.status == 400) {
-                    alert(json.reason)
+                    alert(getString(json.reason) + "<br/><br/>" + (json.context || ""))
                 }
                 return
             }

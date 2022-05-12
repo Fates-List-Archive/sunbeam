@@ -1,19 +1,7 @@
 <script lang="ts">
-    interface Translation {
-        [lang: string]: string;
-    }
-
-    interface TranslationData {
-        [key: string]: Translation;
-    }
-
-    let translations: TranslationData = {
-        "index.best_bots": {
-            en: "Find the best bots for your servers!",
-        }
-    };
 
 	import { session } from '$app/stores';
+    import { translations, getString } from '$lib/strings';
 
     export let key: string;
 
@@ -28,10 +16,4 @@
     }
 </script>
 
-{#if translations[key] && translations[key][lang]}
-    {translations[key][lang]}
-{:else if translations[key] && translations[key]["en"]}
-    {translations[key]["en"]}
-{:else}
-    {key}
-{/if}
+{getString(key, lang)}
