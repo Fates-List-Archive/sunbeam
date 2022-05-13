@@ -136,29 +136,31 @@ If you have previously invited Squirrelflight, please remove and add Fates List 
 
 <span class="auxillary"></span>
 <div class="buttons">
-<Button on:click={() => voteBot()} class="buttons-all" id="buttons-vote" touch variant="outlined">
-    <Icon icon="fa-solid:thumbs-up" inline={false}/>
-    <span style="margin-left: 3px;"><strong>{data.votes}</strong></span>
-</Button>
-<Button href="/{type}/{data.user.id}/invite" class="buttons-all" id="buttons-invite" touch variant="outlined" rel="external">
-    <span><strong>{#if type == "server"}Join{:else}Invite{/if}</strong></span>
-</Button>
-{#if $session.session.token && $session.session.user_experiments.includes(enums.UserExperiments.BotReport)}
-    <Button on:click={() => {
-        $alertstore = reportView($session.session.user.id, $session.session.token, data.user.id, type)
-    }} id="buttons-report" class="buttons-all" touch variant="outlined">
-    <span><strong>Report</strong></span>
-</Button>
-{/if}
-{#if type == "bot" && !limited}
-    <Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all auxillary" touch variant="outlined">
-        <span><strong>Settings</strong></span>
+    <Button on:click={() => voteBot()} class="buttons-all" id="buttons-vote" touch variant="outlined">
+        <Icon icon="fa-solid:thumbs-up" inline={false}/>
+        <span style="margin-left: 3px;"><strong>{data.votes}</strong></span>
     </Button>
-{:else}
-    <Button class="buttons-all disabled auxillary" id="buttons-settings" touch variant="outlined" disabled>
-        <span><strong>Settings</strong></span>
+    <Button href="/{type}/{data.user.id}/invite" class="buttons-all" id="buttons-invite" touch variant="outlined" rel="external">
+        <span><strong>{#if type == "server"}Join{:else}Invite{/if}</strong></span>
     </Button>
-{/if}
+    {#if $session.session.token && $session.session.user_experiments.includes(enums.UserExperiments.BotReport)}
+        <Button on:click={() => {
+            $alertstore = reportView($session.session.user.id, $session.session.token, data.user.id, type)
+        }} id="buttons-report" class="buttons-all" touch variant="outlined">
+        <span><strong>Report</strong></span>
+    </Button>
+    {/if}
+    {#if !limited}
+        {#if type == "bot"}
+            <Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all auxillary" touch variant="outlined">
+                <span><strong>Settings</strong></span>
+            </Button>
+        {:else}
+            <Button class="buttons-all disabled auxillary" id="buttons-settings" touch variant="outlined" disabled>
+                <span><strong>Settings</strong></span>
+            </Button>
+        {/if}
+    {/if}
 </div>
 {#if extLinks.length > 0 && !limited}
     <div class="links-pane">
