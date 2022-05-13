@@ -170,6 +170,9 @@ export let translations: TranslationData = {
     },
     "ExpNotEnabled": {
         en: "Whoa there! You aren't whitelisted to access this top-secret experiment yet!",
+    },
+    "CommandLengthError": {
+        en: "This command is too long! Please try a shorter command name and/or description",
     }
 };
 

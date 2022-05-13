@@ -136,15 +136,7 @@
                 <Warns data={data}></Warns>
             </div>
             <p class="banner-decor white" id="bot-description">{@html data.description.replace("p>", "span>") }</p>
-            <div class="buttons">
-			    <Button on:click={() => voteBot()} class="buttons-all" id="buttons-vote" touch variant="outlined">
-				    <Icon icon="fa-solid:thumbs-up" inline={false}/>
-				    <span style="margin-left: 3px;">{data.votes}</span>
-			    </Button>
-			    <Button href="/{type}/{data.user.id}/invite" class="buttons-all" id="buttons-vote" touch variant="outlined">
-				    <span>Invite</span>
-			    </Button>
-            </div>
+            <Actions data={data} type={type}></Actions>
             <p id="vote-warning"><span class="red">Warning:</span> You can only vote for one bot every 8 hours, so vote wisely</p>
         </div>
     </article>
@@ -160,29 +152,5 @@ import alertstore from '$lib/alertstore';
 	export let data: any;
     export let type: string;
     import Warns from "./helpers/Warns.svelte"
-
-    async function voteBot() {
-        let token = $session.session.token
-        let userID = ""
-        if(token) {
-            userID = $session.session.user.id
-        }
-        let res = await voteHandler(userID, token, data.user.id, false, type)
-		let jsonDat = await res.json()
-		if(res.ok) {
-			$alertstore = {
-				show: true,
-				title: "Successful Vote",
-				message: jsonDat.reason,
-				id: "alert"
-			}
-		} else {
-			$alertstore = {
-				show: true,
-				title: "Oops :(",
-				message: jsonDat.reason,
-				id: "alert"
-			}		
-		}
-    }
+    import Actions from "./helpers/Actions.svelte";
 </script>

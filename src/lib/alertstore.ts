@@ -5,6 +5,7 @@ interface Alert {
     message: string,
     id: string,   
     show: boolean,
+    close: () => void
 }
 
 type AlertStore = Alert;

@@ -20,7 +20,7 @@ import Owner from "$lib/base/Owner.svelte";
 import { browser } from "$app/env";
 import alertstore from "$lib/alertstore";
 import AuditLogs from "$lib/base/AuditLogs.svelte";
-import { getString, genError } from "$lib/strings";
+import { genError } from "$lib/strings";
 
     function title(str: string) {
         return str.replaceAll("_", " ").replace(/(^|\s)\S/g, function(t) { return t.toUpperCase() });
@@ -240,11 +240,10 @@ import { getString, genError } from "$lib/strings";
             headers: headers,
         })
         if(res.ok) {
-	    alert("Successfully deleted this bot!", "Success!")
-	    $alertstore.close = () => {
-		$alertstore.show = false
-		window.location.href = "/"
-	    }
+	        alert("Successfully deleted this bot!", "Success!")
+            $alertstore.close = () => {
+                window.location.href = "/"
+            }
             return
         } else {
             let json = await res.json()
@@ -354,11 +353,13 @@ import { getString, genError } from "$lib/strings";
         })
         if(res.ok) {
             alert("Successfully created command!", "Success!")
-            window.location.reload()
+            $alertstore.close = () => {
+                window.location.reload()
+            }
             return
         } else {
             let json = await res.json()
-            alert(json.reason)
+            alert(genError(json))
         }
     }
 

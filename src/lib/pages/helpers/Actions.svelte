@@ -81,6 +81,7 @@ import Button from "@smui/button";
 
     export let data: any;
     export let type: string;
+    export let limited: boolean = false;
 
     async function voteBot() {
         let token = $session.session.token
@@ -149,7 +150,7 @@ If you have previously invited Squirrelflight, please remove and add Fates List 
     <span><strong>Report</strong></span>
 </Button>
 {/if}
-{#if type == "bot"}
+{#if type == "bot" && !limited}
     <Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all auxillary" touch variant="outlined">
         <span><strong>Settings</strong></span>
     </Button>
@@ -159,7 +160,7 @@ If you have previously invited Squirrelflight, please remove and add Fates List 
     </Button>
 {/if}
 </div>
-{#if extLinks.length > 0}
+{#if extLinks.length > 0 && !limited}
     <div class="links-pane">
         <Tag buttonTag={true} targetType={type} tags={extLinks}/>
     </div>

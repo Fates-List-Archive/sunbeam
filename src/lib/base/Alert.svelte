@@ -1,7 +1,13 @@
 <script lang="ts">
     export let show: boolean
-    export let close = () => {
+
+    export let close;
+
+    function closeAlert() {
         show = false
+        if(close) {
+          close()
+        }
     }
     export let title: string
     export let id: string
@@ -25,7 +31,7 @@
         <div id={`${id}-content`}>
           <slot />
         </div>
-        <button on:click={close} id="alert-close" class="block mx-auto">
+        <button on:click={closeAlert} id="alert-close" class="block mx-auto">
             Close
         </button>
       </section>

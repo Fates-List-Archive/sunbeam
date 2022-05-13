@@ -79,5 +79,5 @@ import { navigating } from '$app/stores';
 </main>
 
 {#if $alertStore}
-  <Alert show={$alertStore.show} title={$alertStore.title} id={$alertStore.id}>{@html $alertStore.message.replaceAll("\n", "<br/>")}</Alert>
+  <Alert close={$alertStore.close} show={$alertStore.show} title={$alertStore.title} id={$alertStore.id}>{@html $alertStore.message.replaceAll("\n", "<br/>")}</Alert>
 {/if}
