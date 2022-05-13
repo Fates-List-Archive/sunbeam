@@ -136,7 +136,7 @@
                 <Warns data={data}></Warns>
             </div>
             <p class="banner-decor white" id="bot-description">{@html data.description.replace("p>", "span>") }</p>
-            <Actions data={data} type={type}></Actions>
+            <Actions data={data} type={type} limited={true}></Actions>
             <p id="vote-warning"><span class="red">Warning:</span> You can only vote for one bot every 8 hours, so vote wisely</p>
         </div>
     </article>
