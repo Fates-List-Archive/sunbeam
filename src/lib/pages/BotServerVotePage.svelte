@@ -83,11 +83,6 @@
     margin-right: 10px;
 }
 
-.buttons {
-    margin-left: auto;
-    text-align: center;
-}
-
 :global(.disabled) {
     opacity: 0.63 !important;
 }
@@ -144,11 +139,6 @@
 
 <script lang="ts">
     import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
-    import Icon from '@iconify/svelte';
-    import Button from '@smui/button';
-    import { voteHandler } from '$lib/request'
-    import { session } from '$app/stores';
-import alertstore from '$lib/alertstore';
 	export let data: any;
     export let type: string;
     import Warns from "./helpers/Warns.svelte"
