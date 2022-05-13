@@ -54,6 +54,15 @@ export let translations: TranslationData = {
     "NonceTooOld": {
         en: "Nonce too old. Please try logging in again!",
     },
+    "BadExchange": {
+        en: "Something went wrong while we tried to log you in!"
+    },
+    "BadExchangeJson": {
+        en: "Something went wrong while we tried to log you in! Could be due to discord bugging out?"
+    },
+    "NoUser": {
+        en: "Could not find a user with that ID! Something serious just happened on our end! Contact support."
+    },
     "CheckBotError.AlreadyExists": {
         en: "This bot already exists on Fates List",
     },
@@ -143,6 +152,21 @@ export let translations: TranslationData = {
     },
     "CheckBotError.JAPIDeserError": {
         en: "An error occurred while our anti-abuse provider handled your bot...",
+    },
+    "InvalidFlag": {
+        en: "Illegal or otherwise non-edittable flag set on this profile",
+    },
+    "VoteBotError.Wait": {
+        en: "You've already voted recently!"
+    },
+    "VoteBotError.UnknownError": {
+        en: "An unknown error occurred. Please ask on the Fates List support server"
+    },
+    "VoteBotError.System": {
+        en: "This is a system bot or server and as such cannot be voted for at this time"
+    },
+    "VoteBotError.AutoroleError": {
+        en: "For some odd reason, we have failed to give you autoroles for voting for this server. Are you on this server?"
     }
 };
 
