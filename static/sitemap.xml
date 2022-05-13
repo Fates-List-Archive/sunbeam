@@ -2,20 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
 	<loc>https://fateslist.xyz/</loc>
-	<lastmod>2022-03-04</lastmod>
+	<lastmod>2022-05-13</lastmod>
 	<priority>1.0</priority>
     <changefreq>weekly</changefreq>
 </url>
 <url>
 	<loc>https://docs.fateslist.xyz</loc>
-	<lastmod>2022-03-04</lastmod>
+	<lastmod>2022-05-13</lastmod>
 	<priority>0.4</priority>
     <changefreq>weekly</changefreq>
 </url>
 
 <url>
 	<loc>https://fateslist.xyz/bots/519850436899897346</loc>
-	<lastmod>2022-03-04</lastmod>
+	<lastmod>2022-04-12</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.8</priority>
 </url>
@@ -28,43 +28,43 @@
 </url>
     
 <url>
+	<loc>https://fateslist.xyz/bots/456492080781328384</loc>
+	<lastmod>2022-03-22</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/952885946267889674</loc>
+	<lastmod>2022-05-08</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/901806869293723658</loc>
+	<lastmod>2022-05-05</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
 	<loc>https://fateslist.xyz/bots/924540290461736971</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/835623732210958376</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/858308969998974987</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/862696751482667068</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/903363422463357009</loc>
-	<lastmod>2022-03-04</lastmod>
+	<lastmod>2022-03-12</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.8</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/945380025526538301</loc>
-	<lastmod>2022-03-04</lastmod>
+	<lastmod>2022-03-20</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/835623732210958376</loc>
+	<lastmod>2022-03-28</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.8</priority>
 </url>
@@ -77,8 +77,22 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/877365377884110919</loc>
+	<loc>https://fateslist.xyz/bots/917018198237392926</loc>
+	<lastmod>2022-04-19</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/947558476807299082</loc>
 	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/935242576343224352</loc>
+	<lastmod>2022-05-07</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.8</priority>
 </url>
@@ -91,14 +105,161 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/434556304661544960</loc>
-	<lastmod>2022-03-04</lastmod>
+	<loc>https://fateslist.xyz/bots/811073947382579200</loc>
+	<lastmod>2022-05-11</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/966090672618745917</loc>
+	<lastmod>2022-05-01</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/967948529593122857</loc>
+	<lastmod>2022-04-28</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/840953487458435093</loc>
+	<lastmod>2022-04-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/953948569541423144</loc>
+	<lastmod>2022-03-28</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.8</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/678819994250772480</loc>
+	<lastmod>2022-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/566841380425695256</loc>
+	<lastmod>2022-03-05</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/909057210322145341</loc>
+	<lastmod>2022-04-24</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/965872757923516476</loc>
+	<lastmod>2022-04-22</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/699548270892023868</loc>
+	<lastmod>2022-04-18</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/734746193082581084</loc>
+	<lastmod>2022-04-03</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/723726581864071178</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/968062852139216906</loc>
+	<lastmod>2022-05-10</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/821411002897530890</loc>
+	<lastmod>2022-05-06</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/892765715134812200</loc>
+	<lastmod>2022-05-06</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/931310554826543164</loc>
+	<lastmod>2022-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/705059255899914291</loc>
+	<lastmod>2022-05-02</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/967724097712820274</loc>
+	<lastmod>2022-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/765624783793553478</loc>
+	<lastmod>2022-04-18</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/717716451699589143</loc>
+	<lastmod>2022-04-05</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/791106018175614988</loc>
+	<lastmod>2022-03-31</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/631115725876101150</loc>
+	<lastmod>2022-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/764924969561620500</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.8</priority>
@@ -112,619 +273,780 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/795063486988156958</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/732917262297595925</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/421978090823090186</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/761909793572257813</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/830446905611517982</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/791608370288525312</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/762976674659696660</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/813649336751620147</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/872883762663407656</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/933686221727731794</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/943882970601775224</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/159985870458322944</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/270904126974590976</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/155149108183695360</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/547905866255433758</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/235148962103951360</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/432610292342587392</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/204255221017214977</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/408785106942164992</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/458276816071950337</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/416358583220043796</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/429457053791158281</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/275813801792634880</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/437808476106784770</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/557628352828014614</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/716390085896962058</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/550613223733329920</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/646937666251915264</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/330416853971107840</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/536991182035746816</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/715906723982082139</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/429656936435286016</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/512227974893010954</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/265523588918935552</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/618817616542433283</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/727039427775299605</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/600781202617663617</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.8</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/393673098441785349</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/783772765962240022</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/708096305477451846</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/489219428358160385</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/810918366045798451</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/509851616216875019</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/728107219039551538</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/288163958022471680</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/617706329229754379</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/755588579262201886</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/783708073390112830</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
 	<loc>https://fateslist.xyz/bots/752067809214857298</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/734590862620753970</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/711934102906994699</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/827926623163777135</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/795889895872659456</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/689553107411009567</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/815153881217892372</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/779741162465525790</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/492797767916191745</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/456492080781328384</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/478370481926438932</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/699715821454360769</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/723112579584491571</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/543645076862140419</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/595966684100034578</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/751100444188737617</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/866872147679248414</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/475421235950518292</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/604170962178408469</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/636748567586930728</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/609590959184936970</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/723726581864071178</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/719524114536333342</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/715178668393103420</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/736260472663179375</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/666151106958852116</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/905495149986074664</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/764153912190042133</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/794098689983381525</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/783063661106167878</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/704133221230706748</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/723927058870304869</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/412003088732389396</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/739879279881617499</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/854634581487648799</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/716944009930473494</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
+	<priority>0.8</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/880237210484506675</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/650872568374493185</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/858308969998974987</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/818823663163670568</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/731594086775128104</loc>
+	<lastmod>2022-05-12</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/942653165382283324</loc>
+	<lastmod>2022-05-11</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/970231903452016680</loc>
+	<lastmod>2022-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/970616179930587196</loc>
+	<lastmod>2022-05-03</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/704133221230706748</loc>
+	<lastmod>2022-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/959080899650146314</loc>
+	<lastmod>2022-04-30</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/663515546557480990</loc>
+	<lastmod>2022-04-28</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/747050613656911892</loc>
+	<lastmod>2022-04-23</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/965778438080327730</loc>
+	<lastmod>2022-04-23</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.8</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/859131198147788810</loc>
+	<lastmod>2022-04-21</lastmod>
+    <changefreq>weekly</changefreq>
 	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/958767025096904865</loc>
+	<lastmod>2022-04-20</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/956585033475436684</loc>
+	<lastmod>2022-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/880317355627016232</loc>
+	<lastmod>2022-04-15</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/701185178214596652</loc>
+	<lastmod>2022-04-14</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/960988273092722718</loc>
+	<lastmod>2022-04-14</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/963205083317809192</loc>
+	<lastmod>2022-04-13</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/939640523331866725</loc>
+	<lastmod>2022-04-11</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/831231000507318312</loc>
+	<lastmod>2022-04-09</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/631558023109804032</loc>
+	<lastmod>2022-04-06</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/914672765993385994</loc>
+	<lastmod>2022-04-02</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/707627135577358417</loc>
+	<lastmod>2022-04-02</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/931197474826227773</loc>
+	<lastmod>2022-04-02</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/930150644436860998</loc>
+	<lastmod>2022-04-01</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/911751509774065705</loc>
+	<lastmod>2022-03-31</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/917496158664949800</loc>
+	<lastmod>2022-03-31</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/595966684100034578</loc>
+	<lastmod>2022-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/899236006769860658</loc>
+	<lastmod>2022-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/508391840525975553</loc>
+	<lastmod>2022-03-26</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/951696965878550588</loc>
+	<lastmod>2022-03-26</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/928341731634741328</loc>
+	<lastmod>2022-03-19</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/912745275771215952</loc>
+	<lastmod>2022-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/795063486988156958</loc>
+	<lastmod>2022-03-18</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/692350026139303937</loc>
+	<lastmod>2022-03-13</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/924404279161266307</loc>
+	<lastmod>2022-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/939779922782728202</loc>
+	<lastmod>2022-03-09</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/159985870458322944</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/270904126974590976</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/155149108183695360</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/547905866255433758</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/235148962103951360</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/432610292342587392</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/204255221017214977</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/408785106942164992</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/458276816071950337</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/416358583220043796</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/429457053791158281</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/275813801792634880</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/437808476106784770</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/557628352828014614</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/716390085896962058</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/550613223733329920</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/646937666251915264</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/330416853971107840</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/536991182035746816</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/434556304661544960</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/715906723982082139</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/429656936435286016</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/265523588918935552</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/618817616542433283</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/862657304166924329</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.7</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/727039427775299605</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/600781202617663617</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/393673098441785349</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/783772765962240022</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/708096305477451846</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/489219428358160385</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/810918366045798451</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/509851616216875019</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/728107219039551538</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/288163958022471680</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/617706329229754379</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/755588579262201886</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/704517722100465746</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/711934102906994699</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/827926623163777135</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/734590862620753970</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/795889895872659456</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/689553107411009567</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/815153881217892372</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/779741162465525790</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/492797767916191745</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/478370481926438932</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/699715821454360769</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/723112579584491571</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/543645076862140419</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/475421235950518292</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/604170962178408469</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/636748567586930728</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/609590959184936970</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/719524114536333342</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/715178668393103420</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/736260472663179375</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/666151106958852116</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/905495149986074664</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/764153912190042133</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/794098689983381525</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/783063661106167878</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/723927058870304869</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/412003088732389396</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/732917262297595925</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/739879279881617499</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/854634581487648799</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/716944009930473494</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.6</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/849603776343310336</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
+	<priority>0.6</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/834229949418045451</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
+	<priority>0.6</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/813142601565601793</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.7</priority>
+	<priority>0.6</priority>
 </url>
     
 <url>
@@ -766,322 +1088,266 @@
 	<loc>https://fateslist.xyz/bots/857807036594520095</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/707627135577358417</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/761150824754839583</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/663515546557480990</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/922548239859847248</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/818294562677588009</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/780099011796533258</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/720547339453988864</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/670983408561815570</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/831439686253543454</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/731594086775128104</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/868222990054228068</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/862657304166924329</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/852564657674649636</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/492495421822730250</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/739592876245385348</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/650872568374493185</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/912004016131690567</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/421978090823090186</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/814702471964131328</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/887086717587320852</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/755094850113896639</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/811283944175304705</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/723872940550127627</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/899991074855079946</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/809787945375760404</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/725582436477698118</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/745643092488749136</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/886969406532513793</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/682064879213084754</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/875563372974850059</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/804404430073364530</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/867048396358549544</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/591255540894531605</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/846712401570037840</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/709726181435375658</loc>
+	<loc>https://fateslist.xyz/bots/761909793572257813</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/900353078128173097</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/852491666829082635</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/840076914332925964</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/864977304823660565</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/661522137550553088</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/709726181435375658</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/780780179588513843</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
 	<loc>https://fateslist.xyz/bots/888337933352980501</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/744552721365073950</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/866958345192865822</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/754724667323056138</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/854509145021874186</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.6</priority>
+	<priority>0.5</priority>
 </url>
     
 <url>
@@ -1092,7 +1358,28 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/745418511337259099</loc>
+	<loc>https://fateslist.xyz/bots/744552721365073950</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.5</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/866958345192865822</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.5</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/754724667323056138</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.5</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/854509145021874186</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -1135,13 +1422,6 @@
     
 <url>
 	<loc>https://fateslist.xyz/bots/325892959130222592</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/346346285953056770</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -1218,13 +1498,6 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/848703364626776084</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
 	<loc>https://fateslist.xyz/bots/860509402925367356</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -1282,13 +1555,6 @@
     
 <url>
 	<loc>https://fateslist.xyz/bots/715981933619970158</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/844046442046029824</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -1449,6 +1715,13 @@
 </url>
     
 <url>
+	<loc>https://fateslist.xyz/bots/830446905611517982</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.5</priority>
+</url>
+    
+<url>
 	<loc>https://fateslist.xyz/bots/765925087907414056</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -1464,13 +1737,6 @@
     
 <url>
 	<loc>https://fateslist.xyz/bots/744421364936474634</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/786514364349939723</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -1582,13 +1848,6 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/830890774383034379</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
 	<loc>https://fateslist.xyz/bots/815639086076657721</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -1652,13 +1911,6 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/821287256231772161</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
 	<loc>https://fateslist.xyz/bots/744293924625055796</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -1681,13 +1933,6 @@
     
 <url>
 	<loc>https://fateslist.xyz/bots/824693168002957314</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/812564945580982272</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -1723,13 +1968,6 @@
     
 <url>
 	<loc>https://fateslist.xyz/bots/347265035971854337</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/810499533653016608</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -1785,13 +2023,6 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/784464050162499584</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
 	<loc>https://fateslist.xyz/bots/787358079498453052</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -1841,21 +2072,7 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/631558023109804032</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
 	<loc>https://fateslist.xyz/bots/740603220279164939</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/798997423715778600</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -1869,14 +2086,14 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/749020331187896410</loc>
+	<loc>https://fateslist.xyz/bots/568083171455795200</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/568083171455795200</loc>
+	<loc>https://fateslist.xyz/bots/791608370288525312</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -1905,13 +2122,6 @@
     
 <url>
 	<loc>https://fateslist.xyz/bots/675390513020403731</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/752306970467237970</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -1947,13 +2157,6 @@
     
 <url>
 	<loc>https://fateslist.xyz/bots/703509135743778877</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/695203277163462677</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -2016,20 +2219,6 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/666691784839004174</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/704517722100465746</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
 	<loc>https://fateslist.xyz/bots/543567770579894272</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -2045,13 +2234,6 @@
     
 <url>
 	<loc>https://fateslist.xyz/bots/743807751523795045</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/754581311955664957</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -2087,13 +2269,6 @@
     
 <url>
 	<loc>https://fateslist.xyz/bots/782698077898539028</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/886647913957175377</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -2184,6 +2359,13 @@
 </url>
     
 <url>
+	<loc>https://fateslist.xyz/bots/877365377884110919</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.5</priority>
+</url>
+    
+<url>
 	<loc>https://fateslist.xyz/bots/828910856816427059</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -2226,13 +2408,6 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/692350026139303937</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
 	<loc>https://fateslist.xyz/bots/803418873478774784</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -2261,13 +2436,6 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/713142514986778715</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
 	<loc>https://fateslist.xyz/bots/367304768395280386</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -2275,14 +2443,7 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/833896516829184000</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/699548270892023868</loc>
+	<loc>https://fateslist.xyz/bots/713142514986778715</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -2311,6 +2472,13 @@
     
 <url>
 	<loc>https://fateslist.xyz/bots/896091792930398219</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.5</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/903363422463357009</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -2353,13 +2521,6 @@
     
 <url>
 	<loc>https://fateslist.xyz/bots/671065591192354857</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/849080642339602472</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -2444,20 +2605,6 @@
     
 <url>
 	<loc>https://fateslist.xyz/bots/922233675981131859</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/911751509774065705</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/818823663163670568</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -2590,6 +2737,13 @@
 </url>
     
 <url>
+	<loc>https://fateslist.xyz/bots/872883762663407656</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.5</priority>
+</url>
+    
+<url>
 	<loc>https://fateslist.xyz/bots/919976629520978021</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -2611,14 +2765,14 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/852479032304992256</loc>
+	<loc>https://fateslist.xyz/bots/796723356044754974</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/796723356044754974</loc>
+	<loc>https://fateslist.xyz/bots/933686221727731794</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -2654,13 +2808,6 @@
     
 <url>
 	<loc>https://fateslist.xyz/bots/800275758396342302</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/939779922782728202</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -2716,20 +2863,6 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/875212836677242911</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/888330043347042306</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
 	<loc>https://fateslist.xyz/bots/805088180679606323</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -2772,6 +2905,13 @@
 </url>
     
 <url>
+	<loc>https://fateslist.xyz/bots/943882970601775224</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.5</priority>
+</url>
+    
+<url>
 	<loc>https://fateslist.xyz/bots/832486522690732032</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -2779,21 +2919,7 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/917496158664949800</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
 	<loc>https://fateslist.xyz/bots/822823760096002058</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/947558476807299082</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -2821,13 +2947,6 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/520953716610957312</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
 	<loc>https://fateslist.xyz/bots/899728526511591425</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -2843,20 +2962,6 @@
     
 <url>
 	<loc>https://fateslist.xyz/bots/798316658330435614</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/938473008551575552</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
-	<loc>https://fateslist.xyz/bots/912745275771215952</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
@@ -2891,13 +2996,6 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/921087860940083211</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
 	<loc>https://fateslist.xyz/bots/436515089441488907</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -2926,13 +3024,6 @@
 </url>
     
 <url>
-	<loc>https://fateslist.xyz/bots/899225089575387137</loc>
-	<lastmod>2022-03-04</lastmod>
-    <changefreq>weekly</changefreq>
-	<priority>0.5</priority>
-</url>
-    
-<url>
 	<loc>https://fateslist.xyz/bots/896431077529374752</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
@@ -2955,6 +3046,48 @@
     
 <url>
 	<loc>https://fateslist.xyz/bots/877177600307511386</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.5</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/512227974893010954</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.5</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/783708073390112830</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.5</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/751100444188737617</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.5</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/786514364349939723</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.5</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/666691784839004174</loc>
+	<lastmod>2022-03-04</lastmod>
+    <changefreq>weekly</changefreq>
+	<priority>0.5</priority>
+</url>
+    
+<url>
+	<loc>https://fateslist.xyz/bots/762976674659696660</loc>
 	<lastmod>2022-03-04</lastmod>
     <changefreq>weekly</changefreq>
 	<priority>0.5</priority>
