@@ -75,6 +75,7 @@ import Tag from "$lib/base/Tag.svelte";
 import loadstore from "$lib/loadstore";
 import navigationState from "$lib/navigationState";
 import { reportView, voteHandler } from "$lib/request";
+import { genError } from "$lib/strings";
 import Icon from "@iconify/svelte";
 import Button from "@smui/button";
 
@@ -110,7 +111,7 @@ If you have previously invited Squirrelflight, please remove and add Fates List 
             $alertstore = {
                 show: true,
                 title: "Oops :(",
-                message: jsonDat.reason,
+                message: genError(jsonDat),
                 id: "alert"
             }		
         }
