@@ -167,6 +167,9 @@ export let translations: TranslationData = {
     },
     "VoteBotError.AutoroleError": {
         en: "For some odd reason, we have failed to give you autoroles for voting for this server. Are you on this server?"
+    },
+    "ExpNotEnabled": {
+        en: "Whoa there! You aren't whitelisted to access this top-secret experiment yet!",
     }
 };
 
