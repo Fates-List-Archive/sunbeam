@@ -145,192 +145,40 @@
 		</section>
 		<hr/>
         <section id="reviews-tab" class="tabs-v2">
-			<h2>Lets review!</h2>
-		   <label for="rating">On a scale of 1 to 10, how much did you like this {type}?</label><br/>
-		   <input class='slider range-slider' type="range" id="star-rating" min="0.1" max="10" style="width: 100%" value='5' step='0.1' data-output="rating-desc"/>
-		   <p id='rating-desc' style="color: white;"></p>
-		   <label for="review-text">Enter your review here</label><br/>
-		   <textarea 
-		     class="fform" 
-		     id="review-text" 
-		     placeholder="Write your review here. This must be at least 7 characters!" 
-		     minlength="9" 
-		     style="width: 100%; border-radius: 4px 4px 4px 4px;" 
-		     required 
-		     ></textarea>
-		     <Button href={"#"} on:click={() => addReview()} id="review-add">Add Review</Button>
-			 		{#if reviews.reviews && reviews.reviews.length > 0}
-					 	<br/>
-						 <span style="font-size: 18px;" class="white">Showing reviews {reviews.from} to {reviews.from + reviews.reviews.length} of {reviews.stats.total} total reviews</span><br/>
-						 <label for="rating-avg" style="font-size: 18px;" class="white">Average Rating: <i class="material-icons">star</i>{Number(parseFloat(reviews.stats.average_stars)).toFixed(1)}/10.0</label><br/>
-						<span class="white">
-						<input disabled id="rating-avg" class='slider' type="range" name="rating" min="0.1" max="10" value='{reviews.stats.average_stars}' style="width: 100%" step='0.1' tabindex="-1"/>
-						<p id="rating-desc-avg"></p>
-						</span>
-						{#if reviews.user_review}
-							<Reviews review={reviews.user_review} index={-1} reply={false} targetId={data.user.id} targetType={type}></Reviews>
-							<hr/>	 
-						{/if}
-					 	{#each reviews.reviews as review, index}
-							{#if !reviews.user_review || review.id != reviews.user_review.id}
-					 			<article class="review-root review-section">
-							 		<Reviews review={review} index={index} reply={false} targetId={data.user.id} targetType={type}></Reviews>
-					 			</article>
-							{:else}
-								<article class="review-root review-section">
-									<Reviews review={review} index={index} reply={false} targetId={data.user.id} targetType={type} edittable={false}></Reviews>
-								</article>
-							{/if}
-				 		{/each}				 
-					{/if}
-					<div class="text-center">
-						<nav aria-label="Bot Review Pagination">
-							<ul>
-								{#if reviewPage > 1}
-									<li class="page-item"><a href={"#"} class="page-link white" on:click={() => getReviewPage(reviewPage - 1)}>Previous</a></li>
-								{/if}
-								{#if reviews.stats}
-									{#each Array.from({length: Math.ceil(reviews.stats.total/reviews.per_page)}, (_, i) => i + 1) as page}
-										<li class="page-item" id="page-{page}"><a href={"#"} class="page-link white" on:click={() => getReviewPage(page)}>{page}</a></li>
-									{/each}
-									{#if reviewPage !== Math.ceil(reviews.stats.total/reviews.per_page)}
-										<li class="page-item"><a href={"#"} class="page-link white" on:click={() => getReviewPage(reviewPage + 1)}>Next</a></li>
-									{/if}
-								{/if}
-							</ul>
-						</nav>
-					</div>					
-                    <div id="reviews" use:onload></div>
-                </section>
-				<hr/>
-				<section id="resources-tab" class="tabs-v2">
-					<h2>Some cool resources!</h2>
-					<h3>Basics</h3>
-					<a href="/bot/{data.user.id}/invite">Invite</a><br/>
-					{#each Object.entries(data.extra_links) as link}
-						<a href={link[1]}>{link[0]}</a><br/>
-					{/each}
-				</section>		
-				<hr/>
-                <section id="about-tab" class='tabs-v2'>
-                    <!--First main owner is guaranteed to be first in HTML-->
-					<About data={data} type={type}></About>
-                </section>
-            </Tab>
-        </div>
+			<ReviewAdd data={data} type={type} />
+			<ReviewList data={data} type={type} />
+        </section>
+		<hr/>
+		<section id="resources-tab" class="tabs-v2">
+			<h2>Some cool resources!</h2>
+			<h3>Basics</h3>
+			<a href="/bot/{data.user.id}/invite">Invite</a><br/>
+			{#each Object.entries(data.extra_links) as link}
+				<a href={link[1]}>{link[0]}</a><br/>
+			{/each}
+		</section>		
+		<hr/>
+		<section id="about-tab" class='tabs-v2'>
+			<!--First main owner is guaranteed to be first in HTML-->
+			<About data={data} type={type}></About>
+		</section>
+    </Tab>
+    </div>
     </article>
 </div>
 
-<span use:onload2></span>
 
 <script lang="ts">
     import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
-    import Button from '@smui/button';
     import { enums } from '../enums/enums';
-    import { browser } from "$app/env";
-    import { loginUser, addReviewHandler, parseState } from '$lib/request';
-    import { session } from '$app/stores';
     import Tab from '$lib/base/TabV2.svelte';
-import Reviews from '$lib/base/Reviews.svelte';
-import loadstore from '$lib/loadstore';
-import navigationState from '$lib/navigationState';
-import { nextUrl } from '$lib/config';
-import Commands from './helpers/Commands.svelte';
-import About from './helpers/About.svelte';
-import Actions from './helpers/Actions.svelte';
-import Warns from './helpers/Warns.svelte';
+	import Commands from './helpers/Commands.svelte';
+	import About from './helpers/About.svelte';
+	import Actions from './helpers/Actions.svelte';
+	import Warns from './helpers/Warns.svelte';
+	import ReviewAdd from "./helpers/ReviewAdd.svelte";
+	import ReviewList from "./helpers/ReviewList.svelte";
+	
     export let data: any;
     export let type: string;
-	let reviewPage = 1
-	let reviews: any = {}
-
-
-    // https://stackoverflow.com/a/46959528
-    function title(str: string) {
-        return str.replaceAll("_", " ").replace(/(^|\s)\S/g, function(t) { return t.toUpperCase() });
-    }
- 
-	let userHasMovedReviewPage = false
-
-    async function getReviewPage(page: number) {
-		if(page != 1) {
-			$loadstore = "Loading..."
-        	$navigationState = 'loading';
-			userHasMovedReviewPage = true
-		}		
-		let targetType = enums.ReviewType.bot
-		if(type == "server") {
-			targetType = enums.ReviewType.server
-		}
-
-		let url = `${nextUrl}/reviews/${data.user.id}?page=${page}&target_type=${targetType}`
-
-		if($session.session.token) {
-			url += `&user_id=${$session.session.user.id}`
-		}
-
-		let res = await fetch(url)
-		if(res.ok) {
-			reviews = await res.json()
-			reviewPage = page
-		} else if (userHasMovedReviewPage) {
-			let data = await res.json()
-			alert(data.reason)
-		}
-		$navigationState = "loaded"
-    }
-    if(browser) {
-        getReviewPage(1)
-    }
-    const onload = (..._) => {
-        getReviewPage(1)
-    }
-    if(data.shards !== undefined && data.shards.length < 1) {
-        data.shards = ["No shards set. Try checking it's website or support server (if it has one)!"]
-    }
-    let rating = 0;
-    let setupInputs = () => {
-    	let slider = document.querySelectorAll(".range-slider");
-   		// Update the current slider value (each time you drag the slider handle)
-    	for(let i = 0; i < slider.length; i++) {
-			let outputId = slider[i].getAttribute("data-output")
-			document.getElementById(outputId).innerHTML = "Drag the slider to change your rating"; // Display the default slider value
-			slider[i].oninput = function() {
-				let output = document.getElementById(this.getAttribute("data-output"))
-				console.log(output)
-				let state = parseState(this.value)
-				output.innerHTML = state + ", " + this.value;
-			}
-		}
-    }
-
-	const onload2 = (..._) => {
-		if(!browser) {
-			return
-		}
-		setupInputs()
-	}
-	if(browser) {
-		// Needed for dnyamic review injection
-	}
-	async function addReview() {
-		$loadstore = "Adding..."
-    	$navigationState = "loading"
-		let token = $session.session.token;
-    	if(!token) {
-        	loginUser(false)
-        	return false
-    	}
-    	let userID = $session.session.user.id;
-
-		let review = document.querySelector("#review-text")
-    	let starRating = document.querySelector("#star-rating")
-
-		let res = await addReviewHandler(userID, token, data.user.id, type, null, review.value, starRating.value);
-		if(res) {
-			window.location.reload()
-		}
-		$navigationState = "loading"
-		$navigationState = "loaded"
-	}
 </script>

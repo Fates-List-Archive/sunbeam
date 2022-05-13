@@ -13,6 +13,10 @@ import Owner from "$lib/base/Owner.svelte"
 
     export let data: any;
     export let type: any;
+
+    if(data.shards !== undefined && data.shards.length < 1) {
+        data.shards = ["No shards set. Try checking it's website or support server (if it has one)!"]
+    }
 </script>
 
 {#if type == "bot"}

@@ -156,7 +156,7 @@ export async function addReviewHandler(
         json.id = review_id
     }
 
-    let res = await fetch(`${nextUrl}/reviews/${target_id}?user_id=${user_id}&target_type=${targetType}`, {
+    return await fetch(`${nextUrl}/reviews/${target_id}?user_id=${user_id}&target_type=${targetType}`, {
         method: method,
         headers: {
             "Content-Type": "application/json",
@@ -165,13 +165,6 @@ export async function addReviewHandler(
         },
         body: JSON.stringify(json)
     })
-    if(res.ok) {
-        alert("Successfully posted your review")
-        return true
-    }
-    let err = await res.json()
-    alert(err.reason)	
-    return false;
 }
 
 function capitalize(a: string) {

@@ -6,6 +6,8 @@
 import navigationState from '$lib/navigationState';
 import Button from "@smui/button/src/Button.svelte";
 import { apiUrl, nextUrl } from "$lib/config";
+import alertstore from "$lib/alertstore";
+import { genError } from "$lib/strings";
 
     export let review: any;
     export let index: number;
@@ -73,10 +75,27 @@ import { apiUrl, nextUrl } from "$lib/config";
         let starRating = document.querySelector(`#rating-${review.id}-reply`)
 
 		let res = await addReviewHandler(userID, token, targetId, targetType, id, reviewText.value, starRating.value);
-		if(res) {
-			window.location.reload()
-		}
 		$navigationState = "loaded"
+
+        $navigationState = "loaded"
+
+        if(res.ok) {
+			$alertstore = {
+				id: "review-add",
+				title: "Review added!",
+				message: "Your review has been added!",
+				show: true
+			}
+            return
+		} else {
+			$alertstore = {
+				id: "review-add",
+				title: "Error!",
+				message: genError((await res.json())),
+				show: true
+			}
+            return
+        }
     }
 
     async function editReview() {
@@ -101,10 +120,26 @@ import { apiUrl, nextUrl } from "$lib/config";
             "PATCH",
             review.id
         );
-		if(res) {
-			window.location.reload()
-		}
-		$navigationState = "loaded"
+
+        $navigationState = "loaded"
+
+        if(res.ok) {
+			$alertstore = {
+				id: "review-add",
+				title: "Review added!",
+				message: "Your review has been added!",
+				show: true
+			}
+            return
+		} else {
+			$alertstore = {
+				id: "review-add",
+				title: "Error!",
+				message: genError((await res.json())),
+				show: true
+			}
+            return
+        }
     }
 
     async function deleteReview() {
@@ -207,35 +242,35 @@ import { apiUrl, nextUrl } from "$lib/config";
                 <span>{Number(parseFloat(review.star_rating)).toFixed(1)}/10.0</span>
             </span>
             {#if $session.session.token && edittable}
-            <a class="long-desc-link" style="color: white !important" href={"#"} on:click={() => replyReviewPane()}>
+            <a class="long-desc-link" style="color: white !important" href={"javascript:void(0);"} on:click={() => replyReviewPane()}>
                   <span class="white" style="margin-left: 3px;">Reply</span>
             </a>
             {/if}
             {#if $session.session.token && $session.session.user.id == review.user.id && edittable}
-                <a href={"#"} style='font-weight: bold; margin-left: 3px;' class="long-desc-link" on:click={() => editReviewPane()}>Edit</a>
+                <a href={"javascript:void(0);"} style='font-weight: bold; margin-left: 3px;' class="long-desc-link" on:click={() => editReviewPane()}>Edit</a>
             {/if}
             </div>
             <span class="review-text" style="margin-left: 30px !important; color: white" id="review_text-{review.id}">{review.review_text}</span>
             {#if $session.session.token && edittable}
             <section id="reviewreply-{review.id}" class="white review-reply-section">
                 <label for="rating">On a scale of 1 to 10, how much do you like this bot?</label><br/>
-                <input class='slider range-slider' id="rating-{review.id}-reply" type="range" min="0.1" max="10" step='0.1' style="width:100%;"/>
+                <input class='slider range-slider' id="rating-{review.id}-reply" type="range" min="0.1" max="10" step='0.1' style="width:100%;" data-output="rating-reply-desc-{review.id}-{index}"/>
                 <p id='rating-reply-desc-{review.id}-{index}' style="color: white;"></p>
                 <label for="review">Please write a few words about the bot (in your opinion)</label>
                 <textarea id='review-{review.id}-reply' type="text" class="form-control fform" style="min-height: 100px; height: 100px;" required minlength="9" placeholder="This bot is a really good bot because of X, Y and Z however..."></textarea>
-                <Button on:click={() => replyReview(review.id)} href={"#"} class="bot-card-actions-link" touch variant="outlined">Reply</Button>
+                <Button on:click={() => replyReview(review.id)} href={"javascript:void(0);"} class="bot-card-actions-link" touch variant="outlined">Reply</Button>
             </section>
             {/if}
             {#if $session.session.token && $session.session.user.id == review.user.id && edittable}
                 <div id="reviewopt-{review.id}" style="display: none;">
                     <section id="reviewedit-{review.id}" style="width: 100%;" class="white">
                         <label for="rating">On a scale of 1 to 10, how much do you like this bot?</label><br/>
-                        <input id="review-{review.id}-edit-slider" class='slider range-slider' type="range" name="rating" min="0.1" max="10" value='{review.star_rating}' step='0.1' style="width:100%;"/>
-                        <strong><p id='rating-desc-{review.id}-{index}' style="color: white;"></p></strong>
+                        <input id="review-{review.id}-edit-slider" class='slider range-slider' type="range" name="rating" min="0.1" max="10" value='{review.star_rating}' step='0.1' style="width:100%;" data-output="rating-desc-e-{review.id}-{index}"/>
+                        <strong><p id='rating-desc-e-{review.id}-{index}' style="color: white;"></p></strong>
                         <label for="review">Please write a few words about the bot (in your opinion)</label>
                         <textarea id='review-{review.id}-edit-text' name="review" class="form-control fform" style="height: 100px; resize: none;" required placeholder="This bot is a really good bot because of X, Y and Z however...">{review.review_text}</textarea>
-                        <Button on:click={() => editReview()} href={"#"} class="bot-card-actions-link" touch variant="outlined">Edit</Button>
-                        <Button on:click={() => deleteReview()} href={"#"} class="bot-card-actions-link" touch variant="outlined">Delete</Button>
+                        <Button on:click={() => editReview()} href={"javascript:void(0);"} class="bot-card-actions-link" touch variant="outlined">Edit</Button>
+                        <Button on:click={() => deleteReview()} href={"javascript:void(0);"} class="bot-card-actions-link" touch variant="outlined">Delete</Button>
                     </section>
                 </div>
             {/if}

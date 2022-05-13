@@ -417,7 +417,7 @@ import { genError } from "$lib/strings";
     async function sendTestWebhook() {
         $loadstore = "Voting..."
     	$navigationState = 'loading';
-        await voteHandler($session.session.user.id, $session.session.token, data.bot_id, true)
+        await voteHandler($session.session.user.id, $session.session.token, data.bot_id, true, "bot")
         $navigationState = "loaded";
         return
     }

@@ -173,6 +173,21 @@ export let translations: TranslationData = {
     },
     "CommandLengthError": {
         en: "This command is too long! Please try a shorter command name and/or description",
+    },
+    "StarRatingOutOfRange": {
+        en: "Star rating must be between 1 to 10. How did <em>this</em> happen?"
+    },
+    "ReviewTextError": {
+        en: "Review text must be between 10 and 20000 characters long!",
+    },
+    "ReviewAlreadyExists": {
+        en: "You have already made a review for this bot. Please edit that instead!",
+    },
+    "ParentReviewInvalid": {
+        en: "The parent ID you are trying to reply to is invalid. How did <em>this</em> happen?"
+    },
+    "ReviewAlreadyVoted": {
+        en: "You have already voted for this review! Please change that instead?",
     }
 };
 
