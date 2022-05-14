@@ -30,10 +30,10 @@
 
 {#if serverMaint}
 	<h1>{title}</h1>
-	<h2>{@html getString(message)}</h2>
+	<h2>{@html message}</h2>
 {:else}
 	<h1 style="text-align: center">{status}</h1>
-	<h2>{@html error}</h2>
+	<h2>{@html getString(error)}</h2>
 
 	<p>Please visit our <a href="https://fateslist.xyz/server/789934742128558080/invite">support server</a> if you have any queries or concerns or just for fun!</p>
 {/if}
