@@ -309,6 +309,24 @@ export let translations: TranslationData = {
         en: "You have already voted for this review! Please change that instead?",
         fr: "Vous avez déjà voté pour cette critique! Veuillez la changer à la place?",
         it: "Hai già votato per questa recensione! Modificala invece?",
+    },
+    "AppealTextError": {
+        en: "Appeal length must be between 7 and 4000 characters long!",
+    },
+    "AppealBotNotApproved": {
+        en: "You cannot certify a bot/server that is not approved yet!"
+    },
+    "AppealNoBannerCard": {
+        en: "You cannot certify a bot/server that has no banner for the bot card set yet! You can set one under 'Extras'"
+    },
+    "AppealNoBannerPage": {
+        en: "You cannot certify a bot/server that has no banner for the bots page set yet! You can set one under 'Extras'"
+    },
+    "AppealTooFewGuilds": {
+        en: "You cannot certify a bot that is in less than 100 guilds!"
+    },
+    "AppealTooFewMembers": {
+        en: "You cannot certify a server that has less than 100 members!"
     }
 };
 

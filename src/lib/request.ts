@@ -1,5 +1,6 @@
 import { browser } from '$app/env';
 import { apiUrl, nextUrl } from './config';
+import { genError } from './strings';
 
 // Parse review state from number
 export function parseState(v) {
@@ -194,7 +195,7 @@ export function reportView(userID: string, token: string, id: string, type: stri
             alert(`Successfully reported this ${type}`)
         } else {
             let err = await res.json()
-            alert(err.reason)
+            alert(genError(err))
         }
     }
 
