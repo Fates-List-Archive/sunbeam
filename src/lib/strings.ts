@@ -330,6 +330,21 @@ export let translations: TranslationData = {
     },
     "Appeal.TooFewMembers": {
         en: "You cannot certify a server that has less than 100 members!"
+    },
+    "APIBan": {
+        en: "You have been banned from using this API endpoint!",
+    },
+    "BadStats": {
+        en: "Whoa there! You've got some nerve trying to post invalid stats to us!"
+    },
+    "JAPIError": {
+        en: "Our anti-abuse provider seems to have had an issue this morning!"
+    },
+    "JAPIDeserError": {
+        en: "Our anti-abuse provider comm-links seems to have had an issue this morning!"
+    },
+    "ClientIDNeeded": {
+        en: "You need to set a client ID in Bot Settings to use this endpoint!"
     }
 };
 
