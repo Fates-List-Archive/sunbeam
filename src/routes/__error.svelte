@@ -25,11 +25,12 @@
 	export let title = "";
 	export let message = "";
 	export let serverMaint = false;
+	import { getString } from "$lib/strings"
 </script>
 
 {#if serverMaint}
 	<h1>{title}</h1>
-	<h2>{@html message}</h2>
+	<h2>{@html getString(message)}</h2>
 {:else}
 	<h1 style="text-align: center">{status}</h1>
 	<h2>{@html error}</h2>
