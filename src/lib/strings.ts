@@ -250,6 +250,9 @@ export let translations: TranslationData = {
         fr: "Une erreur est survenue lors du traitement de votre bot par notre systeme d'anti-abus...",
         it: "Si è verificato un errore durante il gestito dal nostro sistema anti-abuso...",
     },
+    "CheckBotError.NotMainOwner": {
+        en: "This action needs you to be the main owner of this bot!",
+    },
     "InvalidFlag": {
         en: "Illegal or otherwise non-edittable flag set on this profile",
         fr: "Le flag est illégal ou non éditable",
@@ -310,22 +313,22 @@ export let translations: TranslationData = {
         fr: "Vous avez déjà voté pour cette critique! Veuillez la changer à la place?",
         it: "Hai già votato per questa recensione! Modificala invece?",
     },
-    "AppealTextError": {
+    "Appeal.TextError": {
         en: "Appeal length must be between 7 and 4000 characters long!",
     },
-    "AppealBotNotApproved": {
+    "Appeal.BotNotApproved": {
         en: "You cannot certify a bot/server that is not approved yet!"
     },
-    "AppealNoBannerCard": {
+    "Appeal.NoBannerCard": {
         en: "You cannot certify a bot/server that has no banner for the bot card set yet! You can set one under 'Extras'"
     },
-    "AppealNoBannerPage": {
+    "Appeal.NoBannerPage": {
         en: "You cannot certify a bot/server that has no banner for the bots page set yet! You can set one under 'Extras'"
     },
-    "AppealTooFewGuilds": {
+    "Appeal.TooFewGuilds": {
         en: "You cannot certify a bot that is in less than 100 guilds!"
     },
-    "AppealTooFewMembers": {
+    "Appeal.TooFewMembers": {
         en: "You cannot certify a server that has less than 100 members!"
     }
 };
