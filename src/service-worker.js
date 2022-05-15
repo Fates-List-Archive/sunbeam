@@ -40,5 +40,5 @@ self.addEventListener("fetch", (event) => {
   );
 });
 self.addEventListener("push", (event) => {
-	console.log("Push received of", event);
+	console.log("Push received of", event.data.json());
 })
