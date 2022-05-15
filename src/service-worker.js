@@ -2,15 +2,11 @@ let CACHE_NAME = "cache-" + Date.now();
 
 self.addEventListener("install", (event) => {
   console.log("Installed SW");
-  try {
-	event.waitUntil(
-		caches.open(CACHE_NAME).then((cache) => {
-		return cache.add("/offline.html");
-		})
-	);
-  } catch (e) {
-	console.log(e);
-  }
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => {
+      return cache.add("https://api.fateslist.xyz/static/offline.html");
+    })
+  );
   self.skipWaiting();
 });
 
