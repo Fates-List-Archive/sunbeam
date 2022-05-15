@@ -345,6 +345,9 @@ export let translations: TranslationData = {
     },
     "ClientIDNeeded": {
         en: "You need to set a client ID in Bot Settings to use this endpoint!"
+    },
+    "TooManySubscriptions": {
+        en: "You have too many push notifications set up already! Please delete some before trying again!"
     }
 };
 

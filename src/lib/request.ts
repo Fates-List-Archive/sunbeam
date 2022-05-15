@@ -214,3 +214,60 @@ If you still wish to report, type the reason for reporting this ${type} below. R
         id: "alert"
     }
 }
+
+// Not yet fully implemented
+export async function subNotifs(user_id: string, token: string) {
+    if (!('PushManager' in window)) {
+        alert('Push notifications are not supported on your browser.');
+        return;
+    }
+
+    if(!token) {
+        loginUser(false)
+        return
+    }
+
+    const status = await Notification.requestPermission();
+
+    if (status !== "granted") {
+        alert("Permission not granted. Consider unblocking notifications from Fates List in your browsers settings?");
+        return
+    }
+
+    let resp = await fetch(`${nextUrl}/notifications/info`)
+
+    if(!resp.ok) {
+        alert("Something went wrong, we couldnt get your public key")
+        return
+    }
+
+    let info = await resp.json()
+
+    const reg = await navigator.serviceWorker.ready;
+
+    let sub = await reg.pushManager.subscribe({ 
+        userVisibleOnly: true,
+        applicationServerKey: info.public_key
+    });
+
+    const subscriptionObject = sub.toJSON()
+    subscriptionObject["auth"] = subscriptionObject["keys"]["auth"]
+    subscriptionObject["p256dh"] = subscriptionObject["keys"]["p256dh"]
+    delete subscriptionObject["keys"]
+
+    console.log(subscriptionObject)
+
+    let res = await fetch(`${nextUrl}/notifications/${user_id}/sub`, {
+        method: "POST",
+        headers: {
+            "Authorization": token,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(subscriptionObject)
+    })
+
+    if(!res.ok) {
+        alert(genError((await res.json())))
+        return
+    }
+}

@@ -58,3 +58,17 @@
                hover:opacity-50
                hover:shadow-md
                hover:scale-125">Transform</button>
+
+<Button class="vr-test" on:click={() => subNotifs(id, token)}>Test VR</Button>
+
+<script lang="ts">
+import Button from "@smui/button";
+import { subNotifs } from "$lib/request";
+import { session } from "$app/stores";
+let token = $session.session.token
+let id = ""
+
+if(token) {
+    id = $session.session.user.id
+}
+</script>
