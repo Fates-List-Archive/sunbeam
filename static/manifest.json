@@ -1,0 +1,32 @@
+{
+    "name": "Fates List",
+    "short_name": "Fates List",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#7f6000",
+    "description": "Find the best bots for your servers",
+    "dir": "ltr",
+    "categories": "business,education,entertainment,games,government,navigation,productivity,shopping,social,utilities",
+    "lang": "en",
+    "orientation": "any",
+    "scope": "/",
+    "theme_color": "#7f6000",
+    "gcm_sender_id": "1065739534406",
+    "icons": [
+        {
+            "src": "https://api.fateslist.xyz/static/botlisticon.webp",
+            "type": "image/png",
+            "sizes": "128x128"
+        },
+        {
+            "src": "https://api.fateslist.xyz/static/botlisticon.webp",
+            "type": "image/png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "https://api.fateslist.xyz/static/botlisticon.webp",
+            "type": "image/png",
+            "sizes": "512x512"
+        }
+    ]
+}
