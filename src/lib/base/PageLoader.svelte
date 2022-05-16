@@ -20,6 +20,10 @@
 	        padding: 0px !important;
         }
 
+        :global(main) {
+            margin: 2px !important;
+        }
+
         .only-on-loading {
             display: block !important;
         }
