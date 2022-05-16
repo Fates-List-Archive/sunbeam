@@ -16,12 +16,8 @@
             background-color: #1D1E23 !important;
             width: 100% !important;
             height: 100% !important;
-            margin: 0px !important;
-	        padding: 0px !important;
-        }
-
-        :global(main) {
             margin: 2px !important;
+	        padding: 0px !important;
         }
 
         .only-on-loading {

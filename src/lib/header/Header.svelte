@@ -90,7 +90,7 @@ import alertstore from '$lib/alertstore';
 		<div>
 			<a href={'#'} on:click={() => {menu.setOpen(true)} }>
 				{#if username}
-					<img src={avatar} alt="Avatar" id="avatar"/>
+					<img width="30px" src={avatar} alt="Avatar" id="avatar"/>
 					{username}
 				{:else}
 					Anonymous
