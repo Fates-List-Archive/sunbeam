@@ -6,7 +6,7 @@
     "background_color": "#7f6000",
     "description": "Find the best bots for your servers",
     "dir": "ltr",
-    "categories": "business,education,entertainment,games,government,navigation,productivity,shopping,social,utilities",
+    "categories": ["business", "education", "entertainment", "games", "government", "navigation", "productivity", "shopping", "social", "utilities"],
     "lang": "en",
     "orientation": "any",
     "scope": "/",
