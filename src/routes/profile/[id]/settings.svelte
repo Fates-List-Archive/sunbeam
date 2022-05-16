@@ -45,6 +45,7 @@ import SelectOptionMulti from "$lib/base/SelectOptionMulti.svelte";
 import Checkbox from "$lib/base/Checkbox.svelte"
 import alertstore from "$lib/alertstore";
 import navigationState from "$lib/navigationState";
+import { genError } from "$lib/strings";
 
     let popUpMsg = "Errors will appear here (just in case you have popups disabled)"    
 
@@ -166,7 +167,8 @@ import navigationState from "$lib/navigationState";
             alert("Updated your profile successfully", "Success")
         } else {
             let json = await res.json()
-            alert(json.reason)
+            alert(genError(json))
+
         }
     }
 
@@ -212,7 +214,7 @@ import navigationState from "$lib/navigationState";
             return
         } else {
             let json = await res.json()
-            alert(json.reason)
+            alert(genError(json))
         }
     }
 
@@ -231,7 +233,7 @@ import navigationState from "$lib/navigationState";
             return
         } else {
             let json = await res.json()
-            alert(json.reason)
+            alert(genError(json))
         }
     }
 
@@ -246,7 +248,7 @@ import navigationState from "$lib/navigationState";
             return
         } else {
             let json = await res.json()
-            alert(json.reason)
+            alert(genError(json))
         }
     }
 
@@ -280,7 +282,7 @@ import navigationState from "$lib/navigationState";
             document.querySelector("#gor-btn").remove()
         } else {
             let json = await res.json()
-            alert(json.reason)
+            alert(genError(json))
         }
     }
 

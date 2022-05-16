@@ -36,6 +36,7 @@ import Button from "@smui/button/src/Button.svelte";
 import navigationState from "$lib/navigationState";
 import alertstore from "$lib/alertstore";
 import loadstore from "$lib/loadstore";
+import { genError } from "$lib/strings";
 	export let sources: any;
 	if(!$session.session.token) {
 		if(browser) {
@@ -177,7 +178,7 @@ import loadstore from "$lib/loadstore";
             }
         } else {
             let json = await res.json()
-            alert(json.reason)
+            alert(genError(json))
         }
     }
 

@@ -1,5 +1,6 @@
 <script lang="ts" context="module">
 	import { fetchFates } from "$lib/request";
+	import { genError } from "$lib/strings";
 		/** @type {import('@sveltejs/kit@next').Load} */
 		export async function load({params, fetch, session, stuff}) {
 			if(!session.session.token) {
@@ -17,7 +18,7 @@
 				let json = await res.json()
 				return {
 					status: res.status,
-					error: new Error(json.reason)
+					error: new Error(genError(json))
 				}
 			}
 			let json = await res.json()

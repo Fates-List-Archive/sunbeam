@@ -113,7 +113,7 @@ import { genError } from "$lib/strings";
             return
         } else {
             let json = await res.json()
-            alert(json.reason)
+            alert(genError(json))
         }
     }
 
@@ -161,7 +161,7 @@ import { genError } from "$lib/strings";
             return
         } else {
             let json = await res.json()
-            alert(json.reason)
+            alert(genError(json))
         }
     }
 
@@ -185,7 +185,7 @@ import { genError } from "$lib/strings";
             return
         } else {
             let json = await res.json()
-            alert(json.reason)
+            alert(genError(json))
         }
     }
 
@@ -247,7 +247,7 @@ import { genError } from "$lib/strings";
             return
         } else {
             let json = await res.json()
-            alert(json.reason)
+            alert(genError(json))
         }
     }
 
@@ -376,7 +376,7 @@ import { genError } from "$lib/strings";
 		alert("Successfully deleted command!", "Success!")
 	} else {
 		let json = await res.json()
-		alert(json.reason)
+        alert(genError(json))
 	}
     }
 
