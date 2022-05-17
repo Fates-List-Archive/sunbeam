@@ -128,7 +128,7 @@ import { genError } from "$lib/strings";
 		{#each pendingBots as bot}
 			<BotCard data={bot} type="bot" rand={false}>
                 {#if perms.perm > 2}
-                    <div class="flex items-center self-center">
+                    <div class="flex justify-center">
                         <Button on:click={() => claimBot(bot.user.id)} variant="outlined" class="button self-center">Claim</Button>
                     </div>
                 {/if}

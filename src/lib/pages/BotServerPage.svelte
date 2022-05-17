@@ -154,7 +154,9 @@
 			<h3>Basics</h3>
 			<a href="/bot/{data.user.id}/invite">Invite</a><br/>
 			{#each Object.entries(data.extra_links) as link}
-				<a href={link[1]}>{link[0]}</a><br/>
+				{#if !link[0].startsWith("_")}
+					<a href={link[1]}>{link[0]}</a><br/>
+				{/if}
 			{/each}
 		</section>		
 		<hr/>

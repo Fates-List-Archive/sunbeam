@@ -133,7 +133,9 @@
 			<h2>Some cool resources!</h2>
 			<a href="/bot/{data.user.id}/invite">Invite</a><br/>
 			{#each Object.entries(data.extra_links) as link}
-				<a href={link[1]}>{link[0]}</a><br/>
+                {#if !link[0].startsWith("_")}
+				    <a href={link[1]}>{link[0]}</a><br/>
+                {/if}
 			{/each}
 		</section>
         <section id="reviews-tab" class="tabcontent tabdesign">

@@ -1215,6 +1215,7 @@ import { genError } from "$lib/strings";
 
     .owner-avatar {
         border-radius: 50%;
+        margin-right: 2px;
     }
 
     .flag-ul {
