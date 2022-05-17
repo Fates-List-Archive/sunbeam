@@ -42,6 +42,7 @@
             data = md.render(data)
             .replaceAll("<li", '<li class="li"')
             .replaceAll("<ul", '<ul class="ul"')
+            .replaceAll("<button", '<button class="button"')
 
             return {
                 props: {
@@ -193,6 +194,17 @@ function title(str) {
 
         tr:hover {
             background-color: rgba(255, 255, 255, 0.1) !important;
+        }
+
+        .button {
+            display: block;
+            width: 100px;
+            background-color: red !important;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 10px;
+            padding: 10px;
         }
     </style>
 </QuailTree>
