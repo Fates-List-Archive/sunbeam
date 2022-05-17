@@ -59,8 +59,9 @@ import { navigating } from '$app/stores';
 		if (!$navigating) {
 			if(browser && window.rerender && fCall) {
 				setTimeout(window.rerender, 400)
+			} else if(browser && window.rerender) {
+				fCall = true
 			}
-			fCall = true
 			$navigationState = 'loaded';
 		}
 	}
