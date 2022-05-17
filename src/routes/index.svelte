@@ -46,7 +46,7 @@ import Intl from "$lib/base/Intl.svelte";
 ></BristlefrostMeta>
 
 <section>
-	<h1>Fates List</h1>
+	<h1 class="best-bots">Fates List</h1>
 	<h2 class="best-bots"><Intl key="index.best_bots"/></h2>
 </section>
 
@@ -87,11 +87,13 @@ import Intl from "$lib/base/Intl.svelte";
 	h2 {
 		font-size: 40px;
 		margin: 0px;
+		opacity: 0.6;
 	}
 
 	.best-bots {
-		opacity: 0.6;
+		width: 90%;
 	}
+
 	section {
 		display: flex;
 		flex-direction: column;

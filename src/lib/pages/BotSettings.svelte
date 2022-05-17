@@ -920,11 +920,13 @@ import { genError } from "$lib/strings";
         />
         <Button href={"#"} on:click={autofillBot} class="button" id="autofill-bot" touch variant="outlined">Autofill</Button><br/><br/>
         <h2>Extra Owners</h2>
-        <section class="grid grid-cols-3 gap-4 ext-owners">
-            {#each extraOwners as owner}
+        <section class="grid grid-cols-4 gap-6 ext-owners">
+            {#each extraOwners as owner, i}
                 <div>
-                    <img src="{owner.user.avatar}" width="200px" class="owner-avatar" loading="lazy" alt="{owner.user.username}'s avatar"/><br/>
-                    <p>{owner.user.username}#{owner.user.disc.padStart(4, "0")}</p>
+                    <div class="flex">
+                        <img src="{owner.user.avatar}" width="30px" class="owner-avatar float-left align-middle" style="height: 100%" loading="lazy" alt="{owner.user.username}'s avatar"/>
+                        <span class="owner-un float-right align-middle" style="height: 100%">{owner.user.username}#{owner.user.disc.padStart(4, "0")}</span>
+                    </div>
                     <small class="value">{owner.user.id}</small><br/>
                     <span>
                         <a class="links-act" href={"#"} on:click={() => deleteOwner(owner.user.id)}>Delete</a>
@@ -933,11 +935,14 @@ import { genError } from "$lib/strings";
                         {/if}
                     </span>
                 </div>
+                <br class="br-on-mobile" />
             {/each}
             <div>
                 <a href={"#"} on:click={() => addOwner()} id="add-owner">
-                    <img src="https://api.iconify.design/ant-design/plus-outlined.svg" width="150px" loading="lazy" class="filter-white" alt="Add Bot Icon"/><br/>
-                    <p style="font-size: 18px;">Add new owner</p>
+                    <div class="flex">
+                        <img src="https://api.iconify.design/ant-design/plus-outlined.svg" width="30px" loading="lazy" class="filter-white float-left" alt="Add Bot Icon"/><br/>
+                        <span style="font-size: 18px;" class="float-right">Add new owner</span>
+                    </div>
                     <small class="value">Be sure to only add owners you trust</small><br/>
                 </a>
             </div>
@@ -1189,6 +1194,23 @@ import { genError } from "$lib/strings";
     .user-avatar {
         border-radius: 50%; 
         width: 120px;
+    }
+
+    @media only screen and (min-width: 600px) {
+        .br-on-mobile {
+            display: none;
+        }
+    }
+    
+    .owner-un {
+        word-wrap: break-word !important;
+        font-size: 16px;
+    }
+
+    @media only screen and (max-width: 600px) {
+        .owner-un {
+            font-size: 14px !important;
+        }
     }
 
     .owner-avatar {

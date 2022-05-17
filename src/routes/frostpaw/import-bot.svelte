@@ -183,9 +183,9 @@ import { genError } from "$lib/strings";
     }
 
     function topggAutofill() {
-	let botId = (document.querySelector("#bot_id") as HTMLInputElement).value;
-	document.querySelector("#import-url").value = `https://top.gg/api/bots/${botId}`
-	alert("Autofill done, now specify a top.gg API token under the API token column and you'll be ready to go!", "Success")
+        let botId = (document.querySelector("#bot_id") as HTMLInputElement).value;
+        document.querySelector("#import-url").value = `https://top.gg/api/bots/${botId}`
+        alert("Autofill done, now specify a top.gg API token under the API token column and you'll be ready to go!", "Success")
     }
 
     let source: string;
@@ -230,7 +230,7 @@ import { genError } from "$lib/strings";
                 This is only shared with the import source in question and is not stored on Fates List.<br/><br/>
 
                 Due to this being fully client side, the source you specify here must support CORS (you can disable CORS in a temporary browsing session using <code>--disable-web-security</code> on chrome etc. but this is highly not recommended). 
-                If you do not know whether or not you're source supports CORS or not, then just try and see if it errors.
+                If you do not know whether or not your source supports CORS or not, then just try and see if it errors.
             </Tip>        
         {/if}
         <Button on:click={() => importBot()} variant="outlined" class="button btn-save">{saveTxt}</Button>
@@ -245,12 +245,5 @@ import { genError } from "$lib/strings";
     #source-view {
         margin-left: 30px;
         margin-right: 30px;
-    }
-
-    :global(.button) {
-        opacity: 1 !important;
-        border: solid thin !important;
-        background: black !important;
-        color: white !important;
     }
 </style>

@@ -247,6 +247,13 @@ pre {
 	white-space: pre-wrap;
 }
 
+.button {
+	opacity: 1 !important;
+	border: solid thin !important;
+	background: black !important;
+	color: white !important;
+}
+
 select {
 	transition: transform .2s;
 	background-color: black !important;

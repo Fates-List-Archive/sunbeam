@@ -72,3 +72,5 @@ if(token) {
     id = $session.session.user.id
 }
 </script>
+<div class="flex items-center">
+</div>

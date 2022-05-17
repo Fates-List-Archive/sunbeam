@@ -3,14 +3,14 @@
     "short_name": "Fates List",
     "start_url": "/",
     "display": "standalone",
-    "background_color": "#7f6000",
+    "background_color": "#81e69b",
     "description": "Find the best bots for your servers",
     "dir": "ltr",
     "categories": ["business", "education", "entertainment", "games", "government", "navigation", "productivity", "shopping", "social", "utilities"],
     "lang": "en",
     "orientation": "any",
     "scope": "/",
-    "theme_color": "#7f6000",
+    "theme_color": "#81e69b",
     "gcm_sender_id": "1065739534406",
     "icons": [
         {

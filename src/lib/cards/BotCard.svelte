@@ -64,6 +64,7 @@ import Icon from '@iconify/svelte';
             {/if}
         {/if}
     </div>
+    <slot />
 </div>
 </section>
 
