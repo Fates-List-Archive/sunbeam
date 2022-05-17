@@ -30,7 +30,7 @@
 	import Section from "$lib/base/Section.svelte";
 	import {enums} from "$lib/enums/enums"
 import Button from "@smui/button";
-import { nextUrl } from "$lib/config";
+import { lynxUrl, nextUrl } from "$lib/config";
 import { session } from "$app/stores";
 import alertstore from "$lib/alertstore";
 import { genError } from "$lib/strings";
@@ -111,6 +111,55 @@ import QuailTree from "./_helpers/QuailTree.svelte";
             }
         }
     }
+
+	async function unclaimBot(id: string) {
+		$alertstore = {
+			title: "Reason",
+			id: "reason-msg",
+			message: 'Enter reason for unclaiming this bot<br/><br/><textarea id="unclaim-reason">',
+			show: true,
+			close: () => {
+				handler(
+					id,
+					document.querySelector("#unclaim-reason").value,
+					"unclaim"
+				)
+			}
+		}
+	}
+
+
+    async function handler(id: string, reason: string, action: string) {
+        let res = await fetch(`${lynxUrl}/kitty`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": $session.session.token
+            },
+            body: JSON.stringify({
+                id: id,
+				reason: reason,
+				action: action,
+				user_id: $session.session.user.id
+            })
+        })
+
+        if(res.ok) {
+            $alertstore = {
+                title: "Success",
+                id: "success-msg",
+                message: "Bot claimed successfully",
+                show: true
+            }
+        } else {
+            $alertstore = {
+                title: "Error",
+                id: "error-msg",
+                message: genError(await res.json()),
+                show: true
+            }
+        }
+	}
 </script>
 <QuailTree>
 	<h1>Admin Statistics</h1>
@@ -142,7 +191,13 @@ import QuailTree from "./_helpers/QuailTree.svelte";
 	<Section icon="fluent:thinking-24-regular" title="Under Review" id="under-review">
 		<CardContainer>
 			{#each underReviewBots as bot}
-				<BotCard data={bot} type="bot" rand={false}/>
+				<BotCard data={bot} type="bot" rand={false}>
+					{#if perms.perm > 2}
+						<div class="flex justify-center">
+							<Button on:click={() => unclaimBot(bot.user.id)} variant="outlined" class="button self-center">Unclaim</Button>
+						</div>
+					{/if}
+				</BotCard>
 			{/each}
 		</CardContainer>
 	</Section>

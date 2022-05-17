@@ -4,10 +4,10 @@
     export let close;
 
     function closeAlert() {
-        show = false
         if(close) {
           close()
         }
+        show = false
     }
     export let title: string
     export let id: string
