@@ -6,7 +6,7 @@ import { doctreeCache } from "./quailcache";
     import { onMount } from 'svelte';
 import Icon from '@iconify/svelte';
 
-    let ignore = ["privacy.md", "status-page.md", "index.md", "staff-guide.md"] // Index may be counter-intuitive, but we add this later
+    let ignore = ["index.md"] // Index may be counter-intuitive, but we add this later
 
     let doctree: any;
 
