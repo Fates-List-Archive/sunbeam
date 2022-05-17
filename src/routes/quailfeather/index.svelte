@@ -34,6 +34,7 @@ import { nextUrl } from "$lib/config";
 import { session } from "$app/stores";
 import alertstore from "$lib/alertstore";
 import { genError } from "$lib/strings";
+import QuailTree from "./_helpers/QuailTree.svelte";
 	export let data: any;
     export let perms: any;
 
@@ -111,44 +112,46 @@ import { genError } from "$lib/strings";
         }
     }
 </script>
-<h1>Admin Statistics</h1>
-<ul class="white" style="font-size: 24px">
-	<li>Server Uptime: {secondsToDhms(data.uptime)}</li>
-	<li>Server Uptime (Raw): {data.uptime}</li>
-	<li>Queue Length: {pendingBots.length}</li>
-	<li>Under Review Length: {underReviewBots.length}</li>
-	<li>Total Bot Length: {data.total_bots}</li>
-	<li>Approved or Certified Bot Length: {approvedBots.length + certifiedBots.length}</li>
-	<li>Certified Bots Length: {certifiedBots.length}</li>
-	<li>Banned Bots Length: {bannedBots.length}</li>
-	<li>Denied Bots Length: {deniedBots.length}</li>
-</ul>
-<Section icon="fa-solid:plus" title="Queue" id="queue">
-	<CardContainer>
-		{#each pendingBots as bot}
-			<BotCard data={bot} type="bot" rand={false}>
-                {#if perms.perm > 2}
-                    <div class="flex justify-center">
-                        <Button on:click={() => claimBot(bot.user.id)} variant="outlined" class="button self-center">Claim</Button>
-                    </div>
-                {/if}
-            </BotCard>
-        {/each}
-	</CardContainer>
-</Section>
+<QuailTree>
+	<h1>Admin Statistics</h1>
+	<ul class="white" style="font-size: 24px">
+		<li>Server Uptime: {secondsToDhms(data.uptime)}</li>
+		<li>Server Uptime (Raw): {data.uptime}</li>
+		<li>Queue Length: {pendingBots.length}</li>
+		<li>Under Review Length: {underReviewBots.length}</li>
+		<li>Total Bot Length: {data.total_bots}</li>
+		<li>Approved or Certified Bot Length: {approvedBots.length + certifiedBots.length}</li>
+		<li>Certified Bots Length: {certifiedBots.length}</li>
+		<li>Banned Bots Length: {bannedBots.length}</li>
+		<li>Denied Bots Length: {deniedBots.length}</li>
+	</ul>
+	<Section icon="fa-solid:plus" title="Queue" id="queue">
+		<CardContainer>
+			{#each pendingBots as bot}
+				<BotCard data={bot} type="bot" rand={false}>
+					{#if perms.perm > 2}
+						<div class="flex justify-center">
+							<Button on:click={() => claimBot(bot.user.id)} variant="outlined" class="button self-center">Claim</Button>
+						</div>
+					{/if}
+				</BotCard>
+			{/each}
+		</CardContainer>
+	</Section>
 
-<Section icon="fluent:thinking-24-regular" title="Under Review" id="under-review">
-	<CardContainer>
-		{#each underReviewBots as bot}
-			<BotCard data={bot} type="bot" rand={false}/>
-		{/each}
-	</CardContainer>
-</Section>
+	<Section icon="fluent:thinking-24-regular" title="Under Review" id="under-review">
+		<CardContainer>
+			{#each underReviewBots as bot}
+				<BotCard data={bot} type="bot" rand={false}/>
+			{/each}
+		</CardContainer>
+	</Section>
 
-<Section icon="fa-solid:certificate" title="Certified" id="certified">
-	<CardContainer>
-		{#each certifiedBots as bot}
-			<BotCard data={bot} type="bot" rand={false}/>
-		{/each}
-	</CardContainer>
-</Section>
+	<Section icon="fa-solid:certificate" title="Certified" id="certified">
+		<CardContainer>
+			{#each certifiedBots as bot}
+				<BotCard data={bot} type="bot" rand={false}/>
+			{/each}
+		</CardContainer>
+	</Section>
+</QuailTree>

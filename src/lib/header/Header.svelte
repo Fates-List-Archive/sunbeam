@@ -184,7 +184,7 @@ import alertstore from '$lib/alertstore';
 		width: 100%;
 		margin: 0px;
 		padding: 3px;
-		z-index: 2;
+		z-index: 3;
 	}
 
 	:global(.add-nav) {

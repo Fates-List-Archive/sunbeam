@@ -42,6 +42,8 @@ import { navigating } from '$app/stores';
 
 	import "./../css/tailwind.css";
 
+	let fCall = false
+
 	$: {
 		if ($navigating) {
 			console.log(`isNavigating: ${$navigating.from} -> ${$navigating.to}`);
@@ -55,6 +57,10 @@ import { navigating } from '$app/stores';
 			}
 		}
 		if (!$navigating) {
+			if(browser && window.rerender && fCall) {
+				setTimeout(window.rerender, 400)
+			}
+			fCall = true
 			$navigationState = 'loaded';
 		}
 	}
