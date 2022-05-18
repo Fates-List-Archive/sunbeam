@@ -29,6 +29,9 @@ const config = {
 			ssr: {
 				noExternal: [/^@material\//, /^@smui(?:-extra)?\//],
 			},
+	     	optimizeDeps: {
+		       include: ["highlight.js", "highlight.js/lib/core"],
+		     }				
 		  },
 	}
 };

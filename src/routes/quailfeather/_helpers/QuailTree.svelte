@@ -4,7 +4,7 @@ import { info, error } from "./logger";
 import { doctreeCache } from "./quailcache";
 
     import { onMount } from 'svelte';
-import Icon from '@iconify/svelte';
+import Icon from '@iconify/svelte'; // For later
 
     let ignore = ["index.md"] // Index may be counter-intuitive, but we add this later
 
@@ -90,8 +90,8 @@ import Icon from '@iconify/svelte';
 </a>
 -->
 
-{#if treeShow}
-    <div class="grid gap-1 grid-cols-4">
+<div class="grid gap-1 grid-cols-4">
+    {#if treeShow}
         <div class="doctree col-span-1">
             {#if treeDepthOne.length == 0}
                 <span class="span">Loading doctree</span>
@@ -108,8 +108,8 @@ import Icon from '@iconify/svelte';
                     else treeShow = true
 
                     if(window.rerender) {
-				        setTimeout(window.rerender, 400)
-			        }
+                        setTimeout(window.rerender, 400)
+                    }
 
                 }}>
                     <span class="span">Collapse</span>
@@ -141,29 +141,23 @@ import Icon from '@iconify/svelte';
                 </li>
             {/each}
         </div>
-        <div class="content col-span-3">
-            <slot />
-        </div>
-    </div>
-{:else}
-<div class="content">
-    <div>
-        <li>
-            <a id="docs-_root-nav" href={"#"} on:click={() => {
-                if(treeShow) treeShow = false 
-                else treeShow = true
+    {:else}
+    <style>
+        .content {
+            width: 100%;
+            display: block;
+        }
 
-                if(window.rerender) {
-				    setTimeout(window.rerender, 400)
-			    }
-            }}>
-                <span style="font-weight: bold; font-size: 20px;">Show sidebar</span>
-            </a>
-        </li>
+        .col-span-3 {
+            grid-column: span 4/span 3;
+        }
+    </style>
+    {/if}
+    <!--Never ever rerender this, it can be very very expensive-->
+    <div class="content col-span-3">
+        <slot />
     </div>
-    <slot />
 </div>
-{/if}
 
 <style lang="scss">
     .doctree {
