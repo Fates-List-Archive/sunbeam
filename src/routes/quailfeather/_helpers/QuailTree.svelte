@@ -92,8 +92,8 @@ import Icon from '@iconify/svelte'; // For later
 
 <div class="grid gap-1 grid-cols-4">
     {#if treeShow}
-        <input id="searchbar" placeholder="Search"/>
         <div class="doctree col-span-1">
+            <input id="searchbar" placeholder="Search"/>
             {#if treeDepthOne.length == 0}
                 <span class="span">Loading doctree</span>
             {/if}
@@ -202,5 +202,10 @@ import Icon from '@iconify/svelte'; // For later
         border: none;
         border-radius: 4px; 
         color: #FFFFFF;
+        height: 30px;
+        display: block;
+        margin: 0 !important;
+        width: auto !important;
+        overflow-x: hidden;
     }
 </style>
