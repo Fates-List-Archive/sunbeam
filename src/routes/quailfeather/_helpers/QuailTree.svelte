@@ -92,18 +92,19 @@ import Icon from '@iconify/svelte'; // For later
 
 <div class="grid gap-1 grid-cols-4">
     {#if treeShow}
+        <input id="searchbar" placeholder="Search"/>
         <div class="doctree col-span-1">
             {#if treeDepthOne.length == 0}
                 <span class="span">Loading doctree</span>
             {/if}
             <!--Tree depth one -->
             <li class="td-1">
-                <a id="docs-_root-nav" href="/quailfeather">
+                <a class="tree-link" id="docs-_root-nav" href="/quailfeather">
                     <span class="span">Back to root</span>
                 </a>
             </li>
             <li class="td-1">
-                <a id="docs-_root-nav" href={"#"} on:click={() => {
+                <a class="tree-link" id="docs-_root-nav" href={"#"} on:click={() => {
                     if(treeShow) treeShow = false 
                     else treeShow = true
 
@@ -117,7 +118,7 @@ import Icon from '@iconify/svelte'; // For later
             </li>
             {#each treeDepthOne as el}
                 <li class="td-1">
-                    <a id="docs-{el}-nav" href="/quailfeather/docs/{el}">
+                    <a class="tree-link" id="docs-{el}-nav" href="/quailfeather/docs/{el}">
                         <span class="span">{title(el.replace("-", " "))}</span>
                     </a>
                 </li>
@@ -131,7 +132,7 @@ import Icon from '@iconify/svelte'; // For later
                         <ul>
                         {#each childs as child}
                             <li>
-                                <a id="docs-{tree}-{child}-nav" href="/quailfeather/docs/{tree}/{child}">
+                                <a class="tree-link" id="docs-{tree}-{child}-nav" href="/quailfeather/docs/{tree}/{child}">
                                     <span class="span">{title(child.replace("-", " "))}</span>
                                 </a>
                             </li>
@@ -189,5 +190,17 @@ import Icon from '@iconify/svelte'; // For later
         .span {
             font-size: 12px !important;
         }
+    }
+
+    .tree-link {
+        opacity: 1 !important;
+    }
+
+    #searchbar {
+        background: #444;
+        padding: 15px;
+        border: none;
+        border-radius: 4px; 
+        color: #FFFFFF;
     }
 </style>
