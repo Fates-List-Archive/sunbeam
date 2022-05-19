@@ -8,8 +8,6 @@ import Icon from '@iconify/svelte'; // For later
 
     let ignore = ["index.md"] // Index may be counter-intuitive, but we add this later
 
-    let doctree: any;
-
     let treeDepthOne = []
     let treeDepthTwo = {}
 
@@ -81,19 +79,25 @@ import Icon from '@iconify/svelte'; // For later
         }
 	});
 
-    let treeShow = true;
+    let treeShow = false;
 </script>
 
-<!--
-<a href={"#"}>
-    <Icon icon="charm:menu-hamburger" />
+<a class="ham" href={"#"} on:click={() => {
+    if(treeShow) treeShow = false 
+    else treeShow = true
+}
+} aria-label="Open Menu">
+<Icon icon="charm:menu-hamburger" width="30px" />
+<!--Counter-intuitive but eh-->
+<span style="vertical-align: top">Show Menu</span>
 </a>
--->
 
 <div class="grid gap-1 grid-cols-4">
     {#if treeShow}
         <div class="doctree col-span-1">
-            <input id="searchbar" placeholder="Search"/>
+            <li class="td-1 search-flex">
+                <input id="searchbar" placeholder="Search"/>
+            </li>
             {#if treeDepthOne.length == 0}
                 <span class="span">Loading doctree</span>
             {/if}
@@ -103,19 +107,7 @@ import Icon from '@iconify/svelte'; // For later
                     <span class="span">Back to root</span>
                 </a>
             </li>
-            <li class="td-1">
-                <a class="tree-link" id="docs-_root-nav" href={"#"} on:click={() => {
-                    if(treeShow) treeShow = false 
-                    else treeShow = true
 
-                    if(window.rerender) {
-                        setTimeout(window.rerender, 400)
-                    }
-
-                }}>
-                    <span class="span">Collapse</span>
-                </a>
-            </li>
             {#each treeDepthOne as el}
                 <li class="td-1">
                     <a class="tree-link" id="docs-{el}-nav" href="/quailfeather/docs/{el}">
@@ -196,16 +188,25 @@ import Icon from '@iconify/svelte'; // For later
         opacity: 1 !important;
     }
 
+    .search-flex {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
     #searchbar {
         background: #444;
-        padding: 15px;
+        padding: 0 20px;
         border: none;
         border-radius: 4px; 
         color: #FFFFFF;
         height: 30px;
-        display: block;
         margin: 0 !important;
-        width: auto !important;
-        overflow-x: hidden;
+        width: 100% !important;
+        overflow-x: hidden !important;
+    }
+
+    .ham {
+        font-size: 18px;
+        padding: 3px;
     }
 </style>

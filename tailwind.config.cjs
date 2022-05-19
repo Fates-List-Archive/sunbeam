@@ -3,7 +3,7 @@ module.exports = {
     corePlugins: {
       preflight: false,
     },
-    content: ['./src/**/*.{html,js,svelte,ts}'],
+    content: ['./src/**/*.{html,js,svelte,ts}', './node_modules/tw-elements/dist/js/**/*.js'],
     theme: {
       extend: {
         typography: {
@@ -52,6 +52,7 @@ module.exports = {
       },
     },
     plugins: [
-      require('@tailwindcss/typography')
+      require('@tailwindcss/typography'),
+      require('tw-elements/dist/plugin')
     ],
 }

@@ -51,10 +51,22 @@
                 }
             })
 
+            // Create toc
+            let toc = `## Table Of Contents\n`
+
+            let splitDat: string[] = data.split('\n')
+
+            for(let i = 0; i < splitDat.length; i++) {
+                if(splitDat[i].startsWith("## ")) {
+                    toc += `- [${splitDat[i].replace("## ", "")}](#${splitDat[i].replace("## ", "").replaceAll(" ", "-").replaceAll("(", "").replaceAll(")", "").replaceAll("!", "").replaceAll(".", "").replace(/[^a-zA-Z0-9]/g, '-').replaceAll("--", "-")})\n`
+                }
+            }
+
             data = md.render(data)
             .replaceAll("<li", '<li class="li"')
             .replaceAll("<ul", '<ul class="ul"')
             .replaceAll("<button", '<button class="button"')
+            .replaceAll("<textarea", '<textarea class="fform"')
 
             return {
                 props: {
