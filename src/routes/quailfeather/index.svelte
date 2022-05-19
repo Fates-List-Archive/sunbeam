@@ -272,7 +272,7 @@
 			<li>Profit!</li>
 		</ol>
 		<h2>Bot Actions</h2>
-		<ul>
+		<ul class="ba-defs">
 			<li>
 				Claim (claim): pending => under_review<br/> <!--Impl-->
 				<ul>
@@ -362,5 +362,9 @@
 
 	ul, li {
 		color: white !important;
+	}
+
+	.ba-defs > li {
+		margin-bottom: 10px;
 	}
 </style>
