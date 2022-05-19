@@ -60,14 +60,14 @@
 					frostpawMsg = 'Invalid state' + retry;
 					return;
 				}
-				if (
+				/*if (
 					new Date().getTime() / 1000 - currentTime > 60 ||
 					currentTime > new Date().getTime() / 1000 ||
 					currentTime <= 0
 				) {
 					frostpawMsg = `Current time nonce is too old! ${new Date().getTime() / 1000}`;
 					return;
-				}
+				}*/
 
 				// Fetch baypaw client info
 				fetch(`${apiUrl}/frostpaw/clients/${clientId}`)
@@ -130,70 +130,87 @@
 	}
 </script>
 
-<p style="font-size: bold;">{@html frostpawMsg}</p>
+<div style="margin: 20px;">
+	<p style="font-size: bold;">{@html frostpawMsg}</p>
 
-{#if cliInfo}
-	<h1>Custom Client Alert!</h1>
-	<h2>
-		Custom clients can add, edit and delete bots on your behalf and can also vote for bots and
-		servers.
-	</h2>
-	<p>
-		You are about to login to <span style="opacity: 0.8">{cliInfo.name}</span>!
+	{#if cliInfo}
+		<h1>Custom Client Alert!</h1>
+		<h2>
+			Custom clients can add, edit and delete bots on your behalf and can also vote for bots and
+			servers.
+		</h2>
+		<p>
+			You are about to login to <span
+				style="opacity: 0.8; text-decoration: underline; font-weight: bolder;">{cliInfo.name}</span
+			>!
+			<br /><br />
+			Fates List cannot validate the authenticity of this client.
+			<br /><br />
+			You will be redirected to
+			<span style="opacity: 0.8; text-decoration: underline; font-weight: bolder;"
+				>{cliInfo.domain}</span
+			>
+			which has a privacy policy of
+			<span style="opacity: 0.8; text-decoration: underline; font-weight: bolder;"
+				>{cliInfo.privacy_policy}</span
+			>
+			and is owned by
+			<span style="opacity: 0.8; text-decoration: underline; font-weight: bolder;"
+				>{cliInfo.owner.username}</span
+			>
+			<br /><br />
+			If you are not sure, <em>exit this page now</em>.
+			<br /><br />
+		</p>
+		<small
+			>Client ID: <span style="text-decoration: underline; font-weight: bolder;">{cliInfo.id}</span
+			></small
+		>
 		<br /><br />
-		Fates List cannot validate the authenticity of this client.
-		<br /><br />
-		You will be redirected to <span style="opacity: 0.8">{cliInfo.domain}</span>
-		which has a privacy policy of <span style="opacity: 0.8">{cliInfo.privacy_policy}</span>
-		and is owned by <span style="opacity: 0.8">{cliInfo.owner.username}</span>
-		<br /><br />
-		If you are not sure, <em>exit this page now</em>.
-		<br /><br />
-	</p>
-	<small>Client ID: {cliInfo.id}</small><br />
-	<Button
-		on:click={() => {
-			goto('/');
-		}}
-		style="background-color: #90EE90; color: black;">Back To Safety</Button
-	>
-	<Button
-		on:click={async () => {
-			let res = await fetch(`${apiUrl}/oauth2`, {
-				credentials: 'include',
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					Frostpaw: '0.1.0',
-					'Frostpaw-Server': window.location.origin
-				},
-				body: JSON.stringify({
-					code: code,
-					state: state,
-					// We are a custom client
-					frostpaw: true,
-					frostpaw_blood: clientId,
-					frostpaw_claw: hmacTime,
-					frostpaw_claw_unseathe_time: currentTime
-				})
-			});
-			let json = await res.json();
-			if (res.ok) {
-				window.location.href = `${cliInfo.domain}/frostpaw?data=${encode(JSON.stringify(json))}`;
-			} else {
-				$alertstore = {
-					title: 'Error',
-					id: 'frostpaw-cli-error',
-					show: true,
-					message: `Error: ${json.error}`
-				};
+		<Button
+			on:click={() => {
+				goto('/');
+			}}
+			style="background-color: #90EE90; color: black;">Back To Safety</Button
+		>
+		<Button
+			on:click={async () => {
+				let res = await fetch(`${apiUrl}/oauth2`, {
+					credentials: 'include',
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+						Frostpaw: '0.1.0',
+						'Frostpaw-Server': window.location.origin
+					},
+					body: JSON.stringify({
+						code: code,
+						state: state,
+						// We are a custom client
+						frostpaw: true,
+						frostpaw_blood: clientId,
+						frostpaw_claw: hmacTime,
+						frostpaw_claw_unseathe_time: currentTime
+					})
+				});
+				let json = await res.json();
+				if (res.ok) {
+					window.location.href = `${cliInfo.domain}/frostpaw?data=${encode(JSON.stringify(json))}`;
+				} else {
+					$alertstore = {
+						title: 'Error',
+						id: 'frostpaw-cli-error',
+						show: true,
+						message: `Error: ${json.error}`
+					};
+				}
+			}}
+			style="background-color: red; color: white;">Authorize</Button
+		>
+		<style>
+			small {
+				color: white;
 			}
-		}}
-		style="background-color: red; color: black;">Authorize</Button
-	>
-	<style>
-		small {
-			color: white;
-		}
-	</style>
-{/if}
+		</style>
+	{/if}
+</div>
