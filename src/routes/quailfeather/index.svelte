@@ -84,32 +84,7 @@
 	}
 
 	async function claimBot(id: string) {
-		let res = await fetch(`${nextUrl}/quailfeather/claim`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: $session.session.token
-			},
-			body: JSON.stringify({
-				id: id
-			})
-		});
-
-		if (res.ok) {
-			$alertstore = {
-				title: 'Success',
-				id: 'success-msg',
-				message: 'Bot claimed successfully',
-				show: true
-			};
-		} else {
-			$alertstore = {
-				title: 'Error',
-				id: 'error-msg',
-				message: genError(await res.json()),
-				show: true
-			};
-		}
+		handler(id, "STUB_REASON", 'claim');
 	}
 
 	async function unclaimBot(id: string) {
@@ -119,12 +94,52 @@
 			message: 'Enter reason for unclaiming this bot<br/><br/><textarea id="unclaim-reason">',
 			show: true,
 			close: () => {
-				handler(id, document.querySelector('#unclaim-reason').value, 'unclaim');
+				handler(id, (document.querySelector('#unclaim-reason') as HTMLInputElement).value, 'unclaim');
+			}
+		};
+	}
+
+	async function approveBot(id: string) {
+		$alertstore = {
+			title: 'Feedback',
+			id: 'reason-msg',
+			message: 'Enter some feedback that you would like to give to this bot<br/><br/><textarea id="approve-reason">',
+			show: true,
+			close: () => {
+				handler(id, (document.querySelector('#approve-reason') as HTMLInputElement).value, 'approve');
+			}
+		};
+	}
+
+	async function denyBot(id: string) {
+		$alertstore = {
+			title: 'Reason',
+			id: 'reason-msg',
+			message: 'Why is this bot being denied<br/><br/><textarea id="deny-reason">',
+			show: true,
+			close: () => {
+				handler(id, (document.querySelector('#deny-reason') as HTMLInputElement).value, 'deny');
+			}
+		};
+	}
+
+	async function uncertifyBot(id: string) {
+		$alertstore = {
+			title: 'Reason',
+			id: 'reason-msg',
+			message: 'Enter the reason that you would like to give to this bot as to why it was uncertified<br/><br/><textarea id="uncertify-reason">',
+			show: true,
+			close: () => {
+				handler(id, (document.querySelector('#uncertify-reason') as HTMLInputElement).value, 'uncertify');
 			}
 		};
 	}
 
 	async function handler(id: string, reason: string, action: string) {
+		if(!reason) {
+			return
+		}
+
 		let res = await fetch(`${lynxUrl}/kitty`, {
 			method: 'POST',
 			headers: {
@@ -143,7 +158,7 @@
 			$alertstore = {
 				title: 'Success',
 				id: 'success-msg',
-				message: 'Bot claimed successfully',
+				message: genError(await res.json()),
 				show: true
 			};
 		} else {
@@ -154,6 +169,20 @@
 				show: true
 			};
 		}
+	}
+
+	enum permData {
+		USER = 1,
+		BOT_REVIEWER = 2,
+		MODERATOR = 3,
+		ADMIN = 4,
+		DEVELOPER = 5,
+		HEAD_ADMIN = 6,
+		OVERSEER = 7,
+	}
+
+	function minPerm(perm: permData)  {
+		return `${perm} (${permData[perm]})`;
 	}
 </script>
 
@@ -174,7 +203,7 @@
 		<CardContainer>
 			{#each pendingBots as bot}
 				<BotCard data={bot} type="bot" rand={false}>
-					{#if perms.perm > 2}
+					{#if perms.perm > permData.BOT_REVIEWER}
 						<div class="flex justify-center">
 							<Button
 								on:click={() => claimBot(bot.user.id)}
@@ -192,12 +221,22 @@
 		<CardContainer>
 			{#each underReviewBots as bot}
 				<BotCard data={bot} type="bot" rand={false}>
-					{#if perms.perm > 2}
+					{#if perms.perm > permData.BOT_REVIEWER}
 						<div class="flex justify-center">
 							<Button
 								on:click={() => unclaimBot(bot.user.id)}
 								variant="outlined"
-								class="button self-center">Unclaim</Button
+								class="button self-center lb">Unclaim</Button
+							>
+							<Button
+								on:click={() => approveBot(bot.user.id)}
+								variant="outlined"
+								class="button self-center lb">Approve</Button
+							>
+							<Button
+								on:click={() => denyBot(bot.user.id)}
+								variant="outlined"
+								class="button self-center lb">Deny</Button
 							>
 						</div>
 					{/if}
@@ -209,8 +248,119 @@
 	<Section icon="fa-solid:certificate" title="Certified" id="certified">
 		<CardContainer>
 			{#each certifiedBots as bot}
-				<BotCard data={bot} type="bot" rand={false} />
+				<BotCard data={bot} type="bot" rand={false}>
+					{#if perms.perm >= permData.HEAD_ADMIN}
+						<div class="flex justify-center">
+							<Button
+								on:click={() => uncertifyBot(bot.user.id)}
+								variant="outlined"
+								class="button self-center">Uncertify</Button
+							>
+						</div>
+					{/if}
+				</BotCard>
 			{/each}
 		</CardContainer>
 	</Section>
+
+	<Section icon="fa-solid:robot" title="Definitions" id="definitions">
+		<h2>How to use</h2>
+		<ol>
+			<li>Find the initial state of the item you wish to handle</li>
+			<li>From the initial state, trace out a route from said initial state to the final desired state</li>
+			<li>???</li>
+			<li>Profit!</li>
+		</ol>
+		<h2>Bot Actions</h2>
+		<ul>
+			<li>
+				Claim (claim): pending => under_review<br/> <!--Impl-->
+				<ul>
+					<li>Minimum Perm: {minPerm(permData.BOT_REVIEWER)}</li>
+				</ul>
+			</li>
+			<li>
+				Unclaim (unclaim): under_review => pending<br/> <!--Impl-->
+				<ul>
+					<li>Minimum Perm: {minPerm(permData.BOT_REVIEWER)}</li>
+				</ul>
+			</li>
+			<li>
+				Approve (approve): under_review => approved<br/> <!--Impl-->
+				<ul>
+					<li>Minimum Perm: {minPerm(permData.BOT_REVIEWER)}</li>
+				</ul>
+			</li>
+			<li>
+				Deny (deny): under_review => denied<br/> <!--Impl-->
+				<ul>
+					<li>Minimum Perm: {minPerm(permData.BOT_REVIEWER)}</li>
+				</ul>
+			</li>
+			<li>
+				Ban (ban): approved => banned<br/>
+				<ul>
+					<li>Minimum Perm: {minPerm(permData.ADMIN)}</li>
+				</ul>
+			</li>
+			<li>
+				Unban (unban): banned => approved<br/>
+				<ul>
+					<li>Minimum Perm: {minPerm(permData.ADMIN)}</li>
+				</ul>
+			</li>
+			<li>
+				Certify (certify): approved => certified<br/>
+				<ul>
+					<li>Minimum Perm: {minPerm(permData.DEVELOPER)}</li>
+				</ul>
+			</li>
+			<li>
+				Uncertify (uncertify): certified => approved<br/> <!--Impl-->
+				<ul>
+					<li>Minimum Perm: {minPerm(permData.DEVELOPER)}</li>
+				</ul>
+			</li>
+			<li>
+				Unverify (unverify): approved => under_review<br/>
+				<ul>
+					<li>Minimum Perm: {minPerm(permData.MODERATOR)}</li>
+				</ul>
+			</li>
+			<li>
+				Requeue (requeue): denied | banned => under_review<br/>
+				<ul>
+					<li>Minimum Perm: {minPerm(permData.MODERATOR)}</li>
+				</ul>
+			</li>
+			<li>
+				Reset Votes (reset-votes): votes => 0<br/>
+				<ul>
+					<li>Minimum Perm: {minPerm(permData.MODERATOR)}</li>
+				</ul>
+			</li>
+			<li>
+				Reset All Votes (reset-all-votes): votes => 0 %all%<br/>
+				<ul>
+					<li>Minimum Perm: {minPerm(permData.DEVELOPER)}</li>
+				</ul>
+			</li>
+			<li>
+				Set/Unset Bot Flag (setflag): flag => flags.intersection(flag)<br/>
+				<ul>
+					<li>Minimum Perm: {minPerm(permData.MODERATOR)}</li>
+				</ul>
+			</li>
+		</ul>	
+	</Section>
 </QuailTree>
+
+<style>
+	:global(.lb) {
+		margin-left: 2px;;
+	}
+
+	ul, li {
+		color: white !important;
+	}
+</style>
