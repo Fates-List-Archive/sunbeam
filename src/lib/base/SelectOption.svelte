@@ -1,9 +1,10 @@
 <script lang="ts">
-    export let value: string;
-    export let masterValue: string;
+	export let value: string;
+	export let masterValue: string;
 </script>
+
 {#if `${masterValue}` == `${value}`}
-    <option value={value} selected><slot /></option>
+	<option {value} selected><slot /></option>
 {:else}
-    <option value={value}><slot /></option>
+	<option {value}><slot /></option>
 {/if}

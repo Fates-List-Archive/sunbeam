@@ -1,23 +1,23 @@
 <script context="module" lang="ts">
-	import { fetchFates } from "$lib/request"
+	import { fetchFates } from '$lib/request';
 	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		const url = `/bots/${params.id}`;
 
-                let auth = ""
+		let auth = '';
 
-                if(session.session.user) {
-                        auth = `${session.session.user.id}|${session.session.token}`
-                }
+		if (session.session.user) {
+			auth = `${session.session.user.id}|${session.session.token}`;
+		}
 
 		const res = await fetchFates(url, auth, fetch, true, true);
 
 		if (res.ok) {
-	            let data = await res.json()
-		    return {
+			let data = await res.json();
+			return {
 				props: {
-					data: data,
+					data: data
 				}
 			};
 		}
@@ -28,8 +28,10 @@
 		};
 	}
 </script>
+
 <script lang="ts">
-    import BotServerVotePage from '$lib/pages/BotServerVotePage.svelte';
+	import BotServerVotePage from '$lib/pages/BotServerVotePage.svelte';
 	export let data: any;
 </script>
-<BotServerVotePage data={data} type="bot"></BotServerVotePage>
+
+<BotServerVotePage {data} type="bot" />

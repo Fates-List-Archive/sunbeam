@@ -1,36 +1,44 @@
 <script lang="ts">
-    import Button from '@smui/button';
-    import BotCard from '$lib/cards/BotCard.svelte'
-    import { roll } from '$lib/request'
-    export let type: string;
+	import Button from '@smui/button';
+	import BotCard from '$lib/cards/BotCard.svelte';
+	import { roll } from '$lib/request';
+	export let type: string;
 
-    export let randomBot: any;
-	
-    async function roller() {
-	randomBot = await roll(type)
-    }
+	export let randomBot: any;
 
+	async function roller() {
+		randomBot = await roll(type);
+	}
 </script>
+
 <div class="flex">
-    <BotCard type={type} rand={false} data={randomBot}></BotCard>
-    <Button class="random-button white" on:click={() => {roller()} } touch variant="outlined">Roll</Button>
+	<BotCard {type} rand={false} data={randomBot} />
+	<Button
+		class="random-button white"
+		on:click={() => {
+			roller();
+		}}
+		touch
+		variant="outlined">Roll</Button
+	>
 </div>
-<div class="spacer"></div>
+<div class="spacer" />
+
 <style>
-    .spacer {
-        margin-bottom: 10px;
-    }
-    .flex {
-        margin-left: auto;
-        margin-right: auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-    }
-    :global(.random-button) {
-        display: flex !important;
-	    border: solid thin !important; 
-	    outline: none !important; 
-    }
+	.spacer {
+		margin-bottom: 10px;
+	}
+	.flex {
+		margin-left: auto;
+		margin-right: auto;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-direction: column;
+	}
+	:global(.random-button) {
+		display: flex !important;
+		border: solid thin !important;
+		outline: none !important;
+	}
 </style>

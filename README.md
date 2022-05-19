@@ -3,7 +3,8 @@
 **[Sunbeam](https://warriors.fandom.com/wiki/Sunbeam) is a protagonist in Warriors: A Starless Clan.**
 
 ### Code Quality
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/9062f83e0d86447db8d375c71c127df3)](https://www.codacy.com/gh/Fates-List/sunbeam/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Fates-List/sunbeam&amp;utm_campaign=Badge_Grade)
+
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/9062f83e0d86447db8d375c71c127df3)](https://www.codacy.com/gh/Fates-List/sunbeam/dashboard?utm_source=github.com&utm_medium=referral&utm_content=Fates-List/sunbeam&utm_campaign=Badge_Grade)
 
 **Currently may or may not deploy on Cloudflare pages**
 

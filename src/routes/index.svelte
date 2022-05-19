@@ -1,17 +1,17 @@
 <script context="module" lang="ts">
-	import { fetchFates } from "$lib/request"
-	import { roll } from '$lib/request'
+	import { fetchFates } from '$lib/request';
+	import { roll } from '$lib/request';
 	export const prerender = true;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		const url = `/index?target_type=0`;
-		const res = await fetchFates(url, "", fetch, false, true);
+		const res = await fetchFates(url, '', fetch, false, true);
 
 		if (res.ok) {
 			return {
 				props: {
 					data: await res.json(),
-					randomBot: await roll("bot")
+					randomBot: await roll('bot')
 				}
 			};
 		}
@@ -24,40 +24,40 @@
 </script>
 
 <script lang="ts">
-	import SearchBar from "$lib/base/SearchBar.svelte";
-	import Tag from "$lib/base/Tag.svelte";
-	import BotCard from "$lib/cards/BotCard.svelte";
-	import CardContainer from "$lib/cards/CardContainer.svelte";
-	import type { BotIndex } from '$lib/apiTypes'
-	import RandomBot from "$lib/base/RandomBot.svelte";
-	import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
-	import Section from "$lib/base/Section.svelte";
-import Intl from "$lib/base/Intl.svelte";
+	import SearchBar from '$lib/base/SearchBar.svelte';
+	import Tag from '$lib/base/Tag.svelte';
+	import BotCard from '$lib/cards/BotCard.svelte';
+	import CardContainer from '$lib/cards/CardContainer.svelte';
+	import type { BotIndex } from '$lib/apiTypes';
+	import RandomBot from '$lib/base/RandomBot.svelte';
+	import BristlefrostMeta from '$lib/base/BristlefrostMeta.svelte';
+	import Section from '$lib/base/Section.svelte';
+	import Intl from '$lib/base/Intl.svelte';
 	export let data: BotIndex;
 	export let randomBot: any;
 	//
 </script>
 
-<BristlefrostMeta 
+<BristlefrostMeta
 	url="https://fateslist.xyz"
 	title="Fates List | Discord Bot List"
 	description="Find, invite and discover the best bots &amp; servers now on Fates List"
 	thumbnail="https://fateslist.xyz/static/botlisticon.webp"
-></BristlefrostMeta>
+/>
 
 <section>
 	<h1 class="best-bots">Fates List</h1>
-	<h2 class="best-bots"><Intl key="index.best_bots"/></h2>
+	<h2 class="best-bots"><Intl key="index.best_bots" /></h2>
 </section>
 
-<SearchBar type="bot" query=""></SearchBar>
-<Tag targetType="bot" tags={data.tags}></Tag>
-<RandomBot type="bot" randomBot={randomBot}/>
+<SearchBar type="bot" query="" />
+<Tag targetType="bot" tags={data.tags} />
+<RandomBot type="bot" {randomBot} />
 
 <Section icon="fa-solid:certificate" title="Certified" id="certified-index">
 	<CardContainer>
 		{#each data.certified as bot}
-			<BotCard data={bot} type="bot" rand={false}/>
+			<BotCard data={bot} type="bot" rand={false} />
 		{/each}
 	</CardContainer>
 </Section>
@@ -65,7 +65,7 @@ import Intl from "$lib/base/Intl.svelte";
 <Section icon="fa-solid:sort-amount-up" title="Top Voted" id="top-voted-index">
 	<CardContainer>
 		{#each data.top_voted as bot}
-			<BotCard data={bot} type="bot" rand={false}/>
+			<BotCard data={bot} type="bot" rand={false} />
 		{/each}
 	</CardContainer>
 </Section>
@@ -73,7 +73,7 @@ import Intl from "$lib/base/Intl.svelte";
 <Section icon="fa-solid:plus" title="New Bots" id="new-bots">
 	<CardContainer>
 		{#each data.new as bot}
-			<BotCard data={bot} type="bot" rand={false}/>
+			<BotCard data={bot} type="bot" rand={false} />
 		{/each}
 	</CardContainer>
 </Section>
@@ -101,5 +101,6 @@ import Intl from "$lib/base/Intl.svelte";
 		align-items: center;
 		flex: 1;
 		overflow: hidden;
+		margin-top: 35px;
 	}
 </style>

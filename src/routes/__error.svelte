@@ -1,31 +1,33 @@
 <script context="module">
 	/** @type {import('@sveltejs/kit').ErrorLoad} */
 	export function load({ error, status }) {
-		if(status == 408 || status == 502) {
+		if (status == 408 || status == 502) {
 			return {
 				props: {
-					title: "Server Maintenance",
-					message: "The Fates List API is currently under maintenance.<br/>Dont worry this won't take long!",
+					title: 'Server Maintenance',
+					message:
+						"The Fates List API is currently under maintenance.<br/>Dont worry this won't take long!",
 					serverMaint: true
 				}
-			}
+			};
 		}
 		return {
 			props: {
-                status: status,
-                error: error.message,
+				status: status,
+				error: error.message,
 				serverMaint: false
 			}
 		};
 	}
-</script> 
+</script>
+
 <script>
 	export let status;
-    export let error;
-	export let title = "";
-	export let message = "";
+	export let error;
+	export let title = '';
+	export let message = '';
 	export let serverMaint = false;
-	import { getString } from "$lib/strings"
+	import { getString } from '$lib/strings';
 </script>
 
 {#if serverMaint}
@@ -35,5 +37,9 @@
 	<h1 style="text-align: center">{status}</h1>
 	<h2>{@html getString(error)}</h2>
 
-	<p>Please visit our <a href="https://fateslist.xyz/server/789934742128558080/invite">support server</a> if you have any queries or concerns or just for fun!</p>
+	<p>
+		Please visit our <a href="https://fateslist.xyz/server/789934742128558080/invite"
+			>support server</a
+		> if you have any queries or concerns or just for fun!
+	</p>
 {/if}

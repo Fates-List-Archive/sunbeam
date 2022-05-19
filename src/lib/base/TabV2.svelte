@@ -1,8 +1,9 @@
-<div id="switcher-v2" style='margin-bottom: 3px;' class='blackbar-v2'>
+<div id="switcher-v2" style="margin-bottom: 3px;" class="blackbar-v2">
 	<div class="tabs-v2-div">
-		<slot/>
+		<slot />
 	</div>
 </div>
+
 <style lang="scss" global>
 	.tabs-v2 {
 		width: 80% !important;

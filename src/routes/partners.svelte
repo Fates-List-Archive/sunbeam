@@ -1,10 +1,10 @@
 <script context="module" lang="ts">
-	import { fetchFates } from "$lib/request"
+	import { fetchFates } from '$lib/request';
 	export const prerender = true;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		const url = `/partners`;
-		const res = await fetchFates(url, "", fetch, false, true);
+		const res = await fetchFates(url, '', fetch, false, true);
 
 		if (res.ok) {
 			return {
@@ -17,34 +17,33 @@
 		return {
 			status: res.status,
 			error: new Error(`Could not load ${url}`)
-		};	
+		};
 	}
 </script>
 
 <script lang="ts">
-	import Partner from "$lib/base/Partner.svelte"
-	import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte";
+	import Partner from '$lib/base/Partner.svelte';
+	import BristlefrostMeta from '$lib/base/BristlefrostMeta.svelte';
 	export let partners: any;
 </script>
 
-<BristlefrostMeta 
+<BristlefrostMeta
 	url="https://fateslist.xyz/partners"
 	title="Fates List | Our Partners"
 	description="See our partners and supporters!"
 	thumbnail="https://fateslist.xyz/static/botlisticon.webp"
-></BristlefrostMeta>
+/>
 
 <div class="content">
 	<h1>Our Partners</h1>
 
 	<p>
-		Note that Fates List is not responsible for any activities taking
-		place on the below servers!
+		Note that Fates List is not responsible for any activities taking place on the below servers!
 	</p>
 </div>
 
 {#each partners.partners as partner}
-	<Partner partner={partner} icons={partners.icons}></Partner>
+	<Partner {partner} icons={partners.icons} />
 {/each}
 
 <style>

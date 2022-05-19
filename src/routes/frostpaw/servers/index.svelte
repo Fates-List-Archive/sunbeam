@@ -1,17 +1,17 @@
 <script context="module" lang="ts">
-	import { fetchFates } from "$lib/request"
-        import { roll } from '$lib/request'
+	import { fetchFates } from '$lib/request';
+	import { roll } from '$lib/request';
 	export const prerender = true;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		const url = `/index?target_type=1`;
-		const res = await fetchFates(url, "", fetch, false, true);
+		const res = await fetchFates(url, '', fetch, false, true);
 
 		if (res.ok) {
 			return {
 				props: {
 					data: await res.json(),
-					randomBot: await roll("server")
+					randomBot: await roll('server')
 				}
 			};
 		}
@@ -22,58 +22,57 @@
 		};
 	}
 </script>
+
 <script lang="ts">
-	import SearchBar from "$lib/base/SearchBar.svelte";
-	import Tag from "$lib/base/Tag.svelte";
-	import BotCard from "$lib/cards/BotCard.svelte"
-	import CardContainer from "$lib/cards/CardContainer.svelte"
-	import Section from "$lib/base/Section.svelte"
-	import BristlefrostMeta from "$lib/base/BristlefrostMeta.svelte"
-	import RandomBot from "$lib/base/RandomBot.svelte";
-	import Intl from "$lib/base/Intl.svelte";
+	import SearchBar from '$lib/base/SearchBar.svelte';
+	import Tag from '$lib/base/Tag.svelte';
+	import BotCard from '$lib/cards/BotCard.svelte';
+	import CardContainer from '$lib/cards/CardContainer.svelte';
+	import Section from '$lib/base/Section.svelte';
+	import BristlefrostMeta from '$lib/base/BristlefrostMeta.svelte';
+	import RandomBot from '$lib/base/RandomBot.svelte';
+	import Intl from '$lib/base/Intl.svelte';
 	export let data: any;
 	export let randomBot: any;
 </script>
 
-<BristlefrostMeta 
+<BristlefrostMeta
 	url="https://fateslist.xyz"
 	title="Fates List | Discord Bot List"
 	description="Find, discover and join the best servers only on Fates List"
 	thumbnail="https://fateslist.xyz/static/botlisticon.webp"
-></BristlefrostMeta>
-
+/>
 
 <section>
 	<h1>Fates List</h1>
-	<h2 class="best-bots"><Intl key="index.best_servers"/></h2>
+	<h2 class="best-bots"><Intl key="index.best_servers" /></h2>
 </section>
-<SearchBar type="server" query=""></SearchBar>
-<Tag targetType="server" tags={data.tags}></Tag>
-<RandomBot type="server" randomBot={randomBot}/>
+<SearchBar type="server" query="" />
+<Tag targetType="server" tags={data.tags} />
+<RandomBot type="server" {randomBot} />
 
 <Section icon="fa-solid:certificate" title="Certified" id="certified-servers">
-<CardContainer>
-	{#each data.certified as server}
-		<BotCard data={server} type="server" rand={false} />
-	{/each}
-</CardContainer>
+	<CardContainer>
+		{#each data.certified as server}
+			<BotCard data={server} type="server" rand={false} />
+		{/each}
+	</CardContainer>
 </Section>
 
-
 <Section icon="fa-solid:sort-amount-up" title="Top Voted" id="top-voted-servers">
-<CardContainer>
-	{#each data.top_voted as server}
-		<BotCard data={server} type="server" rand={false}/>
-	{/each}
-</CardContainer>
+	<CardContainer>
+		{#each data.top_voted as server}
+			<BotCard data={server} type="server" rand={false} />
+		{/each}
+	</CardContainer>
 </Section>
 
 <Section icon="fa-solid:plus" title="New Servers" id="new-servers">
-<CardContainer>
-	{#each data.new as server}
-		<BotCard data={server} type="server" rand={false}/>
-	{/each}
-</CardContainer>
+	<CardContainer>
+		{#each data.new as server}
+			<BotCard data={server} type="server" rand={false} />
+		{/each}
+	</CardContainer>
 </Section>
 
 <style>

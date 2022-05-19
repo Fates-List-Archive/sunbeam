@@ -1,103 +1,35 @@
-<style lang="scss" global>
-    .buttons-all {
-        background-color: black !important;
-        margin-right: 10px;
-        color: white !important;
-        opacity: 1 !important;
-        //min-width: 130px;
-        //max-width: 150px;
-        word-wrap: break-word !important;
-        font-size: 15px !important;
-		border: solid 0.1px !important;
-    }
-
-    .disabled {
-	    opacity: 0.63 !important;
-    }
-
-    @media screen and (max-width: 992px) {
-        .buttons {
-            overflow-x: scroll;
-            overflow-y: hidden;
-            overflow-wrap: break-word !important;
-            font-size: 12px !important;
-        }
-    }
-
-    .buttons {
-        word-wrap: break-word;
-        text-overflow: ellipsis;
-    }
-
-    .buttons {
-        margin-bottom: 40px;
-    }
-
-    .buttons {
-        display: flex;
-        flex-flow: column-wrap;
-        justify-content: center;
-        align-items: center;
-        min-width: 93%;
-        height: 53px;
-        margin: 0 auto;
-        /*white-space: nowrap;*/
-    }
-
-    @media screen and (max-width: 768px) {
-        .buttons {
-            margin-left: 10px !important;
-            width: 100% !important;
-            overflow-wrap: break-word !important;
-        }
-        .auxillary {
-            display: none;
-        }
-        .mobile-small {
-            font-size: 11px !important;
-        }
-    }
-
-    .links-pane {
-        display: flex;
-        flex-flow: column-wrap;
-        justify-content: center;
-        align-items: center;
-        min-width: 93%;
-    }
-</style>
 <script lang="ts">
-import { session } from "$app/stores";
-import alertstore from "$lib/alertstore";
-import Tag from "$lib/base/Tag.svelte";
+	import { session } from '$app/stores';
+	import alertstore from '$lib/alertstore';
+	import Tag from '$lib/base/Tag.svelte';
 
-    import { enums } from "$lib/enums/enums";
-import loadstore from "$lib/loadstore";
-import navigationState from "$lib/navigationState";
-import { reportView, voteHandler } from "$lib/request";
-import { genError } from "$lib/strings";
-import Icon from "@iconify/svelte";
-import Button from "@smui/button";
+	import { enums } from '$lib/enums/enums';
+	import loadstore from '$lib/loadstore';
+	import navigationState from '$lib/navigationState';
+	import { reportView, voteHandler } from '$lib/request';
+	import { genError } from '$lib/strings';
+	import Icon from '@iconify/svelte';
+	import Button from '@smui/button';
 
-    export let data: any;
-    export let type: string;
-    export let limited: boolean = false;
+	export let data: any;
+	export let type: string;
+	export let limited: boolean = false;
 
-    async function voteBot() {
-        let token = $session.session.token
-        let userID = ""
-        if(token) {
-            userID = $session.session.user.id
-        }
-        $loadstore = "Voting..."
-        $navigationState = 'loading';
-        let res = await voteHandler(userID, token, data.user.id, false, type)
-        let jsonDat = await res.json()
-        if(res.ok) {
-            $alertstore = {
-                show: true,
-                title: "Successful Vote",
-        message: `
+	async function voteBot() {
+		let token = $session.session.token;
+		let userID = '';
+		if (token) {
+			userID = $session.session.user.id;
+		}
+		$loadstore = 'Voting...';
+		$navigationState = 'loading';
+		let res = await voteHandler(userID, token, data.user.id, false, type);
+		let jsonDat = await res.json();
+		if (res.ok) {
+			$alertstore = {
+				show: true,
+				title: 'Successful Vote',
+				message: `
 Successfully voted for this ${type}!
 
 <em>Pro Tip</em>: You can vote for ${type} directly on your server using Fates List Helper. Fates List Helper also supports vote reminders as well!
@@ -106,64 +38,167 @@ You can invite Fates List Helper to your server by <a style="color: blue !import
 
 If you have previously invited Squirrelflight, please remove and add Fates List Helper instead.
 `,
-                id: "alert"
-            }
-        } else {
-            $alertstore = {
-                show: true,
-                title: "Oops :(",
-                message: genError(jsonDat),
-                id: "alert"
-            }		
-        }
-        $navigationState = "loaded"
-    }
+				id: 'alert'
+			};
+		} else {
+			$alertstore = {
+				show: true,
+				title: 'Oops :(',
+				message: genError(jsonDat),
+				id: 'alert'
+			};
+		}
+		$navigationState = 'loaded';
+	}
 
-    let extLinks = []
+	let extLinks = [];
 
-    for (const [key, value] of Object.entries(data.extra_links)) {
-        if(key.startsWith("_")) {
-            // Field is meant for custom clients only
-            continue
-        }
-        extLinks.push({
-            name: key,
-            id: key,
-            href: value
-        })
-    }
-</script>    
+	for (const [key, value] of Object.entries(data.extra_links)) {
+		if (key.startsWith('_')) {
+			// Field is meant for custom clients only
+			continue;
+		}
+		extLinks.push({
+			name: key,
+			id: key,
+			href: value
+		});
+	}
+</script>
 
-<span class="auxillary"></span>
+<span class="auxillary" />
 <div class="buttons">
-    <Button on:click={() => voteBot()} class="buttons-all" id="buttons-vote" touch variant="outlined">
-        <Icon icon="fa-solid:thumbs-up" inline={false}/>
-        <span style="margin-left: 3px;"><strong>{data.votes}</strong></span>
-    </Button>
-    <Button href="/{type}/{data.user.id}/invite" class="buttons-all" id="buttons-invite" touch variant="outlined" rel="external">
-        <span><strong>{#if type == "server"}Join{:else}Invite{/if}</strong></span>
-    </Button>
-    {#if $session.session.token && $session.session.user_experiments.includes(enums.UserExperiments.BotReport)}
-        <Button on:click={() => {
-            $alertstore = reportView($session.session.user.id, $session.session.token, data.user.id, type)
-        }} id="buttons-report" class="buttons-all" touch variant="outlined">
-        <span><strong>Report</strong></span>
-    </Button>
-    {/if}
-    {#if !limited}
-        {#if type == "bot"}
-            <Button href='/bot/{data.user.id}/settings' id="buttons-settings" class="buttons-all auxillary" touch variant="outlined">
-                <span><strong>Settings</strong></span>
-            </Button>
-        {:else}
-            <Button class="buttons-all disabled auxillary" id="buttons-settings" touch variant="outlined" disabled>
-                <span><strong>Settings</strong></span>
-            </Button>
-        {/if}
-    {/if}
+	<Button on:click={() => voteBot()} class="buttons-all" id="buttons-vote" touch variant="outlined">
+		<Icon icon="fa-solid:thumbs-up" inline={false} />
+		<span style="margin-left: 3px;"><strong>{data.votes}</strong></span>
+	</Button>
+	<Button
+		href="/{type}/{data.user.id}/invite"
+		class="buttons-all"
+		id="buttons-invite"
+		touch
+		variant="outlined"
+		rel="external"
+	>
+		<span
+			><strong
+				>{#if type == 'server'}Join{:else}Invite{/if}</strong
+			></span
+		>
+	</Button>
+	{#if $session.session.token && $session.session.user_experiments.includes(enums.UserExperiments.BotReport)}
+		<Button
+			on:click={() => {
+				$alertstore = reportView(
+					$session.session.user.id,
+					$session.session.token,
+					data.user.id,
+					type
+				);
+			}}
+			id="buttons-report"
+			class="buttons-all"
+			touch
+			variant="outlined"
+		>
+			<span><strong>Report</strong></span>
+		</Button>
+	{/if}
+	{#if !limited}
+		{#if type == 'bot'}
+			<Button
+				href="/bot/{data.user.id}/settings"
+				id="buttons-settings"
+				class="buttons-all auxillary"
+				touch
+				variant="outlined"
+			>
+				<span><strong>Settings</strong></span>
+			</Button>
+		{:else}
+			<Button
+				class="buttons-all disabled auxillary"
+				id="buttons-settings"
+				touch
+				variant="outlined"
+				disabled
+			>
+				<span><strong>Settings</strong></span>
+			</Button>
+		{/if}
+	{/if}
 </div>
 {#if extLinks.length > 0 && !limited}
-    <div class="links-pane">
-        <Tag buttonTag={true} targetType={type} tags={extLinks}/>
-    </div>
+	<div class="links-pane">
+		<Tag buttonTag={true} targetType={type} tags={extLinks} />
+	</div>
 {/if}
+
+<style lang="scss" global>
+	.buttons-all {
+		background-color: black !important;
+		margin-right: 10px;
+		color: white !important;
+		opacity: 1 !important;
+		//min-width: 130px;
+		//max-width: 150px;
+		word-wrap: break-word !important;
+		font-size: 15px !important;
+		border: solid 0.1px !important;
+	}
+
+	.disabled {
+		opacity: 0.63 !important;
+	}
+
+	@media screen and (max-width: 992px) {
+		.buttons {
+			overflow-x: scroll;
+			overflow-y: hidden;
+			overflow-wrap: break-word !important;
+			font-size: 12px !important;
+		}
+	}
+
+	.buttons {
+		word-wrap: break-word;
+		text-overflow: ellipsis;
+	}
+
+	.buttons {
+		margin-bottom: 40px;
+	}
+
+	.buttons {
+		display: flex;
+		flex-flow: column-wrap;
+		justify-content: center;
+		align-items: center;
+		min-width: 93%;
+		height: 53px;
+		margin: 0 auto;
+		/*white-space: nowrap;*/
+	}
+
+	@media screen and (max-width: 768px) {
+		.buttons {
+			margin-left: 10px !important;
+			width: 100% !important;
+			overflow-wrap: break-word !important;
+		}
+		.auxillary {
+			display: none;
+		}
+		.mobile-small {
+			font-size: 11px !important;
+		}
+	}
+
+	.links-pane {
+		display: flex;
+		flex-flow: column-wrap;
+		justify-content: center;
+		align-items: center;
+		min-width: 93%;
+	}
+</style>

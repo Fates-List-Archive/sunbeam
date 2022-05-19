@@ -1,11 +1,11 @@
-import cfAdapter from '@sveltejs/adapter-cloudflare'
-import nodeAdapter from '@sveltejs/adapter-node'
+import cfAdapter from '@sveltejs/adapter-cloudflare';
+import nodeAdapter from '@sveltejs/adapter-node';
 import preprocess from 'svelte-preprocess';
 
-if(!!process.env.CF_PAGES) {
-	var adapter = cfAdapter
+if (!!process.env.CF_PAGES) {
+	var adapter = cfAdapter;
 } else {
-	var adapter = nodeAdapter
+	var adapter = nodeAdapter;
 }
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -22,17 +22,17 @@ const config = {
 		prerender: {
 			enabled: false
 		},
-		
+
 		// hydrate the <div id="svelte"> element in src/app.html
 		vite: {
 			autoReload: false,
 			ssr: {
-				noExternal: [/^@material\//, /^@smui(?:-extra)?\//],
+				noExternal: [/^@material\//, /^@smui(?:-extra)?\//]
 			},
-	     	optimizeDeps: {
-		       include: ["highlight.js", "highlight.js/lib/core"],
-		     }				
-		  },
+			optimizeDeps: {
+				include: ['highlight.js', 'highlight.js/lib/core']
+			}
+		}
 	}
 };
 

@@ -1,25 +1,25 @@
 <script lang="ts">
-    export let value: string;
-    export let valueList: string[];
-    export let alwaysOff: boolean = false;
-    let inList = false
-    try {
-        valueList.forEach(k => {
-            if(k == value) {
-                inList = true
-            }
-        })
-    }
-    catch(err) {
-        inList = false
-    }
+	export let value: string;
+	export let valueList: string[];
+	export let alwaysOff: boolean = false;
+	let inList = false;
+	try {
+		valueList.forEach((k) => {
+			if (k == value) {
+				inList = true;
+			}
+		});
+	} catch (err) {
+		inList = false;
+	}
 
-    if(alwaysOff) {
-        inList = false
-    }
+	if (alwaysOff) {
+		inList = false;
+	}
 </script>
+
 {#if inList}
-    <option value={value} selected><slot /></option>
+	<option {value} selected><slot /></option>
 {:else}
-    <option value={value}><slot /></option>
+	<option {value}><slot /></option>
 {/if}
