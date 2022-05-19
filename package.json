@@ -7,6 +7,7 @@
     "build": "svelte-kit build",
     "package": "svelte-kit package",
     "start": "svelte-kit build && svelte-kit preview --port 5000",
+    "start --host": "svelte-kit build && svelte-kit preview --port 5000",
     "preview": "svelte-kit preview --port 5000",
     "asset-prepare": "npm run smui-theme-light && npm run smui-theme-dark",
     "smui-theme-light": "smui-theme compile ~/FatesList/data/static/smui.css -i src/theme",
