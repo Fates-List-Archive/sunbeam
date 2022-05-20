@@ -12,6 +12,7 @@
 	import loadstore from '$lib/loadstore';
 	import navigationState from '$lib/navigationState';
 	import { parseState } from '$lib/request';
+	import * as logger from '$lib/logger';
 
 	let reviewPage = 1;
 	let reviews: any = {};
@@ -73,7 +74,7 @@
 			el.innerHTML = 'Drag the slider to change your rating'; // Display the default slider value
 			slider[i].oninput = function () {
 				let output = document.getElementById(this.getAttribute('data-output'));
-				console.log(output);
+				logger.debug("ReviewList", "Got oninput output of: ", output);
 				let state = parseState(this.value);
 				output.innerHTML = state + ', ' + this.value;
 			};

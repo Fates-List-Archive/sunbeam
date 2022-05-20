@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { lynxUrl } from '$lib/config';
-	import { info, error } from './logger';
 	import { doctreeCache } from './quailcache';
+	import * as logger from '$lib/logger';
 
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte'; // For later
@@ -28,13 +28,13 @@
 			return;
 		}
 
-		console.log('QuailTree - Fetching doctree');
+		logger.info('QuailTree', "Fetching doctree");
 		let doctreeRes = await fetch(`${lynxUrl}/doctree`);
 		let doctree = await doctreeRes.json();
 
 		doctree.forEach((treeEl) => {
 			if (ignore.includes(treeEl[0])) {
-				info('Shadowsight', 'Ignoring unwanted tree element', treeEl[0]);
+				logger.info('Shadowsight', 'Ignoring unwanted tree element', treeEl[0]);
 				return;
 			}
 
@@ -46,7 +46,7 @@
 				}
 				treeDepthTwo[treeEl[0]].push(treeEl[1].replace('.md', ''));
 			} else {
-				error('Shadowsight', `Max nesting of 2 reached`);
+				logger.error('Shadowsight', `Max nesting of 2 reached`);
 			}
 		});
 
@@ -71,7 +71,7 @@
 		// Readd index.md
 		treeDepthOne.unshift('index');
 
-		info('Shadowsight', `Parsed doctree:`, { treeDepthOne, treeDepthTwo });
+		logger.info('Shadowsight', `Parsed doctree:`, { treeDepthOne, treeDepthTwo });
 
 		// Force some re-renders
 		treeDepthOne = treeDepthOne;
