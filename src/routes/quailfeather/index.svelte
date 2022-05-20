@@ -35,6 +35,7 @@
 	import alertstore from '$lib/alertstore';
 	import { genError } from '$lib/strings';
 	import QuailTree from './_helpers/QuailTree.svelte';
+import Tip from '$lib/base/Tip.svelte';
 	export let data: any;
 	export let perms: any;
 
@@ -69,6 +70,40 @@
 		}
 	}
 
+	let cache = {
+		approved: approvedBots,
+		banned: bannedBots,
+		denied: deniedBots,
+		pending: pendingBots,
+		certified: certifiedBots,
+		underReview: underReviewBots
+	};
+
+	// Ensure browsers dont crash trying to render 500 bots
+	const MAX_RENDER = 25;
+
+	deniedBots = deniedBots.slice(0, MAX_RENDER);
+	bannedBots = bannedBots.slice(0, MAX_RENDER);
+	pendingBots = pendingBots.slice(0, MAX_RENDER);
+	approvedBots = approvedBots.slice(0, MAX_RENDER);
+	underReviewBots = underReviewBots.slice(0, MAX_RENDER);
+	certifiedBots = certifiedBots.slice(0, MAX_RENDER);
+
+	const searchSection = (e, dataSource) => {
+		let search = e.target.value.toLowerCase();
+		if(!search) {
+			return dataSource.slice(0, MAX_RENDER)
+		}
+		let filtered = [];
+		for (let i = dataSource.length; i--; i >= 0) {
+			let bot = dataSource[i];
+			if (bot.user.username.toLowerCase().includes(search) || bot.user.id.includes(search)) {
+				filtered.push(bot);
+			}
+		}
+		return filtered.slice(0, MAX_RENDER);
+	}
+
 	const secondsToDhms = (seconds) => {
 		seconds = Number(seconds);
 		const d = Math.floor(seconds / (3600 * 24));
@@ -90,33 +125,34 @@
 	const unclaimBot = async (id: string) => {
 		$alertstore = {
 			title: 'Reason',
-			id: 'reason-msg',
-			message: 'Enter reason for unclaiming this bot<br/><br/><textarea id="unclaim-reason">',
+			id: 'feedback-msg',
+			message: 'Please always unclaim when you can\'t review them',
 			show: true,
-			close: () => {
-				handler(
-					id,
-					(document.querySelector('#unclaim-reason') as HTMLInputElement).value,
-					'unclaim'
-				);
-			}
+			input: {
+				label: "Reason",
+				placeholder: "Reason for unclaim",
+				multiline: false,
+				function: (value) => {
+					handler(id, value, 'unclaim')
+				}
+			},
 		};
 	};
 
 	const approveBot = async (id: string) => {
 		$alertstore = {
 			title: 'Feedback',
-			id: 'reason-msg',
-			message:
-				'Enter some feedback that you would like to give to this bot<br/><br/><textarea id="approve-reason">',
+			id: 'feedback-msg',
+			message: 'Please carefully review bots before approving them',
 			show: true,
-			close: () => {
-				handler(
-					id,
-					(document.querySelector('#approve-reason') as HTMLInputElement).value,
-					'approve'
-				);
-			}
+			input: {
+				label: "Feedback",
+				placeholder: "Why is this bot being approved",
+				multiline: false,
+				function: (value) => {
+					handler(id, value, 'approve')
+				}
+			},
 		};
 	};
 
@@ -124,28 +160,67 @@
 		$alertstore = {
 			title: 'Reason',
 			id: 'reason-msg',
-			message: 'Why is this bot being denied<br/><br/><textarea id="deny-reason">',
+			message: 'Please do not deny for spurious reasons',
 			show: true,
-			close: () => {
-				handler(id, (document.querySelector('#deny-reason') as HTMLInputElement).value, 'deny');
-			}
+			input: {
+				label: "Reason",
+				placeholder: "Why is this bot being denied",
+				multiline: false,
+				function: (value) => {
+					handler(id, value, 'deny')
+				}
+			},
 		};
 	};
+
+	const unbanBot = async (id: string) => {
+		$alertstore = {
+			title: 'Reason',
+			id: 'reason-msg',
+			message: 'Please do not unban for spurious reasons',
+			show: true,
+			input: {
+				label: "Reason",
+				placeholder: "Why is this bot being unbanned?",
+				multiline: false,
+				function: (value) => {
+					handler(id, value, 'unban')
+				}
+			},
+		};
+	}
+
+	const requeueBot = async (id: string) => {
+		$alertstore = {
+			title: 'Reason',
+			id: 'reason-msg',
+			message: 'Please do not requeue for spurious reasons',
+			show: true,
+			input: {
+				label: "Reason",
+				placeholder: "Why is this bot being requeued?",
+				multiline: false,
+				function: (value) => {
+					handler(id, value, 'requeue')
+				}
+			},
+		};
+	}
 
 	const uncertifyBot = async (id: string) => {
 		$alertstore = {
 			title: 'Reason',
 			id: 'reason-msg',
-			message:
-				'Enter the reason that you would like to give to this bot as to why it was uncertified<br/><br/><textarea id="uncertify-reason">',
+			message: 'Please do not uncertify for spurious reasons',
 			show: true,
-			close: () => {
-				handler(
-					id,
-					(document.querySelector('#uncertify-reason') as HTMLInputElement).value,
-					'uncertify'
-				);
-			}
+			input: {
+				label: "Reason",
+				placeholder: "Why is this bot being uncertified?",
+				multiline: false,
+				function: (value) => {
+					handler(id, value, 'uncertify')
+				}
+			},
 		};
 	};
 
@@ -204,16 +279,30 @@
 	<h1>Admin Statistics</h1>
 	<ul class="white" style="font-size: 24px">
 		<li>Server Uptime: {secondsToDhms(data.uptime)} ({data.uptime})</li>
-		<li>Queue Length: {pendingBots.length}</li>
-		<li>Under Review Length: {underReviewBots.length}</li>
+		<li>Queue Length: {cache.pending.length}</li>
+		<li>Under Review Length: {cache.underReview.length}</li>
 		<li>Total Bot Length: {data.total_bots}</li>
-		<li>Approved or Certified Bot Length: {approvedBots.length + certifiedBots.length}</li>
-		<li>Certified Bots Length: {certifiedBots.length}</li>
-		<li>Banned Bots Length: {bannedBots.length}</li>
-		<li>Denied Bots Length: {deniedBots.length}</li>
+		<li>Approved or Certified Bot Length: {cache.approved.length + cache.certified.length}</li>
+		<li>Certified Bots Length: {cache.certified.length}</li>
+		<li>Banned Bots Length: {cache.banned.length}</li>
+		<li>Denied Bots Length: {cache.denied.length}</li>
 	</ul>
 
+	<Tip>
+		The list of bots rendered is currently limited to {MAX_RENDER} (to protect).<br/><br/>
+
+		You can use the Search bar to look for a bot based on its ID or name. This works even if it is not rendered
+
+		<br/><br/><br/>
+		Support for server rendering is coming soon (TM)
+	</Tip>
+
 	<Section icon="fa-solid:plus" title="Queue" id="queue">
+		<div class="search-flex">
+			<input class="search-bots" placeholder="Search..." on:input={(e) => {
+				pendingBots = searchSection(e, cache.pending)
+			}} />
+		</div>
 		<CardContainer>
 			{#each pendingBots as bot}
 				<BotCard data={bot} type="bot" rand={false}>
@@ -232,6 +321,11 @@
 	</Section>
 
 	<Section icon="fluent:thinking-24-regular" title="Under Review" id="under-review">
+		<div class="search-flex">
+			<input class="search-bots" placeholder="Search..." on:input={(e) => {
+				underReviewBots = searchSection(e, cache.underReview)
+			}} />
+		</div>
 		<CardContainer>
 			{#each underReviewBots as bot}
 				<BotCard data={bot} type="bot" rand={false}>
@@ -260,6 +354,11 @@
 	</Section>
 
 	<Section icon="fa-solid:certificate" title="Certified" id="certified">
+		<div class="search-flex">
+			<input class="search-bots" placeholder="Search..." on:input={(e) => {
+				certifiedBots = searchSection(e, cache.certified)
+			}} />
+		</div>
 		<CardContainer>
 			{#each certifiedBots as bot}
 				<BotCard data={bot} type="bot" rand={false}>
@@ -276,6 +375,60 @@
 			{/each}
 		</CardContainer>
 	</Section>
+
+	<Section icon="bi:hammer" title="Banned Bots" id="banned">
+		<div class="search-flex">
+			<input class="search-bots" placeholder="Search..." on:input={(e) => {
+				bannedBots = searchSection(e, cache.banned)
+			}} />
+		</div>
+		<CardContainer>
+			{#each bannedBots as bot}
+				<BotCard data={bot} type="bot" rand={false}>
+						<div class="flex justify-center">
+							{#if perms.perm >= permData.ADMIN}
+							<Button
+								on:click={() => unbanBot(bot.user.id)}
+								variant="outlined"
+								class="button self-center">Unban</Button
+							>
+							{/if}
+
+							{#if perms.perm >= permData.MODERATOR}
+								<Button
+									on:click={() => requeueBot(bot.user.id)}
+									variant="outlined"
+									class="button self-center">Requeue</Button
+								>
+							{/if}
+						</div>
+				</BotCard>
+			{/each}
+		</CardContainer>
+	</Section>	
+
+	<Section icon="akar-icons:cross" title="Denied Bots" id="denied">
+		<div class="search-flex">
+			<input class="search-bots" placeholder="Search..." on:input={(e) => {
+				deniedBots = searchSection(e, cache.denied)
+			}} />
+		</div>
+		<CardContainer>
+			{#each deniedBots as bot}
+				<BotCard data={bot} type="bot" rand={false}>
+					{#if perms.perm >= permData.MODERATOR}
+						<div class="flex justify-center">
+							<Button
+								on:click={() => requeueBot(bot.user.id)}
+								variant="outlined"
+								class="button self-center">Requeue</Button
+							>
+						</div>
+					{/if}
+				</BotCard>
+			{/each}
+		</CardContainer>
+	</Section>	
 
 	<Section icon="fa-solid:robot" title="Definitions" id="definitions">
 		<h2>How to use</h2>
@@ -325,6 +478,7 @@
 			</li>
 			<li>
 				Unban (unban): banned => approved<br />
+				<!--Impl-->
 				<ul>
 					<li>Minimum Perm: {minPerm(permData.ADMIN)}</li>
 				</ul>
@@ -350,6 +504,7 @@
 			</li>
 			<li>
 				Requeue (requeue): denied | banned => under_review<br />
+				<!--Impl-->
 				<ul>
 					<li>Minimum Perm: {minPerm(permData.MODERATOR)}</li>
 				</ul>
@@ -388,5 +543,22 @@
 
 	.ba-defs > li {
 		margin-bottom: 10px;
+	}
+
+	.search-flex {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.search-bots {
+		background: #444;
+		padding: 0 20px;
+		border: none;
+		border-radius: 4px;
+		color: #ffffff;
+		height: 30px;
+		margin: 0 !important;
+		width: 100% !important;
+		overflow-x: hidden !important;
 	}
 </style>

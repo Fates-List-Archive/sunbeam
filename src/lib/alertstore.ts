@@ -5,7 +5,7 @@ interface AlertInputInterface {
 	label: string;
 	placeholder: string;
 	multiline: boolean;
-	function: () => void;
+	function: (value) => void;
 }
 
 interface Alert {

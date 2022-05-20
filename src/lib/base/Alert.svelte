@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { enums } from '$lib/enums/enums';
-	import { subNotifs } from '$lib/request';
 	export let show: boolean;
 
 	export let close;
@@ -84,6 +83,11 @@
 								placeholder={input.placeholder}
 							/>
 						{/if}
+						<script>
+							// This patch extends input to cover text area
+							var input = document.querySelector("#alert-input");
+							input.setAttribute('size',input.getAttribute('placeholder').length);
+						</script>
 
 						<button type="button" on:click={submitInput}>Submit</button>
 					</form>
@@ -94,7 +98,6 @@
 		</section>
 	</dialog>
 {/if}
-
 <style>
 	dialog {
 		position: fixed;
@@ -175,6 +178,7 @@
 		border: none;
 		border-radius: 5px;
 		color: white;
+		min-width: 80%;
 	}
 
 	.alert-textarea {

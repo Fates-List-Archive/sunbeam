@@ -5,8 +5,6 @@
 
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte'; // For later
-	import { browser } from '$app/env';
-	import alertstore from '$lib/alertstore';
 
 	let ignore = ['index.md']; // Index may be counter-intuitive, but we add this later
 
@@ -99,6 +97,10 @@
 	on:click={() => {
 		if (treeShow) treeShow = false;
 		else treeShow = true;
+
+		// Be sure to reset treeDepths
+		treeDepthOne = $doctreeCache.treeDepthOne;
+		treeDepthTwo = $doctreeCache.treeDepthTwo;
 	}}
 	aria-label="Open Menu"
 >
