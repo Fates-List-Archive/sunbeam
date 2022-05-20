@@ -184,8 +184,8 @@
 			id: '',
 			name: (document.querySelector('#pack-name') as HTMLInputElement).value,
 			description: (document.querySelector('#pack-desc') as HTMLInputElement).value,
-			icon: (document.getElementById('#pack-icon') as HTMLInputElement).value,
-			banner: (document.getElementById('#pack-banner') as HTMLInputElement).value,
+			icon: (document.querySelector('#pack-icon') as HTMLInputElement).value,
+			banner: (document.querySelector('#pack-banner') as HTMLInputElement).value,
 			owner: {
 				id: data.user.id,
 				username: '',
