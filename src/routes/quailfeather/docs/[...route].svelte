@@ -79,7 +79,7 @@
 			}
 
 			data = md
-				.render(toc + "\n" + data)
+				.render(toc + '\n' + data)
 				.replaceAll('<li', '<li class="li"')
 				.replaceAll('<ul', '<ul class="ul"')
 				.replaceAll('<button', '<button class="button"')
