@@ -49,15 +49,14 @@
 
 						{#if input.multiline}
 							<br />
-							<div class="alert-content">Unfortunately, the Multi-line text box is currently unavailable and cannot be used at this time.</div>
-							<!-- <textarea
+							<textarea
 								class="alert-textarea"
 								id="alert-input"
 								placeholder={input.placeholder}
 								name={input.label}
 								rows="5"
 								cols="10"
-							/> -->
+							/>
 						{:else}
 							<input
 								class="alert-input"
