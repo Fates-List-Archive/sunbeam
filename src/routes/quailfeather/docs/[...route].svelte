@@ -103,6 +103,7 @@
 <script lang="ts">
 	import QuailTree from '../_helpers/QuailTree.svelte';
 	import Highlight from '../_helpers/doc.svelte';
+import alertstore from '$lib/alertstore';
 
 	export let data: any;
 	export let path: string[];
@@ -115,6 +116,12 @@
 				return t.toUpperCase();
 			});
 	}
+
+	const alert = (opt) => {
+		$alertstore = opt
+	} 
+
+	window.alert = alert
 </script>
 
 <QuailTree>
