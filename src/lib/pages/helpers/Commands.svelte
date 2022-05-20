@@ -36,7 +36,7 @@
 		});
 	});
 
-	logger.info("Commands", "Parsed commands", { groupedCmds });
+	logger.info('Commands', 'Parsed commands', { groupedCmds });
 </script>
 
 {#if groupedCmds.size == 0}

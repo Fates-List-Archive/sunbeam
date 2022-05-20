@@ -25,9 +25,9 @@
 
 	$: {
 		if ($navigating) {
-			logger.info("Nav", `isNavigating: ${$navigating.from} -> ${$navigating.to}`);
+			logger.info('Nav', `isNavigating: ${$navigating.from} -> ${$navigating.to}`);
 			if ($navigating.to.host != $navigating.from.host) {
-				logger.info("Nav", 'navigating to different host');
+				logger.info('Nav', 'navigating to different host');
 				$navigationState = 'loaded';
 			} else {
 				$inputstore = [];

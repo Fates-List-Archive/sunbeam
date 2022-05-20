@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { page, session } from '$app/stores';
 	import * as logger from '$lib/logger';
-	logger.info("Header", "Session from header", $session);
+	logger.info('Header', 'Session from header', $session);
 	import Menu, { MenuComponentDev } from '@smui/menu';
 	import List, { Item, Text } from '@smui/list';
 	import { loginUser } from '$lib/request';
@@ -22,7 +22,7 @@
 		} else {
 			avatar = 'https://cdn.discordapp.com/embed/avatars/4.png';
 		}
-		logger.info("Header", "Got avatar", avatar);
+		logger.info('Header', 'Got avatar', avatar);
 	}
 
 	function docReady(fn) {
@@ -41,10 +41,10 @@
 		docReady(() => {
 			document.addEventListener('scroll', (e) => {
 				if (window.scrollY > 5) {
-					logger.debug("Header", 'Set scrolled to true');
+					logger.debug('Header', 'Set scrolled to true');
 					scrolled = true;
 				} else {
-					logger.debug("Header", 'Set scrolled to false');
+					logger.debug('Header', 'Set scrolled to false');
 					scrolled = false;
 				}
 			});

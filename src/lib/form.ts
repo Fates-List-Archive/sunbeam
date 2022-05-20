@@ -41,7 +41,7 @@ export function enhance(
 			} else if (error) {
 				error(res, null, form);
 			} else {
-				logger.error("Carrionplace", await res.text());
+				logger.error('Carrionplace', await res.text());
 			}
 		} catch (e: any) {
 			if (error) {

@@ -8,7 +8,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
 
 	// TODO https://github.com/sveltejs/kit/issues/1046
-	logger.info("Auth", "Got event url", event.url);
+	logger.info('Auth', 'Got event url', event.url);
 
 	const response = await resolve(event);
 
@@ -16,7 +16,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 };
 
 export const getSession: GetSession = async (event) => {
-	logger.info("Auth", "getSession called");
+	logger.info('Auth', 'getSession called');
 
 	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
 
@@ -31,7 +31,7 @@ export const getSession: GetSession = async (event) => {
 			// Then decode it using itsdanger
 			sessionData = JSON.parse(data);
 		} catch (e) {
-			logger.error("Auth", e);
+			logger.error('Auth', e);
 		}
 	}
 

@@ -35,7 +35,7 @@ export async function fetchFates(
 		headers['Authorization'] = auth;
 	}
 	if (votePage) {
-		logger.info("Poppypaw", "Adding vote page headers");
+		logger.info('Poppypaw', 'Adding vote page headers');
 		headers['Frostpaw-Vote-Page'] = '1';
 	}
 	let capiUrl = apiUrl;
@@ -49,7 +49,7 @@ export async function roll(type: string) {
 	const url = `/random-${type}`;
 	const res = await fetchFates(url, '', fetch, false, true);
 	const roll = await res.json();
-	logger.info("Poppypaw", roll);
+	logger.info('Poppypaw', roll);
 	return roll;
 }
 
@@ -264,7 +264,7 @@ export async function subNotifs(user_id: string, token: string) {
 	subscriptionObject['p256dh'] = subscriptionObject['keys']['p256dh'];
 	delete subscriptionObject['keys'];
 
-	logger.info("Poppypaw", subscriptionObject);
+	logger.info('Poppypaw', subscriptionObject);
 
 	let res = await fetch(`${nextUrl}/notifications/${user_id}/sub`, {
 		method: 'POST',
