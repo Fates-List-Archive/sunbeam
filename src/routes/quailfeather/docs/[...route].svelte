@@ -64,19 +64,21 @@
 
 			let splitDat: string[] = data.split('\n');
 
-			for (let i = 0; i < splitDat.length; i++) {
-				if (splitDat[i].startsWith('## ')) {
-					toc += `- [${splitDat[i].replace('## ', '')}](#${splitDat[i]
-						.replace('## ', '')
-						.replaceAll(' ', '-')
-						.replaceAll('(', '')
-						.replaceAll(')', '')
-						.replaceAll('!', '')
-						.replaceAll('.', '')
-						.replace(/[^a-zA-Z0-9]/g, '-')
-						.replaceAll('--', '-')})\n`;
+			try {
+				for (let i = 0; i < splitDat.length; i++) {
+					if (splitDat[i].startsWith('## ')) {
+						toc += `- [${splitDat[i].replace('## ', '')}](#${splitDat[i]
+							.replace('## ', '')
+							.replaceAll(' ', '-')
+							.replaceAll('(', '')
+							.replaceAll(')', '')
+							.replaceAll('!', '')
+							.replaceAll('.', '')
+							.replace(/[^a-zA-Z0-9]/g, '-')
+							.replaceAll('--', '-')})\n`;
+					}
 				}
-			}
+			} catch (__) {}
 
 			data = md
 				.render(toc + '\n' + data)
@@ -102,7 +104,6 @@
 
 <script lang="ts">
 	import QuailTree from '../_helpers/QuailTree.svelte';
-	import Highlight from '../_helpers/doc.svelte';
 import alertstore from '$lib/alertstore';
 
 	export let data: any;
@@ -117,14 +118,18 @@ import alertstore from '$lib/alertstore';
 			});
 	}
 
-	const alert = (opt) => {
-		$alertstore = opt
-	} 
-
-	window.alert = alert
 </script>
 
 <QuailTree>
+	<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
+	<link
+		rel="stylesheet"
+		href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/a11y-dark.min.css"
+	/>
 	<h1>{title(path[path.length - 1].replaceAll('-', ' '))}</h1>
-	<Highlight {data} />
+	{@html data}
 </QuailTree>
+
+<style lang="scss">
+	@import '../_helpers/_hl.css';
+</style>

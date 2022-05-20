@@ -5,6 +5,9 @@
 
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte'; // For later
+import { browser } from '$app/env';
+import alertstore from '$lib/alertstore';
+import type AlertStore from "$lib/alertstore"
 
 	let ignore = ['index.md']; // Index may be counter-intuitive, but we add this later
 
@@ -84,6 +87,25 @@
 	});
 
 	let treeShow = false;
+
+	// Insert alertstore into window
+	if(browser) {
+			window.alert = (opt) => {
+				if(!opt.show) {
+					opt.show = true
+				}
+				if(!opt.title) {
+					logger.error("No title in alertstore")
+				}
+				if(!opt.message) {
+					logger.error("No message in alertstore")
+				}
+				if(!opt.id) {
+					logger.error("No id in alertstore")
+				}
+				$alertstore = opt
+			} 
+	}
 </script>
 
 <a
