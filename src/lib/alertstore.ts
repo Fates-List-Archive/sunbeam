@@ -3,8 +3,8 @@ import type { enums } from './enums/enums';
 
 interface AlertInputInterface {
 	label: string;
-    placeholder: string;
-    multiline: boolean;
+	placeholder: string;
+	multiline: boolean;
 	function: () => void;
 }
 
@@ -15,7 +15,7 @@ interface Alert {
 	id: string;
 	show: boolean;
 	close?: () => void;
-	input?: AlertInputInterface; 
+	input?: AlertInputInterface;
 }
 
 type AlertStore = Alert;

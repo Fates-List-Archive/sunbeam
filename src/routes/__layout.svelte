@@ -10,7 +10,7 @@
 
 	import { browser } from '$app/env';
 	import loadstore from '$lib/loadstore';
-	import alertstore from "$lib/alertstore";
+	import alertstore from '$lib/alertstore';
 	import { apiUrl } from '$lib/config';
 	import * as logger from '$lib/logger';
 
@@ -74,6 +74,22 @@
 			}
 			$alertstore = opt;
 		};
+
+		// Temporary Alert
+		window.alert({
+			title: 'Login',
+			message: 'Please enter your Username!',
+			id: 1030404,
+			type: 7,
+			input: {
+				label: 'Username',
+				placeholder: 'Username',
+				multiline: true,
+				function: (value) => {
+					console.log(value);
+				}
+			}
+		});
 	}
 </script>
 

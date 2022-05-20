@@ -31,7 +31,6 @@
 	<dialog open role="dialog" aria-labelledby={`${id}-title`} aria-describedby={`${id}-content`}>
 		<section>
 			<h1 id={`${id}-type`} class="alert-type">{enums.AlertType[type] || 'Alert'}</h1>
-			<span class="close" on:click={closeAlert}>&times;</span>
 
 			<header id={`${id}-title`}>
 				<strong>
@@ -47,11 +46,25 @@
 
 					<form>
 						<label for="alert-input" class="alert-label">{input.label}</label>
-						
-						{#if input.multiline}				
-							<textarea class="alert-textarea" id="alert-input" placeholder={input.placeholder}></textarea>
+
+						{#if input.multiline}
+							<br />
+							<textarea
+								class="alert-textarea"
+								id="alert-input"
+								placeholder={input.placeholder}
+								name={input.label}
+								rows="5"
+								cols="10"
+							/>
 						{:else}
-							<input class="alert-input" id="alert-input" type="text" placeholder={input.placeholder} />
+							<input
+								class="alert-input"
+								id="alert-input"
+								name={input.label}
+								type="text"
+								placeholder={input.placeholder}
+							/>
 						{/if}
 
 						<button type="button" on:click={submitInput}>Submit</button>
@@ -151,6 +164,9 @@
 		border: none;
 		border-radius: 5px;
 		color: white;
+		resize: none;
+		width: 400px;
+		padding: 0;
 	}
 
 	#alert-input::placeholder {
@@ -168,13 +184,5 @@
 		clip: rect(0, 0, 0, 0);
 		white-space: nowrap;
 		border-width: 0;
-	}
-
-	.close {
-		color: black !important;
-		font-weight: bold;
-		font-size: 15px;
-		cursor: pointer;
-		float: right;
 	}
 </style>
