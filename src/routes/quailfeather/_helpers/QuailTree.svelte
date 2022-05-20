@@ -23,10 +23,13 @@ import alertstore from '$lib/alertstore';
 			});
 	}
 
+	let treeLoading = true;
+
 	onMount(async () => {
 		if ($doctreeCache && $doctreeCache.treeDepthOne && $doctreeCache.treeDepthOne.length > 0) {
 			treeDepthOne = $doctreeCache.treeDepthOne;
 			treeDepthTwo = $doctreeCache.treeDepthTwo;
+			treeLoading = false;
 			return;
 		}
 
@@ -83,6 +86,8 @@ import alertstore from '$lib/alertstore';
 			treeDepthOne: treeDepthOne,
 			treeDepthTwo: treeDepthTwo
 		};
+
+		treeLoading = false;
 	});
 
 	let treeShow = false;
@@ -141,9 +146,46 @@ import alertstore from '$lib/alertstore';
 	{#if treeShow}
 		<div class="doctree col-span-1">
 			<li class="td-1 search-flex">
-				<input id="searchbar" placeholder="Search" />
+				<input id="searchbar" placeholder="Search" on:input={(e) => {
+					// Check if string is empty, if so, use $doctreeCache
+					let val = e.target.value.toLowerCase().replaceAll(" ", "-");
+					logger.info("SearchDocTree", val)
+
+					if(!val) {
+						treeDepthOne = $doctreeCache.treeDepthOne
+						treeDepthTwo = $doctreeCache.treeDepthTwo
+					} else {
+						let newTree = [];
+						$doctreeCache.treeDepthOne.forEach((el) => {
+							if(el.toLowerCase().replaceAll("_", "-").replaceAll(" ", "-").includes(val)) {
+								newTree.push(el)
+							}
+						})
+						treeDepthOne = newTree
+
+						// Check depth 2
+						let newTreeTwo = {};
+						for(let key in $doctreeCache.treeDepthTwo) {
+							if(key.toLowerCase().replaceAll("_", "-").replaceAll(" ", "-").includes(val)) {
+								newTreeTwo[key] = $doctreeCache.treeDepthTwo[key]
+							}
+							let newArr = [];
+							$doctreeCache.treeDepthTwo[key].forEach((el) => {
+								if(el.toLowerCase().replaceAll("_", "-").replaceAll(" ", "-").includes(val)) {
+									newArr.push(el)
+								}
+							})
+							if(newArr.length > 0) {
+								newTreeTwo[key] = newArr
+							}
+						}
+
+						treeDepthTwo = newTreeTwo
+					}
+
+				}} />
 			</li>
-			{#if treeDepthOne.length == 0}
+			{#if treeLoading}
 				<span class="span">Loading doctree</span>
 			{/if}
 			<!--Tree depth one -->
