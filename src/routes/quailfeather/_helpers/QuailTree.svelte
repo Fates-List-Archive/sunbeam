@@ -94,12 +94,12 @@ import alertstore from '$lib/alertstore';
 				opt = "";
 			}
 
-			if(typeof opt === "string") {
+			if(typeof opt !== "object") {
 				opt = {
 					title: "Info",
 					id: "string-alert",
 					show: true,
-					message: opt
+					message: `${opt}` || "[empty alert]",
 				};
 			}
 
