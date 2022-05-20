@@ -75,7 +75,8 @@
 							.replaceAll('!', '')
 							.replaceAll('.', '')
 							.replace(/[^a-zA-Z0-9]/g, '-')
-							.replaceAll('--', '-')})\n`;
+							.replaceAll('--', '-')
+							.toLowerCase()})\n`;
 					}
 				}
 			} catch (__) {}
