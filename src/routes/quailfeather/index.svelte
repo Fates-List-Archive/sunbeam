@@ -221,7 +221,7 @@
 						<div class="flex justify-center">
 							<Button
 								on:click={() => claimBot(bot.user.id)}
-								constiant="outlined"
+								variant="outlined"
 								class="button self-center">Claim</Button
 							>
 						</div>
@@ -239,17 +239,17 @@
 						<div class="flex justify-center">
 							<Button
 								on:click={() => unclaimBot(bot.user.id)}
-								constiant="outlined"
+								variant="outlined"
 								class="button self-center lb">Unclaim</Button
 							>
 							<Button
 								on:click={() => approveBot(bot.user.id)}
-								constiant="outlined"
+								variant="outlined"
 								class="button self-center lb">Approve</Button
 							>
 							<Button
 								on:click={() => denyBot(bot.user.id)}
-								constiant="outlined"
+								variant="outlined"
 								class="button self-center lb">Deny</Button
 							>
 						</div>
@@ -267,7 +267,7 @@
 						<div class="flex justify-center">
 							<Button
 								on:click={() => uncertifyBot(bot.user.id)}
-								constiant="outlined"
+								variant="outlined"
 								class="button self-center">Uncertify</Button
 							>
 						</div>

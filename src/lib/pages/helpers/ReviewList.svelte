@@ -74,7 +74,7 @@
 			el.innerHTML = 'Drag the slider to change your rating'; // Display the default slider value
 			slider[i].oninput = function () {
 				let output = document.getElementById(this.getAttribute('data-output'));
-				logger.debug("ReviewList", "Got oninput output of: ", output);
+				logger.debug('ReviewList', 'Got oninput output of: ', output);
 				let state = parseState(this.value);
 				output.innerHTML = state + ', ' + this.value;
 			};

@@ -1,6 +1,6 @@
 <script context="module">
 	export const prerender = false;
-	import { nextUrl } from '$lib/config';	
+	import { nextUrl } from '$lib/config';
 	import * as logger from '$lib/logger';
 
 	export async function load({ params, fetch, session, stuff }) {
@@ -26,7 +26,12 @@
 		}
 
 		// JS and URLS do not go well together
-		logger.info("BotInvite", "Parsed invite info", inviteJson, decodeURIComponent(inviteJson.invite_link));
+		logger.info(
+			'BotInvite',
+			'Parsed invite info',
+			inviteJson,
+			decodeURIComponent(inviteJson.invite_link)
+		);
 		return {
 			status: 307,
 			redirect: decodeURIComponent(inviteJson.invite_link)

@@ -28,7 +28,7 @@
 			return;
 		}
 
-		logger.info('QuailTree', "Fetching doctree");
+		logger.info('QuailTree', 'Fetching doctree');
 		let doctreeRes = await fetch(`${lynxUrl}/doctree`);
 		let doctree = await doctreeRes.json();
 

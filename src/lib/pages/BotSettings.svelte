@@ -304,7 +304,7 @@
 		};
 
 		previewWs.onclose = () => {
-			logger.info("Settings", 'PreviewWs closed');
+			logger.info('Settings', 'PreviewWs closed');
 			wsUp = false;
 		};
 
@@ -628,7 +628,7 @@
 				mod = 'added to our queue';
 			}
 
-			logger.info("Settings", "Got bot object", bot);
+			logger.info('Settings', 'Got bot object', bot);
 
 			let url = `${nextUrl}/users/${$session.session.user.id}/bots`;
 			let headers = {
@@ -686,7 +686,7 @@
 			});
 		}
 		extLinks = extLinks; // Rerender
-		logger.info("Settings", "New extLinks is", extLinks);
+		logger.info('Settings', 'New extLinks is', extLinks);
 	}
 
 	function removeLink(id: string) {
@@ -695,7 +695,7 @@
 			extLinks.splice(index, 1);
 		}
 		extLinks = extLinks; // Rerender
-		logger.info("Settings", "New extLinks is", extLinks);
+		logger.info('Settings', 'New extLinks is', extLinks);
 	}
 
 	function renameLink(id: string) {
@@ -707,7 +707,7 @@
 			}
 		}
 		extLinks = extLinks; // Rerender
-		logger.info("Settings", "New extLinks is", extLinks);
+		logger.info('Settings', 'New extLinks is', extLinks);
 	}
 
 	async function addOwner() {
@@ -1256,12 +1256,12 @@
 					data={extLink.value}
 					shouldUpdateInputStore={false}
 					oninput={(e) => {
-						logger.debug("Settings", 'New extLink input', e.target.value);
+						logger.debug('Settings', 'New extLink input', e.target.value);
 						let index = extLinks.findIndex((el) => el.id == extLink.id);
 						if (index != -1) {
 							extLinks[index].value = e.target.value;
 						}
-						logger.info("Settings", "New extLinks is", extLinks);
+						logger.info('Settings', 'New extLinks is', extLinks);
 					}}
 				/>
 				<a class="links-act" href={'#'} on:click={() => removeLink(extLink.id)} id="remove-link"
