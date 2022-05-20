@@ -60,14 +60,14 @@
 					frostpawMsg = 'Invalid state' + retry;
 					return;
 				}
-				/*if (
+				if (
 					new Date().getTime() / 1000 - currentTime > 60 ||
 					currentTime > new Date().getTime() / 1000 ||
 					currentTime <= 0
 				) {
 					frostpawMsg = `Current time nonce is too old! ${new Date().getTime() / 1000}`;
 					return;
-				}*/
+				}
 
 				// Fetch baypaw client info
 				fetch(`${apiUrl}/frostpaw/clients/${clientId}`)
