@@ -57,6 +57,24 @@
 								rows="5"
 								cols="10"
 							/>
+
+							<!--
+								Example Alert (multiline)
+								alert({
+									title: "Login",
+									message: "Please enter your Username!",
+									id: 1030404,
+									type: 7,
+									input: {
+										"label": "Username",
+        								"placeholder": "Username",
+        								"multiline": true,
+        								"function": (value) => {
+											console.log(value);
+										}
+									}
+								});
+							-->
 						{:else}
 							<input
 								class="alert-input"
