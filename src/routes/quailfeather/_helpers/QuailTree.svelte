@@ -91,41 +91,6 @@
 	});
 
 	let treeShow = false;
-
-	// Insert alertstore into window
-	if (browser) {
-		window.alert = (opt) => {
-			if (!opt) {
-				opt = '';
-			}
-
-			if (typeof opt !== 'object') {
-				opt = {
-					title: 'Info',
-					id: 'string-alert',
-					show: true,
-					message: `${opt}` || '[empty alert]'
-				};
-			}
-
-			if (!opt.show) {
-				opt.show = true;
-			}
-			if (!opt.title) {
-				logger.error('No title in alertstore');
-				return;
-			}
-			if (!opt.message) {
-				logger.error('No message in alertstore');
-				return;
-			}
-			if (!opt.id) {
-				logger.error('No id in alertstore');
-				return;
-			}
-			$alertstore = opt;
-		};
-	}
 </script>
 
 <a

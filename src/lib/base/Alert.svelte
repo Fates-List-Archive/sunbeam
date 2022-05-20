@@ -14,9 +14,9 @@
 	};
 
 	const submitInput = () => {
-		if (input) {
-			let inputValue = document.getElementById('dialog-input');
-			input(inputValue.value);
+		if (input && input.function) {
+			let inputValue = document.getElementById('alert-input');
+			input.function(inputValue.value);
 		}
 		closeAlert();
 	};
@@ -30,20 +30,32 @@
 	<!-- svelte-ignore a11y-no-redundant-roles -->
 	<dialog open role="dialog" aria-labelledby={`${id}-title`} aria-describedby={`${id}-content`}>
 		<section>
-			<h1 id={`${id}-type`}>{enums.AlertType[type] || 'Alert'}</h1>
+			<h1 id={`${id}-type`} class="alert-type">{enums.AlertType[type] || 'Alert'}</h1>
+			<span class="close" on:click={closeAlert}>&times;</span>
 
 			<header id={`${id}-title`}>
 				<strong>
-					<h2>{title}</h2>
+					<h2 class="alert-title">{title}</h2>
 				</strong>
 			</header>
 
-			<div id={`${id}-content`} class="dialog-content">
+			<div id={`${id}-content`} class="alert-content">
 				<slot />
 
 				{#if input}
-					<input id="dialog-input" type="text" />
-					<button on:click={submitInput}>Submit</button>
+					<br />
+
+					<form>
+						<label for="alert-input" class="alert-label">{input.label}</label>
+						
+						{#if input.multiline}				
+							<textarea class="alert-textarea" id="alert-input" placeholder={input.placeholder}></textarea>
+						{:else}
+							<input class="alert-input" id="alert-input" type="text" placeholder={input.placeholder} />
+						{/if}
+
+						<button type="button" on:click={submitInput}>Submit</button>
+					</form>
 				{/if}
 			</div>
 
@@ -92,18 +104,18 @@
 		background: white;
 	}
 
-	h1 {
+	.alert-type {
 		color: black !important;
 		font-weight: bold;
 		font-size: 15px;
 	}
 
-	h2 {
+	.alert-title {
 		margin-left: 15px;
 		color: black !important;
 	}
 
-	.dialog-content {
+	.alert-content {
 		color: black !important;
 		margin-left: 15px;
 	}
@@ -121,8 +133,48 @@
 		font-weight: bold !important;
 		border: black solid 1px !important;
 		margin-top: 3px;
-		padding: 15px;
+		padding: 12px;
 		border-radius: 5px;
 		margin-top: 45px;
+		cursor: pointer;
+	}
+
+	.alert-input {
+		background-color: #000000;
+		border: none;
+		border-radius: 5px;
+		color: white;
+	}
+
+	.alert-textarea {
+		background-color: #000000;
+		border: none;
+		border-radius: 5px;
+		color: white;
+	}
+
+	#alert-input::placeholder {
+		color: white;
+		font-weight: bold;
+	}
+
+	.alert-label {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border-width: 0;
+	}
+
+	.close {
+		color: black !important;
+		font-weight: bold;
+		font-size: 15px;
+		cursor: pointer;
+		float: right;
 	}
 </style>
