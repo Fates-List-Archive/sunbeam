@@ -1,5 +1,7 @@
 // this action (https://svelte.dev/tutorial/actions) allows us to
 // progressively enhance a <form> that already works without JS
+import * as logger from './logger';
+
 export function enhance(
 	form: HTMLFormElement,
 	{
@@ -39,7 +41,7 @@ export function enhance(
 			} else if (error) {
 				error(res, null, form);
 			} else {
-				console.error(await res.text());
+				logger.error("Carrionplace", await res.text());
 			}
 		} catch (e: any) {
 			if (error) {

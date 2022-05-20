@@ -2,12 +2,13 @@ import cookie from 'cookie';
 import type { Handle } from '@sveltejs/kit';
 import type { GetSession } from '@sveltejs/kit';
 import { decode } from '@cfworker/base64url';
+import * as logger from './lib/logger';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
 
 	// TODO https://github.com/sveltejs/kit/issues/1046
-	console.log(event.url);
+	logger.info("Auth", "Got event url", event.url);
 
 	const response = await resolve(event);
 
@@ -15,13 +16,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 };
 
 export const getSession: GetSession = async (event) => {
-	console.log('getSession called');
-
-	// Bypass dumb cloudflare bug
-	/*let query = {}
-	event.url.searchParams.forEach((v, k) => {
-		query[k] = v
-	})*/
+	logger.info("Auth", "getSession called");
 
 	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
 
@@ -36,7 +31,7 @@ export const getSession: GetSession = async (event) => {
 			// Then decode it using itsdanger
 			sessionData = JSON.parse(data);
 		} catch (e) {
-			console.log(e);
+			logger.error("Auth", e);
 		}
 	}
 

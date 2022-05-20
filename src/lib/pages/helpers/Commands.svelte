@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { enums } from '../../enums/enums';
 	import Section from '$lib/base/Section.svelte';
+	import * as logger from '$lib/logger';
 
 	export let data: any;
 
@@ -35,7 +36,7 @@
 		});
 	});
 
-	console.log(groupedCmds);
+	logger.info("Commands", "Parsed commands", { groupedCmds });
 </script>
 
 {#if groupedCmds.size == 0}

@@ -1,6 +1,7 @@
 import { browser } from '$app/env';
 import { apiUrl, nextUrl } from './config';
 import { genError } from './strings';
+import * as logger from './logger';
 
 // Parse review state from number
 export function parseState(v) {
@@ -34,7 +35,7 @@ export async function fetchFates(
 		headers['Authorization'] = auth;
 	}
 	if (votePage) {
-		console.log('Adding vote page headers');
+		logger.info("Poppypaw", "Adding vote page headers");
 		headers['Frostpaw-Vote-Page'] = '1';
 	}
 	let capiUrl = apiUrl;
@@ -48,7 +49,7 @@ export async function roll(type: string) {
 	const url = `/random-${type}`;
 	const res = await fetchFates(url, '', fetch, false, true);
 	const roll = await res.json();
-	console.log(roll);
+	logger.info("Poppypaw", roll);
 	return roll;
 }
 
@@ -263,7 +264,7 @@ export async function subNotifs(user_id: string, token: string) {
 	subscriptionObject['p256dh'] = subscriptionObject['keys']['p256dh'];
 	delete subscriptionObject['keys'];
 
-	console.log(subscriptionObject);
+	logger.info("Poppypaw", subscriptionObject);
 
 	let res = await fetch(`${nextUrl}/notifications/${user_id}/sub`, {
 		method: 'POST',

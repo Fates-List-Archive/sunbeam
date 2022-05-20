@@ -11,6 +11,7 @@
 	import { browser } from '$app/env';
 	import loadstore from '$lib/loadstore';
 	import { apiUrl } from '$lib/config';
+	import * as logger from '$lib/logger';
 
 	import { navigating } from '$app/stores';
 
@@ -24,9 +25,9 @@
 
 	$: {
 		if ($navigating) {
-			console.log(`isNavigating: ${$navigating.from} -> ${$navigating.to}`);
+			logger.info("Nav", `isNavigating: ${$navigating.from} -> ${$navigating.to}`);
 			if ($navigating.to.host != $navigating.from.host) {
-				console.log('navigating to different host');
+				logger.info("Nav", 'navigating to different host');
 				$navigationState = 'loaded';
 			} else {
 				$inputstore = [];
