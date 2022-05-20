@@ -72,8 +72,10 @@
 {#if $alertStore}
 	<Alert
 		close={$alertStore.close}
+		input={$alertStore.input}
 		show={$alertStore.show}
 		title={$alertStore.title}
+		type={$alertStore.type}
 		id={$alertStore.id}>{@html $alertStore.message.replaceAll('\n', '<br/>')}</Alert
 	>
 {/if}

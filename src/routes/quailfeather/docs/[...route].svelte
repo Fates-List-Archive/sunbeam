@@ -105,7 +105,7 @@
 
 <script lang="ts">
 	import QuailTree from '../_helpers/QuailTree.svelte';
-import alertstore from '$lib/alertstore';
+	import alertstore from '$lib/alertstore';
 
 	export let data: any;
 	export let path: string[];
@@ -118,7 +118,6 @@ import alertstore from '$lib/alertstore';
 				return t.toUpperCase();
 			});
 	}
-
 </script>
 
 <QuailTree>

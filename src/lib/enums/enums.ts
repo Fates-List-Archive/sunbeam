@@ -81,6 +81,17 @@ enum PageStyle {
 	single_view = 1
 }
 
+// Alert Types
+enum AlertType {
+	Error = 1,
+	Warning = 2,
+	Info = 3,
+	Alert = 4,
+	Success = 5,
+	Debug = 6,
+	Prompt = 7
+}
+
 export let enums = {
 	BotState: BotState,
 	UserState: UserState,
@@ -88,6 +99,7 @@ export let enums = {
 	CommandType: CommandType,
 	ReviewType: ReviewType,
 	PageStyle: PageStyle,
+	AlertType: AlertType,
 	Flags: Flag,
 	UserFlags: UserFlags,
 	UserExperiments: UserExperiments,

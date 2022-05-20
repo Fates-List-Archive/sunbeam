@@ -5,8 +5,8 @@
 
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte'; // For later
-import { browser } from '$app/env';
-import alertstore from '$lib/alertstore';
+	import { browser } from '$app/env';
+	import alertstore from '$lib/alertstore';
 
 	let ignore = ['index.md']; // Index may be counter-intuitive, but we add this later
 
@@ -93,38 +93,38 @@ import alertstore from '$lib/alertstore';
 	let treeShow = false;
 
 	// Insert alertstore into window
-	if(browser) {
+	if (browser) {
 		window.alert = (opt) => {
-			if(!opt) {
-				opt = "";
+			if (!opt) {
+				opt = '';
 			}
 
-			if(typeof opt !== "object") {
+			if (typeof opt !== 'object') {
 				opt = {
-					title: "Info",
-					id: "string-alert",
+					title: 'Info',
+					id: 'string-alert',
 					show: true,
-					message: `${opt}` || "[empty alert]",
+					message: `${opt}` || '[empty alert]'
 				};
 			}
 
-			if(!opt.show) {
-				opt.show = true
+			if (!opt.show) {
+				opt.show = true;
 			}
-			if(!opt.title) {
-				logger.error("No title in alertstore")
-				return
+			if (!opt.title) {
+				logger.error('No title in alertstore');
+				return;
 			}
-			if(!opt.message) {
-				logger.error("No message in alertstore")
-				return
+			if (!opt.message) {
+				logger.error('No message in alertstore');
+				return;
 			}
-			if(!opt.id) {
-				logger.error("No id in alertstore")
-				return
+			if (!opt.id) {
+				logger.error('No id in alertstore');
+				return;
 			}
-			$alertstore = opt
-		} 
+			$alertstore = opt;
+		};
 	}
 </script>
 
@@ -146,44 +146,47 @@ import alertstore from '$lib/alertstore';
 	{#if treeShow}
 		<div class="doctree col-span-1">
 			<li class="td-1 search-flex">
-				<input id="searchbar" placeholder="Search" on:input={(e) => {
-					// Check if string is empty, if so, use $doctreeCache
-					let val = e.target.value.toLowerCase().replaceAll(" ", "-");
-					logger.info("SearchDocTree", val)
+				<input
+					id="searchbar"
+					placeholder="Search"
+					on:input={(e) => {
+						// Check if string is empty, if so, use $doctreeCache
+						let val = e.target.value.toLowerCase().replaceAll(' ', '-');
+						logger.info('SearchDocTree', val);
 
-					if(!val) {
-						treeDepthOne = $doctreeCache.treeDepthOne
-						treeDepthTwo = $doctreeCache.treeDepthTwo
-					} else {
-						let newTree = [];
-						$doctreeCache.treeDepthOne.forEach((el) => {
-							if(el.toLowerCase().replaceAll("_", "-").replaceAll(" ", "-").includes(val)) {
-								newTree.push(el)
-							}
-						})
-						treeDepthOne = newTree
-
-						// Check depth 2
-						let newTreeTwo = {};
-						for(let key in $doctreeCache.treeDepthTwo) {
-							if(key.toLowerCase().replaceAll("_", "-").replaceAll(" ", "-").includes(val)) {
-								newTreeTwo[key] = $doctreeCache.treeDepthTwo[key]
-							}
-							let newArr = [];
-							$doctreeCache.treeDepthTwo[key].forEach((el) => {
-								if(el.toLowerCase().replaceAll("_", "-").replaceAll(" ", "-").includes(val)) {
-									newArr.push(el)
+						if (!val) {
+							treeDepthOne = $doctreeCache.treeDepthOne;
+							treeDepthTwo = $doctreeCache.treeDepthTwo;
+						} else {
+							let newTree = [];
+							$doctreeCache.treeDepthOne.forEach((el) => {
+								if (el.toLowerCase().replaceAll('_', '-').replaceAll(' ', '-').includes(val)) {
+									newTree.push(el);
 								}
-							})
-							if(newArr.length > 0) {
-								newTreeTwo[key] = newArr
+							});
+							treeDepthOne = newTree;
+
+							// Check depth 2
+							let newTreeTwo = {};
+							for (let key in $doctreeCache.treeDepthTwo) {
+								if (key.toLowerCase().replaceAll('_', '-').replaceAll(' ', '-').includes(val)) {
+									newTreeTwo[key] = $doctreeCache.treeDepthTwo[key];
+								}
+								let newArr = [];
+								$doctreeCache.treeDepthTwo[key].forEach((el) => {
+									if (el.toLowerCase().replaceAll('_', '-').replaceAll(' ', '-').includes(val)) {
+										newArr.push(el);
+									}
+								});
+								if (newArr.length > 0) {
+									newTreeTwo[key] = newArr;
+								}
 							}
+
+							treeDepthTwo = newTreeTwo;
 						}
-
-						treeDepthTwo = newTreeTwo
-					}
-
-				}} />
+					}}
+				/>
 			</li>
 			{#if treeLoading}
 				<span class="span">Loading doctree</span>
