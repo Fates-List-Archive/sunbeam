@@ -189,8 +189,7 @@
 <QuailTree>
 	<h1>Admin Statistics</h1>
 	<ul class="white" style="font-size: 24px">
-		<li>Server Uptime: {secondsToDhms(data.uptime)}</li>
-		<li>Server Uptime (Raw): {data.uptime}</li>
+		<li>Server Uptime: {secondsToDhms(data.uptime)} ({data.uptime})</li>
 		<li>Queue Length: {pendingBots.length}</li>
 		<li>Under Review Length: {underReviewBots.length}</li>
 		<li>Total Bot Length: {data.total_bots}</li>
@@ -199,6 +198,7 @@
 		<li>Banned Bots Length: {bannedBots.length}</li>
 		<li>Denied Bots Length: {deniedBots.length}</li>
 	</ul>
+	
 	<Section icon="fa-solid:plus" title="Queue" id="queue">
 		<CardContainer>
 			{#each pendingBots as bot}
