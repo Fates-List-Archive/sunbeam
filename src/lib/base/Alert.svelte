@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enums } from '$lib/enums/enums';
+
 	export let show: boolean;
 
 	export let close;
@@ -43,54 +44,50 @@
 				{#if input}
 					<br />
 
-					<form>
-						<label for="alert-input" class="alert-label">{input.label}</label>
+					<label for="alert-input" class="alert-label">{input.label}</label>
 
-						{#if input.multiline}
-							<br />
-							<textarea
-								class="alert-textarea"
-								id="alert-input"
-								placeholder={input.placeholder}
-								name={input.label}
-								rows="5"
-								cols="10"
-							/>
+					<input
+						class="alert-input"
+						id="alert-input"
+						name={input.label}
+						type="text"
+						placeholder={input.placeholder}
+					/>
 
-							<!--
-								Example Alert (multiline)
-								alert({
-									title: "Login",
-									message: "Please enter your Username!",
-									id: 1030404,
-									type: 7,
-									input: {
-										"label": "Username",
-        								"placeholder": "Username",
-        								"multiline": true,
-        								"function": (value) => {
-											console.log(value);
-										}
-									}
-								});
-							-->
-						{:else}
-							<input
-								class="alert-input"
-								id="alert-input"
-								name={input.label}
-								type="text"
-								placeholder={input.placeholder}
-							/>
-						{/if}
-						<script>
-							// This patch extends input to cover text area
-							var input = document.querySelector('#alert-input');
-							input.setAttribute('size', input.getAttribute('placeholder').length);
-						</script>
+					<script>
+						const input = document.getElementById('alert-input');
 
-						<button type="button" on:click={submitInput}>Submit</button>
-					</form>
+						// Listen to "enter" events
+						input.addEventListener('keyup', (event) => {
+							if (event.key === 'Enter') {
+								console.log(`"ENTER" key has been entered!`);
+							}
+						});
+
+						// Extend input to cover text area
+						input.setAttribute('size', input.getAttribute('placeholder').length);
+					</script>
+
+					<!--
+						Example Alert
+
+						alert({
+							title: "Login",
+							message: "Please enter your Username!",
+							id: 1030404,
+							type: 7,
+							input: {
+								"label": "Username",
+								"placeholder": "Username",
+        						"multiline": false, // Set to "true", for Multi-line input
+        						"function": (value) => {
+									console.log(value);
+								}
+							}
+						});
+					-->
+
+					<button type="button" on:click={submitInput}>Submit</button>
 				{/if}
 			</div>
 
@@ -180,16 +177,6 @@
 		border-radius: 5px;
 		color: white;
 		min-width: 80%;
-	}
-
-	.alert-textarea {
-		background-color: #000000;
-		border: none;
-		border-radius: 5px;
-		color: white;
-		resize: none;
-		width: 400px;
-		padding: 0;
 	}
 
 	#alert-input::placeholder {
