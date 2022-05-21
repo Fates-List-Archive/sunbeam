@@ -844,8 +844,8 @@
 				placeholder: `https://example.com/`,
 				multiline: false,
 				function: (value) => {
-					let link = value.toString()
-					if (!value.toString().startsWith('_')) {
+					let link = value.toString();
+					if (!link.startsWith('_')) {
 						link = title(link);
 					}
 					extLinks.push({

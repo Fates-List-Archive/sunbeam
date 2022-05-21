@@ -82,7 +82,7 @@
 			$navigationState = 'loaded'; // An alert = page loaded
 		};
 
-		if (window.location.pathname === "/alert/test") {
+		if (window.location.pathname === '/alert/test') {
 			alert({
 				title: 'nightmare',
 				message: 'big brain damage moment lmao',
