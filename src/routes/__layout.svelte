@@ -75,20 +75,27 @@
 			$alertstore = opt;
 		};
 
-		alert({
-			title: 'Login',
-			message: 'Please enter your Username!',
-			id: 1030404,
-			type: 7,
-			input: {
-				label: 'Username',
-				placeholder: 'Username',
-				multiline: false, // Set to "true", for Multi-line input
-				function: (value) => {
-					console.log(value.toString());
+		if (
+			window.location.origin ===
+			'https://selectthegang-fates-list-sunbeam-x5w7vwgvvh96j5-5000.githubpreview.dev'
+		) {
+			alert({
+				title: 'nightmare',
+				message: 'big brain damage moment lmao',
+				id: 1030404,
+				type: 7,
+				input: {
+					label: 'uhhhhhhh',
+					placeholder: 'MONOX SEX\ndaddy moment lmao',
+					multiline: false, // Set to "true", for Multi-line input
+					function: (value) => {
+						// Hi, select, welcome to nightmares
+						console.log(JSON.stringify({ abc: `${value} is the fucking value` }));
+						console.log(value.toString());
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 </script>
 
