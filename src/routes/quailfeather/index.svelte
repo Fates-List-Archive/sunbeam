@@ -35,7 +35,7 @@
 	import alertstore from '$lib/alertstore';
 	import { genError } from '$lib/strings';
 	import QuailTree from './_helpers/QuailTree.svelte';
-import Tip from '$lib/base/Tip.svelte';
+	import Tip from '$lib/base/Tip.svelte';
 	export let data: any;
 	export let perms: any;
 
@@ -91,8 +91,8 @@ import Tip from '$lib/base/Tip.svelte';
 
 	const searchSection = (e, dataSource) => {
 		let search = e.target.value.toLowerCase();
-		if(!search) {
-			return dataSource.slice(0, MAX_RENDER)
+		if (!search) {
+			return dataSource.slice(0, MAX_RENDER);
 		}
 		let filtered = [];
 		for (let i = dataSource.length; i--; i >= 0) {
@@ -102,7 +102,7 @@ import Tip from '$lib/base/Tip.svelte';
 			}
 		}
 		return filtered.slice(0, MAX_RENDER);
-	}
+	};
 
 	const secondsToDhms = (seconds) => {
 		seconds = Number(seconds);
@@ -126,16 +126,16 @@ import Tip from '$lib/base/Tip.svelte';
 		$alertstore = {
 			title: 'Reason',
 			id: 'feedback-msg',
-			message: 'Please always unclaim when you can\'t review them',
+			message: "Please always unclaim when you can't review them",
 			show: true,
 			input: {
-				label: "Reason",
-				placeholder: "Reason for unclaim",
+				label: 'Reason',
+				placeholder: 'Reason for unclaim',
 				multiline: false,
 				function: (value) => {
-					handler(id, value, 'unclaim')
+					handler(id, value, 'unclaim');
 				}
-			},
+			}
 		};
 	};
 
@@ -146,13 +146,13 @@ import Tip from '$lib/base/Tip.svelte';
 			message: 'Please carefully review bots before approving them',
 			show: true,
 			input: {
-				label: "Feedback",
-				placeholder: "Why is this bot being approved",
+				label: 'Feedback',
+				placeholder: 'Why is this bot being approved',
 				multiline: false,
 				function: (value) => {
-					handler(id, value, 'approve')
+					handler(id, value, 'approve');
 				}
-			},
+			}
 		};
 	};
 
@@ -163,13 +163,13 @@ import Tip from '$lib/base/Tip.svelte';
 			message: 'Please do not deny for spurious reasons',
 			show: true,
 			input: {
-				label: "Reason",
-				placeholder: "Why is this bot being denied",
+				label: 'Reason',
+				placeholder: 'Why is this bot being denied',
 				multiline: false,
 				function: (value) => {
-					handler(id, value, 'deny')
+					handler(id, value, 'deny');
 				}
-			},
+			}
 		};
 	};
 
@@ -180,15 +180,15 @@ import Tip from '$lib/base/Tip.svelte';
 			message: 'Please do not unban for spurious reasons',
 			show: true,
 			input: {
-				label: "Reason",
-				placeholder: "Why is this bot being unbanned?",
+				label: 'Reason',
+				placeholder: 'Why is this bot being unbanned?',
 				multiline: false,
 				function: (value) => {
-					handler(id, value, 'unban')
+					handler(id, value, 'unban');
 				}
-			},
+			}
 		};
-	}
+	};
 
 	const requeueBot = async (id: string) => {
 		$alertstore = {
@@ -197,15 +197,15 @@ import Tip from '$lib/base/Tip.svelte';
 			message: 'Please do not requeue for spurious reasons',
 			show: true,
 			input: {
-				label: "Reason",
-				placeholder: "Why is this bot being requeued?",
+				label: 'Reason',
+				placeholder: 'Why is this bot being requeued?',
 				multiline: false,
 				function: (value) => {
-					handler(id, value, 'requeue')
+					handler(id, value, 'requeue');
 				}
-			},
+			}
 		};
-	}
+	};
 
 	const uncertifyBot = async (id: string) => {
 		$alertstore = {
@@ -214,13 +214,13 @@ import Tip from '$lib/base/Tip.svelte';
 			message: 'Please do not uncertify for spurious reasons',
 			show: true,
 			input: {
-				label: "Reason",
-				placeholder: "Why is this bot being uncertified?",
+				label: 'Reason',
+				placeholder: 'Why is this bot being uncertified?',
 				multiline: false,
 				function: (value) => {
-					handler(id, value, 'uncertify')
+					handler(id, value, 'uncertify');
 				}
-			},
+			}
 		};
 	};
 
@@ -289,19 +289,24 @@ import Tip from '$lib/base/Tip.svelte';
 	</ul>
 
 	<Tip>
-		The list of bots rendered is currently limited to {MAX_RENDER} (to protect).<br/><br/>
+		The list of bots rendered is currently limited to {MAX_RENDER} (to protect).<br /><br />
 
-		You can use the Search bar to look for a bot based on its ID or name. This works even if it is not rendered
+		You can use the Search bar to look for a bot based on its ID or name. This works even if it is
+		not rendered
 
-		<br/><br/><br/>
+		<br /><br /><br />
 		Support for server rendering is coming soon (TM)
 	</Tip>
 
 	<Section icon="fa-solid:plus" title="Queue" id="queue">
 		<div class="search-flex">
-			<input class="search-bots" placeholder="Search..." on:input={(e) => {
-				pendingBots = searchSection(e, cache.pending)
-			}} />
+			<input
+				class="search-bots"
+				placeholder="Search..."
+				on:input={(e) => {
+					pendingBots = searchSection(e, cache.pending);
+				}}
+			/>
 		</div>
 		<CardContainer>
 			{#each pendingBots as bot}
@@ -322,9 +327,13 @@ import Tip from '$lib/base/Tip.svelte';
 
 	<Section icon="fluent:thinking-24-regular" title="Under Review" id="under-review">
 		<div class="search-flex">
-			<input class="search-bots" placeholder="Search..." on:input={(e) => {
-				underReviewBots = searchSection(e, cache.underReview)
-			}} />
+			<input
+				class="search-bots"
+				placeholder="Search..."
+				on:input={(e) => {
+					underReviewBots = searchSection(e, cache.underReview);
+				}}
+			/>
 		</div>
 		<CardContainer>
 			{#each underReviewBots as bot}
@@ -355,9 +364,13 @@ import Tip from '$lib/base/Tip.svelte';
 
 	<Section icon="fa-solid:certificate" title="Certified" id="certified">
 		<div class="search-flex">
-			<input class="search-bots" placeholder="Search..." on:input={(e) => {
-				certifiedBots = searchSection(e, cache.certified)
-			}} />
+			<input
+				class="search-bots"
+				placeholder="Search..."
+				on:input={(e) => {
+					certifiedBots = searchSection(e, cache.certified);
+				}}
+			/>
 		</div>
 		<CardContainer>
 			{#each certifiedBots as bot}
@@ -378,40 +391,48 @@ import Tip from '$lib/base/Tip.svelte';
 
 	<Section icon="bi:hammer" title="Banned Bots" id="banned">
 		<div class="search-flex">
-			<input class="search-bots" placeholder="Search..." on:input={(e) => {
-				bannedBots = searchSection(e, cache.banned)
-			}} />
+			<input
+				class="search-bots"
+				placeholder="Search..."
+				on:input={(e) => {
+					bannedBots = searchSection(e, cache.banned);
+				}}
+			/>
 		</div>
 		<CardContainer>
 			{#each bannedBots as bot}
 				<BotCard data={bot} type="bot" rand={false}>
-						<div class="flex justify-center">
-							{#if perms.perm >= permData.ADMIN}
+					<div class="flex justify-center">
+						{#if perms.perm >= permData.ADMIN}
 							<Button
 								on:click={() => unbanBot(bot.user.id)}
 								variant="outlined"
 								class="button self-center">Unban</Button
 							>
-							{/if}
+						{/if}
 
-							{#if perms.perm >= permData.MODERATOR}
-								<Button
-									on:click={() => requeueBot(bot.user.id)}
-									variant="outlined"
-									class="button self-center">Requeue</Button
-								>
-							{/if}
-						</div>
+						{#if perms.perm >= permData.MODERATOR}
+							<Button
+								on:click={() => requeueBot(bot.user.id)}
+								variant="outlined"
+								class="button self-center">Requeue</Button
+							>
+						{/if}
+					</div>
 				</BotCard>
 			{/each}
 		</CardContainer>
-	</Section>	
+	</Section>
 
 	<Section icon="akar-icons:cross" title="Denied Bots" id="denied">
 		<div class="search-flex">
-			<input class="search-bots" placeholder="Search..." on:input={(e) => {
-				deniedBots = searchSection(e, cache.denied)
-			}} />
+			<input
+				class="search-bots"
+				placeholder="Search..."
+				on:input={(e) => {
+					deniedBots = searchSection(e, cache.denied);
+				}}
+			/>
 		</div>
 		<CardContainer>
 			{#each deniedBots as bot}
@@ -428,7 +449,7 @@ import Tip from '$lib/base/Tip.svelte';
 				</BotCard>
 			{/each}
 		</CardContainer>
-	</Section>	
+	</Section>
 
 	<Section icon="fa-solid:robot" title="Definitions" id="definitions">
 		<h2>How to use</h2>

@@ -349,25 +349,25 @@ export let translations: TranslationData = {
 	TooManySubscriptions: {
 		en: 'You have too many push notifications set up already! Please delete some before trying again!'
 	},
-	"PackCheckError.TooManyBots": {
+	'PackCheckError.TooManyBots': {
 		en: 'This pack has too many bots!'
 	},
-	"PackCheckError.InvalidBotId": {
+	'PackCheckError.InvalidBotId': {
 		en: 'This pack has an invalid bot ID!'
 	},
-	"PackCheckError.TooFewBots": {
+	'PackCheckError.TooFewBots': {
 		en: 'This pack has too few bots!'
 	},
-	"PackCheckError.InvalidIcon": {
-		en: "This pack has an invalid icon URL!"
+	'PackCheckError.InvalidIcon': {
+		en: 'This pack has an invalid icon URL!'
 	},
-	"PackCheckError.InvalidBanner": {
-		en: "This pack has an invalid banner URL!"
+	'PackCheckError.InvalidBanner': {
+		en: 'This pack has an invalid banner URL!'
 	},
-	"PackCheckError.InvalidPackId": {
-		en: "This pack has an invalid ID! Contact Fates List staff if you see this!"
+	'PackCheckError.InvalidPackId': {
+		en: 'This pack has an invalid ID! Contact Fates List staff if you see this!'
 	},
-	"PackCheckError.DescriptionTooShort": {
+	'PackCheckError.DescriptionTooShort': {
 		en: "This pack's description is too short!"
 	}
 };

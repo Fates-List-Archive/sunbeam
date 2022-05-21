@@ -85,8 +85,8 @@
 						{/if}
 						<script>
 							// This patch extends input to cover text area
-							var input = document.querySelector("#alert-input");
-							input.setAttribute('size',input.getAttribute('placeholder').length);
+							var input = document.querySelector('#alert-input');
+							input.setAttribute('size', input.getAttribute('placeholder').length);
 						</script>
 
 						<button type="button" on:click={submitInput}>Submit</button>
@@ -98,6 +98,7 @@
 		</section>
 	</dialog>
 {/if}
+
 <style>
 	dialog {
 		position: fixed;
