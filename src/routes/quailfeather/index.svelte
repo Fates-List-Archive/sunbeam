@@ -44,11 +44,12 @@
 	let pendingBots = [];
 	let certifiedBots = [];
 	let underReviewBots = [];
+	let miscBots = []
 
 	for (let i = data.bots.length; i--; i >= 0) {
 		let bot = data.bots[i];
 		switch (bot.state) {
-			case enums.BotState.denied:
+			case enums.BotState.denied: 
 				deniedBots.push(bot);
 				break;
 			case enums.BotState.banned:
@@ -66,6 +67,9 @@
 			case enums.BotState.approved:
 				approvedBots.push(bot);
 				break;
+			default:
+				miscBots.push(bot);
+				break;
 		}
 	}
 
@@ -79,7 +83,7 @@
 	};
 
 	// Ensure browsers dont crash trying to render 500 bots
-	const MAX_RENDER = 25;
+	const MAX_RENDER = 20;
 
 	deniedBots = deniedBots.slice(0, MAX_RENDER);
 	bannedBots = bannedBots.slice(0, MAX_RENDER);
@@ -339,25 +343,29 @@
 		<li>Denied Bots Length: {cache.denied.length}</li>
 	</ul>
 
-	<Tip>
-		The list of bots rendered is currently limited to {MAX_RENDER} (to protect).<br /><br />
+	<div class="mx-2">
+		<Tip>
+			The list of bots rendered is currently limited to {MAX_RENDER} (to protect your browser from crashing due to too many rendered dom nodes).<br /><br />
 
-		You can use the Search bar to look for a bot based on its ID or name. This works even if it is
-		not rendered
+			You can use the Search bar to look for a bot based on its ID or name. This works even if it is
+			not rendered
 
-		<br /><br /><br />
-		Support for server rendering is coming soon (TM)
-	</Tip>
+			<br /><br /><br />
+			Support for server rendering is coming soon (TM)
+		</Tip>
+	</div>
 
 	<Section icon="fa-solid:plus" title="Queue" id="queue">
-		<div class="search-flex">
-			<input
-				class="search-bots"
-				placeholder="Search..."
-				on:input={(e) => {
-					pendingBots = searchSection(e, cache.pending);
-				}}
-			/>
+		<div class="mx-2">
+			<div class="search-flex">
+				<input
+					class="search-bots"
+					placeholder="Search..."
+					on:input={(e) => {
+						pendingBots = searchSection(e, cache.pending);
+					}}
+				/>
+			</div>
 		</div>
 		<CardContainer>
 			{#each pendingBots as bot}
@@ -377,14 +385,16 @@
 	</Section>
 
 	<Section icon="fluent:thinking-24-regular" title="Under Review" id="under-review">
-		<div class="search-flex">
-			<input
-				class="search-bots"
-				placeholder="Search..."
-				on:input={(e) => {
-					underReviewBots = searchSection(e, cache.underReview);
-				}}
-			/>
+		<div class="mx-2">
+			<div class="search-flex">
+				<input
+					class="search-bots"
+					placeholder="Search..."
+					on:input={(e) => {
+						underReviewBots = searchSection(e, cache.underReview);
+					}}
+				/>
+			</div>
 		</div>
 		<CardContainer>
 			{#each underReviewBots as bot}
@@ -414,14 +424,16 @@
 	</Section>
 
 	<Section icon="fa-solid:certificate" title="Certified" id="certified">
-		<div class="search-flex">
-			<input
-				class="search-bots"
-				placeholder="Search..."
-				on:input={(e) => {
-					certifiedBots = searchSection(e, cache.certified);
-				}}
-			/>
+		<div class="mx-2">
+			<div class="search-flex">
+				<input
+					class="search-bots"
+					placeholder="Search..."
+					on:input={(e) => {
+						certifiedBots = searchSection(e, cache.certified);
+					}}
+				/>
+			</div>
 		</div>
 		<CardContainer>
 			{#each certifiedBots as bot}
@@ -441,14 +453,16 @@
 	</Section>
 
 	<Section icon="bi:hammer" title="Banned Bots" id="banned">
-		<div class="search-flex">
-			<input
-				class="search-bots"
-				placeholder="Search..."
-				on:input={(e) => {
-					bannedBots = searchSection(e, cache.banned);
-				}}
-			/>
+		<div class="mx-2">
+			<div class="search-flex">
+				<input
+					class="search-bots"
+					placeholder="Search..."
+					on:input={(e) => {
+						bannedBots = searchSection(e, cache.banned);
+					}}
+				/>
+			</div>
 		</div>
 		<CardContainer>
 			{#each bannedBots as bot}
@@ -458,7 +472,7 @@
 							<Button
 								on:click={() => unbanBot(bot.user.id)}
 								variant="outlined"
-								class="button self-center">Unban</Button
+								class="button self-center lb">Unban</Button
 							>
 						{/if}
 
@@ -466,7 +480,7 @@
 							<Button
 								on:click={() => requeueBot(bot.user.id)}
 								variant="outlined"
-								class="button self-center">Requeue</Button
+								class="button self-center lb">Requeue</Button
 							>
 						{/if}
 					</div>
@@ -476,14 +490,16 @@
 	</Section>
 
 	<Section icon="akar-icons:cross" title="Denied Bots" id="denied">
-		<div class="search-flex">
-			<input
-				class="search-bots"
-				placeholder="Search..."
-				on:input={(e) => {
-					deniedBots = searchSection(e, cache.denied);
-				}}
-			/>
+		<div class="mx-2">
+			<div class="search-flex">
+				<input
+					class="search-bots"
+					placeholder="Search..."
+					on:input={(e) => {
+						deniedBots = searchSection(e, cache.denied);
+					}}
+				/>
+			</div>
 		</div>
 		<CardContainer>
 			{#each deniedBots as bot}
@@ -503,33 +519,26 @@
 	</Section>
 
 	<Section icon="akar-icons:tick" title="Approved Bots" id="approved">
-		<div class="search-flex">
-			<input
-				class="search-bots"
-				placeholder="Search..."
-				on:input={(e) => {
-					approvedBots = searchSection(e, cache.approved);
-				}}
-			/>
+		<div class="mx-2">
+			<div class="search-flex">
+				<input
+					class="search-bots"
+					placeholder="Search..."
+					on:input={(e) => {
+						approvedBots = searchSection(e, cache.approved);
+					}}
+				/>
+			</div>
 		</div>
 		<CardContainer>
 			{#each approvedBots as bot}
 				<BotCard data={bot} type="bot" rand={false}>
-					{#if perms.perm >= permData.ADMIN}
-						<div class="flex justify-center">
-							<Button
-								on:click={() => banBot(bot.user.id)}
-								variant="outlined"
-								class="button self-center">Ban</Button
-							>
-						</div>
-					{/if}
-
+					<div class="flex justify-center">
 					{#if perms.perm >= permData.MODERATOR}
 						<Button
 							on:click={() => unverifyBot(bot.user.id)}
 							variant="outlined"
-							class="button self-center">Unverify</Button
+							class="button self-center lb">Unverify</Button
 						>
 					{/if}
 
@@ -537,9 +546,18 @@
 						<Button
 							on:click={() => certifyBot(bot.user.id)}
 							variant="outlined"
-							class="button self-center">Certify</Button
+							class="button self-center lb">Certify</Button
 						>
 					{/if}
+
+					{#if perms.perm >= permData.ADMIN}
+						<Button
+							on:click={() => banBot(bot.user.id)}
+							variant="outlined"
+							class="button self-center lb">Ban</Button
+						>
+					{/if}
+					</div>
 				</BotCard>
 			{/each}
 		</CardContainer>

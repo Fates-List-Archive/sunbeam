@@ -19,7 +19,7 @@
 
 	function unfade(element) {
 		var op = 0.1; // initial opacity
-		element.style.display = 'table';
+		element.style.display = 'block';
 		var timer = setInterval(function () {
 			if (op >= 1) {
 				clearInterval(timer);

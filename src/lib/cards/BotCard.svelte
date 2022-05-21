@@ -150,7 +150,7 @@
 	}
 
 	.bot-card {
-		width: 300px;
+		width: 310px;
 		height: 520px;
 		background: #111112;
 		-moz-box-shadow: 0px 0px 20px 5px #000;
