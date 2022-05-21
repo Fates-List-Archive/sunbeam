@@ -3,8 +3,8 @@
 	import Button from '@smui/button';
 	export let tags;
 	export let targetType: string;
-	export let modWidth: boolean = true; // Whether to set width to 90% or not, needed in bot pages to make showing tags look decent
-	export let buttonTag: boolean = false; // Button tag or not
+	export let modWidth = true; // Whether to set width to 90% or not, needed in bot pages to make showing tags look decent
+	export let buttonTag = false; // Button tag or not
 
 	// Add first maxTags to initial render view
 	let maxTags = 4;

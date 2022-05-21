@@ -2,10 +2,12 @@ import cfAdapter from '@sveltejs/adapter-cloudflare';
 import nodeAdapter from '@sveltejs/adapter-node';
 import preprocess from 'svelte-preprocess';
 
-if (!!process.env.CF_PAGES) {
-	var adapter = cfAdapter;
+var adapter;
+
+if (process.env.CF_PAGES) {
+	adapter = cfAdapter;
 } else {
-	var adapter = nodeAdapter;
+	adapter = nodeAdapter;
 }
 
 /** @type {import('@sveltejs/kit').Config} */

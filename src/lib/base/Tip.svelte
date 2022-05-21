@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	export let alertClass: string = 'alert-info tip-blue';
-	export let icon: string = 'foundation:lightbulb';
+	export let alertClass = 'alert-info tip-blue';
+	export let icon = 'foundation:lightbulb';
 </script>
 
 <p class={alertClass}>

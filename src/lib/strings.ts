@@ -10,7 +10,7 @@ interface TranslationData {
 // French and Italian translations by @azurex0001 [Azurex#0001]
 // Next Up; Spanish & German
 
-export let translations: TranslationData = {
+export const translations: TranslationData = {
 	'index.best_bots': {
 		en: 'Find the best bots for your servers!',
 		fr: 'Trouvez les meilleurs bots pour vos serveurs!',
@@ -375,7 +375,7 @@ export let translations: TranslationData = {
 	}
 };
 
-export function getIntlString(key: string, lang: string = 'en'): string {
+export function getIntlString(key: string, lang = 'en'): string {
 	if (translations[key] && translations[key][lang]) {
 		return translations[key][lang];
 	} else if (translations[key] && translations[key]['en']) {

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { apiUrl } from '$lib/config';
 
-	export let version: string = '5';
-	export let frostpawVersion: string = '0.1.0';
+	export let version = '5';
+	export let frostpawVersion = '0.1.0';
 </script>
 
 <h1>About Sunbeam</h1>

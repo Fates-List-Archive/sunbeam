@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let value: string;
 	export let valueList: string[];
-	export let alwaysOff: boolean = false;
+	export let alwaysOff = false;
 	let inList = false;
 	try {
 		valueList.forEach((k) => {

@@ -4,8 +4,8 @@
 
 	export let type: string;
 	export let query: string;
-	export let gc_from: number = 1;
-	export let gc_to: number = -1;
+	export let gc_from = 1;
+	export let gc_to = -1;
 
 	function keyHandle(event) {
 		event.preventDefault();

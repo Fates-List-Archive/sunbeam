@@ -14,7 +14,7 @@
 	export let reply: boolean;
 	export let targetId: string;
 	export let targetType: string;
-	export let edittable: boolean = true;
+	export let edittable = true;
 
 	let reviewUserClasses = 'review-user';
 
@@ -22,8 +22,8 @@
 		reviewUserClasses = 'review-user review-user-reply';
 	}
 
-	let editPaneOpen: boolean = false;
-	let replyPaneOpen: boolean = false;
+	let editPaneOpen = false;
+	let replyPaneOpen = false;
 
 	console.log(review);
 

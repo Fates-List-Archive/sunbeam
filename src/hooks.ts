@@ -22,11 +22,11 @@ export const getSession: GetSession = async (event) => {
 
 	let sessionData = {};
 	if (cookies['sunbeam-session:warriorcats']) {
-		let newJwt = cookies['sunbeam-session:warriorcats'];
+		const newJwt = cookies['sunbeam-session:warriorcats'];
 
 		try {
 			// First base64 decode it
-			let data = decode(newJwt);
+			const data = decode(newJwt);
 			sessionData['rawData'] = data;
 			// Then decode it using itsdanger
 			sessionData = JSON.parse(data);

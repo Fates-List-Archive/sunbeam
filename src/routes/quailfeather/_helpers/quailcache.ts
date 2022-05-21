@@ -7,4 +7,4 @@ interface DocTreeInterface {
 
 type DocTree = DocTreeInterface;
 
-export let doctreeCache = writable<DocTree>(null);
+export const doctreeCache = writable<DocTree>(null);

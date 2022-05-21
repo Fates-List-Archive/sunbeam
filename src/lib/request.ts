@@ -25,10 +25,10 @@ export async function fetchFates(
 	auth: string,
 	fetch: any,
 	votePage = false,
-	nextApi: boolean = false
+	nextApi = false
 ) {
 	// Always use direct if browser
-	let headers = { Frostpaw: '0.1' };
+	const headers = { Frostpaw: '0.1' };
 
 	if (auth) {
 		headers['Frostpaw-Auth'] = auth;
@@ -57,7 +57,7 @@ export function getCookie(name, cookie) {
 	function escape(s) {
 		return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, '\\$1');
 	}
-	var match = null;
+	let match = null;
 	if (cookie) {
 		match = cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
 	}
@@ -69,7 +69,7 @@ export async function loginUser(noSetStorage: boolean) {
 	if (!noSetStorage) {
 		localStorage.sunbeamLogin = window.location.href;
 	}
-	let res = await fetch(`${nextUrl}/oauth2`, {
+	const res = await fetch(`${nextUrl}/oauth2`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
@@ -77,7 +77,7 @@ export async function loginUser(noSetStorage: boolean) {
 			'Frostpaw-Server': window.location.origin
 		}
 	});
-	let json = await res.json();
+	const json = await res.json();
 	if (!noSetStorage && localStorage.loginError == '1') {
 		json.context += '&prompt=none';
 		localStorage.removeItem('loginError');
@@ -104,7 +104,7 @@ export async function voteHandler(
 		await loginUser(false);
 		return;
 	}
-	let res = await fetch(`${nextUrl}/users/${userID}/${type}s/${botID}/votes?test=${test}`, {
+	const res = await fetch(`${nextUrl}/users/${userID}/${type}s/${botID}/votes?test=${test}`, {
 		method: 'PATCH',
 		headers: {
 			'Content-Type': 'application/json',
@@ -134,7 +134,7 @@ export async function addReviewHandler(
 	if (type == 'server') {
 		targetType = 1;
 	}
-	let json = {
+	const json = {
 		review_text: review_text,
 		star_rating: star_rating,
 		flagged: false,
@@ -186,7 +186,7 @@ export function reportView(userID: string, token: string, id: string, type: stri
 
 	// Hook onto window sigh
 	window['report'] = async function () {
-		let res = await fetch(`${nextUrl}/users/${userID}/${type}s/${id}/appeal`, {
+		const res = await fetch(`${nextUrl}/users/${userID}/${type}s/${id}/appeal`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -201,7 +201,7 @@ export function reportView(userID: string, token: string, id: string, type: stri
 		if (res.ok) {
 			alert(`Successfully reported this ${type}`);
 		} else {
-			let err = await res.json();
+			const err = await res.json();
 			alert(genError(err));
 		}
 	};
@@ -243,18 +243,18 @@ export async function subNotifs(user_id: string, token: string) {
 		return;
 	}
 
-	let resp = await fetch(`${nextUrl}/notifications/info`);
+	const resp = await fetch(`${nextUrl}/notifications/info`);
 
 	if (!resp.ok) {
 		alert('Something went wrong, we couldnt get your public key');
 		return;
 	}
 
-	let info = await resp.json();
+	const info = await resp.json();
 
 	const reg = await navigator.serviceWorker.ready;
 
-	let sub = await reg.pushManager.subscribe({
+	const sub = await reg.pushManager.subscribe({
 		userVisibleOnly: true,
 		applicationServerKey: info.public_key
 	});
@@ -266,7 +266,7 @@ export async function subNotifs(user_id: string, token: string) {
 
 	logger.info('Poppypaw', subscriptionObject);
 
-	let res = await fetch(`${nextUrl}/notifications/${user_id}/sub`, {
+	const res = await fetch(`${nextUrl}/notifications/${user_id}/sub`, {
 		method: 'POST',
 		headers: {
 			Authorization: token,

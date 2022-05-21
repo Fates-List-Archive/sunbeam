@@ -13,7 +13,7 @@
 
 	export let data: any;
 	export let type: string;
-	export let limited: boolean = false;
+	export let limited = false;
 
 	async function voteBot() {
 		let token = $session.session.token;

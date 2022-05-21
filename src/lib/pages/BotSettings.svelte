@@ -362,9 +362,9 @@
 		});
 	}
 
-	let previewHtml: string = '<h3>Start typing to generate a preview!</h3>';
+	let previewHtml = '<h3>Start typing to generate a preview!</h3>';
 
-	let charsTyped: number = 0;
+	let charsTyped = 0;
 
 	let wsUp = false;
 	let previewWs: WebSocket = null;

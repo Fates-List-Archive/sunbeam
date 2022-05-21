@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let pack: any;
-	export let centered: boolean = true;
+	export let centered = true;
 </script>
 
 <div class="pack-container">
