@@ -33,27 +33,31 @@
 </script>
 
 {#if editor}
-	<button
-		on:click={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-		class="component_button"
-		active={editor.isActive('heading', { level: 1 })}
-	>
-		Heading 1
-	</button>
-	<button
-		on:click={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-		class="component_button"
-		active={editor.isActive('heading', { level: 2 })}
-	>
-		Heading 2
-	</button>
-	<button
-		on:click={() => editor.chain().focus().setParagraph().run()}
-		active={editor.isActive('paragraph')}
-		class="component_button"
-	>
-		Paragraph
-	</button>
+	<div class="tiptap-editor">
+		<button
+			on:click={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
+			class="component_button"
+			active={editor.isActive('heading', { level: 1 })}
+		>
+			Heading 1
+		</button>
+		<button
+			on:click={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
+			class="component_button"
+			active={editor.isActive('heading', { level: 2 })}
+		>
+			Heading 2
+		</button>
+		<button
+			on:click={() => editor.chain().focus().setParagraph().run()}
+			active={editor.isActive('paragraph')}
+			class="component_button"
+		>
+			Paragraph
+		</button>
+
+		<div class="nightmare" />
+	</div>
 {/if}
 
 <div bind:this={element} />
@@ -69,12 +73,20 @@
 		margin: 0px;
 	}
 
+	.tiptap-editor {
+		max-height: 100px !important;
+	}
+
 	:global(.ProseMirror .is-empty:first-child::before) {
 		color: #adb5bd;
 		content: attr(data-placeholder);
 		float: left;
 		height: 0;
 		pointer-events: none;
+	}
+
+	:global(.nightmare) {
+		padding: 5px;
 	}
 
 	.component_button {
@@ -86,7 +98,7 @@
 		background-color: #000000;
 		border: none;
 		font-weight: bolder;
-		padding: 5px;
+		padding: 10px;
 		border-radius: 7px;
 	}
 
@@ -99,7 +111,7 @@
 		background-color: red;
 		border: none;
 		font-weight: bolder;
-		padding: 5px;
+		padding: 10px;
 		border-radius: 7px;
 	}
 </style>

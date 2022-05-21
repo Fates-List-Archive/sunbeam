@@ -31,17 +31,6 @@
 
 	let popUpMsg = 'Errors will appear here (just in case you have popups disabled)';
 
-	function alert(msg: string, title = 'Error') {
-		popUpMsg = msg;
-		$alertstore = {
-			title: title,
-			message: msg,
-			show: true,
-			id: 'error'
-		};
-		$navigationState = 'loaded'; // An alert = page loaded
-	}
-
 	export let data: any;
 	export let mode: string;
 	export let context: any;
@@ -119,12 +108,24 @@
 			headers: headers
 		});
 		if (res.ok) {
-			alert('Successfully regenerated bot token', 'Success!');
-			window.location.reload();
+			alert({
+				title: 'Success',
+				id: 'success-regen',
+				message: 'Successfully regenerated bot token',
+				type: enums.AlertType.Success,
+				close: () => {
+					window.location.reload();
+				}
+			});
 			return;
 		} else {
 			let json = await res.json();
-			alert(genError(json));
+			alert({
+				title: 'Error',
+				id: 'error-regen',
+				message: genError(json),
+				type: enums.AlertType.Error
+			});
 		}
 	}
 
@@ -143,12 +144,23 @@
 			})
 		});
 		if (res.ok) {
-			alert('Successfully sent appeal!', 'Success!');
-			window.location.reload();
-			return;
+			alert({
+				title: 'Success',
+				id: 'success-appeal',
+				message: 'Successfully sent appeal',
+				type: enums.AlertType.Success,
+				close: () => {
+					window.location.reload();
+				}
+			});
 		} else {
 			let json = await res.json();
-			alert(genError(json));
+			alert({
+				title: 'Error',
+				id: 'error-appeal',
+				message: genError(json),
+				type: enums.AlertType.Error
+			});
 		}
 	}
 
@@ -167,12 +179,25 @@
 			})
 		});
 		if (res.ok) {
-			alert('Successfully sent request!', 'Success!');
-			window.location.reload();
+			alert({
+				title: 'Success',
+				id: 'success',
+				message: 'Successfully sent request!',
+				type: enums.AlertType.Success,
+				close: () => {
+					window.location.reload();
+				}
+			});
 			return;
 		} else {
 			let json = await res.json();
-			alert(genError(json));
+
+			alert({
+				title: 'Error',
+				id: 'error',
+				message: genError(json),
+				type: enums.AlertType.Error
+			});
 		}
 	}
 
@@ -191,83 +216,150 @@
 			})
 		});
 		if (res.ok) {
-			alert('Successfully sent stats!', 'Success!');
-			window.location.reload();
+			alert({
+				title: 'Success',
+				id: 'success',
+				message: 'Successfully sent stats!',
+				type: enums.AlertType.Success,
+				close: () => {
+					window.location.reload();
+				}
+			});
 			return;
 		} else {
 			let json = await res.json();
-			alert(genError(json));
+			alert({
+				title: 'Error',
+				id: 'error',
+				message: genError(json),
+				type: enums.AlertType.Error
+			});
 		}
 	}
 
 	async function transferBot(newOwner: string) {
-		let confirm = prompt(
-			'This action is irreversible. Please confirm you really want to transfer ownership by entering your Bots ID below'
-		);
-		if (confirm != data.bot_id) {
-			alert(
-				'Could not transfer ownership as you did not confirm you wanted to do this/inputted invalid Bot ID'
-			);
-			return;
-		}
-		let url = `${nextUrl}/users/${$session.session.user.id}/bots/${data.bot_id}/main-owner`;
-		let headers = {
-			'Content-Type': 'application/json',
-			Authorization: $session.session.token
-		};
-		let res = await fetch(url, {
-			method: 'PATCH',
-			headers: headers,
-			body: JSON.stringify({
-				user: {
-					id: newOwner,
-					username: '',
-					disc: '',
-					avatar: '',
-					status: 'Unknown',
-					bot: false
-				},
-				main: true
-			})
+		alert({
+			id: 'transfer-bot',
+			title: 'WARNING',
+			type: enums.AlertType.Warning,
+			message:
+				'This action is irreversible. Please confirm you really want to transfer ownership by entering your Bots ID below',
+			input: {
+				label: 'BOT ID',
+				placeholder: `Enter your BOT ID here to confirm`,
+				multiline: false,
+				function: async (value) => {
+					// Make this a alert input
+					if (value.toString() != data.bot_id) {
+						alert({
+							title: 'Error',
+							type: enums.AlertType.Error,
+							id: 'confirm-fail',
+							message:
+								'Could not transfer ownership as you did not confirm you wanted to do this/inputted invalid Bot ID'
+						});
+						return;
+					}
+
+					let url = `${nextUrl}/users/${$session.session.user.id}/bots/${data.bot_id}/main-owner`;
+					let headers = {
+						'Content-Type': 'application/json',
+						Authorization: $session.session.token
+					};
+					let res = await fetch(url, {
+						method: 'PATCH',
+						headers: headers,
+						body: JSON.stringify({
+							user: {
+								id: newOwner,
+								username: '',
+								disc: '',
+								avatar: '',
+								status: 'Unknown',
+								bot: false
+							},
+							main: true
+						})
+					});
+
+					if (res.ok) {
+						alert({
+							title: 'Success',
+							id: 'success',
+							type: enums.AlertType.Success,
+							message: 'Successfully transferred ownership!',
+							close: () => {
+								window.location.reload();
+							}
+						});
+					} else {
+						let json = await res.json();
+						alert({
+							title: 'Error',
+							id: 'error',
+							type: enums.AlertType.Error,
+							message: genError(json)
+						});
+					}
+				}
+			}
 		});
-		if (res.ok) {
-			alert('Successfully transferred ownership!', 'Success!');
-			window.location.reload();
-			return;
-		} else {
-			let json = await res.json();
-			alert(genError(json));
-		}
 	}
 
 	async function deleteBot() {
-		let confirm = prompt(
-			'This action is irreversible. Please confirm you really want to delete this bot by entering your Bots ID below'
-		);
-		if (confirm != data.bot_id) {
-			alert(
-				'Could not delete this bot as you did not confirm you wanted to do this/inputted invalid Bot ID'
-			);
-			return;
-		}
-		let url = `${nextUrl}/users/${$session.session.user.id}/bots/${data.bot_id}`;
-		let headers = {
-			Authorization: $session.session.token
-		};
-		let res = await fetch(url, {
-			method: 'DELETE',
-			headers: headers
+		alert({
+			id: 'delete-bot',
+			title: 'WARNING',
+			type: enums.AlertType.Warning,
+			message:
+				'This action is irreversible. Please confirm you really want to delete your bot by entering your Bots ID below',
+			input: {
+				label: 'BOT ID',
+				placeholder: `Enter your BOT ID here to confirm`,
+				multiline: false,
+				function: async (value) => {
+					if (value.toString() != data.bot_id) {
+						alert({
+							title: 'Error',
+							type: enums.AlertType.Error,
+							id: 'confirm-fail',
+							message:
+								'Could not delete bot as you did not confirm you wanted to do this/inputted invalid Bot ID'
+						});
+						return;
+					}
+
+					let url = `${nextUrl}/users/${$session.session.user.id}/bots/${data.bot_id}`;
+					let headers = {
+						Authorization: $session.session.token
+					};
+					let res = await fetch(url, {
+						method: 'DELETE',
+						headers: headers
+					});
+					if (res.ok) {
+						alert({
+							title: 'Success',
+							id: 'success',
+							type: enums.AlertType.Success,
+							message: 'Successfully deleted bot!',
+							close: () => {
+								window.location.reload();
+							}
+						});
+						return;
+					} else {
+						let json = await res.json();
+						alert({
+							title: 'Error',
+							id: 'error',
+							type: enums.AlertType.Error,
+							message: genError(json)
+						});
+					}
+				}
+			}
 		});
-		if (res.ok) {
-			alert('Successfully deleted this bot!', 'Success!');
-			$alertstore.close = () => {
-				window.location.href = '/';
-			};
-			return;
-		} else {
-			let json = await res.json();
-			alert(genError(json));
-		}
 	}
 
 	let previewHtml: string = '<h3>Start typing to generate a preview!</h3>';
@@ -397,14 +489,24 @@
 			body: JSON.stringify({ commands: [json] })
 		});
 		if (res.ok) {
-			alert('Successfully created command!', 'Success!');
-			$alertstore.close = () => {
-				window.location.reload();
-			};
+			alert({
+				title: 'Success',
+				id: 'success',
+				type: enums.AlertType.Success,
+				message: 'Successfully created command!',
+				close: () => {
+					window.location.reload();
+				}
+			});
 			return;
 		} else {
 			let json = await res.json();
-			alert(genError(json));
+			alert({
+				title: 'Error',
+				id: 'error',
+				type: enums.AlertType.Error,
+				message: genError(json)
+			});
 		}
 	}
 
@@ -418,10 +520,24 @@
 		});
 
 		if (res.ok) {
-			alert('Successfully deleted command!', 'Success!');
+			alert({
+				title: 'Success',
+				id: 'success',
+				type: enums.AlertType.Success,
+				message: 'Successfully deleted command!',
+				close: () => {
+					window.location.reload();
+				}
+			});
+			return;
 		} else {
 			let json = await res.json();
-			alert(genError(json));
+			alert({
+				title: 'Error',
+				id: 'error',
+				type: enums.AlertType.Error,
+				message: genError(json)
+			});
 		}
 	}
 
@@ -445,7 +561,12 @@
 		let res = await fetch(`https://discord.com/api/v9/applications/${botId}/rpc`);
 		if (!res.ok) {
 			let data = await res.json();
-			alert(JSON.stringify(data));
+			alert({
+				title: 'Error',
+				id: 'error',
+				type: enums.AlertType.Error,
+				message: genError(data)
+			});
 			return;
 		} else {
 			let data = await res.json();
@@ -480,7 +601,12 @@
 				if (fieldEl) {
 					value = fieldEl.value;
 				} else {
-					alert(`Internal error: ${field.id} does not exist!`);
+					alert({
+						title: 'Error',
+						id: 'error',
+						type: enums.AlertType.Error,
+						message: `Internal error: ${field.id} does not exist!`
+					});
 					return;
 				}
 				if (!value && field.required) {
@@ -495,7 +621,12 @@
 			if (mode == 'add') {
 				let botIdEl = document.querySelector('#bot_id');
 				if (!botIdEl) {
-					alert('Internal Error: Bot ID not found!');
+					alert({
+						title: 'Error',
+						id: 'error',
+						type: enums.AlertType.Error,
+						message: 'Internal error: Bot ID not found!'
+					});
 					return;
 				}
 				bot['bot_id'] = botIdEl.value;
@@ -557,26 +688,47 @@
 
 			let res = await fetch(`https://discord.com/api/v9/applications/${botId}/rpc`);
 			if (res.status != 200) {
-				alert("This bot doesn't exist on discord or you need to provide a client id");
+				alert({
+					title: 'Error',
+					id: 'error',
+					type: enums.AlertType.Error,
+					message: "This bot doesn't exist on discord or you need to provide a client id"
+				});
+
 				saveTxt = mode;
 				return;
 			}
 
 			let jsonP = await res.json();
 			if (!jsonP.bot_public) {
-				alert('This bot is not public');
+				alert({
+					title: 'Error',
+					id: 'error',
+					type: enums.AlertType.Error,
+					message: 'This bot is not public'
+				});
 				saveTxt = mode;
 				return;
 			}
 
 			if (errorFields.length != 0) {
-				alert(`You must fill out the following required fields: ${errorFields.join(', ')}`);
+				alert({
+					title: 'Error',
+					id: 'error',
+					type: enums.AlertType.Error,
+					message: `The following fields are required: ${errorFields.join(', ')}`
+				});
 				return;
 			}
 
 			// Tags+Features
 			if (tags.length == 0) {
-				alert('You need to specify tags for your bot');
+				alert({
+					title: 'Error',
+					id: 'error',
+					type: enums.AlertType.Error,
+					message: 'You need to add at least one tag!'
+				});
 				return;
 			} else {
 				bot['tags'] = tags.map((el) => {
@@ -641,15 +793,22 @@
 				body: JSON.stringify(bot)
 			});
 			if (updateRes.ok) {
-				alert(
-					`This bot has been ${mod}. Changes may take up to one minute to propogate!`,
-					'Success!'
-				);
+				alert({
+					title: 'Success',
+					id: 'success',
+					type: enums.AlertType.Success,
+					message: `This bot has been ${mod}. Changes may take up to one minute to propogate!`
+				});
 				return;
 			} else {
 				let json = await updateRes.json();
 				if (updateRes.status == 400) {
-					alert(genError(json));
+					alert({
+						title: 'Error',
+						id: 'error',
+						type: enums.AlertType.Error,
+						message: genError(json)
+					});
 				}
 				return;
 			}
@@ -675,18 +834,30 @@
 	}
 
 	function addLink() {
-		let link = prompt('Name of link to add?');
-		if (link) {
-			if (!link.startsWith('_')) {
-				link = title(link);
+		alert({
+			title: 'Add Link',
+			id: 'addLink',
+			type: enums.AlertType.Prompt,
+			message: 'Add a link to your bot',
+			input: {
+				label: 'link',
+				placeholder: `https://example.com/`,
+				multiline: false,
+				function: (value) => {
+					if (!value.toString().startsWith('_')) {
+						link = title(value.toString());
+					}
+					extLinks.push({
+						id: link,
+						value: ''
+					});
+
+					// Update the links
+					extLinks = extLinks; // Rerender
+					logger.info('Settings', 'New extLinks is', extLinks);
+				}
 			}
-			extLinks.push({
-				id: link,
-				value: ''
-			});
-		}
-		extLinks = extLinks; // Rerender
-		logger.info('Settings', 'New extLinks is', extLinks);
+		});
 	}
 
 	function removeLink(id: string) {
@@ -701,35 +872,70 @@
 	function renameLink(id: string) {
 		let index = extLinks.findIndex((el) => el.id == id);
 		if (index != -1) {
-			let newName = prompt('New name?');
-			if (newName) {
-				extLinks[index].id = newName;
-			}
+			alert({
+				title: 'Rename Link',
+				id: 'renameLink',
+				type: enums.AlertType.Prompt,
+				message: 'Rename this link',
+				input: {
+					label: 'link',
+					placeholder: `https://example.com/`,
+					multiline: false,
+					function: (value) => {
+						extLinks[index].id = newName;
+					}
+				}
+			});
 		}
 		extLinks = extLinks; // Rerender
 		logger.info('Settings', 'New extLinks is', extLinks);
 	}
 
 	async function addOwner() {
-		let userId = prompt('Enter User ID');
-		if (userId) {
-			let userReq = await fetch(`${nextUrl}/blazefire/${userId}`);
-			if (!userReq.ok) {
-				alert("Hmmm... we couldn't find this user <em>anywhere</em>");
-				return;
+		alert({
+			title: 'Add Owner',
+			id: 'addOwner',
+			type: enums.AlertType.Prompt,
+			message: 'Add an owner to your bot',
+			input: {
+				label: 'owner',
+				placeholder: `Enter User ID`,
+				multiline: false,
+				function: async (value) => {
+					let userReq = await fetch(`${nextUrl}/blazefire/${value.toString()}`);
+					if (!userReq.ok) {
+						alert({
+							title: 'Error',
+							id: 'error',
+							type: enums.AlertType.Error,
+							message: "Hmmm... we couldn't find this user <em>anywhere</em>"
+						});
+						return;
+					}
+					let user = await userReq.json();
+					if (!user.id) {
+						alert({
+							title: 'Error',
+							id: 'error',
+							type: enums.AlertType.Error,
+							message: "Hmmm... we couldn't find this user <em>anywhere</em>"
+						});
+						return;
+					}
+					if (user.bot) {
+						alert({
+							title: 'Error',
+							id: 'error',
+							type: enums.AlertType.Error,
+							message: 'This user is a <em>bot</em>'
+						});
+						return;
+					}
+					extraOwners.push({ user: user, main: false });
+					extraOwners = extraOwners; // Rerender
+				}
 			}
-			let user = await userReq.json();
-			if (!user.id) {
-				alert("Hmmm... we couldn't find this user <em>anywhere</em>");
-				return;
-			}
-			if (user.bot) {
-				alert('This user is a <em>bot</em>');
-				return;
-			}
-			extraOwners.push({ user: user, main: false });
-			extraOwners = extraOwners; // Rerender
-		}
+		});
 	}
 
 	function deleteOwner(id: string) {

@@ -25,7 +25,7 @@
 		constructor(editor: object) {
 			this.editor = editor;
 			this.multiline = input.multiline;
-			logger.info(this.editor.getJSON());
+			logger.info('AlertBox', JSON.stringify(editor.getJSON()));
 		}
 
 		toSingleLine() {
@@ -35,7 +35,7 @@
 
 		toRaw() {
 			// This returns the raw output with \n's
-			let parsed = '';
+			let parsed = [];
 
 			let content: any[] = this.editor.getJSON().content;
 
@@ -48,23 +48,25 @@
 				let data = content[i];
 
 				if (!data.content) {
-					continue;
+					data.content = [{ type: 'hardBreak' }];
 				}
 
 				for (let j = 0; j < data.content.length; j++) {
 					let v = data.content[j];
 					if (!v) {
-						return;
+						v = [{ type: 'hardBreak' }];
 					}
-					if (j === 0) {
-						parsed += v.text;
-					} else {
-						parsed += '\n' + v.text;
+
+					if (v.type == 'hardBreak') {
+						parsed.push('');
+						continue;
 					}
+
+					parsed.push(v.text);
 				}
 			}
 
-			return parsed;
+			return parsed.join('\n');
 		}
 
 		toHTML() {
@@ -234,10 +236,9 @@
 		color: black !important;
 		font-weight: bold !important;
 		border: black solid 1px !important;
-		margin-top: 3px;
 		padding: 12px;
 		border-radius: 5px;
-		margin-top: 45px;
+		margin-top: 10px;
 		cursor: pointer;
 	}
 

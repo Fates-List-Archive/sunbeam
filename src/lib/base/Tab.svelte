@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/env';
+	import * as logger from '$lib/logger';
 
 	export let tabs: any;
 	export let defaultTabButton: string;
@@ -39,7 +40,7 @@
 	}
 
 	function tabLoad() {
-		console.log('Am here', window.location.hash);
+		logger.info('Am here', window.location.hash);
 		document.querySelector(`#${defaultTabButton}`).click();
 		if (window.location.hash == '') {
 			document.querySelector(`#${defaultTabButton}`).click();
@@ -55,7 +56,7 @@
 	let flag = false;
 
 	const onload = (el) => {
-		console.log('onload called', el.id);
+		logger.info('onload called', el.id);
 		if (el.id == defaultTabButton) {
 			flag = true;
 			return;

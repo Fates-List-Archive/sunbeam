@@ -43,6 +43,12 @@
 
 	// Insert alertstore into window
 	if (browser) {
+		// Keep this
+
+		window.fLoad = () => {
+			$navigationState = 'loaded';
+		};
+
 		window.alert = (opt) => {
 			if (!opt) {
 				opt = '';
@@ -73,12 +79,10 @@
 				return;
 			}
 			$alertstore = opt;
+			$navigationState = 'loaded'; // An alert = page loaded
 		};
 
-		if (
-			window.location.origin ===
-			'https://selectthegang-fates-list-sunbeam-x5w7vwgvvh96j5-5000.githubpreview.dev'
-		) {
+		if (window.location.pathname === "/alert/test") {
 			alert({
 				title: 'nightmare',
 				message: 'big brain damage moment lmao',
@@ -128,6 +132,11 @@
 </main>
 
 {#if $alertStore}
+	<script>
+		if (browser) {
+			window.fLoad();
+		}
+	</script>
 	<Alert
 		close={$alertStore.close}
 		input={$alertStore.input}

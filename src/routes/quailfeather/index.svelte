@@ -123,105 +123,105 @@
 	};
 
 	const unclaimBot = async (id: string) => {
-		$alertstore = {
+		alert({
 			title: 'Reason',
 			id: 'feedback-msg',
 			message: "Please always unclaim when you can't review them",
-			show: true,
+			type: enums.AlertType.Prompt,
 			input: {
 				label: 'Reason',
 				placeholder: 'Reason for unclaim',
 				multiline: false,
 				function: (value) => {
-					handler(id, value, 'unclaim');
+					handler(id, value.toString(), 'unclaim');
 				}
 			}
-		};
+		});
 	};
 
 	const approveBot = async (id: string) => {
-		$alertstore = {
+		alert({
 			title: 'Feedback',
 			id: 'feedback-msg',
 			message: 'Please carefully review bots before approving them',
-			show: true,
+			type: enums.AlertType.Prompt,
 			input: {
 				label: 'Feedback',
 				placeholder: 'Why is this bot being approved',
 				multiline: false,
 				function: (value) => {
-					handler(id, value, 'approve');
+					handler(id, value.toString(), 'approve');
 				}
 			}
-		};
+		});
 	};
 
 	const denyBot = async (id: string) => {
-		$alertstore = {
+		alert({
 			title: 'Reason',
 			id: 'reason-msg',
 			message: 'Please do not deny for spurious reasons',
-			show: true,
+			type: enums.AlertType.Prompt,
 			input: {
 				label: 'Reason',
 				placeholder: 'Why is this bot being denied',
 				multiline: false,
 				function: (value) => {
-					handler(id, value, 'deny');
+					handler(id, value.toString(), 'deny');
 				}
 			}
-		};
+		});
 	};
 
 	const unbanBot = async (id: string) => {
-		$alertstore = {
+		alert({
 			title: 'Reason',
 			id: 'reason-msg',
 			message: 'Please do not unban for spurious reasons',
-			show: true,
+			type: enums.AlertType.Prompt,
 			input: {
 				label: 'Reason',
 				placeholder: 'Why is this bot being unbanned?',
 				multiline: false,
 				function: (value) => {
-					handler(id, value, 'unban');
+					handler(id, value.toString(), 'unban');
 				}
 			}
-		};
+		});
 	};
 
 	const requeueBot = async (id: string) => {
-		$alertstore = {
+		alert({
 			title: 'Reason',
 			id: 'reason-msg',
 			message: 'Please do not requeue for spurious reasons',
-			show: true,
+			type: enums.AlertType.Prompt,
 			input: {
 				label: 'Reason',
 				placeholder: 'Why is this bot being requeued?',
 				multiline: false,
 				function: (value) => {
-					handler(id, value, 'requeue');
+					handler(id, value.toString(), 'requeue');
 				}
 			}
-		};
+		});
 	};
 
 	const uncertifyBot = async (id: string) => {
-		$alertstore = {
+		alert({
 			title: 'Reason',
 			id: 'reason-msg',
 			message: 'Please do not uncertify for spurious reasons',
-			show: true,
+			type: enums.AlertType.Prompt,
 			input: {
 				label: 'Reason',
 				placeholder: 'Why is this bot being uncertified?',
 				multiline: false,
 				function: (value) => {
-					handler(id, value, 'uncertify');
+					handler(id, value.toString(), 'uncertify');
 				}
 			}
-		};
+		});
 	};
 
 	const handler = async (id: string, reason: string, action: string) => {
@@ -244,19 +244,19 @@
 		});
 
 		if (res.ok) {
-			$alertstore = {
+			alert({
 				title: 'Success',
 				id: 'success-msg',
 				message: genError(await res.json()),
-				show: true
-			};
+				type: enums.AlertType.Success
+			});
 		} else {
-			$alertstore = {
+			alert({
 				title: 'Error',
 				id: 'error-msg',
 				message: genError(await res.json()),
-				show: true
-			};
+				type: enums.AlertType.Error
+			});
 		}
 	};
 

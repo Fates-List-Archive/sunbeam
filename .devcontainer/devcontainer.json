@@ -10,12 +10,19 @@
 		}
 	},
 	"settings": {},
-	"extensions": ["dbaeumer.vscode-eslint", "svelte.svelte-vscode", "ms-vsliveshare.vsliveshare"],
+	"extensions": [
+		"dbaeumer.vscode-eslint",
+		"svelte.svelte-vscode",
+		"ms-vsliveshare.vsliveshare",
+		"github.copilot"
+	],
 	"postCreateCommand": "npm install",
 	"remoteUser": "node",
 	"portsAttributes": {
 		"5000": {
-			"label": "HTTP"
+			"label": "HTTP",
+			"protocol": "http",
+			"visibility": "public"
 		}
 	}
 }

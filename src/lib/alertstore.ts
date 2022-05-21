@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import type { enums } from './enums/enums';
+import type { AlertType } from './enums/enums';
 
 interface AlertInputInterface {
 	label: string;
@@ -10,7 +10,7 @@ interface AlertInputInterface {
 
 interface Alert {
 	title: string;
-	type?: typeof enums.AlertType;
+	type?: AlertType;
 	message: string;
 	id: string;
 	show: boolean;

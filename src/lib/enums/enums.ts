@@ -82,7 +82,7 @@ enum PageStyle {
 }
 
 // Alert Types
-enum AlertType {
+export enum AlertType {
 	Error = 1,
 	Warning = 2,
 	Info = 3,
@@ -92,7 +92,7 @@ enum AlertType {
 	Prompt = 7
 }
 
-export let enums = {
+export const enums = {
 	BotState: BotState,
 	UserState: UserState,
 	UserBotAction: UserBotAction,
