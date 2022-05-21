@@ -375,19 +375,19 @@ export let translations: TranslationData = {
 	}
 };
 
-export function getString(key: string, lang: string = 'en'): string {
+export function getIntlString(key: string, lang: string = 'en'): string {
 	if (translations[key] && translations[key][lang]) {
 		return translations[key][lang];
 	} else if (translations[key] && translations[key]['en']) {
 		return translations[key]['en'];
 	} else {
 		if(key.startsWith("Json ")) {
-			key += "<br/><br/>" + getString("JsonContext", lang)
+			key += "<br/><br/>" + getIntlString("JsonContext", lang)
 		}
 		return key;
 	}
 }
 
 export function genError(json): string {
-	return getString(json.reason) + '<br/><br/>' + (json.context || '');
+	return getIntlString(json.reason) + '<br/><br/>' + (json.context || '');
 }

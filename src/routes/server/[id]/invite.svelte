@@ -1,7 +1,7 @@
 <script context="module">
 	import { nextUrl } from '$lib/config';
 
-	import { getString, genError } from '$lib/strings';
+	import { genError } from '$lib/strings';
 
 	export const prerender = false;
 	export async function load({ params, fetch, session, stuff }) {

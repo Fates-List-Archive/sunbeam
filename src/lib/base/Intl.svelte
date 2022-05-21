@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { session } from '$app/stores';
-	import { translations, getString } from '$lib/strings';
+	import { getIntlString } from '$lib/strings';
 
 	export let key: string;
 
@@ -15,4 +15,4 @@
 	}
 </script>
 
-{getString(key, lang)}
+{getIntlString(key, lang)}

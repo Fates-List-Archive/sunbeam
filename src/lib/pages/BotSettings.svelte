@@ -844,8 +844,9 @@
 				placeholder: `https://example.com/`,
 				multiline: false,
 				function: (value) => {
+					let link = value.toString()
 					if (!value.toString().startsWith('_')) {
-						link = title(value.toString());
+						link = title(link);
 					}
 					extLinks.push({
 						id: link,
@@ -882,7 +883,7 @@
 					placeholder: `https://example.com/`,
 					multiline: false,
 					function: (value) => {
-						extLinks[index].id = newName;
+						extLinks[index].id = value.toString();
 					}
 				}
 			});
