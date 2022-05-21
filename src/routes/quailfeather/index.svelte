@@ -32,7 +32,6 @@
 	import Button from '@smui/button';
 	import { lynxUrl, nextUrl } from '$lib/config';
 	import { session } from '$app/stores';
-	import alertstore from '$lib/alertstore';
 	import { genError } from '$lib/strings';
 	import QuailTree from './_helpers/QuailTree.svelte';
 	import Tip from '$lib/base/Tip.svelte';
@@ -173,6 +172,23 @@
 		});
 	};
 
+	const banBot = async (id: string) => {
+		alert({
+			title: 'Reason',
+			id: 'reason-msg',
+			message: 'Please do not ban for spurious reasons',
+			type: enums.AlertType.Prompt,
+			input: {
+				label: 'Reason',
+				placeholder: 'Why is this bot being banned?',
+				multiline: false,
+				function: (value) => {
+					handler(id, value.toString(), 'ban');
+				}
+			}
+		});
+	};
+
 	const unbanBot = async (id: string) => {
 		alert({
 			title: 'Reason',
@@ -185,6 +201,23 @@
 				multiline: false,
 				function: (value) => {
 					handler(id, value.toString(), 'unban');
+				}
+			}
+		});
+	};
+
+	const unverifyBot = async (id: string) => {
+		alert({
+			title: 'Reason',
+			id: 'reason-msg',
+			message: 'Please do not unverify for spurious reasons',
+			type: enums.AlertType.Prompt,
+			input: {
+				label: 'Reason',
+				placeholder: 'Why is this bot being unverify?',
+				multiline: false,
+				function: (value) => {
+					handler(id, value.toString(), 'unverify');
 				}
 			}
 		});
@@ -207,6 +240,23 @@
 		});
 	};
 
+	const certifyBot = async (id: string) => {
+		alert({
+			title: 'Feedback',
+			id: 'reason-msg',
+			message: 'Before certifing, make sure you have reviewed the bot to meet the requirements',
+			type: enums.AlertType.Prompt,
+			input: {
+				label: 'Feedback',
+				placeholder: 'Why is this bot being certified/Any feedback?',
+				multiline: false,
+				function: (value) => {
+					handler(id, value.toString(), 'certify');
+				}
+			}
+		});
+	};
+
 	const uncertifyBot = async (id: string) => {
 		alert({
 			title: 'Reason',
@@ -224,7 +274,7 @@
 		});
 	};
 
-	const handler = async (id: string, reason: string, action: string) => {
+	const handler = async (id: string, reason: string, action: string, context: string = null) => {
 		if (!reason) {
 			return;
 		}
@@ -239,7 +289,8 @@
 				id: id,
 				reason: reason,
 				action: action,
-				user_id: $session.session.user.id
+				user_id: $session.session.user.id,
+				context: context
 			})
 		});
 
@@ -451,6 +502,49 @@
 		</CardContainer>
 	</Section>
 
+	<Section icon="akar-icons:tick" title="Approved Bots" id="approved">
+		<div class="search-flex">
+			<input
+				class="search-bots"
+				placeholder="Search..."
+				on:input={(e) => {
+					approvedBots = searchSection(e, cache.approved);
+				}}
+			/>
+		</div>
+		<CardContainer>
+			{#each approvedBots as bot}
+				<BotCard data={bot} type="bot" rand={false}>
+					{#if perms.perm >= permData.ADMIN}
+						<div class="flex justify-center">
+							<Button
+								on:click={() => banBot(bot.user.id)}
+								variant="outlined"
+								class="button self-center">Ban</Button
+							>
+						</div>
+					{/if}
+
+					{#if perms.perm >= permData.MODERATOR}
+						<Button
+							on:click={() => unverifyBot(bot.user.id)}
+							variant="outlined"
+							class="button self-center">Unverify</Button
+						>
+					{/if}
+
+					{#if perms.perm >= permData.DEVELOPER}
+						<Button
+							on:click={() => certifyBot(bot.user.id)}
+							variant="outlined"
+							class="button self-center">Certify</Button
+						>
+					{/if}
+				</BotCard>
+			{/each}
+		</CardContainer>
+	</Section>	
+
 	<Section icon="fa-solid:robot" title="Definitions" id="definitions">
 		<h2>How to use</h2>
 		<ol>
@@ -493,6 +587,7 @@
 			</li>
 			<li>
 				Ban (ban): approved => banned<br />
+				<!--Impl-->
 				<ul>
 					<li>Minimum Perm: {minPerm(permData.ADMIN)}</li>
 				</ul>
@@ -506,6 +601,7 @@
 			</li>
 			<li>
 				Certify (certify): approved => certified<br />
+				<!--Impl-->
 				<ul>
 					<li>Minimum Perm: {minPerm(permData.DEVELOPER)}</li>
 				</ul>
@@ -519,6 +615,7 @@
 			</li>
 			<li>
 				Unverify (unverify): approved => under_review<br />
+				<!--Impl-->
 				<ul>
 					<li>Minimum Perm: {minPerm(permData.MODERATOR)}</li>
 				</ul>
