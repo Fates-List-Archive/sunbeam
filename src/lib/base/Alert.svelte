@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { enums } from '$lib/enums/enums';
+	import Tiptap from '$lib/base/Tiptap.svelte';
 
 	export let show: boolean;
 
 	export let close;
 	export let input;
+
+	let editor; // We bind to this
 
 	const closeAlert = () => {
 		if (close) {
@@ -13,10 +16,91 @@
 		show = false;
 	};
 
+	class SubmittedInput {
+		editor: any;
+		multiline: boolean;
+
+		constructor(editor: object) {
+			this.editor = editor;
+			this.multiline = input.multiline
+			console.log(this.editor.getJSON());
+		}
+
+		toSingleLine() {
+			// Does exactly what it says it does on the tin, returns a single no-newline line
+			return this.toRaw().replaceAll('\n', ' ').replaceAll('\r', ' ');
+		}
+
+		toRaw() {
+			// This returns the raw output with \n's
+			let parsed = '';
+
+			let content: any[] = this.editor.getJSON().content;
+
+			if (!content) {
+				return '';
+			}
+
+			// Fucked up shitty parser
+			for (let i = 0; i < content.length; i++) {
+				let data = content[i];
+
+				for (let j = 0; j < data.content.length; j++) {
+					let v = data.content[j];
+					if (!v) {
+						return;
+					}
+					if (j === 0) {
+						parsed += v.text;
+					} else {
+						parsed += '\n' + v.text;
+					}
+				}
+			}
+
+			return parsed;
+		}
+
+		toHTML() {
+			// Wrapper around this.editor
+			return this.editor.getHTML();
+		}
+
+		toJSON() {
+			// Wrapper around this.editor but with far less nightmare formatting
+			let parsed: any[] = [];
+			// lemme do this part lmao
+
+			let content: any[] = this.editor.getJSON().content;
+
+			if (!content) {
+				return '';
+			}
+
+			content.forEach((data) => {
+				data.content.forEach((d) => {
+					if (!d) {
+						return;
+					}
+
+					parsed.push(d); // Hey, its a *little* saner?
+				});
+			});
+
+			return parsed; // You have to return from nightmares, yknow?
+		}
+
+		toString() {
+			// Prototype Object.prototype.toString (i hope this works)
+			return this.toRaw();
+		}
+	}
+
 	const submitInput = () => {
 		if (input && input.function) {
-			let inputValue = document.getElementById('alert-input');
-			input.function(inputValue.value);
+			const data = new SubmittedInput(editor);
+			const brainDamage = data.toString().replaceAll('\n', ' ');
+			input.function(brainDamage);
 		}
 		closeAlert();
 	};
@@ -46,27 +130,8 @@
 
 					<label for="alert-input" class="alert-label">{input.label}</label>
 
-					<input
-						class="alert-input"
-						id="alert-input"
-						name={input.label}
-						type="text"
-						placeholder={input.placeholder}
-					/>
-
-					<script>
-						const input = document.getElementById('alert-input');
-
-						// Listen to "enter" events
-						input.addEventListener('keyup', (event) => {
-							if (event.key === 'Enter') {
-								console.log(`"ENTER" key has been entered!`);
-							}
-						});
-
-						// Extend input to cover text area
-						input.setAttribute('size', input.getAttribute('placeholder').length);
-					</script>
+					<!--This should work?-->
+					<Tiptap bind:editor placeHolderContent={input.placeholder} />
 
 					<!--
 						Example Alert
@@ -169,19 +234,6 @@
 		border-radius: 5px;
 		margin-top: 45px;
 		cursor: pointer;
-	}
-
-	.alert-input {
-		background-color: #000000;
-		border: none;
-		border-radius: 5px;
-		color: white;
-		min-width: 80%;
-	}
-
-	#alert-input::placeholder {
-		color: white;
-		font-weight: bold;
 	}
 
 	.alert-label {
