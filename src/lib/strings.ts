@@ -369,6 +369,9 @@ export let translations: TranslationData = {
 	},
 	'PackCheckError.DescriptionTooShort': {
 		en: "This pack's description is too short!"
+	},
+	'JsonContext': {
+		en: "This error is caused by a malformed JSON object. Please contact Fates List staff if you see this as this is a bug!"
 	}
 };
 
@@ -378,6 +381,9 @@ export function getString(key: string, lang: string = 'en'): string {
 	} else if (translations[key] && translations[key]['en']) {
 		return translations[key]['en'];
 	} else {
+		if(key.startsWith("Json ")) {
+			key += "<br/><br/>" + getString("JsonContext", lang)
+		}
 		return key;
 	}
 }
