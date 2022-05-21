@@ -1,5 +1,7 @@
 <script lang="ts">
 	import { enums } from '$lib/enums/enums';
+	import * as logger from '$lib/logger';
+
 	import Tiptap from '$lib/base/Tiptap.svelte';
 
 	export let show: boolean;
@@ -22,8 +24,8 @@
 
 		constructor(editor: object) {
 			this.editor = editor;
-			this.multiline = input.multiline
-			console.log(this.editor.getJSON());
+			this.multiline = input.multiline;
+			logger.info(this.editor.getJSON());
 		}
 
 		toSingleLine() {
@@ -44,6 +46,10 @@
 			// Fucked up shitty parser
 			for (let i = 0; i < content.length; i++) {
 				let data = content[i];
+
+				if (!data.content) {
+					continue;
+				}
 
 				for (let j = 0; j < data.content.length; j++) {
 					let v = data.content[j];
@@ -99,8 +105,7 @@
 	const submitInput = () => {
 		if (input && input.function) {
 			const data = new SubmittedInput(editor);
-			const brainDamage = data.toString().replaceAll('\n', ' ');
-			input.function(brainDamage);
+			input.function(data); // We directly give input.function a SubmittedInput object
 		}
 		closeAlert();
 	};

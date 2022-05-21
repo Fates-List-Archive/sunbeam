@@ -74,6 +74,21 @@
 			}
 			$alertstore = opt;
 		};
+
+		alert({
+			title: 'Login',
+			message: 'Please enter your Username!',
+			id: 1030404,
+			type: 7,
+			input: {
+				label: 'Username',
+				placeholder: 'Username',
+				multiline: false, // Set to "true", for Multi-line input
+				function: (value) => {
+					console.log(value.toString());
+				}
+			}
+		});
 	}
 </script>
 
