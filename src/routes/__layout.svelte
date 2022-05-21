@@ -86,7 +86,7 @@
 				type: 7,
 				input: {
 					label: 'uhhhhhhh',
-					placeholder: 'MONOX SEX\ndaddy moment lmao',
+					placeholder: `WE DON'T FUCKING TALK ABOUT BRUNO`,
 					multiline: false, // Set to "true", for Multi-line input
 					function: (value) => {
 						// Hi, select, welcome to nightmares
