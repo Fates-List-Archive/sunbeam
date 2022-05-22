@@ -77,7 +77,7 @@
 					.replaceAll('\r', '');
 
 				if (checks === '') {
-					error = 'This field is required';
+					error = 'Error: This field is required';
 					return null;
 				}
 				else {
@@ -234,8 +234,12 @@
 	}
 
 	.input-error {
-		color: red;
+		background-color: red;
+		color: white;
 		font-weight: bold;
+		padding: 10px;
+		margin-top: 10px;
+		border-radius: 7px;
 	}
 
 	#alert-close {
