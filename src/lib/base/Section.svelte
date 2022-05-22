@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+	import * as logger from '$lib/logger';
 	export let icon: string;
 	export let title: string;
 	export let id: string;
@@ -31,7 +32,7 @@
 	}
 
 	function showHideSection() {
-		console.log('Changing section state');
+		logger.info('Section', 'Changing section state');
 		let sid = `#section-${id}`;
 		let group = document.querySelector(sid);
 		if (group.style.display != 'none') {
