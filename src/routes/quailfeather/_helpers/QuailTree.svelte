@@ -184,7 +184,7 @@
 					</a>
 				</li>
 				<li class="td-1">
-					<a class="tree-link" id="admin-nav" href="/quailfeather/_admin">
+					<a class="tree-link" id="admin-nav" href="https://lynx.fateslist.xyz/_admin">
 						<span class="span">Admin Panel</span>
 					</a>
 				</li>
