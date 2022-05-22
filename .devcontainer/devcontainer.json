@@ -24,5 +24,6 @@
 			"protocol": "http",
 			"visibility": "public"
 		}
-	}
+	},
+	"forwardPorts": [5000]
 }
