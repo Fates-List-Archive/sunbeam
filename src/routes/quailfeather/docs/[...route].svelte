@@ -14,7 +14,9 @@
 		}
 		let res = await fetch(`${lynxUrl}/docs/${params.route}`);
 		if (res.ok) {
-			let data = await res.json();
+			let json = await res.json();
+			let data = json.data
+			let js = json.js;
 
 			let md = markdownit({
 				html: true,
@@ -91,6 +93,7 @@
 			return {
 				props: {
 					data: data,
+					js: js,
 					path: params.route.split('/')
 				}
 			};
@@ -106,8 +109,10 @@
 <script lang="ts">
 	import QuailTree from '../_helpers/QuailTree.svelte';
 	import alertstore from '$lib/alertstore';
+import { browser } from '$app/env';
 
 	export let data: any;
+	export let js: string;
 	export let path: string[];
 
 	function title(str) {
@@ -117,6 +122,12 @@
 			.replace(/(^|\s)\S/g, function (t) {
 				return t.toUpperCase();
 			});
+	}
+
+	if(browser) {
+		let script = document.createElement("script")
+		script.innerHTML = js
+		document.body.appendChild(script)
 	}
 </script>
 
