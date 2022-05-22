@@ -116,7 +116,7 @@
 	export let data: any;
 	export let js: string;
 	export let path: string[];
-	export let perms: number;
+	export let perms: any;
 
 	function title(str) {
 		return str
@@ -136,7 +136,7 @@
 	js = js;
 </script>
 
-<QuailTree perms={perms.perms}>
+<QuailTree perms={perms.perm}>
 	<link
 		rel="stylesheet"
 		href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/a11y-dark.min.css"

@@ -24,6 +24,7 @@
 import { lynxUrl } from '$lib/config';
 import { session } from '$app/stores';
 import QuailTree from './_helpers/QuailTree.svelte';
+import Button from '@smui/button/src/Button.svelte';
 
 export let perms;
 
@@ -31,7 +32,10 @@ export let perms;
         if(!$session.session.token) {
             alert("Not logged in...")
         }
-        let res = await fetch(`${lynxUrl}/staff-verify?user_id=${$session.session.user.id}`, {
+
+        let code = (document.querySelector('staff-verify-code') as HTMLInputElement).value;
+
+        let res = await fetch(`${lynxUrl}/staff-verify?user_id=${$session.session.user.id}?code=${code}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -59,7 +63,9 @@ export let perms;
 <textarea class="fform" id="staff-verify-code" placeholder="Enter staff verification code here"
 ></textarea>
 </div>
+<p>
 By continuing, you agree to:
+</p>
 <ol>
     <li>Abide by Discord ToS</li>
     <li>Abide by Fates List ToS</li>
@@ -76,6 +82,6 @@ already in the staff guide, you will just be told to reread the staff guide!
 </p>
 <br/>
 <div id="verify-parent">
-    <button id="verify-btn" on:click={() => verifyStaff()}>Verify</button>
+    <Button id="verify-btn" class="button" on:click={() => verifyStaff()} variant="outlined">Verify</Button>
 </div>
 </QuailTree>
