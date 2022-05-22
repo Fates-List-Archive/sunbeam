@@ -35,7 +35,7 @@ export let perms;
 
         let code = (document.querySelector('#staff-verify-code') as HTMLInputElement).value;
 
-        let res = await fetch(`${lynxUrl}/staff-verify?user_id=${$session.session.user.id}?code=${code}`, {
+        let res = await fetch(`${lynxUrl}/staff-verify?user_id=${$session.session.user.id}&code=${code}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
