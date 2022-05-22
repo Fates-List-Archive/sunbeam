@@ -698,4 +698,9 @@
 		width: 100% !important;
 		overflow-x: hidden !important;
 	}
+
+	.search-bots::placeholder {
+		color: #ffffff;
+		font-weight: bold;
+	}
 </style>
