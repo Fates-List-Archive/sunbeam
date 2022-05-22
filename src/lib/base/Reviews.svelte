@@ -4,10 +4,11 @@
 	import loadstore from '$lib/loadstore';
 	import navigationState from '$lib/navigationState';
 	import Button from '@smui/button/src/Button.svelte';
-	import { apiUrl, nextUrl } from '$lib/config';
+	import { nextUrl } from '$lib/config';
 	import alertstore from '$lib/alertstore';
 	import { genError } from '$lib/strings';
-	import * as logger from "$lib/logger";
+	import * as logger from '$lib/logger';
+	import { enums } from '$lib/enums/enums';
 
 	export let review: any;
 	export let index: number;
@@ -25,7 +26,7 @@
 	let editPaneOpen = false;
 	let replyPaneOpen = false;
 
-	logger.info("Review", review);
+	logger.info('Review', review);
 
 	if (review.user.avatar) {
 		review.user.avatar = review.user.avatar.replace('.gif', '.webp').replace('.png', '.webp');
@@ -88,20 +89,20 @@
 		$navigationState = 'loaded';
 
 		if (res.ok) {
-			$alertstore = {
+			alert({
 				id: 'review-add',
 				title: 'Review added!',
 				message: 'Your review has been added!',
-				show: true
-			};
+				type: enums.AlertType.Success
+			});
 			return;
 		} else {
-			$alertstore = {
+			alert({
 				id: 'review-add',
 				title: 'Error!',
 				message: genError(await res.json()),
-				show: true
-			};
+				type: enums.AlertType.Error
+			});
 			return;
 		}
 	}
@@ -132,20 +133,20 @@
 		$navigationState = 'loaded';
 
 		if (res.ok) {
-			$alertstore = {
+			alert({
 				id: 'review-add',
 				title: 'Review added!',
 				message: 'Your review has been added!',
-				show: true
-			};
+				type: enums.AlertType.Success
+			});
 			return;
 		} else {
-			$alertstore = {
+			alert({
 				id: 'review-add',
 				title: 'Error!',
 				message: genError(await res.json()),
-				show: true
-			};
+				type: enums.AlertType.Error
+			});
 			return;
 		}
 	}
