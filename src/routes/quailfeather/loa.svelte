@@ -61,7 +61,7 @@ import QuailTree from "./_helpers/QuailTree.svelte";
     <form class="needs-validation" novalidate>
         <div class="form-group">
             <label for="reason">Reason</label>
-            <textarea class="form-control question fform" id="reason" name="reason" placeholder="Reason for LOA" required aria-required="true"></textarea>
+            <textarea class="question fform" id="reason" name="reason" placeholder="Reason for LOA" required aria-required="true"></textarea>
             <div class="valid-feedback">
                 Looks good!
             </div>

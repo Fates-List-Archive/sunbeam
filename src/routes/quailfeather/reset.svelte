@@ -51,5 +51,5 @@ import QuailTree from "./_helpers/QuailTree.svelte";
 
 <QuailTree perms={perms.perm}>
     <h3>Are you sure?</h3>
-    <Button on:click={() => sendReset()}>Send LOA</Button>
+    <Button on:click={() => sendReset()}>Reset</Button>
 </QuailTree>
