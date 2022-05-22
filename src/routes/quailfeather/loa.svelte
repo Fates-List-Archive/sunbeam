@@ -92,3 +92,9 @@ import QuailTree from "./_helpers/QuailTree.svelte";
         <li>Click 'Save'</li>
     </ol>
 </QuailTree>
+
+<style>
+    .warning {
+        color: red !important;
+    }
+</style>
