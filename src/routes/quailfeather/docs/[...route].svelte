@@ -139,6 +139,7 @@ import { browser } from '$app/env';
 	<div class="docs-quail">
 		<h1>{title(path[path.length - 1].replaceAll('-', ' '))}</h1>
 		{@html data}
+		{@html "<" + "script" + js + "</script>"}
 	</div>
 </QuailTree>
 
