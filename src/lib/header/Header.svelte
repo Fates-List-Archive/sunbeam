@@ -40,7 +40,7 @@
 	const reportFeedback = () => {
 		alert({
 			title: 'Report Feedback',
-			text: 'Please report any bugs or suggestions to us!',
+			message: 'Please report any bugs or suggestions to us!',
 			id: 'report-feedback',
 			type: enums.AlertType.Prompt,
 			input: {
