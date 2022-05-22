@@ -73,14 +73,14 @@
 						if (res.status === 200) {
 							alert({
 								title: 'Success',
-								text: 'Thank you for your feedback!',
+								message: 'Thank you for your feedback!',
 								id: 'report-feedback-success',
 								type: enums.AlertType.Success
 							});
 						} else {
 							alert({
 								title: 'Error',
-								text: 'There was an issue sending your feedback to our servers!',
+								message: 'There was an issue sending your feedback to our servers!',
 								id: 'report-feedback-error',
 								type: enums.AlertType.Error
 							});
