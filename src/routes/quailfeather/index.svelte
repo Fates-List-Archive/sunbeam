@@ -685,13 +685,17 @@
 		margin-left: 2px;
 	}
 	
-	ul,
-	li {
-		color: white !important;
+	.ba-defs > li{
+		margin-bottom: 5px;
 	}
 
-	.ba-defs > li {
-		margin-bottom: 10px;
+	ul {
+		list-style: none;
+	}
+
+	li {
+		color: white !important;
+		padding-bottom: 5px;
 	}
 
 	.search-flex {
