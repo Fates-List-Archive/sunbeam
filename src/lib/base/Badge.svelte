@@ -1,21 +1,8 @@
 <script lang="ts">
 	export let badge;
 
-	import alertstore from '$lib/alertstore';
-	import navigationState from '$lib/navigationState';
-
 	import { goto } from '$app/navigation';
-
-	function alert(msg: string, title = badge.name) {
-		$alertstore = {
-			title: title,
-			message: msg,
-			show: true,
-			id: 'error'
-		};
-		$navigationState = 'loaded'; // An alert = page loaded
-	}
-
+	import { enums } from '$lib/enums/enums';
 	let isHovering = false;
 </script>
 
@@ -31,9 +18,14 @@
 				goto(badge.link);
 				return;
 			}
-			alert(badge.description);
+
+			alert({
+				title: badge.name,
+				message: badge.description,
+				id: badge.id,
+				type: enums.AlertType.Info
+			});
 		}}
-		on:mouseenter={() => (isHovering = true)}
 		on:mouseleave={() => (isHovering = false)}
 	>
 		<img class="badge-img" src={badge.icon} width="50px" height="50px" alt={badge.description} />
