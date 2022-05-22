@@ -705,20 +705,28 @@ import FormInput from '$lib/base/FormInput.svelte';
 			</li>
 			<li>
 				Set/Unset Bot Flag (setflag): flag => flags.intersection(flag)<br />
+				<!---->
 				<ul>
 					<li>Minimum Perm: {minPerm(permData.MODERATOR)}</li>
 				</ul>
 			</li>
 		</ul>
 
-		<h2>Set/Unset Bot Flags</h2>
-		<FormInput id="bot-id-setflag" name="Bot ID" placeholder="Enter Bot ID here" />
-		<select id="bot-flag">
-			<option value="" disabled aria-disabled="true">Select a flag</option>
-			{#each Object.keys(enums.Flags).filter(k => (!Number.isInteger(k))) as flag, i}
-				<option value={Object.values(enums.Flags)[i]}>{flag}</option>
-			{/each}
-		</select>
+		{#if perms.perm >= permData.MODERATOR}
+			<h2>Set/Unset Bot Flags</h2>
+			<FormInput id="bot-id-setflag" name="Bot ID" placeholder="Enter Bot ID here" />
+			<select id="bot-flag">
+				<option value="" disabled aria-disabled="true">Select a flag</option>
+				{#each Object.keys(enums.Flags).filter(k => (!Number.isInteger(k))) as flag, i}
+					<option value={Object.values(enums.Flags)[i]}>{flag}</option>
+				{/each}
+			</select>
+			<Button class="button" variant="outlined" on:click={() => {
+				let flag = Number.parseInt(document.getElementById('bot-flag').value);
+				let id = document.getElementById('bot-id-setflag').value;
+				setBotFlag(id, flag)
+			}}>Set Flag</Button>
+		{/if}
 
 	</Section>
 </QuailTree>
