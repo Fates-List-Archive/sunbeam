@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { browser } from '$app/env';
 	import { loginUser, addReviewHandler } from '$lib/request';
 	import { session } from '$app/stores';
 	import loadstore from '$lib/loadstore';
@@ -8,6 +7,7 @@
 	import { apiUrl, nextUrl } from '$lib/config';
 	import alertstore from '$lib/alertstore';
 	import { genError } from '$lib/strings';
+	import * as logger from "$lib/logger";
 
 	export let review: any;
 	export let index: number;
@@ -25,7 +25,7 @@
 	let editPaneOpen = false;
 	let replyPaneOpen = false;
 
-	console.log(review);
+	logger.info("Review", review);
 
 	if (review.user.avatar) {
 		review.user.avatar = review.user.avatar.replace('.gif', '.webp').replace('.png', '.webp');

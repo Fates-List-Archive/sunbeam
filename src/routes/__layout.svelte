@@ -45,11 +45,6 @@
 	// Insert alertstore into window
 	if (browser) {
 		// Keep this
-
-		window.fLoad = () => {
-			$navigationState = 'loaded';
-		};
-
 		window.alert = (opt) => {
 			if (!opt) {
 				opt = '';
@@ -78,6 +73,9 @@
 			if (!opt.id) {
 				logger.error('No id in alertstore');
 				return;
+			}
+			if (!opt.type) {
+				logger.error("No type in alertstore");
 			}
 			$alertstore = opt;
 			$navigationState = 'loaded'; // An alert = page loaded
@@ -112,8 +110,6 @@
 				}
 			});
 		}
-
-		logger.info('Device Screen Size', `${window.screen.height}px x ${window.screen.width}px`);
 	}
 </script>
 
@@ -146,11 +142,6 @@
 </main>
 
 {#if $alertStore}
-	<script>
-		if (browser) {
-			window.fLoad();
-		}
-	</script>
 	<Alert
 		close={$alertStore.close}
 		input={$alertStore.input}

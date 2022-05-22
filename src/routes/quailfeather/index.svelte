@@ -529,7 +529,7 @@
 
 	<div class="seperate" />
 
-	<Section icon="akar-icons:tick" title="Approved Bots" id="approved">
+	<Section icon="fa-check" title="Approved Bots" id="approved">
 		<div class="mx-2">
 			<div class="search-flex">
 				<input
