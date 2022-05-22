@@ -188,6 +188,11 @@
 						<span class="span">Admin Panel</span>
 					</a>
 				</li>
+				<li class="td-1">
+					<a class="tree-link" id="reset-nav" href="/quailfeather/reset">
+						<span class="span">Reset Credentials</span>
+					</a>
+				</li>
 			{/if}
 
 			{#each treeDepthOne as el}
