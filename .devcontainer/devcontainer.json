@@ -25,9 +25,6 @@
 			"visibility": "public"
 		}
 	},
-	"forwardPorts": [
-		5000
-	],
-	"features": {
-	}
+	"forwardPorts": [5000],
+	"features": {}
 }

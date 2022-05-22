@@ -1,7 +1,9 @@
+import * as logger from '$lib/logger';
+
 let CACHE_NAME = 'cache-' + Date.now();
 
 self.addEventListener('install', (event) => {
-	console.log('Installed SW');
+	logger.info('Service Worker', 'Installed');
 	event.waitUntil(
 		caches.open(CACHE_NAME).then((cache) => {
 			return cache.add('https://api.fateslist.xyz/static/offline.html');
@@ -11,7 +13,7 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-	console.log('Activated SW');
+	logger.info('Service Worker', 'Activated');
 	event.waitUntil(
 		// Loop through the cache
 		caches.keys().then((keys) => {
@@ -39,6 +41,8 @@ self.addEventListener('fetch', (event) => {
 		})
 	);
 });
+
 self.addEventListener('push', (event) => {
+	logger.info('Service Worker', `Push Recieved ${event.data.json()}`);
 	console.log('Push received of', event.data.json());
 });
