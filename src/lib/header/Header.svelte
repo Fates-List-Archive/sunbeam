@@ -8,6 +8,7 @@
 	import { goto } from '$app/navigation';
 	import { apiUrl, nextUrl } from '$lib/config';
 	import { browser } from '$app/env';
+	import { enums } from '$lib/enums/enums';
 
 	let username = null;
 	let userID = null;
@@ -25,7 +26,7 @@
 		logger.info('Header', 'Got avatar', avatar);
 	}
 
-	function docReady(fn) {
+	const docReady = (fn) => {
 		// see if DOM is already available
 		if (document.readyState === 'complete' || document.readyState === 'interactive') {
 			// call on next available tick
@@ -33,7 +34,63 @@
 		} else {
 			document.addEventListener('DOMContentLoaded', fn);
 		}
-	}
+	};
+
+	// Report Feedback
+	const reportFeedback = () => {
+		alert({
+			title: 'Report Feedback',
+			text: 'Please report any bugs or suggestions to us!',
+			id: 'report-feedback',
+			type: enums.AlertType.Prompt,
+			input: {
+				label: 'Report any bugs/suggestions here',
+				placeholder: `Report any bugs/suggestions here`,
+				multiline: true,
+				function: (value) => {
+					value = value.toString();
+					if (value) {
+						let token = '';
+						let userId = '';
+
+						if ($session.session.token) {
+							userId = $session.session.user.id;
+							token = $session.session.token;
+						}
+
+						fetch('https://lynx.fateslist.xyz/_quailfeather/eternatus', {
+							method: 'POST',
+							headers: {
+								Authorization: token,
+								'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({
+								user_id: userId,
+								feedback: value,
+								page: window.location.pathname
+							})
+						}).then((res) => {
+							if (res.status === 200) {
+								alert({
+									title: 'Success',
+									text: 'Thank you for your feedback!',
+									id: 'report-feedback-success',
+									type: enums.AlertType.Success
+								});
+							} else {
+								alert({
+									title: 'Error',
+									text: 'There was an issue sending your feedback to our servers!',
+									id: 'report-feedback-error',
+									type: enums.AlertType.Error
+								});
+							}
+						});
+					}
+				}
+			}
+		});
+	};
 
 	let scrolled = false;
 
@@ -187,7 +244,13 @@
 				>
 					<Text>
 						Quailfeather
-						<span class="beta_badge">BETA</span>
+						<span class="item_badge" type="beta">BETA</span>
+					</Text>
+				</Item>
+				<Item on:SMUI:action={reportFeedback}>
+					<Text>
+						Report Feedback
+						<span class="item_badge" type="new">NEW</span>
 					</Text>
 				</Item>
 				<Item
@@ -224,8 +287,16 @@
 		z-index: 3;
 	}
 
-	:global(.beta_badge) {
-		background-color: blue; 
+	:global(.item_badge[type='beta']) {
+		background-color: blue;
+		color: white;
+		font-weight: bold;
+		border-radius: 10px;
+		padding: 5px;
+	}
+
+	:global(.item_badge[type='new']) {
+		background-color: red;
 		color: white;
 		font-weight: bold;
 		border-radius: 10px;

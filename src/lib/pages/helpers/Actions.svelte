@@ -3,6 +3,8 @@
 	import alertstore from '$lib/alertstore';
 	import Tag from '$lib/base/Tag.svelte';
 
+	import { nextUrl } from '$lib/config';
+
 	import { enums } from '$lib/enums/enums';
 	import loadstore from '$lib/loadstore';
 	import navigationState from '$lib/navigationState';

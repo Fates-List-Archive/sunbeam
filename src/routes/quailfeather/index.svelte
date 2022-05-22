@@ -35,6 +35,7 @@
 	import { genError } from '$lib/strings';
 	import QuailTree from './_helpers/QuailTree.svelte';
 	import Tip from '$lib/base/Tip.svelte';
+import { disableScrollHandling } from '$app/navigation';
 	export let data: any;
 	export let perms: any;
 
@@ -153,7 +154,10 @@
 				placeholder: 'Why is this bot being approved',
 				multiline: false,
 				function: (value) => {
-					handler(id, value.toString(), 'approve');
+					handler(id, value.toString(), 'approve', null, (res) => {
+						const url = `https://discord.com/api/oauth2/authorize?client_id=${id}&scope=bot%20applications.commands&guild_id=${res.guild_id}`;
+                		window.open(url, "_blank");
+					});
 				}
 			}
 		});
@@ -278,7 +282,13 @@
 		});
 	};
 
-	const handler = async (id: string, reason: string, action: string, context: string = null) => {
+	const handler = async (
+		id: string,
+		reason: string,
+		action: string,
+		context: string = null,
+		followup: (res) => void = null
+	) => {
 		if (!reason) {
 			return;
 		}
@@ -305,6 +315,9 @@
 				message: genError(await res.json()),
 				type: enums.AlertType.Success
 			});
+			if (followup) {
+				followup(await res.json());
+			}
 		} else {
 			alert({
 				title: 'Error',
