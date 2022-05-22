@@ -178,6 +178,11 @@
 						<span class="span">Staff Verify</span>
 					</a>
 				</li>
+				<li class="td-1">
+					<a class="tree-link" id="loa-nav" href="/quailfeather/loa">
+						<span class="span">Leave Of Absence</span>
+					</a>
+				</li>
 			{/if}
 
 			{#each treeDepthOne as el}

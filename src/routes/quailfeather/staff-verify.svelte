@@ -33,7 +33,7 @@ export let perms;
             alert("Not logged in...")
         }
 
-        let code = (document.querySelector('staff-verify-code') as HTMLInputElement).value;
+        let code = (document.querySelector('#staff-verify-code') as HTMLInputElement).value;
 
         let res = await fetch(`${lynxUrl}/staff-verify?user_id=${$session.session.user.id}?code=${code}`, {
             method: "POST",
@@ -60,8 +60,7 @@ export let perms;
 </pre>
 
 <div style="margin-left: auto; margin-right: auto; text-align: center;">
-<textarea class="fform" id="staff-verify-code" placeholder="Enter staff verification code here"
-></textarea>
+<textarea class="fform" id="staff-verify-code" placeholder="Enter staff verification code here"></textarea>
 </div>
 <p>
 By continuing, you agree to:
