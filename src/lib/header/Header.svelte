@@ -182,17 +182,20 @@
 				</Item>
 				<Item
 					on:SMUI:action={() => {
+						goto('/quailfeather');
+					}}
+				>
+					<Text>
+						Quailfeather
+						<span style="color: blue; font-weight: bold;">(BETA)</span>
+					</Text>
+				</Item>
+				<Item
+					on:SMUI:action={() => {
 						goto('/frostpaw/stats');
 					}}
 				>
 					<Text>Stats</Text>
-				</Item>
-				<Item
-					on:SMUI:action={() => {
-						goto('/quailfeather');
-					}}
-				>
-					<Text>Quailfeather</Text>
 				</Item>
 				<Item
 					on:SMUI:action={() => {
