@@ -10,6 +10,7 @@
 	export let input;
 
 	let editor; // We bind to this
+	let error: string;
 
 	const closeAlert = () => {
 		if (close) {
@@ -20,11 +21,13 @@
 
 	class SubmittedInput {
 		editor: any;
+		required: boolean;
 		multiline: boolean;
 
 		constructor(editor: object) {
 			this.editor = editor;
 			this.multiline = input.multiline;
+			this.required = input.required;
 			logger.info('AlertBox', JSON.stringify(editor.getJSON()));
 		}
 
@@ -63,6 +66,18 @@
 					}
 
 					parsed.push(v.text);
+				}
+			}
+
+			if (this.required) {
+				const checks = parsed
+					.join('\n')
+					.replaceAll(' ', '')
+					.replaceAll('\n', '')
+					.replaceAll('\r', '');
+
+				if (checks === '') {
+					error = 'This field is required';
 				}
 			}
 
@@ -107,6 +122,12 @@
 	const submitInput = () => {
 		if (input && input.function) {
 			const data = new SubmittedInput(editor);
+			const result = data.toString();
+
+			if (bruh === '') {
+				error = 'This field is required';
+				return;
+			}
 			input.function(data); // We directly give input.function a SubmittedInput object
 		}
 		closeAlert();
@@ -139,6 +160,7 @@
 
 					<Tiptap bind:editor placeHolderContent={input.placeholder} />
 
+					<div class="input-error">{error}</div>
 					<button type="button" on:click={submitInput}>Submit</button>
 				{/if}
 			</div>
@@ -202,6 +224,11 @@
 	.alert-content {
 		color: black !important;
 		margin-left: 15px;
+	}
+
+	.input-alert {
+		color: red;
+		font-weight: bold;
 	}
 
 	#alert-close {
