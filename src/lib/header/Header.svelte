@@ -192,7 +192,7 @@
 						goto('/quailfeather');
 					}}
 				>
-					<Text>Quailfeather (Admin Portal)</Text>
+					<Text>Quailfeather (Admin)</Text>
 				</Item>
 				<Item
 					on:SMUI:action={() => {
