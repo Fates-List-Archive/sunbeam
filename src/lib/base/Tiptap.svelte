@@ -3,7 +3,6 @@
 	import { Editor } from '@tiptap/core';
 	import StarterKit from '@tiptap/starter-kit';
 	import Placeholder from '@tiptap/extension-placeholder';
-
 	let element;
 	export let editor;
 
@@ -33,7 +32,7 @@
 </script>
 
 {#if editor}
-	<div class="tiptap-editor">
+	<div class="components">
 		<button
 			on:click={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
 			class="component_button"
@@ -41,6 +40,7 @@
 		>
 			Heading 1
 		</button>
+
 		<button
 			on:click={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
 			class="component_button"
@@ -48,6 +48,7 @@
 		>
 			Heading 2
 		</button>
+
 		<button
 			on:click={() => editor.chain().focus().setParagraph().run()}
 			active={editor.isActive('paragraph')}
@@ -56,8 +57,16 @@
 			Paragraph
 		</button>
 
-		<div class="nightmare" />
+		<button
+			on:click={() => editor.chain().focus().setCodeBlock().run()}
+			active={editor.isActive('codeBlock')}
+			class="component_button"
+		>
+			Code Block
+		</button>
 	</div>
+
+	<div class="nightmare" />
 {/if}
 
 <div bind:this={element} />
@@ -68,13 +77,21 @@
 		border: none;
 		padding: 5px;
 		border-radius: 5px;
-		color: white;
 		min-width: 80%;
 		margin: 0px;
+		max-height: 100px !important;
+		overflow: scroll;
 	}
 
-	.tiptap-editor {
-		max-height: 100px !important;
+	:global(.ProseMirror p) {
+		font-family: 'Quicksand', sans-serif;
+		color: white;
+	}
+
+	:global(code) {
+		color: dodgerblue;
+		font-family: 'Fira Code', monospace;
+		font-weight: bold;
 	}
 
 	:global(.ProseMirror .is-empty:first-child::before) {
