@@ -2,8 +2,7 @@
 	import { browser } from '$app/env';
 
 	import { session } from '$app/stores';
-	import alertstore from '$lib/alertstore';
-
+	import { enums } from '$lib/enums/enums';
 	import loadstore from '$lib/loadstore';
 	import navigationState from '$lib/navigationState';
 	import { addReviewHandler, loginUser } from '$lib/request';
@@ -37,20 +36,20 @@
 		);
 		$navigationState = 'loaded';
 		if (res.ok) {
-			$alertstore = {
+			alert({
 				id: 'review-add',
 				title: 'Review added!',
 				message: 'Your review has been added!',
-				show: true
-			};
+				type: enums.AlertType.Success
+			});
 			return;
 		} else {
-			$alertstore = {
+			alert({
 				id: 'review-add',
 				title: 'Error!',
 				message: genError(await res.json()),
-				show: true
-			};
+				type: enums.AlertType.Error
+			});
 			return;
 		}
 	}

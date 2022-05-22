@@ -38,6 +38,7 @@
 	import alertstore from '$lib/alertstore';
 	import loadstore from '$lib/loadstore';
 	import { genError } from '$lib/strings';
+	import { enums } from '$lib/enums/enums';
 	export let sources: any;
 	if (!$session.session.token) {
 		if (browser) {
@@ -47,16 +48,15 @@
 
 	let popUpMsg = 'Errors will appear here (just in case you have popups disabled)';
 
-	function alert(msg: string, title = 'Error') {
+	function popup(msg: string, title = 'Error') {
 		popUpMsg = msg;
 		saveTxt = 'Import';
-		$alertstore = {
+		alert({
 			title: title,
 			message: msg,
-			show: true,
-			id: 'error'
-		};
-		$navigationState = 'loaded'; // An alert = page loaded
+			id: 'error',
+			type: enums.AlertType.Error
+		});
 	}
 
 	let saveTxt = 'Import';
@@ -73,7 +73,7 @@
 		let source = (document.querySelector('#source') as HTMLInputElement).value;
 
 		if (!botId) {
-			alert('Please enter a bot ID', 'Whoa there!');
+			popup('Please enter a bot ID', 'Whoa there!');
 			return;
 		}
 
@@ -83,13 +83,13 @@
 			// Custom import source
 			let importURL = (document.querySelector('#import-url') as HTMLInputElement).value;
 			if (!importURL.startsWith('https://')) {
-				alert('Custom import source must be a valid URL', 'Whoa there!');
+				popup('Custom import source must be a valid URL', 'Whoa there!');
 				return;
 			}
 
 			if (!importURL.includes('/api/') && !importWarnSent) {
 				importWarnSent = true;
-				alert(
+				popup(
 					"This does not appear to be a proper API. Click 'Import' again if you're sure this is a proper API URL",
 					'Whoa there!'
 				);
@@ -105,15 +105,15 @@
 					}
 				});
 			} catch (err) {
-				alert(`Could not connect to API: ${err}`, 'Whoa there!');
+				popup(`Could not connect to API: ${err}`, 'Whoa there!');
 				return;
 			}
 
 			if (data.status == 401) {
-				alert('Invalid API token? Import source returned 401', 'Whoa there!');
+				popup('Invalid API token? Import source returned 401', 'Whoa there!');
 				return;
 			} else if (!data.ok) {
-				alert('Invalid URL? Import source returned an error', 'Whoa there!');
+				popup('Invalid URL? Import source returned an error', 'Whoa there!');
 				return;
 			}
 
@@ -138,7 +138,7 @@
 					if (key.length > 0) {
 						extData['description'] = extData[key[0]];
 					} else {
-						alert("Seems like this source doesn't provide a proper description", 'Whoa there!');
+						popup("Seems like this source doesn't provide a proper description", 'Whoa there!');
 						return;
 					}
 				}
@@ -153,7 +153,7 @@
 					if (key.length > 0) {
 						extData['long_description'] = extData[key[0]];
 					} else {
-						alert(
+						popup(
 							"Seems like this source doesn't provide a proper long description",
 							'Whoa there!'
 						);
@@ -178,24 +178,23 @@
 		);
 
 		if (res.ok) {
-			$navigationState = 'loaded';
 			$loadstore = '';
-			$alertstore = {
+			alert({
 				title: 'Success',
 				message: 'Bot imported successfully',
-				show: true,
-				id: 'success'
-			};
+				id: 'success',
+				type: enums.AlertType.Success
+			});
 		} else {
 			let json = await res.json();
-			alert(genError(json));
+			popup(genError(json));
 		}
 	}
 
 	function topggAutofill() {
 		let botId = (document.querySelector('#bot_id') as HTMLInputElement).value;
 		document.querySelector('#import-url').value = `https://top.gg/api/bots/${botId}`;
-		alert(
+		popup(
 			"Autofill done, now specify a top.gg API token under the API token column and you'll be ready to go!",
 			'Success'
 		);

@@ -1,6 +1,7 @@
 <script context="module" lang="ts">
 	export const prerender = false;
 	import { fetchFates } from '$lib/request';
+	import * as logger from '$lib/logger';
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		if (params.vanity == 'servers') {
@@ -34,7 +35,7 @@
 			const pageRes = await fetchFates(pageUrl, auth, fetch, false, useNextApi);
 			if (pageRes.ok) {
 				let pageData = await pageRes.json();
-				console.log(pageData);
+				logger.info('Index', 'Index page data is: ', pageData);
 				return {
 					props: {
 						data: pageData,

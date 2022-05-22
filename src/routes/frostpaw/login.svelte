@@ -197,12 +197,12 @@
 				if (res.ok) {
 					window.location.href = `${cliInfo.domain}/frostpaw?data=${encode(JSON.stringify(json))}`;
 				} else {
-					$alertstore = {
+					alert({
 						title: 'Error',
 						id: 'frostpaw-cli-error',
-						show: true,
-						message: `Error: ${json.error}`
-					};
+						message: `Error: ${json.error}`,
+						type: enums.AlertType.Error
+					});
 				}
 			}}
 			style="background-color: red; color: white;">Authorize</Button

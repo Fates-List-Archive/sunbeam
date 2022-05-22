@@ -47,18 +47,19 @@
 	import alertstore from '$lib/alertstore';
 	import navigationState from '$lib/navigationState';
 	import { genError } from '$lib/strings';
+	import * as logger from '$lib/logger';
 
 	let popUpMsg = 'Errors will appear here (just in case you have popups disabled)';
 
-	function alert(msg: string, title = 'Error') {
+	function popup(msg: string, title = 'Error') {
 		popUpMsg = msg;
-		$alertstore = {
+		alert({
 			title: title,
 			message: msg,
 			show: true,
-			id: 'error'
-		};
-		$navigationState = 'loaded'; // An alert = page loaded
+			id: 'error',
+			type: enums.AlertType.Error
+		});
 	}
 
 	export let data: any;
@@ -91,7 +92,7 @@
 		let b = document.querySelector('#user-token-show-btn');
 		if (!firstTimeShowedWarning) {
 			userToken = $session.session.token;
-			alert('Warning: Do not share this with anyone', 'Important');
+			popup('Warning: Do not share this with anyone', 'Important');
 			firstTimeShowedWarning = true;
 			b.textContent = 'Hide';
 			return;
@@ -113,7 +114,7 @@
 			headers: headers
 		});
 		if (res.ok) {
-			alert('Regenerated token, you will need to login again', 'Important');
+			popup('Regenerated token, you will need to login again', 'Important');
 			fetch(`${nextUrl}/oauth2`, {
 				method: 'DELETE',
 				credentials: 'include',
@@ -127,7 +128,7 @@
 					window.location.reload(); // Only place its really needed
 				});
 		} else {
-			alert(`Error during token regeneration: ${res.status}`);
+			popup(`Error during token regeneration: ${res.status}`);
 		}
 	}
 
@@ -163,7 +164,7 @@
 			},
 			extra_links: {} // TODO: Add support for this directly to sunbeam
 		};
-		console.log(JSON.stringify(payload));
+		logger.info('ProfileSettings', 'New settings object is: ', JSON.stringify(payload));
 		let url = `${nextUrl}/profiles/${data.user.id}`;
 		let headers = { Authorization: $session.session.token, 'Content-Type': 'application/json' };
 		let res = await fetch(url, {
@@ -172,10 +173,10 @@
 			body: JSON.stringify(payload)
 		});
 		if (res.ok) {
-			alert('Updated your profile successfully', 'Success');
+			popup('Updated your profile successfully', 'Success');
 		} else {
 			let json = await res.json();
-			alert(genError(json));
+			popup(genError(json));
 		}
 	}
 
@@ -220,17 +221,17 @@
 			body: JSON.stringify(payload)
 		});
 		if (res.ok) {
-			alert('Added pack successfully', 'Success');
+			popup('Added pack successfully', 'Success');
 			return;
 		} else {
 			let json = await res.json();
-			alert(genError(json));
+			popup(genError(json));
 		}
 	}
 
 	async function delBotPack(packId: string) {
 		if (!packId) {
-			alert('No Pack ID given');
+			popup('No Pack ID given');
 			return;
 		}
 		let headers = { Authorization: $session.session.token };
@@ -239,11 +240,11 @@
 			headers: headers
 		});
 		if (res.ok) {
-			alert('Deleted pack successfully', 'Success');
+			popup('Deleted pack successfully', 'Success');
 			return;
 		} else {
 			let json = await res.json();
-			alert(genError(json));
+			popup(genError(json));
 		}
 	}
 
@@ -254,11 +255,11 @@
 			headers: headers
 		});
 		if (res.ok) {
-			alert('Revoked client successfully', 'Success');
+			popup('Revoked client successfully', 'Success');
 			return;
 		} else {
 			let json = await res.json();
-			alert(genError(json));
+			popup(genError(json));
 		}
 	}
 
@@ -292,7 +293,7 @@
 			document.querySelector('#gor-btn').remove();
 		} else {
 			let json = await res.json();
-			alert(genError(json));
+			popup(genError(json));
 		}
 	}
 
