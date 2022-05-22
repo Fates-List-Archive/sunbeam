@@ -51,11 +51,13 @@
 			}
 
 			if (typeof opt !== 'object') {
+				// In this special case, make a new object with Alert type, this is for backward compatibility with window.alert()
 				opt = {
 					title: 'Info',
 					id: 'string-alert',
 					show: true,
-					message: `${opt}` || '[empty alert]'
+					message: `${opt}` || '[empty alert]',
+					type: enums.AlertType.Alert
 				};
 			}
 
@@ -75,7 +77,7 @@
 				return;
 			}
 			if (!opt.type) {
-				logger.error("No type in alertstore");
+				logger.error('No type in alertstore');
 			}
 			$alertstore = opt;
 			$navigationState = 'loaded'; // An alert = page loaded
