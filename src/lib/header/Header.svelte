@@ -187,15 +187,8 @@
 				>
 					<Text>
 						Quailfeather
-						<span style="color: blue; font-weight: bold;">(BETA)</span>
+						<span class="beta_badge">(BETA)</span>
 					</Text>
-				</Item>
-				<Item
-					on:SMUI:action={() => {
-						goto('/frostpaw/stats');
-					}}
-				>
-					<Text>Stats</Text>
 				</Item>
 				<Item
 					on:SMUI:action={() => {
@@ -229,6 +222,14 @@
 		margin: 0px;
 		padding: 3px;
 		z-index: 3;
+	}
+
+	:global(.beta_badge) {
+		background-color: blue; 
+		color: white;
+		font-weight: bold;
+		border-radius: 10px;
+		padding: 5px;
 	}
 
 	:global(.add-nav) {
