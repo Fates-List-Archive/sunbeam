@@ -45,15 +45,15 @@
 	// Insert alertstore into window
 	if (browser) {
 		window.user = () => {
-			if($session.session.token) {
+			if ($session.session.token) {
 				return {
 					id: $session.session.user.id,
-					token: $session.session.token,
-				}
+					token: $session.session.token
+				};
 			} else {
 				return null;
 			}
-		}
+		};
 
 		// Keep this
 		window.alert = (opt) => {
@@ -89,6 +89,9 @@
 			}
 			if (!opt.type) {
 				logger.error('No type in alertstore');
+			}
+			if (opt.input && !opt.input.required) {
+				opt.input.required = false; // this should totally work.
 			}
 			$alertstore = opt;
 			$navigationState = 'loaded'; // An alert = page loaded
