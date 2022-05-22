@@ -35,6 +35,7 @@
 	import { genError } from '$lib/strings';
 	import QuailTree from './_helpers/QuailTree.svelte';
 	import Tip from '$lib/base/Tip.svelte';
+import FormInput from '$lib/base/FormInput.svelte';
 	export let data: any;
 	export let perms: any;
 
@@ -281,11 +282,28 @@
 		});
 	};
 
+	const setBotFlag = async (id: string, flag: number) => {
+		alert({
+			title: 'Reason',
+			id: 'reason-msg',
+			message: 'Please do not set bot flags for spurious reasons',
+			type: enums.AlertType.Prompt,
+			input: {
+				label: 'Reason',
+				placeholder: 'Why is this bot being uncertified?',
+				multiline: false,
+				function: (value) => {
+					handler(id, value.toString(), 'set-flag', flag);
+				}
+			}
+		});
+	};
+
 	const handler = async (
 		id: string,
 		reason: string,
 		action: string,
-		context: string = null,
+		context: any = null,
 		followup: (res) => void = null
 	) => {
 		if (!reason) {
@@ -692,6 +710,16 @@
 				</ul>
 			</li>
 		</ul>
+
+		<h2>Set/Unset Bot Flags</h2>
+		<FormInput id="bot-id-setflag" name="Bot ID" placeholder="Enter Bot ID here" />
+		<select id="bot-flag">
+			<option value="" disabled aria-disabled="true">Select a flag</option>
+			{#each Object.keys(enums.Flags).filter(k => (!Number.isInteger(k))) as flag, i}
+				<option value={Object.values(enums.Flags)[i]}>{flag}</option>
+			{/each}
+		</select>
+
 	</Section>
 </QuailTree>
 
