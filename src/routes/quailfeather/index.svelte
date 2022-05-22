@@ -346,7 +346,7 @@
 	};
 </script>
 
-<QuailTree>
+<QuailTree perms={perms.perms}>
 	<h1>Admin Statistics</h1>
 	<ul class="white" style="font-size: 24px">
 		<li>Server Uptime: {secondsToDhms(data.uptime)} ({data.uptime})</li>

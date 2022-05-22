@@ -12,6 +12,7 @@
 		if (session.session.token) {
 			id = session.session.user.id;
 		}
+		let perms = await fetch(`/baypaw/perms/${id}`);
 		let res = await fetch(`${lynxUrl}/docs/${params.route}`);
 		if (res.ok) {
 			let json = await res.json();
@@ -93,6 +94,7 @@
 			return {
 				props: {
 					data: data,
+					perms: await perms.json(),
 					js: js,
 					path: params.route.split('/')
 				}
@@ -113,6 +115,7 @@
 	export let data: any;
 	export let js: string;
 	export let path: string[];
+	export let perms: any;
 
 	function title(str) {
 		return str
@@ -132,7 +135,7 @@
 	js = js;
 </script>
 
-<QuailTree>
+<QuailTree perms={perms.perms}>
 	<link
 		rel="stylesheet"
 		href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/a11y-dark.min.css"

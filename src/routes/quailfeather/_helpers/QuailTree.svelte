@@ -6,6 +6,8 @@
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte'; // For later
 
+	export let perms: number = 0;
+
 	let ignore = ['index.md']; // Index may be counter-intuitive, but we add this later
 
 	let treeDepthOne = [];
@@ -169,6 +171,14 @@
 					<span class="span">Back to root</span>
 				</a>
 			</li>
+
+			{#if perms > 2}
+				<li class="td-1">
+					<a class="tree-link" id="staff-verify-nav" href="/quailfeather/staff-verify">
+						<span class="span">Staff Verify</span>
+					</a>
+				</li>
+			{/if}
 
 			{#each treeDepthOne as el}
 				<li class="td-1">
