@@ -121,7 +121,6 @@
 </script>
 
 <QuailTree>
-	<script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
 	<link
 		rel="stylesheet"
 		href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/a11y-dark.min.css"

@@ -175,11 +175,6 @@ export async function addReviewHandler(
 	);
 }
 
-function capitalize(a: string) {
-	return a[0].toUpperCase() + a.slice(1);
-}
-
-// Not yet fully implemented
 export async function subNotifs(user_id: string, token: string) {
 	if (!('PushManager' in window)) {
 		alert('Push notifications are not supported on your browser.');
