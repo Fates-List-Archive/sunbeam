@@ -44,12 +44,12 @@
 	let pendingBots = [];
 	let certifiedBots = [];
 	let underReviewBots = [];
-	let miscBots = []
+	let miscBots = [];
 
 	for (let i = data.bots.length; i--; i >= 0) {
 		let bot = data.bots[i];
 		switch (bot.state) {
-			case enums.BotState.denied: 
+			case enums.BotState.denied:
 				deniedBots.push(bot);
 				break;
 			case enums.BotState.banned:
@@ -345,7 +345,8 @@
 
 	<div class="mx-2">
 		<Tip>
-			The list of bots rendered is currently limited to {MAX_RENDER} (to protect your browser from crashing due to too many rendered dom nodes).<br /><br />
+			The list of bots rendered is currently limited to {MAX_RENDER} (to protect your browser from crashing
+			due to too many rendered dom nodes).<br /><br />
 
 			You can use the Search bar to look for a bot based on its ID or name. This works even if it is
 			not rendered
@@ -534,34 +535,34 @@
 			{#each approvedBots as bot}
 				<BotCard data={bot} type="bot" rand={false}>
 					<div class="flex justify-center">
-					{#if perms.perm >= permData.MODERATOR}
-						<Button
-							on:click={() => unverifyBot(bot.user.id)}
-							variant="outlined"
-							class="button self-center lb">Unverify</Button
-						>
-					{/if}
+						{#if perms.perm >= permData.MODERATOR}
+							<Button
+								on:click={() => unverifyBot(bot.user.id)}
+								variant="outlined"
+								class="button self-center lb">Unverify</Button
+							>
+						{/if}
 
-					{#if perms.perm >= permData.DEVELOPER}
-						<Button
-							on:click={() => certifyBot(bot.user.id)}
-							variant="outlined"
-							class="button self-center lb">Certify</Button
-						>
-					{/if}
+						{#if perms.perm >= permData.DEVELOPER}
+							<Button
+								on:click={() => certifyBot(bot.user.id)}
+								variant="outlined"
+								class="button self-center lb">Certify</Button
+							>
+						{/if}
 
-					{#if perms.perm >= permData.ADMIN}
-						<Button
-							on:click={() => banBot(bot.user.id)}
-							variant="outlined"
-							class="button self-center lb">Ban</Button
-						>
-					{/if}
+						{#if perms.perm >= permData.ADMIN}
+							<Button
+								on:click={() => banBot(bot.user.id)}
+								variant="outlined"
+								class="button self-center lb">Ban</Button
+							>
+						{/if}
 					</div>
 				</BotCard>
 			{/each}
 		</CardContainer>
-	</Section>	
+	</Section>
 
 	<Section icon="fa-solid:robot" title="Definitions" id="definitions">
 		<h2>How to use</h2>
