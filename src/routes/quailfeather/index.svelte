@@ -385,6 +385,8 @@
 		</CardContainer>
 	</Section>
 
+	<div class="seperate"></div>
+
 	<Section icon="fluent:thinking-24-regular" title="Under Review" id="under-review">
 		<div class="mx-2">
 			<div class="search-flex">
@@ -424,6 +426,8 @@
 		</CardContainer>
 	</Section>
 
+	<div class="seperate"></div>
+
 	<Section icon="fa-solid:certificate" title="Certified" id="certified">
 		<div class="mx-2">
 			<div class="search-flex">
@@ -452,6 +456,8 @@
 			{/each}
 		</CardContainer>
 	</Section>
+
+	<div class="seperate"></div>
 
 	<Section icon="bi:hammer" title="Banned Bots" id="banned">
 		<div class="mx-2">
@@ -490,6 +496,8 @@
 		</CardContainer>
 	</Section>
 
+	<div class="seperate"></div>
+
 	<Section icon="akar-icons:cross" title="Denied Bots" id="denied">
 		<div class="mx-2">
 			<div class="search-flex">
@@ -518,6 +526,8 @@
 			{/each}
 		</CardContainer>
 	</Section>
+
+	<div class="seperate"></div>
 
 	<Section icon="akar-icons:tick" title="Approved Bots" id="approved">
 		<div class="mx-2">
@@ -563,6 +573,8 @@
 			{/each}
 		</CardContainer>
 	</Section>
+
+	<div class="seperate"></div>
 
 	<Section icon="fa-solid:robot" title="Definitions" id="definitions">
 		<h2>How to use</h2>
@@ -672,7 +684,7 @@
 	:global(.lb) {
 		margin-left: 2px;
 	}
-
+	
 	ul,
 	li {
 		color: white !important;
@@ -685,6 +697,10 @@
 	.search-flex {
 		display: flex;
 		flex-wrap: wrap;
+	}
+
+	.seperate {
+		padding: 20px;
 	}
 
 	.search-bots {
