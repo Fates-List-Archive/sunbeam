@@ -15,7 +15,7 @@
         }
         return {
             props: {
-                data: await perms.json(),
+                perms: await perms.json(),
             }
         };
 	}
@@ -24,6 +24,8 @@
 import { lynxUrl } from '$lib/config';
 import { session } from '$app/stores';
 import QuailTree from './_helpers/QuailTree.svelte';
+
+export let perms;
 
     async function verifyStaff() {
         if(!$session.session.token) {

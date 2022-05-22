@@ -1,5 +1,6 @@
 <script lang="ts" context="module">
 	import { fetchFates } from '$lib/request';
+	import { apiUrl, lynxUrl } from '$lib/config';
 	export const prerender = false;
 	export async function load({ params, url, fetch, session, stuff }) {
 		const res = await fetchFates('/stats', '', fetch, false, true);
@@ -8,7 +9,7 @@
 			if (session.session.token) {
 				id = session.session.user.id;
 			}
-			let perms = await fetchFates(`/baypaw/perms/${id}`, '', fetch, false, true);
+			let perms = await fetch(`${apiUrl}/baypaw/perms/${id}`);
 			return {
 				props: {
 					data: await res.json(),
@@ -30,7 +31,6 @@
 	import Section from '$lib/base/Section.svelte';
 	import { enums } from '$lib/enums/enums';
 	import Button from '@smui/button';
-	import { lynxUrl, nextUrl } from '$lib/config';
 	import { session } from '$app/stores';
 	import { genError } from '$lib/strings';
 	import QuailTree from './_helpers/QuailTree.svelte';

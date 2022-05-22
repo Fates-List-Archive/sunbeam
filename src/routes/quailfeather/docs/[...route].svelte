@@ -1,5 +1,4 @@
 <script lang="ts" context="module">
-	import { lynxUrl } from '$lib/config';
 	import markdownit from 'markdown-it';
 	import markdownItAnchor from 'markdown-it-anchor';
 	import markdownitContainer from 'markdown-it-container';
@@ -12,7 +11,7 @@
 		if (session.session.token) {
 			id = session.session.user.id;
 		}
-		let perms = await fetch(`/baypaw/perms/${id}`);
+		let perms = await fetch(`${apiUrl}/baypaw/perms/${id}`);
 		let res = await fetch(`${lynxUrl}/docs/${params.route}`);
 		if (res.ok) {
 			let json = await res.json();
@@ -111,11 +110,13 @@
 <script lang="ts">
 	import QuailTree from '../_helpers/QuailTree.svelte';
 	import { browser } from '$app/env';
+	import { lynxUrl, apiUrl } from '$lib/config';
+
 
 	export let data: any;
 	export let js: string;
 	export let path: string[];
-	export let perms: any;
+	export let perms: number;
 
 	function title(str) {
 		return str
