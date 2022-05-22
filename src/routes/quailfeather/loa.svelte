@@ -80,7 +80,7 @@ import QuailTree from "./_helpers/QuailTree.svelte";
                 Duration is either missing or too long!
             </div>
         </div>
-        <Button class="button" id="loa-btn">Submit</Button>
+        <Button class="button" id="loa-btn" on:click={() => sendLoa()}>Submit</Button>
     </form>
 
     <em>Or...</em>
