@@ -187,7 +187,7 @@
 				>
 					<Text>
 						Quailfeather
-						<span class="beta_badge">(BETA)</span>
+						<span class="beta_badge">BETA</span>
 					</Text>
 				</Item>
 				<Item
