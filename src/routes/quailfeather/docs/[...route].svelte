@@ -126,8 +126,10 @@
 		rel="stylesheet"
 		href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/a11y-dark.min.css"
 	/>
-	<h1>{title(path[path.length - 1].replaceAll('-', ' '))}</h1>
-	{@html data}
+	<div class="docs-quail">
+		<h1>{title(path[path.length - 1].replaceAll('-', ' '))}</h1>
+		{@html data}
+	</div>
 </QuailTree>
 
 <style lang="scss">

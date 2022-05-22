@@ -71,10 +71,8 @@
 		color: white;
 		min-width: 80%;
 		margin: 0px;
-	}
-
-	.tiptap-editor {
-		max-height: 100px !important;
+		max-height: 300px !important;
+		overflow-y: scroll !important;
 	}
 
 	:global(.ProseMirror .is-empty:first-child::before) {
