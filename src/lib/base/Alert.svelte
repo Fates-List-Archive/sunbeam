@@ -233,7 +233,7 @@
 		margin-left: 15px;
 	}
 
-	.input-alert {
+	.input-error {
 		color: red;
 		font-weight: bold;
 	}
