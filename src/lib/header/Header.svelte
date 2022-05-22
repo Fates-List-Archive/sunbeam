@@ -69,7 +69,10 @@
 							feedback: value,
 							page: window.location.pathname
 						})
-					}).then((res) => {
+					}).then(async (res) => {
+						const json = await res.json();
+						logger.info("ReportFeedback", json);
+						
 						if (res.status === 200) {
 							alert({
 								title: 'Success',
@@ -77,10 +80,10 @@
 								id: 'report-feedback-success',
 								type: enums.AlertType.Success
 							});
-						} else {
+						} else if (res.status === 400){
 							alert({
 								title: 'Error',
-								message: 'There was an issue sending your feedback to our servers!',
+								message: json.reason,
 								id: 'report-feedback-error',
 								type: enums.AlertType.Error
 							});
@@ -148,7 +151,7 @@
 						goto(`/frostpaw/import-bot`);
 					}}
 				>
-					<Text>Import Bot (BETA)</Text>
+					<Text>Import Bot</Text>
 				</Item>
 			</List>
 		</Menu>

@@ -10,7 +10,8 @@
 	export let input;
 
 	let editor; // We bind to this
-	let error: string = "";
+	let error: string = '';
+	let showError: boolean = false;
 
 	const closeAlert = () => {
 		if (close) {
@@ -77,15 +78,15 @@
 					.replaceAll('\r', '');
 
 				if (checks === '') {
+					showError = true;
 					error = 'Error: This field is required';
 					return null;
-				}
-				else {
+				} else {
+					showError = false;
 					error = '';
 					return parsed.join('\n');
 				}
-			}
-			else {
+			} else {
 				return parsed.join('\n');
 			}
 		}
@@ -131,8 +132,7 @@
 
 			if (data.toString() === null) {
 				return;
-			}
-			else {
+			} else {
 				input.function(data);
 			}
 		}
@@ -167,7 +167,7 @@
 
 					<Tiptap bind:editor placeHolderContent={input.placeholder} />
 
-					<div class="input-error">{error}</div>
+					<div class="input-error" show={showError}>{error}</div>
 					<button type="button" on:click={submitInput}>Submit</button>
 				{/if}
 			</div>
@@ -233,7 +233,7 @@
 		margin-left: 15px;
 	}
 
-	.input-error {
+	.input-error[show=true] {
 		background-color: red;
 		color: white;
 		font-weight: bold;
