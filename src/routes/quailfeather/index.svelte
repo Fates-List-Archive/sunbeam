@@ -313,7 +313,10 @@
 				title: 'Success',
 				id: 'success-msg',
 				message: genError(await res.json()),
-				type: enums.AlertType.Success
+				type: enums.AlertType.Success,
+				close: () => {
+					window.location.reload()
+				}
 			});
 			if (followup) {
 				followup(await res.json());
