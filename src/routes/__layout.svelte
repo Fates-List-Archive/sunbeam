@@ -113,7 +113,7 @@
 			});
 		}
 
-		logger.info("Device Screen Size", `${window.screen.height}px x ${window.screen.width}px`);
+		logger.info('Device Screen Size', `${window.screen.height}px x ${window.screen.width}px`);
 	}
 </script>
 

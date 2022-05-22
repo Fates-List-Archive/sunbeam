@@ -122,7 +122,7 @@
 	<dialog open role="dialog" aria-labelledby={`${id}-title`} aria-describedby={`${id}-content`}>
 		<section>
 			<h1 id={`${id}-type`} class="alert-type">{enums.AlertType[type] || 'Unknown'}</h1>
-			
+
 			<header id={`${id}-title`}>
 				<strong>
 					<h2 class="alert-title">{title}</h2>

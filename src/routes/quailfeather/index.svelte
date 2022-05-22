@@ -385,7 +385,7 @@
 		</CardContainer>
 	</Section>
 
-	<div class="seperate"></div>
+	<div class="seperate" />
 
 	<Section icon="fluent:thinking-24-regular" title="Under Review" id="under-review">
 		<div class="mx-2">
@@ -426,7 +426,7 @@
 		</CardContainer>
 	</Section>
 
-	<div class="seperate"></div>
+	<div class="seperate" />
 
 	<Section icon="fa-solid:certificate" title="Certified" id="certified">
 		<div class="mx-2">
@@ -457,7 +457,7 @@
 		</CardContainer>
 	</Section>
 
-	<div class="seperate"></div>
+	<div class="seperate" />
 
 	<Section icon="bi:hammer" title="Banned Bots" id="banned">
 		<div class="mx-2">
@@ -496,7 +496,7 @@
 		</CardContainer>
 	</Section>
 
-	<div class="seperate"></div>
+	<div class="seperate" />
 
 	<Section icon="akar-icons:cross" title="Denied Bots" id="denied">
 		<div class="mx-2">
@@ -527,7 +527,7 @@
 		</CardContainer>
 	</Section>
 
-	<div class="seperate"></div>
+	<div class="seperate" />
 
 	<Section icon="akar-icons:tick" title="Approved Bots" id="approved">
 		<div class="mx-2">
@@ -574,7 +574,7 @@
 		</CardContainer>
 	</Section>
 
-	<div class="seperate"></div>
+	<div class="seperate" />
 
 	<Section icon="fa-solid:robot" title="Definitions" id="definitions">
 		<h2>How to use</h2>
@@ -684,8 +684,8 @@
 	:global(.lb) {
 		margin-left: 2px;
 	}
-	
-	.ba-defs > li{
+
+	.ba-defs > li {
 		margin-bottom: 5px;
 	}
 
