@@ -3,8 +3,6 @@
 	import { fetchFates } from '$lib/request';
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
-		console.log(params, 'tos redirector');
-
 		return {
 			status: 301,
 			redirect: `https://lynx.fateslist.xyz/privacy`
