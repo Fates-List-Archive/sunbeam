@@ -189,6 +189,13 @@
 				</Item>
 				<Item
 					on:SMUI:action={() => {
+						goto('/quailfeather');
+					}}
+				>
+					<Text>Quailfeather (Admin Portal)</Text>
+				</Item>
+				<Item
+					on:SMUI:action={() => {
 						goto('/server/789934742128558080/invite');
 					}}
 				>
