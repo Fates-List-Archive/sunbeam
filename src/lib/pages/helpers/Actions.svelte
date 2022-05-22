@@ -6,7 +6,7 @@
 	import { enums } from '$lib/enums/enums';
 	import loadstore from '$lib/loadstore';
 	import navigationState from '$lib/navigationState';
-	import { reportView, voteHandler } from '$lib/request';
+	import { voteHandler } from '$lib/request';
 	import { genError } from '$lib/strings';
 	import Icon from '@iconify/svelte';
 	import Button from '@smui/button';
@@ -26,8 +26,7 @@
 		let res = await voteHandler(userID, token, data.user.id, false, type);
 		let jsonDat = await res.json();
 		if (res.ok) {
-			$alertstore = {
-				show: true,
+			alert({
 				title: 'Successful Vote',
 				message: `
 Successfully voted for this ${type}!
@@ -38,15 +37,17 @@ You can invite Fates List Helper to your server by <a style="color: blue !import
 
 If you have previously invited Squirrelflight, please remove and add Fates List Helper instead.
 `,
-				id: 'alert'
-			};
+				id: 'alert',
+				type: enums.AlertType.Success
+			});
 		} else {
-			$alertstore = {
+			alert({
 				show: true,
 				title: 'Oops :(',
 				message: genError(jsonDat),
-				id: 'alert'
-			};
+				id: 'alert',
+				type: enums.AlertType.Error
+			});
 		}
 		$navigationState = 'loaded';
 	}
@@ -89,12 +90,43 @@ If you have previously invited Squirrelflight, please remove and add Fates List 
 	{#if $session.session.token && $session.session.user_experiments.includes(enums.UserExperiments.BotReport)}
 		<Button
 			on:click={() => {
-				$alertstore = reportView(
-					$session.session.user.id,
-					$session.session.token,
-					data.user.id,
-					type
-				);
+				alert({
+					title: `Report this ${type}`,
+					message: `
+Oh, we're sorry you are having an issue with this ${type}. 
+        
+Before you report, have you tried contacting the owner of this ${type} if possible?
+
+If you still wish to report, type the reason for reporting this ${type} below. Reports are <em>not</em> automated by Fates List and as such may take time to process.`,
+					input: {
+						label: 'Reason for reporting and proof',
+						placeholder: `Be sure to have proof of why you're reporting!`,
+						multiline: true,
+						function: async (value) => {
+							const res = await fetch(
+								`${nextUrl}/users/${$session.session.user.id}/${type}s/${data.user.id}/appeal`,
+								{
+									method: 'POST',
+									headers: {
+										'Content-Type': 'application/json',
+										Frostpaw: '0.1.0',
+										Authorization: $session.session.token
+									},
+									body: JSON.stringify({
+										request_type: 2, // 2 means report
+										appeal: value.toString()
+									})
+								}
+							);
+							if (res.ok) {
+								alert(`Successfully reported this ${type}`);
+							} else {
+								const err = await res.json();
+								alert(genError(err));
+							}
+						}
+					}
+				});
 			}}
 			id="buttons-report"
 			class="buttons-all"
