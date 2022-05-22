@@ -121,8 +121,8 @@
 	<!-- svelte-ignore a11y-no-redundant-roles -->
 	<dialog open role="dialog" aria-labelledby={`${id}-title`} aria-describedby={`${id}-content`}>
 		<section>
-			<h1 id={`${id}-type`} class="alert-type">{enums.AlertType[type] || 'Alert'}</h1>
-
+			<h1 id={`${id}-type`} class="alert-type">{enums.AlertType[type] || 'Unknown'}</h1>
+			
 			<header id={`${id}-title`}>
 				<strong>
 					<h2 class="alert-title">{title}</h2>
@@ -137,27 +137,7 @@
 
 					<label for="alert-input" class="alert-label">{input.label}</label>
 
-					<!--This should work?-->
 					<Tiptap bind:editor placeHolderContent={input.placeholder} />
-
-					<!--
-						Example Alert
-
-						alert({
-							title: "Login",
-							message: "Please enter your Username!",
-							id: 1030404,
-							type: 7,
-							input: {
-								"label": "Username",
-								"placeholder": "Username",
-        						"multiline": false, // Set to "true", for Multi-line input
-        						"function": (value) => {
-									console.log(value);
-								}
-							}
-						});
-					-->
 
 					<button type="button" on:click={submitInput}>Submit</button>
 				{/if}
@@ -252,5 +232,46 @@
 		clip: rect(0, 0, 0, 0);
 		white-space: nowrap;
 		border-width: 0;
+	}
+
+	@media screen and (max-width: 560px) {
+		dialog {
+			position: fixed;
+			top: 0;
+			right: 0;
+			left: 0;
+			bottom: 0;
+			z-index: 9999;
+			height: 100%;
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background: transparent;
+			color: black !important;
+		}
+
+		dialog::after {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			background: black;
+			opacity: 0.5;
+			z-index: -1;
+			pointer-events: none;
+		}
+
+		section {
+			width: 75%;
+			min-height: 200px;
+			max-height: 500px;
+			padding: 10px;
+			border-radius: 4px 4px 4px 4px;
+			background: white;
+		}
 	}
 </style>
