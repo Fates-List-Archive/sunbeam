@@ -35,7 +35,6 @@
 	import { genError } from '$lib/strings';
 	import QuailTree from './_helpers/QuailTree.svelte';
 	import Tip from '$lib/base/Tip.svelte';
-	import { disableScrollHandling } from '$app/navigation';
 	export let data: any;
 	export let perms: any;
 
