@@ -717,13 +717,13 @@ import FormInput from '$lib/base/FormInput.svelte';
 			<FormInput id="bot-id-setflag" name="Bot ID" placeholder="Enter Bot ID here" />
 			<select id="bot-flag">
 				<option value="" disabled aria-disabled="true">Select a flag</option>
-				{#each Object.keys(enums.Flags).filter(k => (!Number.isInteger(k))) as flag, i}
-					<option value={Object.values(enums.Flags)[i]}>{flag}</option>
+				{#each Object.keys(enums.Flags).filter(k => (!parseInt(k) && k != 0)) as flag, i}
+					<option value={i}>{flag} ({i}, may be inaccurate, always check this number)</option> 
 				{/each}
 			</select>
 			<Button class="button" variant="outlined" on:click={() => {
-				let flag = Number.parseInt(document.getElementById('bot-flag').value);
-				let id = document.getElementById('bot-id-setflag').value;
+				let flag = parseInt(document.querySelector('#bot-flag').value);
+				let id = document.querySelector('#bot-id-setflag').value;
 				setBotFlag(id, flag)
 			}}>Set Flag</Button>
 		{/if}
