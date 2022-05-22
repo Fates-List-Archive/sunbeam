@@ -47,46 +47,45 @@
 				label: 'Report any bugs/suggestions here',
 				placeholder: `Report any bugs/suggestions here`,
 				multiline: true,
+				required: true,
 				function: (value) => {
 					value = value.toString();
-					if (value) {
-						let token = '';
-						let userId = '';
+					let token = '';
+					let userId = '';
 
-						if ($session.session.token) {
-							userId = $session.session.user.id;
-							token = $session.session.token;
-						}
-
-						fetch(`${lynxUrl}/eternatus`, {
-							method: 'POST',
-							headers: {
-								Authorization: token,
-								'Content-Type': 'application/json'
-							},
-							body: JSON.stringify({
-								user_id: userId,
-								feedback: value,
-								page: window.location.pathname
-							})
-						}).then((res) => {
-							if (res.status === 200) {
-								alert({
-									title: 'Success',
-									text: 'Thank you for your feedback!',
-									id: 'report-feedback-success',
-									type: enums.AlertType.Success
-								});
-							} else {
-								alert({
-									title: 'Error',
-									text: 'There was an issue sending your feedback to our servers!',
-									id: 'report-feedback-error',
-									type: enums.AlertType.Error
-								});
-							}
-						});
+					if ($session.session.token) {
+						userId = $session.session.user.id;
+						token = $session.session.token;
 					}
+
+					fetch(`${lynxUrl}/eternatus`, {
+						method: 'POST',
+						headers: {
+							Authorization: token,
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify({
+							user_id: userId,
+							feedback: value,
+							page: window.location.pathname
+						})
+					}).then((res) => {
+						if (res.status === 200) {
+							alert({
+								title: 'Success',
+								text: 'Thank you for your feedback!',
+								id: 'report-feedback-success',
+								type: enums.AlertType.Success
+							});
+						} else {
+							alert({
+								title: 'Error',
+								text: 'There was an issue sending your feedback to our servers!',
+								id: 'report-feedback-error',
+								type: enums.AlertType.Error
+							});
+						}
+					});
 				}
 			}
 		});

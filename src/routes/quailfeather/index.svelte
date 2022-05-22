@@ -35,7 +35,7 @@
 	import { genError } from '$lib/strings';
 	import QuailTree from './_helpers/QuailTree.svelte';
 	import Tip from '$lib/base/Tip.svelte';
-import { disableScrollHandling } from '$app/navigation';
+	import { disableScrollHandling } from '$app/navigation';
 	export let data: any;
 	export let perms: any;
 
@@ -156,7 +156,7 @@ import { disableScrollHandling } from '$app/navigation';
 				function: (value) => {
 					handler(id, value.toString(), 'approve', null, (res) => {
 						const url = `https://discord.com/api/oauth2/authorize?client_id=${id}&scope=bot%20applications.commands&guild_id=${res.guild_id}`;
-                		window.open(url, "_blank");
+						window.open(url, '_blank');
 					});
 				}
 			}

@@ -14,7 +14,7 @@
 	import { apiUrl } from '$lib/config';
 	import * as logger from '$lib/logger';
 
-	import { navigating } from '$app/stores';
+	import { navigating, session } from '$app/stores';
 
 	if (browser) {
 		const observer = lozad(); // lazy loads elements with default selector as '.lozad'
@@ -44,6 +44,17 @@
 
 	// Insert alertstore into window
 	if (browser) {
+		window.user = () => {
+			if($session.session.token) {
+				return {
+					id: $session.session.user.id,
+					token: $session.session.token,
+				}
+			} else {
+				return null;
+			}
+		}
+
 		// Keep this
 		window.alert = (opt) => {
 			if (!opt) {
