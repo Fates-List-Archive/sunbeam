@@ -11,7 +11,7 @@
 	import { browser } from '$app/env';
 	import loadstore from '$lib/loadstore';
 	import alertstore from '$lib/alertstore';
-	import { apiUrl } from '$lib/config';
+	import { apiUrl, lynxUrl } from '$lib/config';
 	import * as logger from '$lib/logger';
 
 	import { navigating, session } from '$app/stores';
@@ -48,7 +48,9 @@
 			if ($session.session.token) {
 				return {
 					id: $session.session.user.id,
-					token: $session.session.token
+					token: $session.session.token,
+					apiUrl: apiUrl,
+					lynxUrl: lynxUrl
 				};
 			} else {
 				return null;
@@ -96,7 +98,7 @@
 			$alertstore = opt;
 			$navigationState = 'loaded'; // An alert = page loaded
 		};
-
+		
 		if (window.location.pathname === '/alert/test') {
 			alert({
 				title: 'Test Alert',

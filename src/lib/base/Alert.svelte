@@ -10,7 +10,7 @@
 	export let input;
 
 	let editor; // We bind to this
-	let error: string;
+	let error: string = "";
 
 	const closeAlert = () => {
 		if (close) {
@@ -78,10 +78,16 @@
 
 				if (checks === '') {
 					error = 'This field is required';
+					return null;
+				}
+				else {
+					error = '';
+					return parsed.join('\n');
 				}
 			}
-
-			return parsed.join('\n');
+			else {
+				return parsed.join('\n');
+			}
 		}
 
 		toHTML() {
@@ -122,14 +128,15 @@
 	const submitInput = () => {
 		if (input && input.function) {
 			const data = new SubmittedInput(editor);
-			const result = data.toString();
 
-			if (bruh === '') {
-				error = 'This field is required';
+			if (data.toString() === null) {
 				return;
 			}
-			input.function(data); // We directly give input.function a SubmittedInput object
+			else {
+				input.function(data);
+			}
 		}
+
 		closeAlert();
 	};
 
