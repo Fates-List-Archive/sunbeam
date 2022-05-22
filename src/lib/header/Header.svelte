@@ -6,7 +6,7 @@
 	import List, { Item, Text } from '@smui/list';
 	import { loginUser } from '$lib/request';
 	import { goto } from '$app/navigation';
-	import { apiUrl, nextUrl } from '$lib/config';
+	import { apiUrl, nextUrl, lynxUrl } from '$lib/config';
 	import { browser } from '$app/env';
 	import { enums } from '$lib/enums/enums';
 
@@ -58,7 +58,7 @@
 							token = $session.session.token;
 						}
 
-						fetch('https://lynx.fateslist.xyz/_quailfeather/eternatus', {
+						fetch(`${lynxUrl}/eternatus`, {
 							method: 'POST',
 							headers: {
 								Authorization: token,
