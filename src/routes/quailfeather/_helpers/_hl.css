@@ -148,3 +148,10 @@ tr:hover {
 	background: rgba(255, 255, 255, 0.1);
 	padding: 3px;
 }
+
+
+.docs-quail {
+	padding: 7px;
+	margin-left: 50px;
+	margin-right: 50px;
+}

@@ -111,6 +111,11 @@
 
 <div class="grid gap-1 grid-cols-4">
 	{#if treeShow}
+		<style>
+			.docs-quail {
+				margin-left: 0px !important;
+			}
+		</style>
 		<div class="doctree col-span-1">
 			<li class="td-1 search-flex">
 				<input

@@ -88,7 +88,7 @@
 		color: white;
 	}
 
-	:global(code) {
+	:global(.ProseMirror code) {
 		color: dodgerblue;
 		font-family: 'Fira Code', monospace;
 		font-weight: bold;

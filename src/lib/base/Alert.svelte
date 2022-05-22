@@ -182,7 +182,7 @@
 	section {
 		width: 500px;
 		min-height: 200px;
-		max-height: 500px;
+		max-height: 100%;
 		padding: 10px;
 		border-radius: 4px 4px 4px 4px;
 		background: white;
