@@ -45,7 +45,7 @@ export let perms;
 
         if(res.ok) {
             let data = await res.json();
-            alert(`Staff verified! Your lynx password is ${data.pass}`);
+	    alert(`Staff verified! Your lynx password is:<br/><br/><code>${data.pass}</code>`);
         } else {
             let data = await res.json();
             alert(data.reason);
