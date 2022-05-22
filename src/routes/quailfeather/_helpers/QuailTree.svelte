@@ -183,6 +183,11 @@
 						<span class="span">Leave Of Absence</span>
 					</a>
 				</li>
+				<li class="td-1">
+					<a class="tree-link" id="admin-nav" href="/quailfeather/_admin">
+						<span class="span">Admin Panel</span>
+					</a>
+				</li>
 			{/if}
 
 			{#each treeDepthOne as el}
