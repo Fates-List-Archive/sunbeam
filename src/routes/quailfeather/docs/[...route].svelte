@@ -108,7 +108,6 @@
 
 <script lang="ts">
 	import QuailTree from '../_helpers/QuailTree.svelte';
-	import alertstore from '$lib/alertstore';
 import { browser } from '$app/env';
 
 	export let data: any;
@@ -129,6 +128,8 @@ import { browser } from '$app/env';
 		script.innerHTML = js
 		document.body.appendChild(script)
 	}
+
+	js = js
 </script>
 
 <QuailTree>
