@@ -23,6 +23,7 @@
 	}
 
 	import './../css/tailwind.css';
+	import { enums } from '$lib/enums/enums';
 
 	$: {
 		if ($navigating) {
@@ -84,22 +85,35 @@
 
 		if (window.location.pathname === '/alert/test') {
 			alert({
-				title: 'nightmare',
-				message: 'big brain damage moment lmao',
+				title: 'Test Alert',
+				message: 'This is a Test Alert!',
 				id: 1030404,
-				type: 7,
+				type: enums.AlertType.Alert,
 				input: {
-					label: 'uhhhhhhh',
-					placeholder: `WE DON'T FUCKING TALK ABOUT BRUNO`,
+					label: 'Enter some random Text!',
+					placeholder: `Enter some random stuff here and click Submit!`,
 					multiline: false, // Set to "true", for Multi-line input
 					function: (value) => {
-						// Hi, select, welcome to nightmares
-						console.log(JSON.stringify({ abc: `${value} is the fucking value` }));
-						console.log(value.toString());
+						alert({
+							title: 'Test Alert',
+							message: `You have entered "${value.toString() || 'nothing'}"`,
+							id: 1030404,
+							type: enums.AlertType.Info,
+							close: () => {
+								alert({
+									title: 'Test Alert',
+									message: "You've closed the alert!",
+									id: 1030404,
+									type: enums.AlertType.Success
+								});
+							}
+						});
 					}
 				}
 			});
 		}
+
+		logger.info("Device Screen Size", `${window.screen.height}px x ${window.screen.width}px`);
 	}
 </script>
 
