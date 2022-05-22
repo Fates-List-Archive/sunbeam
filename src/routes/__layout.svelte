@@ -98,7 +98,7 @@
 			$alertstore = opt;
 			$navigationState = 'loaded'; // An alert = page loaded
 		};
-		
+
 		if (window.location.pathname === '/alert/test') {
 			alert({
 				title: 'Test Alert',

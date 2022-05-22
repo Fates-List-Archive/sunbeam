@@ -15,7 +15,7 @@
 		let res = await fetch(`${lynxUrl}/docs/${params.route}`);
 		if (res.ok) {
 			let json = await res.json();
-			let data = json.data
+			let data = json.data;
 			let js = json.js;
 
 			let md = markdownit({
@@ -108,7 +108,7 @@
 
 <script lang="ts">
 	import QuailTree from '../_helpers/QuailTree.svelte';
-import { browser } from '$app/env';
+	import { browser } from '$app/env';
 
 	export let data: any;
 	export let js: string;
@@ -123,13 +123,13 @@ import { browser } from '$app/env';
 			});
 	}
 
-	if(browser) {
-		let script = document.createElement("script")
-		script.innerHTML = js
-		document.body.appendChild(script)
+	if (browser) {
+		let script = document.createElement('script');
+		script.innerHTML = js;
+		document.body.appendChild(script);
 	}
 
-	js = js
+	js = js;
 </script>
 
 <QuailTree>
@@ -140,7 +140,7 @@ import { browser } from '$app/env';
 	<div class="docs-quail">
 		<h1>{title(path[path.length - 1].replaceAll('-', ' '))}</h1>
 		{@html data}
-		{@html "<" + "script" + js + "</script>"}
+		{@html '<' + 'script' + js + '</script>'}
 	</div>
 </QuailTree>
 

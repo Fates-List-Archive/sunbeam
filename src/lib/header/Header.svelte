@@ -71,8 +71,8 @@
 						})
 					}).then(async (res) => {
 						const json = await res.json();
-						logger.info("ReportFeedback", json);
-						
+						logger.info('ReportFeedback', json);
+
 						if (res.status === 200) {
 							alert({
 								title: 'Success',
@@ -80,7 +80,7 @@
 								id: 'report-feedback-success',
 								type: enums.AlertType.Success
 							});
-						} else if (res.status === 400){
+						} else if (res.status === 400) {
 							alert({
 								title: 'Error',
 								message: json.reason,

@@ -233,7 +233,7 @@
 		margin-left: 15px;
 	}
 
-	.input-error[show=true] {
+	.input-error[show='true'] {
 		background-color: red;
 		color: white;
 		font-weight: bold;
