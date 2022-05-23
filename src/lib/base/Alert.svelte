@@ -61,6 +61,7 @@
 				const checks = content
 					.replaceAll(' ', '')
 					.replaceAll('\n', '')
+					.replaceAll('\t', '')
 					.replaceAll('\r', '');
 
 				if (checks === '') {
