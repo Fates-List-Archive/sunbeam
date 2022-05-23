@@ -89,7 +89,12 @@
 
 			if (opt.input) {
 				opt.input.type = enums.AlertInputType.Text;
+				opt.submit = opt.input.function
 				opt.inputs = [opt.input];
+			} else if(opt.inputs) {
+				if(opt.inputs.length > 0 && opt.inputs[0].function) {
+					opt.submit = opt.inputs[0].function
+				}
 			}
 
 			if (!opt.id) {
@@ -194,6 +199,8 @@
 		close={$alertStore.close}
 		inputs={$alertStore.inputs || []}
 		show={$alertStore.show}
+		submit={$alertStore.submit}
+		validate={$alertStore.validate}
 		title={$alertStore.title}
 		type={$alertStore.type}
 		id={$alertStore.id}>{@html $alertStore.message.replaceAll('\n', '<br/>')}</Alert

@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 
 	export let placeHolderContent: string;
+	export let id: string;
 
 	let options = {
 		placeholder: placeHolderContent,
@@ -39,7 +40,7 @@
 	});
 </script>
 
-<div bind:this={editor} />
+<div bind:this={editor} id={id} />
 
 <style>
 	@import '../../css/texteditor.css';

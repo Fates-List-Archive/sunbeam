@@ -7,7 +7,9 @@
 	export let show: boolean;
 
 	export let close;
+	export let submit;
 	export let inputs;
+	export let validate;
 
 	let editor; // We bind to this
 	let error: string = '';
@@ -22,17 +24,10 @@
 
 	class SubmittedInput {
 		editor: any;
-		required: boolean;
-		multiline: boolean;
-		type: enums.AlertInputType;
+		inputs: any;
 
-		constructor(editor: object, input: any) {
+		constructor(editor: object, inputs: any) {
 			this.editor = editor;
-			this.multiline = input.multiline;
-			this.type = input.type;
-			this.required = input.required;
-
-			logger.info('AlertBox', JSON.stringify(editor.getJSON()));
 		}
 
 		toSingleLine() {
@@ -40,42 +35,30 @@
 			return this.toRaw().replaceAll('\n', ' ').replaceAll('\r', ' ');
 		}
 
-		toRaw() {
+		toRaw(index: number = 0) {
 			// This returns the raw output with \n's
-			let parsed = [];
-
-			let content: any[] = this.editor.getJSON().content;
+			let content: any = document.querySelector(`#inp-${index}`);
 
 			if (!content) {
 				return '';
 			}
 
-			// Fucked up shitty parser
-			for (let i = 0; i < content.length; i++) {
-				let data = content[i];
+			let obj = inputs[index];
 
-				if (!data.content) {
-					data.content = [{ type: 'hardBreak' }];
-				}
-
-				for (let j = 0; j < data.content.length; j++) {
-					let v = data.content[j];
-					if (!v) {
-						v = [{ type: 'hardBreak' }];
-					}
-
-					if (v.type == 'hardBreak') {
-						parsed.push('');
-						continue;
-					}
-
-					parsed.push(v.text);
-				}
+			if(obj.type == enums.AlertInputType.Text) {
+				content = content.getText();
+			} else {
+				content = content.value;
+				if(obj.required && !content) {
+					showError = true;
+					error = `${obj.label} is required`;
+					return null;
+				}  
+				return content
 			}
 
-			if (this.required) {
-				const checks = parsed
-					.join('\n')
+			if (obj.required) {
+				const checks = content
 					.replaceAll(' ', '')
 					.replaceAll('\n', '')
 					.replaceAll('\r', '');
@@ -87,10 +70,10 @@
 				} else {
 					showError = false;
 					error = '';
-					return parsed.join('\n');
+					return content;
 				}
 			} else {
-				return parsed.join('\n');
+				return content;
 			}
 		}
 
@@ -129,14 +112,19 @@
 		}
 	}
 
-	const submitInput = (input) => {
-		if (inputs && inputs[input].function) {
-			const data = new SubmittedInput(editor, input);
-
-			if (data.toString() === null) {
-				return;
-			} else {
-				inputs[input].function(data);
+	const submitInput = () => {
+		if (inputs && inputs.length > 0 && submit) {
+			const data = new SubmittedInput(editor, inputs);
+			if(data == null) {
+				return
+			}
+			if(validate) {
+				let check = validate(data);
+				if(!check) {
+					showError = true;
+					error = check;
+					return
+				}
 			}
 		}
 
@@ -166,7 +154,7 @@
 				{#if inputs}
 					<br />
 
-					{#each inputs as inputData}
+					{#each inputs as inputData, id}
 						{#if inputData}
 							<br />
 
@@ -176,7 +164,7 @@
 								{#if inputData.type == enums.AlertInputType.Number}
 									<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-									<input type="number" class="InputAlert" placeholder={inputData.placeholder} />
+									<input id="inp-{id}" type="number" class="InputAlert" placeholder={inputData.placeholder} />
 
 									<div class="input-error" show={showError}>{error}</div>
 								{/if}
@@ -184,7 +172,7 @@
 								{#if inputData.type == enums.AlertInputType.Boolean}
 									<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-									<input type="checkbox" class="InputAlert" placeholder={inputData.placeholder} />
+									<input id="inp-{id}" type="checkbox" class="InputAlert" placeholder={inputData.placeholder} />
 
 									<div class="input-error" show={showError}>{error}</div>
 								{/if}
@@ -192,7 +180,7 @@
 								{#if inputData.type == enums.AlertInputType.DateTime}
 									<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-									<input type="datetime" class="InputAlert" placeholder={inputData.placeholder} />
+									<input id="inp-{id}" type="datetime" class="InputAlert" placeholder={inputData.placeholder} />
 
 									<div class="input-error" show={showError}>{error}</div>
 								{/if}
@@ -202,6 +190,7 @@
 
 									<input
 										type="datetime-local"
+										id="inp-{id}"
 										class="InputAlert"
 										placeholder={inputData.placeholder}
 									/>
@@ -212,7 +201,7 @@
 								{#if inputData.type == enums.AlertInputType.Color}
 									<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-									<input type="color" class="InputAlert" placeholder={inputData.placeholder} />
+									<input id="inp-{id}" type="color" class="InputAlert" placeholder={inputData.placeholder} />
 
 									<div class="input-error" show={showError}>{error}</div>
 								{/if}
@@ -220,7 +209,7 @@
 								{#if inputData.type == enums.AlertInputType.File}
 									<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-									<input type="file" class="InputAlert" placeholder={inputData.placeholder} />
+									<input id="inp-{id}" type="file" class="InputAlert" placeholder={inputData.placeholder} />
 
 									<div class="input-error" show={showError}>{error}</div>
 								{/if}
@@ -228,7 +217,7 @@
 								{#if inputData.type == enums.AlertInputType.Text}
 									<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-									<TextEditor bind:editor placeHolderContent={inputData.placeholder} />
+									<TextEditor id="inp-{id}" bind:editor placeHolderContent={inputData.placeholder} />
 
 									<div class="input-error" show={showError}>{error}</div>
 								{/if}

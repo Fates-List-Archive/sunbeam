@@ -7,7 +7,6 @@ interface AlertInputInterface {
 	multiline: boolean;
 	required?: boolean;
 	type?: AlertInputType;
-	function: (value) => void;
 }
 
 interface Alert {
@@ -17,6 +16,8 @@ interface Alert {
 	id: string;
 	show: boolean;
 	close?: () => void;
+	submit?: (value) => void;
+	validate?: (value) => string;
 	inputs?: AlertInputInterface[];
 }
 
