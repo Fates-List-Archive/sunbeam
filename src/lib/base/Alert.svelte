@@ -14,6 +14,7 @@
 
 	let editor; // We bind to this
 	let error: string = '';
+	let errTgt: string;
 	let showError: boolean = false;
 
 	const closeAlert = () => {
@@ -57,24 +58,31 @@
 				return content
 			}
 
-			if (obj.required) {
-				const checks = content
-					.replaceAll(' ', '')
-					.replaceAll('\n', '')
-					.replaceAll('\t', '')
-					.replaceAll('\r', '');
+			$quillstore.forEach((value, key) => {
+				logger.info("AlertBox", { key, value })
+				if (obj.required) {
+					const checks = value.getText()
+						.replaceAll(' ', '')
+						.replaceAll('\n', '')
+						.replaceAll('\t', '')
+						.replaceAll('\r', '');
 
-				if (checks === '') {
-					showError = true;
-					error = 'Error: This field is required';
-					return null;
-				} else {
-					showError = false;
-					error = '';
-					return content;
+					if (checks === '') {
+						showError = true;
+						error = 'Error: This field is required';
+						errTgt = key;
+						return null;
+					} else {
+						showError = false;
+						error = '';
+					}
 				}
+			});
+
+			if(!showError) {
+				return content
 			} else {
-				return content;
+				return null
 			}
 		}
 
