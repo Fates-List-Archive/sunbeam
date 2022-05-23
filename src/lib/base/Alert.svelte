@@ -113,19 +113,24 @@
 	}
 
 	const submitInput = () => {
+		logger.info("AlertBox", "Clicked submit")
 		if (inputs && inputs.length > 0 && submit) {
-			const data = new SubmittedInput(editor, inputs);
+			logger.info("AlertBox", "Found input")
+			const inp = new SubmittedInput(editor, inputs);
+			const data = inp.toRaw();
 			if(data == null) {
 				return
 			}
 			if(validate) {
-				let check = validate(data);
+				let check = validate(inp);
 				if(!check) {
 					showError = true;
 					error = check;
 					return
 				}
 			}
+
+			submit(inp);
 		}
 
 		closeAlert();
