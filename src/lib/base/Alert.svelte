@@ -126,6 +126,7 @@
 
 	const submitInput = () => {
 		logger.info("AlertBox", "Clicked submit")
+		errTgt = null;
 		if (inputs && inputs.length > 0 && submit) {
 			logger.info("AlertBox", "Found input")
 			const inp = new SubmittedInput(editor, inputs);
