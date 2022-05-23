@@ -23,11 +23,10 @@
 	};
 
 	class SubmittedInput {
-		editor: any;
 		inputs: any;
 
 		constructor(editor: object, inputs: any) {
-			this.editor = editor;
+			this.inputs = inputs
 		}
 
 		toSingleLine() {
@@ -46,7 +45,7 @@
 			let obj = inputs[index];
 
 			if(obj.type == enums.AlertInputType.Text) {
-				content = content.getText();
+				content = content.__quill.getText();
 			} else {
 				content = content.value;
 				if(obj.required && !content) {
@@ -222,7 +221,7 @@
 								{#if inputData.type == enums.AlertInputType.Text}
 									<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-									<TextEditor id="inp-{id}" bind:editor placeHolderContent={inputData.placeholder} />
+									<TextEditor id="inp-{id}" placeHolderContent={inputData.placeholder} />
 
 									<div class="input-error" show={showError}>{error}</div>
 								{/if}
