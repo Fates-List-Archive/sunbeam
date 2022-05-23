@@ -183,7 +183,9 @@
 
 									<input id="inp-{id}" type="number" class="InputAlert" placeholder={inputData.placeholder} />
 
-									<div class="input-error" show={showError}>{error}</div>
+									{#if !errTgt || errTgt == `inp-${id}`}
+										<div class="input-error" show={showError}>{error}</div>
+									{/if}
 								{/if}
 
 								{#if inputData.type == enums.AlertInputType.Boolean}
@@ -191,7 +193,9 @@
 
 									<input id="inp-{id}" type="checkbox" class="InputAlert" placeholder={inputData.placeholder} />
 
-									<div class="input-error" show={showError}>{error}</div>
+									{#if !errTgt || errTgt == `inp-${id}`}
+										<div class="input-error" show={showError}>{error}</div>
+									{/if}
 								{/if}
 
 								{#if inputData.type == enums.AlertInputType.DateTime}
@@ -199,7 +203,9 @@
 
 									<input id="inp-{id}" type="datetime" class="InputAlert" placeholder={inputData.placeholder} />
 
-									<div class="input-error" show={showError}>{error}</div>
+									{#if !errTgt || errTgt == `inp-${id}`}
+										<div class="input-error" show={showError}>{error}</div>
+									{/if}
 								{/if}
 
 								{#if inputData.type == enums.AlertInputType.DateTimeLocal}
@@ -212,7 +218,9 @@
 										placeholder={inputData.placeholder}
 									/>
 
-									<div class="input-error" show={showError}>{error}</div>
+									{#if !errTgt || errTgt == `inp-${id}`}
+										<div class="input-error" show={showError}>{error}</div>
+									{/if}
 								{/if}
 
 								{#if inputData.type == enums.AlertInputType.Color}
@@ -220,7 +228,9 @@
 
 									<input id="inp-{id}" type="color" class="InputAlert" placeholder={inputData.placeholder} />
 
-									<div class="input-error" show={showError}>{error}</div>
+									{#if !errTgt || errTgt == `inp-${id}`}
+										<div class="input-error" show={showError}>{error}</div>
+									{/if}
 								{/if}
 
 								{#if inputData.type == enums.AlertInputType.File}
@@ -228,7 +238,9 @@
 
 									<input id="inp-{id}" type="file" class="InputAlert" placeholder={inputData.placeholder} />
 
-									<div class="input-error" show={showError}>{error}</div>
+									{#if !errTgt || errTgt == `inp-${id}`}
+										<div class="input-error" show={showError}>{error}</div>
+									{/if}
 								{/if}
 
 								{#if inputData.type == enums.AlertInputType.Text}
@@ -236,7 +248,9 @@
 
 									<TextEditor id="inp-{id}" placeHolderContent={inputData.placeholder} />
 
-									<div class="input-error" show={showError}>{error}</div>
+									{#if !errTgt || errTgt == `inp-${id}`}
+										<div class="input-error" show={showError}>{error}</div>
+									{/if}
 								{/if}
 							</fieldset>
 						{/if}
