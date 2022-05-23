@@ -109,7 +109,6 @@
 	.component_button {
 		position: relative;
 		text-align: center !important;
-		margin-top: 45px;
 		cursor: pointer;
 		color: white;
 		background-color: #000000;
@@ -122,7 +121,6 @@
 	.component_button[active='true'] {
 		position: relative;
 		text-align: center !important;
-		margin-top: 45px;
 		cursor: pointer;
 		color: white;
 		background-color: red;

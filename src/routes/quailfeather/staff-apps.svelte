@@ -15,9 +15,26 @@
 			};
 		}
 
+		let staffApps = await fetch(`${lynxUrl}/staff-apps?user_id=${id}`, {
+			headers: {
+				Authorization: session.session.token,
+				'Content-Type': 'application/json'
+			}
+		});
+
+		let json = await staffApps.json();
+
+		if (!staffApps.ok) {
+			return {
+				status: 401,
+				error: new Error(JSON.stringify(json))
+			};
+		}
+
 		return {
 			props: {
-				perms: await perms.json()
+				perms: await perms.json(),
+				apps: json
 			}
 		};
 	}
@@ -26,31 +43,15 @@
 <script lang="ts">
 	import { session } from '$app/stores';
 
-	import Button from '@smui/button/src/Button.svelte';
+	import Button from '@smui/button';
 	import QuailTree from './_helpers/QuailTree.svelte';
 
 	export let perms;
-
-	async function sendReset() {
-		if (!$session.session.token) {
-			alert('Not logged in...');
-		}
-
-		let res = await fetch(`${lynxUrl}/reset?user_id=${$session.session.user.id}`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				Authorization: $session.session.token
-			}
-		});
-
-		if (res.ok) {
-			alert(`Successfully sent reset`);
-		}
-	}
+	export let apps;
 </script>
 
 <QuailTree perms={perms.perm}>
-	<h3>Are you sure?</h3>
-	<Button on:click={() => sendReset()}>Reset</Button>
+	{#each apps as app}
+		{JSON.stringify(app.questions)}
+	{/each}
 </QuailTree>

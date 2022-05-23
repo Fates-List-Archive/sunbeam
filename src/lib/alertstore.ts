@@ -1,11 +1,12 @@
 import { writable } from 'svelte/store';
-import type { AlertType } from './enums/enums';
+import type { AlertType, AlertInputType } from './enums/enums';
 
 interface AlertInputInterface {
 	label: string;
 	placeholder: string;
 	multiline: boolean;
 	required?: boolean;
+	type?: AlertInputType;
 	function: (value) => void;
 }
 
@@ -16,7 +17,7 @@ interface Alert {
 	id: string;
 	show: boolean;
 	close?: () => void;
-	input?: AlertInputInterface;
+	inputs?: AlertInputInterface[];
 }
 
 type AlertStore = Alert;

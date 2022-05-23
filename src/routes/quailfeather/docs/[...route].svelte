@@ -112,7 +112,6 @@
 	import { browser } from '$app/env';
 	import { lynxUrl, apiUrl } from '$lib/config';
 
-
 	export let data: any;
 	export let js: string;
 	export let path: string[];

@@ -234,13 +234,6 @@
 				</Item>
 				<Item
 					on:SMUI:action={() => {
-						goto('https://lynx.fateslist.xyz');
-					}}
-				>
-					<Text>Lynx (API & TOS)</Text>
-				</Item>
-				<Item
-					on:SMUI:action={() => {
 						goto('/quailfeather');
 					}}
 				>
@@ -251,7 +244,7 @@
 				</Item>
 				<Item on:SMUI:action={reportFeedback}>
 					<Text>
-						Report Feedback
+						Report
 						<span class="item_badge" type="new">NEW</span>
 					</Text>
 				</Item>

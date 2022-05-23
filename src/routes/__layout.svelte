@@ -24,6 +24,7 @@
 
 	import './../css/tailwind.css';
 	import { enums } from '$lib/enums/enums';
+	import { validate_each_argument } from 'svelte/internal';
 
 	$: {
 		if ($navigating) {
@@ -85,6 +86,12 @@
 				logger.error('No message in alertstore');
 				return;
 			}
+
+			if (opt.input) {
+				opt.input.type = enums.AlertInputType.Text;
+				opt.inputs = [opt.input];
+			}
+
 			if (!opt.id) {
 				logger.error('No id in alertstore');
 				return;
@@ -92,9 +99,7 @@
 			if (!opt.type) {
 				logger.error('No type in alertstore');
 			}
-			if (opt.input && !opt.input.required) {
-				opt.input.required = false; // this should totally work.
-			}
+
 			$alertstore = opt;
 			$navigationState = 'loaded'; // An alert = page loaded
 		};
@@ -105,27 +110,52 @@
 				message: 'This is a Test Alert!',
 				id: 1030404,
 				type: enums.AlertType.Alert,
-				input: {
-					label: 'Enter some random Text!',
-					placeholder: `Enter some random stuff here and click Submit!`,
-					multiline: false, // Set to "true", for Multi-line input
-					function: (value) => {
-						alert({
-							title: 'Test Alert',
-							message: `You have entered "${value.toString() || 'nothing'}"`,
-							id: 1030404,
-							type: enums.AlertType.Info,
-							close: () => {
-								alert({
-									title: 'Test Alert',
-									message: "You've closed the alert!",
-									id: 1030404,
-									type: enums.AlertType.Success
-								});
-							}
-						});
+				inputs: [
+					{
+						label: 'Test Input',
+						placeholder: `Enter some random stuff here and click Submit!`,
+						multiline: false, // Set to "true", for Multi-line input
+						type: enums.AlertInputType.Text,
+						function: (value) => {
+							alert({
+								title: 'Test Alert',
+								message: `Text: "${value.toString() || 'nothing'}"`,
+								id: 1030404,
+								type: enums.AlertType.Info,
+								close: () => {
+									alert({
+										title: 'Test Alert',
+										message: "You've closed the alert!",
+										id: 1030404,
+										type: enums.AlertType.Success
+									});
+								}
+							});
+						}
+					},
+					{
+						label: 'Test Input 2',
+						placeholder: `Enter some random stuff here and click Submit!`,
+						multiline: false, // Set to "true", for Multi-line input
+						type: enums.AlertInputType.Text,
+						function: (value) => {
+							alert({
+								title: 'Test Alert',
+								message: `Text: "${value.toString() || 'nothing'}"`,
+								id: 1030404,
+								type: enums.AlertType.Info,
+								close: () => {
+									alert({
+										title: 'Test Alert',
+										message: "You've closed the alert!",
+										id: 1030404,
+										type: enums.AlertType.Success
+									});
+								}
+							});
+						}
 					}
-				}
+				]
 			});
 		}
 	}
@@ -162,7 +192,7 @@
 {#if $alertStore}
 	<Alert
 		close={$alertStore.close}
-		input={$alertStore.input}
+		inputs={$alertStore.inputs || []}
 		show={$alertStore.show}
 		title={$alertStore.title}
 		type={$alertStore.type}

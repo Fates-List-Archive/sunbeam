@@ -2,12 +2,12 @@
 	import { enums } from '$lib/enums/enums';
 	import * as logger from '$lib/logger';
 
-	import Tiptap from '$lib/base/Tiptap.svelte';
+	import TextEditor from '$lib/base/TextEditor-BETA.svelte';
 
 	export let show: boolean;
 
 	export let close;
-	export let input;
+	export let inputs;
 
 	let editor; // We bind to this
 	let error: string = '';
@@ -24,11 +24,14 @@
 		editor: any;
 		required: boolean;
 		multiline: boolean;
+		type: enums.AlertInputType;
 
-		constructor(editor: object) {
+		constructor(editor: object, input: any) {
 			this.editor = editor;
 			this.multiline = input.multiline;
+			this.type = input.type;
 			this.required = input.required;
+
 			logger.info('AlertBox', JSON.stringify(editor.getJSON()));
 		}
 
@@ -126,14 +129,14 @@
 		}
 	}
 
-	const submitInput = () => {
-		if (input && input.function) {
-			const data = new SubmittedInput(editor);
+	const submitInput = (input) => {
+		if (inputs && inputs[input].function) {
+			const data = new SubmittedInput(editor, input);
 
 			if (data.toString() === null) {
 				return;
 			} else {
-				input.function(data);
+				inputs[input].function(data);
 			}
 		}
 
@@ -160,14 +163,79 @@
 			<div id={`${id}-content`} class="alert-content">
 				<slot />
 
-				{#if input}
+				{#if inputs}
 					<br />
 
-					<label for="alert-input" class="alert-label">{input.label}</label>
+					{#each inputs as inputData}
+						{#if inputData}
+							<br />
 
-					<Tiptap bind:editor placeHolderContent={input.placeholder} />
+							<fieldset>
+								<legend>{inputData.label} ({enums.AlertInputType[inputData.type]})</legend>
 
-					<div class="input-error" show={showError}>{error}</div>
+								{#if inputData.type == enums.AlertInputType.Number}
+									<label for="alert-input" class="alert-label">{inputData.label}</label>
+
+									<input type="number" class="InputAlert" placeholder={inputData.placeholder} />
+
+									<div class="input-error" show={showError}>{error}</div>
+								{/if}
+
+								{#if inputData.type == enums.AlertInputType.Boolean}
+									<label for="alert-input" class="alert-label">{inputData.label}</label>
+
+									<input type="checkbox" class="InputAlert" placeholder={inputData.placeholder} />
+
+									<div class="input-error" show={showError}>{error}</div>
+								{/if}
+
+								{#if inputData.type == enums.AlertInputType.DateTime}
+									<label for="alert-input" class="alert-label">{inputData.label}</label>
+
+									<input type="datetime" class="InputAlert" placeholder={inputData.placeholder} />
+
+									<div class="input-error" show={showError}>{error}</div>
+								{/if}
+
+								{#if inputData.type == enums.AlertInputType.DateTimeLocal}
+									<label for="alert-input" class="alert-label">{inputData.label}</label>
+
+									<input
+										type="datetime-local"
+										class="InputAlert"
+										placeholder={inputData.placeholder}
+									/>
+
+									<div class="input-error" show={showError}>{error}</div>
+								{/if}
+
+								{#if inputData.type == enums.AlertInputType.Color}
+									<label for="alert-input" class="alert-label">{inputData.label}</label>
+
+									<input type="color" class="InputAlert" placeholder={inputData.placeholder} />
+
+									<div class="input-error" show={showError}>{error}</div>
+								{/if}
+
+								{#if inputData.type == enums.AlertInputType.File}
+									<label for="alert-input" class="alert-label">{inputData.label}</label>
+
+									<input type="file" class="InputAlert" placeholder={inputData.placeholder} />
+
+									<div class="input-error" show={showError}>{error}</div>
+								{/if}
+
+								{#if inputData.type == enums.AlertInputType.Text}
+									<label for="alert-input" class="alert-label">{inputData.label}</label>
+
+									<TextEditor bind:editor placeHolderContent={inputData.placeholder} />
+
+									<div class="input-error" show={showError}>{error}</div>
+								{/if}
+							</fieldset>
+						{/if}
+					{/each}
+
 					<button type="button" on:click={submitInput}>Submit</button>
 				{/if}
 			</div>
@@ -178,6 +246,7 @@
 {/if}
 
 <style>
+	/* Basic Shit */
 	dialog {
 		position: fixed;
 		top: 0;
@@ -215,8 +284,21 @@
 		padding: 10px;
 		border-radius: 4px 4px 4px 4px;
 		background: white;
+		overflow-y: scroll;
 	}
 
+	button {
+		background-color: white !important;
+		color: black !important;
+		font-weight: bold !important;
+		border: black solid 1px !important;
+		padding: 12px;
+		border-radius: 5px;
+		margin-top: 10px;
+		cursor: pointer;
+	}
+
+	/* Alert */
 	.alert-type {
 		color: black !important;
 		font-weight: bold;
@@ -233,15 +315,6 @@
 		margin-left: 15px;
 	}
 
-	.input-error[show='true'] {
-		background-color: red;
-		color: white;
-		font-weight: bold;
-		padding: 10px;
-		margin-top: 10px;
-		border-radius: 7px;
-	}
-
 	#alert-close {
 		position: relative;
 		text-align: center !important;
@@ -249,15 +322,30 @@
 		cursor: pointer;
 	}
 
-	button {
-		background-color: white !important;
-		color: black !important;
-		font-weight: bold !important;
-		border: black solid 1px !important;
-		padding: 12px;
-		border-radius: 5px;
+	/* Input */
+	.InputAlert {
+		width: 100%;
+		height: 40px;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		padding: 0 10px;
+		font-size: 14px;
+		color: #333;
 		margin-top: 10px;
-		cursor: pointer;
+		overflow: hidden;
+	}
+
+	.InputAlert[type='number'] {
+		width: 95%;
+	}
+
+	.input-error[show='true'] {
+		background-color: red;
+		color: white;
+		font-weight: bold;
+		padding: 10px;
+		margin-top: 10px;
+		border-radius: 7px;
 	}
 
 	.alert-label {
@@ -272,6 +360,7 @@
 		border-width: 0;
 	}
 
+	/* Responsive (Mobile) */
 	@media screen and (max-width: 560px) {
 		dialog {
 			position: fixed;

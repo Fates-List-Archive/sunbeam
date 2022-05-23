@@ -35,7 +35,7 @@
 	import { genError } from '$lib/strings';
 	import QuailTree from './_helpers/QuailTree.svelte';
 	import Tip from '$lib/base/Tip.svelte';
-import FormInput from '$lib/base/FormInput.svelte';
+	import FormInput from '$lib/base/FormInput.svelte';
 	export let data: any;
 	export let perms: any;
 
@@ -282,6 +282,41 @@ import FormInput from '$lib/base/FormInput.svelte';
 		});
 	};
 
+	const resetBotVotes = async (id: string) => {
+		alert({
+			title: 'Reason',
+			id: 'reason-msg',
+			message: 'Please do not reset bot votes for spurious reasons',
+			type: enums.AlertType.Prompt,
+			input: {
+				label: 'Reason',
+				placeholder: 'Why are the votes of this bot being reset?',
+				multiline: false,
+				function: (value) => {
+					handler(id, value.toString(), 'reset-votes');
+				}
+			}
+		});
+	};
+
+	const resetAllVotes = async () => {
+		alert({
+			title: 'Reason',
+			id: 'reason-msg',
+			message: 'Please do not reset all bot votes for spurious reasons',
+			type: enums.AlertType.Prompt,
+			input: {
+				label: 'Reason',
+				placeholder: 'Why are the votes of all bots being reset? Defaults to Monthly Votes Reset',
+				multiline: false,
+				required: false,
+				function: (value) => {
+					handler('0', value.toString() || '', 'reset-all-votes');
+				}
+			}
+		});
+	};
+
 	const setBotFlag = async (id: string, flag: number) => {
 		alert({
 			title: 'Reason',
@@ -290,7 +325,7 @@ import FormInput from '$lib/base/FormInput.svelte';
 			type: enums.AlertType.Prompt,
 			input: {
 				label: 'Reason',
-				placeholder: 'Why is this bot being uncertified?',
+				placeholder: 'Why is this bot being modified?',
 				multiline: false,
 				function: (value) => {
 					handler(id, value.toString(), 'set-flag', flag);
@@ -332,7 +367,7 @@ import FormInput from '$lib/base/FormInput.svelte';
 				message: genError(await res.json()),
 				type: enums.AlertType.Success,
 				close: () => {
-					window.location.reload()
+					window.location.reload();
 				}
 			});
 			if (followup) {
@@ -717,17 +752,42 @@ import FormInput from '$lib/base/FormInput.svelte';
 			<FormInput id="bot-id-setflag" name="Bot ID" placeholder="Enter Bot ID here" />
 			<select id="bot-flag">
 				<option value="" disabled aria-disabled="true">Select a flag</option>
-				{#each Object.keys(enums.Flags).filter(k => (!parseInt(k) && k != 0)) as flag, i}
-					<option value={i}>{flag} ({i}, may be inaccurate, always check this number)</option> 
+				{#each Object.keys(enums.Flags).filter((k) => !parseInt(k) && k != 0) as flag, i}
+					<option value={i}>{flag} ({i}, may be inaccurate, always check this number)</option>
 				{/each}
 			</select>
-			<Button class="button" variant="outlined" on:click={() => {
-				let flag = parseInt(document.querySelector('#bot-flag').value);
-				let id = document.querySelector('#bot-id-setflag').value;
-				setBotFlag(id, flag)
-			}}>Set Flag</Button>
+			<Button
+				class="button"
+				variant="outlined"
+				on:click={() => {
+					let flag = parseInt(document.querySelector('#bot-flag').value);
+					let id = document.querySelector('#bot-id-setflag').value;
+					setBotFlag(id, flag);
+				}}>Set Flag</Button
+			>
+
+			<h2>Reset Bot Votes</h2>
+			<FormInput id="bot-id-rbv" name="Bot ID" placeholder="Enter Bot ID here" />
+			<Button
+				class="button"
+				variant="outlined"
+				on:click={() => {
+					let id = document.querySelector('#bot-id-rbv').value;
+					resetBotVotes(id);
+				}}>Reset</Button
+			>
 		{/if}
 
+		{#if perms.perm >= permData.HEAD_ADMIN}
+			<h2>Reset All Bot Votes</h2>
+			<Button
+				class="button"
+				variant="outlined"
+				on:click={() => {
+					resetAllVotes();
+				}}>Reset</Button
+			>
+		{/if}
 	</Section>
 </QuailTree>
 

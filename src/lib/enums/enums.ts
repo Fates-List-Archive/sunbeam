@@ -92,6 +92,16 @@ export enum AlertType {
 	Prompt = 7
 }
 
+export enum AlertInputType {
+	Text = 1,
+	Number = 2,
+	Boolean = 3,
+	DateTime = 4,
+	DateTimeLocal = 5,
+	Color = 6,
+	File = 7
+}
+
 export const enums = {
 	BotState: BotState,
 	UserState: UserState,
@@ -100,6 +110,7 @@ export const enums = {
 	ReviewType: ReviewType,
 	PageStyle: PageStyle,
 	AlertType: AlertType,
+	AlertInputType: AlertInputType,
 	Flags: Flag,
 	UserFlags: UserFlags,
 	UserExperiments: UserExperiments,
