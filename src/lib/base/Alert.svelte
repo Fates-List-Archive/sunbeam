@@ -58,9 +58,12 @@
 				return content
 			}
 
+			let i = -1;
 			$quillstore.forEach((value, key) => {
-				logger.info("AlertBox", { key, value })
-				if (obj.required) {
+				i++;
+				let input = inputs[i];
+				logger.info("AlertBox", { key, value, input })
+				if (input.required) {
 					const checks = value.getText()
 						.replaceAll(' ', '')
 						.replaceAll('\n', '')
