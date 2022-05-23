@@ -156,7 +156,7 @@
 			<div id={`${id}-content`} class="alert-content">
 				<slot />
 
-				{#if inputs}
+				{#if inputs && inputs.length > 0}
 					<br />
 
 					{#each inputs as inputData, id}
@@ -229,7 +229,7 @@
 							</fieldset>
 						{/if}
 					{/each}
-
+						
 					<button type="button" on:click={submitInput}>Submit</button>
 				{/if}
 			</div>
