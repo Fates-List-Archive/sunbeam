@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import quillstore from '$lib/quillstore';
 
 	export let placeHolderContent: string;
 	export let id: string;
@@ -34,9 +35,16 @@
 			placeholder: options.placeholder
 		});
 
+		if(!$quillstore) {
+			$quillstore = new Map();
+		}
+
+		$quillstore.set(id, quill);
+		$quillstore = $quillstore;
+
 		// Quill (Editor) Markdown Extension
 		const markdownOptions = {};
-		const quillMarkdown = new markdown(quill, markdownOptions);
+		const _ = new markdown(quill, markdownOptions);
 	});
 </script>
 

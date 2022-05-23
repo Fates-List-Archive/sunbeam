@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { enums } from '$lib/enums/enums';
+	import quillstore from '$lib/quillstore';
 	import * as logger from '$lib/logger';
 
 	import TextEditor from '$lib/base/TextEditor-BETA.svelte';
@@ -45,7 +46,7 @@
 			let obj = inputs[index];
 
 			if(obj.type == enums.AlertInputType.Text) {
-				content = content.__quill.getText();
+				content = $quillstore.get(`inp-${index}`).getText();
 			} else {
 				content = content.value;
 				if(obj.required && !content) {
