@@ -172,6 +172,12 @@
 				</a>
 			</li>
 
+			<li class="td-1">
+				<a class="tree-link" id="requests-nav" href="/quailfeather/requests">
+					<span class="span">Public Admin Request Logs</span>
+				</a>
+			</li>
+
 			{#if perms > 2}
 				<li class="td-1">
 					<a class="tree-link" id="staff-verify-nav" href="/quailfeather/staff-verify">
@@ -180,7 +186,7 @@
 				</li>
 				<li class="td-1">
 					<a class="tree-link" id="loa-nav" href="/quailfeather/loa">
-						<span class="span">Leave Of Absence</span>
+						<span class="span">File Leave Of Absence</span>
 					</a>
 				</li>
 				<li class="td-1">
