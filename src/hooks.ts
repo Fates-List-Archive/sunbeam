@@ -18,7 +18,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 export const getSession: GetSession = async (event) => {
 	logger.info('Auth', 'getSession called');
 
-	const cookies = cookie.parse(event.request.headers.get('cookie') || '');
+	const cookies = cookie.parse(event.request.headers.get('cookie') || event.request.headers.get('Cookie') || '');
 
 	let sessionData = {};
 	if (cookies['sunbeam-session:warriorcats']) {
@@ -35,17 +35,9 @@ export const getSession: GetSession = async (event) => {
 		}
 	}
 
-	try {
-		return {
-			url: event.url.toJSON(), // CF adpter workaround, hopefully works?
-			query: {},
-			session: sessionData
-		};
-	} catch (err) {
-		return {
-			url: 'https://fateslist.xyz',
-			query: {},
-			session: {}
-		};
-	}
+	return {
+		url: "https://fateslist.xyz",
+		query: {},
+		session: sessionData
+	};
 };

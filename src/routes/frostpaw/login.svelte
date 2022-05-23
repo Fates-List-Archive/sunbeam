@@ -122,7 +122,29 @@
 						localStorage.loginError = '1';
 						loginUser(false);
 					} else {
-						window.location.href = frostpawServer;
+						// Confirm login (this usually takes a few tries)
+						fetch(`${apiUrl}/confirm-login`, {
+							credentials: "include"
+						})
+						.then(res => {
+							if(res.ok) {
+								window.location.href = frostpawServer;
+							} else {
+								fetch(`${apiUrl}/confirm-login`, {
+									credentials: "include"
+								})
+								.then((res) => {
+									if(res.ok) {
+										window.location.href = frostpawServer;
+									} else {
+										window.fallbackToken = () => {
+											document.cookie = "sunbeam-session:warriorcats=" + encode(JSON.stringify(json);
+										}
+										frostpawMsg = `Could not set cookies for login. This is a critical error that should be reported on our support server\n\nHowever, we can also fallback to a slightly more insecure authentication method.\n\n<button onclick='fallbackToken()'>Degrade</button>.`;
+									}
+								})
+							}
+						})
 					}
 				});
 		}
