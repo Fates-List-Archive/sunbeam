@@ -14,7 +14,7 @@
 
 	let editor; // We bind to this
 	let error: string = '';
-	let errTgt: string;
+	let errTgt: string = '';
 	let showError: boolean = false;
 
 	const closeAlert = () => {
@@ -45,6 +45,31 @@
 			return null; // No quill textbox
 		}
 
+		validate() {
+			$quillstore.forEach((value, key) => {
+				let i = parseInt(key.replaceAll("inp-", ''));
+				let input = inputs[i];
+				logger.info("AlertBox", { key, value, input })
+				if (input.required) {
+					const checks = value.getText()
+						.replaceAll(' ', '')
+						.replaceAll('\n', '')
+						.replaceAll('\t', '')
+						.replaceAll('\r', '');
+
+					if (checks === '') {
+						showError = true;
+						error = 'Error: This field is required';
+						errTgt = key;
+					} else {
+						showError = false;
+						error = '';
+					}
+				}
+			});
+			return showError;
+		}
+
 		toRaw(index: number = 0) {
 			// This returns the raw output with \n's
 			let content: any = document.querySelector(`#inp-${index}`);
@@ -64,37 +89,9 @@
 					error = `${obj.label} is required`;
 					return null;
 				}  
-				return content
 			}
 
-			$quillstore.forEach((value, key) => {
-				let i = parseInt(key.replaceAll("inp-", ''));
-				let input = inputs[i];
-				logger.info("AlertBox", { key, value, input })
-				if (input.required) {
-					const checks = value.getText()
-						.replaceAll(' ', '')
-						.replaceAll('\n', '')
-						.replaceAll('\t', '')
-						.replaceAll('\r', '');
-
-					if (checks === '') {
-						showError = true;
-						error = 'Error: This field is required';
-						errTgt = key;
-						return null;
-					} else {
-						showError = false;
-						error = '';
-					}
-				}
-			});
-
-			if(!showError) {
-				return content
-			} else {
-				return null
-			}
+			return content
 		}
 
 		toHTML() {
@@ -138,8 +135,8 @@
 		if (inputs && inputs.length > 0 && submit) {
 			logger.info("AlertBox", "Found input")
 			const inp = new SubmittedInput(editor, inputs);
-			const data = inp.toRaw();
-			if(data == null) {
+			const valid = inp.validate();
+			if(valid) {
 				return
 			}
 			if(validate) {
