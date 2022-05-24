@@ -92,10 +92,8 @@ export async function loginUser(noSetStorage: boolean) {
 	window.location.href = `${json.context}&state=${json.reason}`;
 }
 
-export async function logoutUser() {
-	await fetch(`/frostpaw/set-cookie?removal=true`, {
-		credentials: 'include',
-	})
+export function logoutUser() {
+	document.cookie = `sunbeam-session=;Path=/;httponly;secure;expires=${new Date(0).toUTCString()};samesite=lax;priority=High`
 }
 
 export async function voteHandler(

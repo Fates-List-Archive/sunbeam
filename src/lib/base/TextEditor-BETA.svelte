@@ -1,5 +1,8 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+
+	import * as logger from "$lib/logger";
+
 	import quillstore from '$lib/quillstore';
 
 	export let placeHolderContent: string;
@@ -21,8 +24,9 @@
 	onMount(async () => {
 		// Packages
 		const quillImport = await import('quill');
-		const mdImport = await import('quilljs-markdown');
-		const markdown = mdImport.default;
+
+		logger.info("Quill", "Have imported quill");
+
 		const Quill = quillImport.default;
 		Quill.imports = quillImport.imports;
 
@@ -44,7 +48,11 @@
 
 		// Quill (Editor) Markdown Extension
 		const markdownOptions = {};
-		const _ = new markdown(quill, markdownOptions);
+
+		if(window.QuillMarkdown) {
+			logger.info("Loading quill-markdown")
+			let _ = new window.QuillMarkdown(quill, markdownOptions);
+		}
 	});
 </script>
 

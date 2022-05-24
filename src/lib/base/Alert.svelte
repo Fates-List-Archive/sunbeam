@@ -40,7 +40,7 @@
 			let obj = inputs[index];
 
 			if(obj.type == enums.AlertInputType.Text) {
-				return $quillstore.get(`inp-${index}`).getDelta();
+				return $quillstore.get(`inp-${index}`).getContents();
 			}
 			return null; // No quill textbox
 		}
@@ -161,6 +161,11 @@
 	export let id: string;
 	export let type: enums.AlertType;
 </script>
+
+<svelte:head>
+	<!--Blame svelte-->
+	<script src="https://cdn.jsdelivr.net/npm/quilljs-markdown@latest/dist/quilljs-markdown.js"></script>
+</svelte:head>
 
 {#if show}
 	<!-- svelte-ignore a11y-no-redundant-roles -->

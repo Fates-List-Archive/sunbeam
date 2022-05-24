@@ -96,8 +96,9 @@
 
 			localStorage.removeItem('sunbeamLoginState');
 
+			const sleep = ms => new Promise(r => setTimeout(r, ms));
+
 			fetch(`${apiUrl}/oauth2`, {
-				credentials: 'include',
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -122,10 +123,13 @@
 					} else {
 						// Push to client
 						fetch(`/frostpaw/set-cookie?json=${encode(JSON.stringify(json))}`, {
-							credentials: 'include',
+							credentials: 'same-origin',
 						})
-						.then((_) => {
-							window.location.href = `/frostpaw/confirm-login?json=${encode(JSON.stringify(json))}&redirect=${frostpawServer}`;
+						.then(() => sleep(1000))
+						.then(() => {
+							// ive tried, doesnt want to work so fuck it
+							document.cookie = `sunbeam-session=${encode(JSON.stringify(json))};Path=/;secure;max-age=28800;samesite=lax;priority=High`
+							window.location.href = frostpawServer
 						})
 					}
 				});
