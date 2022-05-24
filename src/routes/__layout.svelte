@@ -87,6 +87,7 @@
 				return;
 			}
 
+			// Backwards compatibility
 			if (opt.input) {
 				opt.input.type = enums.AlertInputType.Text;
 				opt.submit = opt.input.function
@@ -123,9 +124,10 @@
 						multiline: false, // Set to "true", for Multi-line input
 						type: enums.AlertInputType.Text,
 						function: (value) => {
+							logger.info("AlertTest", value.getDelta());
 							alert({
 								title: 'Test Alert',
-								message: `Text: "${value.toString() || 'nothing'}"`,
+								message: `Textbox 1: "${value.toString() || 'nothing'}"<br>Textbox 2: "${value.toRaw(1) || 'nothing'}"`,
 								id: 1030404,
 								type: enums.AlertType.Info,
 								close: () => {
@@ -151,9 +153,6 @@
 								message: `Text: "${value.toString() || 'nothing'}"`,
 								id: 1030404,
 								type: enums.AlertType.Info,
-								submit: (value) => {
-									logger.info("AlertTest", value.getDelta())
-								},
 								close: () => {
 									alert({
 										title: 'Test Alert',
