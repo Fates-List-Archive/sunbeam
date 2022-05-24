@@ -248,9 +248,10 @@
 				label: 'BOT ID',
 				placeholder: `Enter your BOT ID here to confirm`,
 				multiline: false,
+				required: true,
 				function: async (value) => {
 					// Make this a alert input
-					if (value.toString() != data.bot_id) {
+					if (value.toSingleLine() != data.bot_id) {
 						alert({
 							title: 'Error',
 							type: enums.AlertType.Error,
@@ -317,8 +318,9 @@
 				label: 'BOT ID',
 				placeholder: `Enter your BOT ID here to confirm`,
 				multiline: false,
+				required: true,
 				function: async (value) => {
-					if (value.toString() != data.bot_id) {
+					if (value.toSingleLine() != data.bot_id) {
 						alert({
 							title: 'Error',
 							type: enums.AlertType.Error,
@@ -843,8 +845,9 @@
 				label: 'link',
 				placeholder: `https://example.com/`,
 				multiline: false,
+				required: true,
 				function: (value) => {
-					let link = value.toString();
+					let link = value.toSingleLine();
 					if (!link.startsWith('_')) {
 						link = title(link);
 					}
@@ -879,11 +882,12 @@
 				type: enums.AlertType.Prompt,
 				message: 'Rename this link',
 				input: {
-					label: 'link',
+					label: 'New Link Name',
 					placeholder: `https://example.com/`,
 					multiline: false,
+					required: true,
 					function: (value) => {
-						extLinks[index].id = value.toString();
+						extLinks[index].id = value.toSingleLine();
 					}
 				}
 			});
@@ -902,8 +906,9 @@
 				label: 'owner',
 				placeholder: `Enter User ID`,
 				multiline: false,
+				required: true,
 				function: async (value) => {
-					let userReq = await fetch(`${nextUrl}/blazefire/${value.toString()}`);
+					let userReq = await fetch(`${nextUrl}/blazefire/${value.toSingleLine()}`);
 					if (!userReq.ok) {
 						alert({
 							title: 'Error',

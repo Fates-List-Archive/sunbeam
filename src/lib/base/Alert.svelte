@@ -31,9 +31,9 @@
 			this.inputs = inputs
 		}
 
-		toSingleLine() {
+		toSingleLine(index: number = 0) {
 			// Does exactly what it says it does on the tin, returns a single no-newline line
-			return this.toRaw().replaceAll('\n', ' ').replaceAll('\r', ' ');
+			return this.toRaw(index).replaceAll('\n', ' ').replaceAll('\r', ' ').replaceAll('\t', '');
 		}
 
 		toRaw(index: number = 0) {
