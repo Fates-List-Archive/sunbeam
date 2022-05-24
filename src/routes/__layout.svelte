@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Header from '$lib/header/Header.svelte';
-	import Alert from '$lib/base/Alert.svelte';
 	import lozad from 'lozad';
 
 	import navigationState from '$lib/navigationState';
@@ -11,6 +10,7 @@
 	import { browser } from '$app/env';
 	import loadstore from '$lib/loadstore';
 	import alertstore from '$lib/alertstore';
+	import { errorStore } from '$lib/alertstore';
 	import { apiUrl, lynxUrl } from '$lib/config';
 	import * as logger from '$lib/logger';
 
@@ -25,6 +25,7 @@
 	import './../css/tailwind.css';
 	import { enums } from '$lib/enums/enums';
 	import { validate_each_argument } from 'svelte/internal';
+import Alert from '$lib/base/Alert.svelte';
 
 	$: {
 		if ($navigating) {
@@ -98,6 +99,10 @@
 				}
 			}
 
+			if(opt.validate && opt.inputs && opt.inputs.length > 0) {
+				opt.inputs[0].validate = opt.validate;
+			}
+
 			if (!opt.id) {
 				logger.error('No id in alertstore');
 				return;
@@ -107,6 +112,9 @@
 			}
 
 			$alertstore = opt;
+
+			$errorStore = false;
+
 			$navigationState = 'loaded'; // An alert = page loaded
 		};
 
@@ -200,11 +208,11 @@
 
 {#if $alertStore}
 	<Alert
+		bind:showError={$errorStore}
 		close={$alertStore.close}
 		inputs={$alertStore.inputs || []}
 		show={$alertStore.show}
 		submit={$alertStore.submit}
-		validate={$alertStore.validate}
 		title={$alertStore.title}
 		type={$alertStore.type}
 		id={$alertStore.id}>{@html $alertStore.message.replaceAll('\n', '<br/>')}</Alert

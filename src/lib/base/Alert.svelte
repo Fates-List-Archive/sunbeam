@@ -10,12 +10,12 @@
 	export let close;
 	export let submit;
 	export let inputs;
-	export let validate;
+
+	export let showError = false;
 
 	let editor; // We bind to this
 	let error: string = '';
 	let errTgt: string = '';
-	let showError: boolean = false;
 
 	const closeAlert = () => {
 		if (close) {
@@ -26,17 +26,22 @@
 
 	class SubmittedInput {
 		inputs: any;
+		defaultIndex: number; // Default index to use in toSingleLine
 
 		constructor(editor: object, inputs: any) {
 			this.inputs = inputs
+			this.defaultIndex = 0;
 		}
 
 		toSingleLine(index: number = 0) {
 			// Does exactly what it says it does on the tin, returns a single no-newline line
+			index = index || this.defaultIndex;
 			return this.toRaw(index).replaceAll('\n', ' ').replaceAll('\r', ' ').replaceAll('\t', '');
 		}
 
 		toDelta(index: number = 0) {
+			index = index || this.defaultIndex;
+
 			let obj = inputs[index];
 
 			if(obj.type == enums.AlertInputType.Text) {
@@ -46,7 +51,12 @@
 		}
 
 		validate() {
+			showError = false;
 			$quillstore.forEach((value, key) => {
+				if(showError) {
+					return showError
+				}
+
 				let i = parseInt(key.replaceAll("inp-", ''));
 				let input = inputs[i];
 				logger.info("AlertBox", { key, value, input })
@@ -61,16 +71,30 @@
 						showError = true;
 						error = 'Error: This field is required';
 						errTgt = key;
+						return
 					} else {
 						showError = false;
 						error = '';
 					}
 				}
+
+				if(input.validate) {
+					this.defaultIndex = i
+					let check = input.validate(this);
+					if(check) {
+						showError = true;
+						error = check;
+						return
+					}
+				}
 			});
+			this.defaultIndex = 0;
 			return showError;
 		}
 
 		toRaw(index: number = 0) {
+			index = index || this.defaultIndex;
+
 			// This returns the raw output with \n's
 			let content: any = document.querySelector(`#inp-${index}`);
 
@@ -136,16 +160,11 @@
 			logger.info("AlertBox", "Found input")
 			const inp = new SubmittedInput(editor, inputs);
 			const valid = inp.validate();
+
+			logger.info("AlertBox", `Got validator ${valid}`)
+
 			if(valid) {
 				return
-			}
-			if(validate) {
-				let check = validate(inp);
-				if(!check) {
-					showError = true;
-					error = check;
-					return
-				}
 			}
 
 			submit(inp);
@@ -194,8 +213,8 @@
 
 									<input id="inp-{id}" type="number" class="InputAlert" placeholder={inputData.placeholder} />
 
-									{#if !errTgt || errTgt == `inp-${id}`}
-										<div class="input-error" show={showError}>{error}</div>
+									{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+										<div class="input-error">{error}</div>
 									{/if}
 								{/if}
 
@@ -204,8 +223,8 @@
 
 									<input id="inp-{id}" type="checkbox" class="InputAlert" placeholder={inputData.placeholder} />
 
-									{#if !errTgt || errTgt == `inp-${id}`}
-										<div class="input-error" show={showError}>{error}</div>
+									{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+										<div class="input-error">{error}</div>
 									{/if}
 								{/if}
 
@@ -214,8 +233,8 @@
 
 									<input id="inp-{id}" type="datetime" class="InputAlert" placeholder={inputData.placeholder} />
 
-									{#if !errTgt || errTgt == `inp-${id}`}
-										<div class="input-error" show={showError}>{error}</div>
+									{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+										<div class="input-error">{error}</div>
 									{/if}
 								{/if}
 
@@ -229,8 +248,8 @@
 										placeholder={inputData.placeholder}
 									/>
 
-									{#if !errTgt || errTgt == `inp-${id}`}
-										<div class="input-error" show={showError}>{error}</div>
+									{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+										<div class="input-error">{error}</div>
 									{/if}
 								{/if}
 
@@ -239,8 +258,8 @@
 
 									<input id="inp-{id}" type="color" class="InputAlert" placeholder={inputData.placeholder} />
 
-									{#if !errTgt || errTgt == `inp-${id}`}
-										<div class="input-error" show={showError}>{error}</div>
+									{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+										<div class="input-error">{error}</div>
 									{/if}
 								{/if}
 
@@ -249,8 +268,8 @@
 
 									<input id="inp-{id}" type="file" class="InputAlert" placeholder={inputData.placeholder} />
 
-									{#if !errTgt || errTgt == `inp-${id}`}
-										<div class="input-error" show={showError}>{error}</div>
+									{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+										<div class="input-error">{error}</div>
 									{/if}
 								{/if}
 
@@ -259,8 +278,8 @@
 
 									<TextEditor id="inp-{id}" placeHolderContent={inputData.placeholder} />
 
-									{#if !errTgt || errTgt == `inp-${id}`}
-										<div class="input-error" show={showError}>{error}</div>
+									{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+										<div class="input-error">{error}</div>
 									{/if}
 								{/if}
 							</fieldset>
@@ -370,7 +389,7 @@
 		width: 95%;
 	}
 
-	.input-error[show='true'] {
+	.input-error {
 		background-color: red;
 		color: white;
 		font-weight: bold;

@@ -7,6 +7,7 @@ interface AlertInputInterface {
 	multiline: boolean;
 	required?: boolean;
 	type?: AlertInputType;
+	validate?: (value) => string;
 }
 
 interface Alert {
@@ -17,10 +18,11 @@ interface Alert {
 	show: boolean;
 	close?: () => void;
 	submit?: (value) => void;
-	validate?: (value) => string;
 	inputs?: AlertInputInterface[];
 }
 
 type AlertStore = Alert;
 
 export default writable<AlertStore>(null);
+
+export let errorStore = writable<boolean>(null);
