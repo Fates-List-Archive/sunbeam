@@ -17,4 +17,4 @@ export async function get({ url }) {
 		  'set-cookie': [`sunbeam-session=${json};httponly;secure;path=/;max-age=28800;samesite=strict`]
 		},
 	};	
-}
+} 
