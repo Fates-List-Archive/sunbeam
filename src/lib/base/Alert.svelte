@@ -67,9 +67,8 @@
 				return content
 			}
 
-			let i = -1;
 			$quillstore.forEach((value, key) => {
-				i++;
+				let i = parseInt(key.replaceAll("inp-", ''));
 				let input = inputs[i];
 				logger.info("AlertBox", { key, value, input })
 				if (input.required) {

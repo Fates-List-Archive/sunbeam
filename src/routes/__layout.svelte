@@ -151,6 +151,9 @@
 								message: `Text: "${value.toString() || 'nothing'}"`,
 								id: 1030404,
 								type: enums.AlertType.Info,
+								submit: (value) => {
+									logger.info("AlertTest", value.getDelta())
+								},
 								close: () => {
 									alert({
 										title: 'Test Alert',
