@@ -36,6 +36,15 @@
 			return this.toRaw(index).replaceAll('\n', ' ').replaceAll('\r', ' ').replaceAll('\t', '');
 		}
 
+		toDelta(index: number = 0) {
+			let obj = inputs[index];
+
+			if(obj.type == enums.AlertInputType.Text) {
+				return $quillstore.get(`inp-${index}`).getDelta();
+			}
+			return null; // No quill textbox
+		}
+
 		toRaw(index: number = 0) {
 			// This returns the raw output with \n's
 			let content: any = document.querySelector(`#inp-${index}`);

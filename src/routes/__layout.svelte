@@ -141,6 +141,7 @@
 					},
 					{
 						label: 'Test Input 2',
+						required: false,
 						placeholder: `Enter some random stuff here and click Submit!`,
 						multiline: false, // Set to "true", for Multi-line input
 						type: enums.AlertInputType.Text,
