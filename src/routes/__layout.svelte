@@ -124,7 +124,7 @@
 						multiline: false, // Set to "true", for Multi-line input
 						type: enums.AlertInputType.Text,
 						function: (value) => {
-							logger.info("AlertTest", value.getDelta());
+							logger.info("AlertTest", value.toDelta());
 							alert({
 								title: 'Test Alert',
 								message: `Textbox 1: "${value.toString() || 'nothing'}"<br>Textbox 2: "${value.toRaw(1) || 'nothing'}"`,
