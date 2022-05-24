@@ -4,14 +4,12 @@
 
 <script>
 	import { browser } from '$app/env';
-	import { apiUrl, nextUrl } from '$lib/config';
-	import { getCookie, loginUser } from '$lib/request';
+	import { apiUrl } from '$lib/config';
+	import { loginUser } from '$lib/request';
 	import { enums } from '$lib/enums/enums';
-	import { time_ranges_to_array } from 'svelte/internal';
 	import Button from '@smui/button';
 	import { goto } from '$app/navigation';
 	import { encode } from '@cfworker/base64url';
-	import alertstore from '$lib/alertstore';
 
 	let frostpawServer = '';
 	let frostpawMsg = 'Please wait...';
@@ -122,29 +120,12 @@
 						localStorage.loginError = '1';
 						loginUser(false);
 					} else {
-						// Confirm login (this usually takes a few tries)
-						fetch(`${apiUrl}/confirm-login`, {
-							credentials: "include"
+						// Push to client
+						fetch(`/frostpaw/set-cookie?json=${encode(JSON.stringify(json))}`, {
+							credentials: 'include',
 						})
-						.then(res => {
-							if(res.ok) {
-								window.location.href = frostpawServer;
-							} else {
-								fetch(`${apiUrl}/confirm-login`, {
-									credentials: "include"
-								})
-								.then((res) => {
-									if(res.ok) {
-										window.location.href = frostpawServer;
-									} else {
-										window.fallbackToken = () => {
-											document.cookie = "sunbeam-session:warriorcats=" + encode(JSON.stringify(json)) + ";max-age=3600";
-											window.location.href = frostpawServer;
-										}
-										frostpawMsg = `Could not set cookies for login. This is a critical error that should be reported on our support server<br/><br/>However for the time being, we can also fallback to a slightly more insecure (still safe but less so than HttpOnly cookies) authentication method.<br/><br/><button onclick='fallbackToken()'>Degrade And Login</button>.`;
-									}
-								})
-							}
+						.then((_) => {
+							window.location.href = `/frostpaw/confirm-login?json=${encode(JSON.stringify(json))}&redirect=${frostpawServer}`;
 						})
 					}
 				});

@@ -4,7 +4,7 @@
 	logger.info('Header', 'Session from header', $session);
 	import Menu, { MenuComponentDev } from '@smui/menu';
 	import List, { Item, Text } from '@smui/list';
-	import { loginUser } from '$lib/request';
+	import { loginUser, logoutUser } from '$lib/request';
 	import { goto } from '$app/navigation';
 	import { apiUrl, nextUrl, lynxUrl } from '$lib/config';
 	import { browser } from '$app/env';
@@ -177,18 +177,10 @@
 				{#if username}
 					<Item
 						on:SMUI:action={() => {
-							fetch(`${nextUrl}/oauth2`, {
-								method: 'DELETE',
-								credentials: 'include',
-								headers: {
-									'Content-Type': 'application/json',
-									Frostpaw: '0.1.0'
-								}
-							})
-								.then((res) => res.json())
-								.then((json) => {
-									window.location.reload(); // Only place its really needed
-								});
+							logoutUser()
+							.then(() => {
+								window.location.reload(); // Only place its really needed
+							});
 						}}
 					>
 						<Text>Logout</Text>

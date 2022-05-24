@@ -2,6 +2,8 @@ import { browser } from '$app/env';
 import { apiUrl, nextUrl } from './config';
 import { genError } from './strings';
 import * as logger from './logger';
+import { encode } from '@cfworker/base64url';
+
 
 // Parse review state from number
 export function parseState(v) {
@@ -88,6 +90,12 @@ export async function loginUser(noSetStorage: boolean) {
 	}
 
 	window.location.href = `${json.context}&state=${json.reason}`;
+}
+
+export async function logoutUser() {
+	await fetch(`/frostpaw/set-cookie?removal=true`, {
+		credentials: 'include',
+	})
 }
 
 export async function voteHandler(
