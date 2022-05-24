@@ -178,9 +178,7 @@
 					<Item
 						on:SMUI:action={() => {
 							logoutUser()
-							.then(() => {
-								window.location.reload(); // Only place its really needed
-							});
+							window.location.reload(); // Only place its really needed
 						}}
 					>
 						<Text>Logout</Text>

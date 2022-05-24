@@ -93,7 +93,7 @@ export async function loginUser(noSetStorage: boolean) {
 }
 
 export function logoutUser() {
-	document.cookie = `sunbeam-session=;Path=/;httponly;secure;expires=${new Date(0).toUTCString()};samesite=lax;priority=High`
+	document.cookie = `sunbeam-session=;Path=/;secure;expires=${new Date(0).toUTCString()};samesite=lax;priority=High`
 }
 
 export async function voteHandler(
