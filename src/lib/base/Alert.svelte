@@ -9,7 +9,7 @@
 
 	export let close;
 	export let submit;
-	export let inputs;
+	export let inputs: any[];
 
 	export let showError = false;
 
@@ -39,6 +39,10 @@
 			return this.toRaw(index).replaceAll('\n', ' ').replaceAll('\r', ' ').replaceAll('\t', '');
 		}
 
+		toLines(index: number = 0) {
+			index = index || this.defaultIndex;
+		}
+
 		toDelta(index: number = 0) {
 			index = index || this.defaultIndex;
 
@@ -52,16 +56,19 @@
 
 		validate() {
 			showError = false;
-			$quillstore.forEach((value, key) => {
+			logger.info("AlertBox", `Validating ${inputs.length} inputs`)
+			for(let i = 0; i < inputs.length; i++) {
+				this.defaultIndex = i
+
+				let input = inputs[i]
+
 				if(showError) {
 					return showError
 				}
 
-				let i = parseInt(key.replaceAll("inp-", ''));
-				let input = inputs[i];
-				logger.info("AlertBox", { key, value, input })
+				logger.info("AlertBox", { input })
 				if (input.required) {
-					const checks = value.getText()
+					const checks = this.toRaw()
 						.replaceAll(' ', '')
 						.replaceAll('\n', '')
 						.replaceAll('\t', '')
@@ -70,8 +77,8 @@
 					if (checks === '') {
 						showError = true;
 						error = 'Error: This field is required';
-						errTgt = key;
-						return
+						errTgt = `inp-${i}`;
+						return showError
 					} else {
 						showError = false;
 						error = '';
@@ -79,15 +86,15 @@
 				}
 
 				if(input.validate) {
-					this.defaultIndex = i
 					let check = input.validate(this);
 					if(check) {
 						showError = true;
 						error = check;
-						return
+						errTgt = `inp-${i}`;
+						return showError
 					}
 				}
-			});
+			}
 			this.defaultIndex = 0;
 			return showError;
 		}
@@ -95,56 +102,24 @@
 		toRaw(index: number = 0) {
 			index = index || this.defaultIndex;
 
-			// This returns the raw output with \n's
-			let content: any = document.querySelector(`#inp-${index}`);
-
-			if (!content) {
-				return '';
-			}
-
 			let obj = inputs[index];
+
+			let content;
 
 			if(obj.type == enums.AlertInputType.Text) {
 				content = $quillstore.get(`inp-${index}`).getText();
 			} else {
+				// This returns the raw output with \n's
+				content = document.querySelector(`#inp-${index}`);
+
+				if (!content) {
+					return '';
+				}
+
 				content = content.value;
-				if(obj.required && !content) {
-					showError = true;
-					error = `${obj.label} is required`;
-					return null;
-				}  
 			}
 
 			return content
-		}
-
-		toHTML() {
-			// Wrapper around this.editor
-			return this.editor.getHTML();
-		}
-
-		toJSON() {
-			// Wrapper around this.editor but with far less nightmare formatting
-			let parsed: any[] = [];
-			// lemme do this part lmao
-
-			let content: any[] = this.editor.getJSON().content;
-
-			if (!content) {
-				return '';
-			}
-
-			content.forEach((data) => {
-				data.content.forEach((d) => {
-					if (!d) {
-						return;
-					}
-
-					parsed.push(d); // Hey, its a *little* saner?
-				});
-			});
-
-			return parsed; // You have to return from nightmares, yknow?
 		}
 
 		toString() {
