@@ -27,24 +27,67 @@
 	class SubmittedInput {
 		inputs: any;
 		defaultIndex: number; // Default index to use in toSingleLine
+		indexMap: Map<String, number>; // Map of input id to index
 
 		constructor(editor: object, inputs: any) {
 			this.inputs = inputs
 			this.defaultIndex = 0;
+			this.indexMap = this.createIndexMap()
 		}
 
-		toSingleLine(index: number = 0) {
+		createIndexMap() {
+			let map = new Map<String, number>();
+
+			for(let i = 0; i < inputs.length; i++) {
+				map.set(inputs[i].id, i);
+			}
+			return map
+		}
+
+		getIndex(index: number = -1) {
+			logger.info("getIndex", index)
+			if(typeof index == 'string') {
+				return this.indexMap.get(index) || this.defaultIndex;
+			}
+
+			if(index == -1) {
+				return this.defaultIndex;
+			}
+
+			return index;
+		}
+
+		toSingleLine(index: number = -1) {
 			// Does exactly what it says it does on the tin, returns a single no-newline line
-			index = index || this.defaultIndex;
+			index = this.getIndex(index);
 			return this.toRaw(index).replaceAll('\n', ' ').replaceAll('\r', ' ').replaceAll('\t', '');
 		}
 
-		toLines(index: number = 0) {
-			index = index || this.defaultIndex;
+		toLines(index: number = -1) {
+			let raw = this.toRaw(index);
+
+			let split = raw
+				.replaceAll("\r", "\n")
+				.split('\n');
+			
+			let result = []
+
+			let gotToContent = false
+
+			for(let i = 0; i < split.length; i++) {
+				if(this.trim(split[i]) != "") {
+					gotToContent = true
+				} 
+
+				if(gotToContent) {
+					result.push(split[i])
+				}
+			}
+			return result.join("\n")
 		}
 
-		toDelta(index: number = 0) {
-			index = index || this.defaultIndex;
+		toDelta(index: number = -1) {
+			index = this.getIndex(index);
 
 			let obj = inputs[index];
 
@@ -53,6 +96,13 @@
 			}
 			return null; // No quill textbox
 		}
+
+		trim(s: string) {
+			return s.replaceAll(' ', '')
+					.replaceAll('\n', '')
+					.replaceAll('\t', '')
+					.replaceAll('\r', '');
+		} 
 
 		validate() {
 			showError = false;
@@ -68,11 +118,7 @@
 
 				logger.info("AlertBox", { input })
 				if (input.required) {
-					const checks = this.toRaw()
-						.replaceAll(' ', '')
-						.replaceAll('\n', '')
-						.replaceAll('\t', '')
-						.replaceAll('\r', '');
+					const checks = this.trim(this.toRaw())
 
 					if (checks === '') {
 						showError = true;
@@ -99,8 +145,8 @@
 			return showError;
 		}
 
-		toRaw(index: number = 0) {
-			index = index || this.defaultIndex;
+		toRaw(index: number = -1) {
+			index = this.getIndex(index);
 
 			let obj = inputs[index];
 

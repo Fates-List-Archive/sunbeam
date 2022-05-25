@@ -126,16 +126,17 @@ import Alert from '$lib/base/Alert.svelte';
 				type: enums.AlertType.Alert,
 				inputs: [
 					{
+						id: "mew3",
 						label: 'Test Input',
 						required: true,
 						placeholder: `Enter some random stuff here and click Submit!`,
 						multiline: false, // Set to "true", for Multi-line input
 						type: enums.AlertInputType.Text,
 						function: (value) => {
-							logger.info("AlertTest", value.toDelta());
+							logger.info("AlertTest", value.indexMap);
 							alert({
 								title: 'Test Alert',
-								message: `Textbox 1: "${value.toString() || 'nothing'}"<br>Textbox 2: "${value.toRaw(1) || 'nothing'}"`,
+								message: `Textbox 1: "${value.toLines() || 'nothing'}"<br>Textbox 2: "${value.toLines(1) || 'nothing'}"`,
 								id: 1030404,
 								type: enums.AlertType.Info,
 								close: () => {
@@ -150,27 +151,20 @@ import Alert from '$lib/base/Alert.svelte';
 						}
 					},
 					{
+						id: "mew2",
 						label: 'Test Input 2',
 						required: false,
 						placeholder: `Enter some random stuff here and click Submit!`,
 						multiline: false, // Set to "true", for Multi-line input
 						type: enums.AlertInputType.Text,
-						function: (value) => {
-							alert({
-								title: 'Test Alert',
-								message: `Text: "${value.toString() || 'nothing'}"`,
-								id: 1030404,
-								type: enums.AlertType.Info,
-								close: () => {
-									alert({
-										title: 'Test Alert',
-										message: "You've closed the alert!",
-										id: 1030404,
-										type: enums.AlertType.Success
-									});
-								}
-							});
-						}
+					},
+					{
+						id: "mew27",
+						label: 'Test Input 3',
+						required: true,
+						placeholder: `Enter some random stuff here and click Submit!`,
+						multiline: false, // Set to "true", for Multi-line input
+						type: enums.AlertInputType.Text,
 					}
 				]
 			});
