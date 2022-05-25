@@ -5,6 +5,7 @@
 
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte'; // For later
+import { session } from '$app/stores';
 
 	export let perms: number = 0;
 
@@ -12,6 +13,8 @@
 
 	let treeDepthOne = [];
 	let treeDepthTwo = {};
+
+	let nonce = "";
 
 	// https://stackoverflow.com/a/46959528
 	function title(str) {
@@ -31,6 +34,22 @@
 			treeDepthTwo = $doctreeCache.treeDepthTwo;
 			treeLoading = false;
 			return;
+		}
+
+		// Fetch nonce from lynx api
+		if(perms > 2) {
+			let nonceReq = await fetch(`${lynxUrl}/nonce`, {
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: $session.session.token,
+					"Frostpaw-ID": $session.session.user.id
+				}
+			});
+			
+			if(nonceReq.ok) {
+				let nonceRes = await nonceReq.json();
+				nonce = nonceRes.nonce;
+			}
 		}
 
 		logger.info('QuailTree', 'Fetching doctree');
@@ -190,7 +209,7 @@
 					</a>
 				</li>
 				<li class="td-1">
-					<a class="tree-link" id="admin-nav" href="https://lynx.fateslist.xyz/_admin">
+					<a class="tree-link" id="admin-nav" href="https://lynx.fateslist.xyz/_admin?nonce={nonce}">
 						<span class="span">Admin Panel</span>
 					</a>
 				</li>
