@@ -45,7 +45,7 @@ import { session } from '$app/stores';
 					"Frostpaw-ID": $session.session.user.id
 				}
 			});
-			
+
 			if(nonceReq.ok) {
 				let nonceRes = await nonceReq.json();
 				nonce = nonceRes.nonce;
@@ -209,7 +209,7 @@ import { session } from '$app/stores';
 					</a>
 				</li>
 				<li class="td-1">
-					<a class="tree-link" id="admin-nav" href="https://lynx.fateslist.xyz/_admin?nonce={nonce}">
+					<a class="tree-link" id="admin-nav" href="https://lynx.fateslist.xyz/_quailfeather/ap-login?nonce={nonce}">
 						<span class="span">Admin Panel</span>
 					</a>
 				</li>
