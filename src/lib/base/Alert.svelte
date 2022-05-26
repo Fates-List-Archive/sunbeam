@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { enums } from '$lib/enums/enums';
+	import { AlertInputType, enums } from '$lib/enums/enums';
 	import quillstore from '$lib/quillstore';
 	import * as logger from '$lib/logger';
 
@@ -39,6 +39,10 @@
 			let map = new Map<String, number>();
 
 			for(let i = 0; i < inputs.length; i++) {
+				if(inputs[i].type == enums.AlertInputType.Pre) {
+					continue;
+				}
+
 				map.set(inputs[i].id, i);
 			}
 			return map
@@ -87,12 +91,14 @@
 
 			// If last line is \n then remove it
 			for(let i = result.length; i >= 0; i--) {
-				if(!result[result.length - 1]) {
+				if(!this.trim((result[result.length - 1]))) {
 					result.pop()
 				} else {
 					break;
 				}
 			}
+
+			logger.info("AlertBox", "Got validated lines", result)
 
 			return result.join("\n")
 		}
@@ -115,6 +121,10 @@
 					.replaceAll('\r', '');
 		} 
 
+		focusError() {
+			(document.querySelector(`#${errTgt}`) as HTMLElement).scrollIntoView();
+		}
+
 		validate() {
 			showError = false;
 			logger.info("AlertBox", `Validating ${inputs.length} inputs`)
@@ -127,6 +137,10 @@
 					return showError
 				}
 
+				if(input.type == enums.AlertInputType.Pre) {
+					continue;
+				}
+
 				logger.info("AlertBox", { input })
 				if (input.required) {
 					const checks = this.trim(this.toRaw())
@@ -135,6 +149,7 @@
 						showError = true;
 						error = 'Error: This field is required';
 						errTgt = `inp-${i}`;
+						this.focusError();
 						return showError
 					} else {
 						showError = false;
@@ -148,6 +163,7 @@
 						showError = true;
 						error = check;
 						errTgt = `inp-${i}`;
+						this.focusError();
 						return showError
 					}
 				}
@@ -235,86 +251,102 @@
 
 					{#each inputs as inputData, id}
 						{#if inputData}
-							<br />
+							{#if inputData.type != enums.AlertInputType.Pre}
+								<br />
 
-							<fieldset>
-								<legend>{inputData.label} ({enums.AlertInputType[inputData.type]})</legend>
+								<fieldset>
+									<legend>{inputData.label} ({enums.AlertInputType[inputData.type]})</legend>
 
-								{#if inputData.type == enums.AlertInputType.Number}
-									<label for="alert-input" class="alert-label">{inputData.label}</label>
-
-									<input id="inp-{id}" type="number" class="InputAlert" placeholder={inputData.placeholder} />
-
-									{#if (!errTgt || errTgt == `inp-${id}`) && showError}
-										<div class="input-error">{error}</div>
+									{#if inputData.description}
+										<span>{inputData.description}</span>
 									{/if}
-								{/if}
 
-								{#if inputData.type == enums.AlertInputType.Boolean}
-									<label for="alert-input" class="alert-label">{inputData.label}</label>
+									{#if inputData.type == enums.AlertInputType.Number}
+										<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-									<input id="inp-{id}" type="checkbox" class="InputAlert" placeholder={inputData.placeholder} />
+										<input id="inp-{id}" type="number" class="InputAlert" />
 
-									{#if (!errTgt || errTgt == `inp-${id}`) && showError}
-										<div class="input-error">{error}</div>
+										{#if inputData.placeholder}
+											<small>{inputData.placeholder}</small>
+										{/if}
+
+										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+											<div class="input-error">{error}</div>
+										{/if}
 									{/if}
-								{/if}
 
-								{#if inputData.type == enums.AlertInputType.DateTime}
-									<label for="alert-input" class="alert-label">{inputData.label}</label>
+									{#if inputData.type == enums.AlertInputType.Boolean}
+										<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-									<input id="inp-{id}" type="datetime" class="InputAlert" placeholder={inputData.placeholder} />
+										<input id="inp-{id}" type="checkbox" class="InputAlert" placeholder={inputData.placeholder} />
 
-									{#if (!errTgt || errTgt == `inp-${id}`) && showError}
-										<div class="input-error">{error}</div>
+										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+											<div class="input-error">{error}</div>
+										{/if}
 									{/if}
-								{/if}
 
-								{#if inputData.type == enums.AlertInputType.DateTimeLocal}
-									<label for="alert-input" class="alert-label">{inputData.label}</label>
+									{#if inputData.type == enums.AlertInputType.DateTime}
+										<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-									<input
-										type="datetime-local"
-										id="inp-{id}"
-										class="InputAlert"
-										placeholder={inputData.placeholder}
-									/>
+										<input id="inp-{id}" type="datetime" class="InputAlert" placeholder={inputData.placeholder} />
 
-									{#if (!errTgt || errTgt == `inp-${id}`) && showError}
-										<div class="input-error">{error}</div>
+										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+											<div class="input-error">{error}</div>
+										{/if}
 									{/if}
-								{/if}
 
-								{#if inputData.type == enums.AlertInputType.Color}
-									<label for="alert-input" class="alert-label">{inputData.label}</label>
+									{#if inputData.type == enums.AlertInputType.DateTimeLocal}
+										<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-									<input id="inp-{id}" type="color" class="InputAlert" placeholder={inputData.placeholder} />
+										<input
+											type="datetime-local"
+											id="inp-{id}"
+											class="InputAlert"
+											placeholder={inputData.placeholder}
+										/>
 
-									{#if (!errTgt || errTgt == `inp-${id}`) && showError}
-										<div class="input-error">{error}</div>
+										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+											<div class="input-error">{error}</div>
+										{/if}
 									{/if}
-								{/if}
 
-								{#if inputData.type == enums.AlertInputType.File}
-									<label for="alert-input" class="alert-label">{inputData.label}</label>
+									{#if inputData.type == enums.AlertInputType.Color}
+										<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-									<input id="inp-{id}" type="file" class="InputAlert" placeholder={inputData.placeholder} />
+										<input id="inp-{id}" type="color" class="InputAlert" placeholder={inputData.placeholder} />
 
-									{#if (!errTgt || errTgt == `inp-${id}`) && showError}
-										<div class="input-error">{error}</div>
+										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+											<div class="input-error">{error}</div>
+										{/if}
 									{/if}
-								{/if}
 
-								{#if inputData.type == enums.AlertInputType.Text}
-									<label for="alert-input" class="alert-label">{inputData.label}</label>
+									{#if inputData.type == enums.AlertInputType.File}
+										<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-									<TextEditor id="inp-{id}" placeHolderContent={inputData.placeholder} />
+										<input id="inp-{id}" type="file" class="InputAlert" placeholder={inputData.placeholder} />
 
-									{#if (!errTgt || errTgt == `inp-${id}`) && showError}
-										<div class="input-error">{error}</div>
+										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+											<div class="input-error">{error}</div>
+										{/if}
 									{/if}
-								{/if}
-							</fieldset>
+
+									{#if inputData.type == enums.AlertInputType.Text}
+										<label for="alert-input" class="alert-label">{inputData.label}</label>
+
+										<TextEditor id="inp-{id}" placeHolderContent={inputData.placeholder} />
+										{#if inputData.placeholder}
+											<small>{inputData.placeholder}</small>
+										{/if}
+
+										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+											<div class="input-error">{error}</div>
+										{/if}
+									{/if}
+								</fieldset>
+							{:else}
+								{@html inputData.description}
+								<br/>
+							{/if}
 						{/if}
 					{/each}
 						
@@ -427,6 +459,8 @@
 
 	.InputAlert[type='number'] {
 		width: 95%;
+		background-color: black;
+		color: #1e90ff;
 	}
 
 	.input-error {

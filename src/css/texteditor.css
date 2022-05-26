@@ -1158,3 +1158,7 @@
 .ql-container.ql-snow {
 	border: 1px solid #ccc;
 }
+
+.ql-editor::before { 
+	color: grey;
+}

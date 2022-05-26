@@ -7,6 +7,7 @@ interface AlertInputInterface {
 	multiline: boolean;
 	required?: boolean;
 	type?: AlertInputType;
+	description?: string;
 	id?: string; // Optional id
 	validate?: (value) => string;
 }
