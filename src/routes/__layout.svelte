@@ -109,6 +109,7 @@ import Alert from '$lib/base/Alert.svelte';
 			}
 			if (!opt.type) {
 				logger.error('No type in alertstore');
+				return
 			}
 
 			$alertstore = opt;

@@ -249,16 +249,13 @@
 				placeholder: `Enter your BOT ID here to confirm`,
 				multiline: false,
 				required: true,
-				function: async (value) => {
-					// Make this a alert input
+				validate: (value) => {
 					if (value.toSingleLine() != data.bot_id) {
-						alert({
-							title: 'Error',
-							type: enums.AlertType.Error,
-							id: 'confirm-fail',
-							message:
-								'Could not transfer ownership as you did not confirm you wanted to do this/inputted invalid Bot ID'
-						});
+						return "Bot ID doesn't match";
+					}
+				},
+				function: async (value) => {
+					if (value.toSingleLine() != data.bot_id) {
 						return;
 					}
 
@@ -319,15 +316,13 @@
 				placeholder: `Enter your BOT ID here to confirm`,
 				multiline: false,
 				required: true,
+				validate: (value) => {
+					if (value.toSingleLine() != data.bot_id) {
+						return "Bot ID doesn't match";
+					}
+				},
 				function: async (value) => {
 					if (value.toSingleLine() != data.bot_id) {
-						alert({
-							title: 'Error',
-							type: enums.AlertType.Error,
-							id: 'confirm-fail',
-							message:
-								'Could not delete bot as you did not confirm you wanted to do this/inputted invalid Bot ID'
-						});
 						return;
 					}
 

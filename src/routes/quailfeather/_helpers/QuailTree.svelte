@@ -7,6 +7,7 @@
 	import Icon from '@iconify/svelte'; // For later
 import { session } from '$app/stores';
 import { enums } from '$lib/enums/enums';
+import { logoutUser } from '$lib/request';
 
 	export let perms: number = 0;
 
@@ -283,7 +284,15 @@ in the staff guide, you will just be told to reread the staff guide!`.replaceAll
 							});
 
 							if (res.ok) {
-								alert(`Successfully reset credentials`);
+								alert({
+									id: "reset-alert",
+									title: "Success", 
+									type: enums.AlertType.Success,
+									close: () => {
+										logoutUser();
+									},
+									message: `Successfully reset credentials. You will need to login again.`
+								});
 							}
 						})()
 					}}>
