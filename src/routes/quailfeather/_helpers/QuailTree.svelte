@@ -268,6 +268,11 @@ in the staff guide, you will just be told to reread the staff guide!`.replaceAll
 					</a>
 				</li>
 				<li class="td-1">
+					<a class="tree-link" id="sapp-nav" href="/quailfeather/staff-apps">
+						<span class="span">Staff Applications</span>
+					</a>
+				</li>
+				<li class="td-1">
 					<a class="tree-link" id="admin-nav" href="https://lynx.fateslist.xyz/_quailfeather/ap-login?nonce={nonce}">
 						<span class="span">Admin Panel</span>
 					</a>
