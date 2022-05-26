@@ -85,7 +85,7 @@ import { session } from '$app/stores';
 						<h4>{question.title}</h4>
 						<p>{question.question}</p>
 						<p>Length: {question.min_length} to {question.max_length} characters</p>
-						<p>Answer: <span style="opacity:0.7!important">{app.answers[question.id]}</span></p>
+						<p>Answer: <span style="opacity:0.7!important;word-wrap:break-word!important;">{app.answers[question.id]}</span></p>
 						<hr/>
 					{/each}
 				{/each}
