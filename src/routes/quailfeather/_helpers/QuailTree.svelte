@@ -6,6 +6,7 @@
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte'; // For later
 import { session } from '$app/stores';
+import { enums } from '$lib/enums/enums';
 
 	export let perms: number = 0;
 
@@ -199,7 +200,64 @@ import { session } from '$app/stores';
 
 			{#if perms > 2}
 				<li class="td-1">
-					<a class="tree-link" id="staff-verify-nav" href="/quailfeather/staff-verify">
+					<a class="tree-link" id="staff-verify-nav" href={"javascript:void(0)"} on:click={() => {
+						alert({
+							id: "staff-verify-alert",
+							title: "Staff Verification",
+							type: enums.AlertType.Prompt,
+							message: `
+<h3 style="color:black!important">In order to continue, you will need to make sure you are up to date with our rules</h3>
+<strong>You can find our staff guide <a style="color:blue!important" href="/quailfeather/docs/staff-guide">here</a></strong>
+<ol style="color:black!important">
+	<li>The code is somewhere in the staff guide so please read the full guide</li>
+	<li>Look up terms you do not understand on Google!</li>
+</ol>
+<strong style="color:black!important">Once you complete this, you will automatically recieve your roles in the staff server</strong>
+<strong>By continuing, you agree to:</strong>
+<ol style="color:black!important">
+	<li>Abide by Discord ToS</li>
+	<li>Abide by Fates List ToS</li>
+	<li>Agree to try and be at least partially active on the list</li>
+	<li>Be able to join group chats (group DMs) if required by Fates List Admin+</li>
+</ol>
+If you disagree with any of the above, you should stop now and consider taking a 
+Leave Of Absence or leaving the staff team though we hope it won't come to this...<br/><br/>
+
+Please <em>read</em> the staff guide carefully. Do NOT just Ctrl-F. If you ask questions already
+in the staff guide, you will just be told to reread the staff guide!`.replaceAll("\n", ""),
+							input: {
+								id: "Code",
+								label: "Code",
+								required: true,
+								multiline: false,
+								placeholder: "Enter code here",
+								type: enums.AlertInputType.Text,
+							},
+							submit: async (value) => {
+								let code = value.toString();
+								logger.info(code, "Code");
+								let res = await fetch(
+									`${lynxUrl}/staff-verify?user_id=${$session.session.user.id}&code=${code}`,
+									{
+										method: 'POST',
+										headers: {
+											'Content-Type': 'application/json',
+											Authorization: $session.session.token
+										}
+									}
+								);
+
+								if (res.ok) {
+									let data = await res.json();
+									alert(`Staff verified! Your lynx password is:<br/><br/><code>${data.pass}</code>`);
+								} else {
+									let data = await res.json();
+									alert(data.reason);
+								}
+							},
+							close: () => {}
+						})
+					}}>
 						<span class="span">Staff Verify</span>
 					</a>
 				</li>

@@ -84,6 +84,16 @@
 					result.push(split[i])
 				}
 			}
+
+			// If last line is \n then remove it
+			for(let i = result.length; i >= 0; i--) {
+				if(!result[result.length - 1]) {
+					result.pop()
+				} else {
+					break;
+				}
+			}
+
 			return result.join("\n")
 		}
 
@@ -171,7 +181,7 @@
 
 		toString() {
 			// Prototype Object.prototype.toString (i hope this works)
-			return this.toRaw();
+			return this.toLines();
 		}
 	}
 
@@ -332,6 +342,14 @@
 		justify-content: center;
 		align-items: center;
 		background: transparent;
+		color: black !important;
+	}
+
+	:global(.alert-content) {
+		color: black !important;
+	}
+
+	slot {
 		color: black !important;
 	}
 

@@ -91,7 +91,7 @@ import Alert from '$lib/base/Alert.svelte';
 			// Backwards compatibility
 			if (opt.input) {
 				opt.input.type = enums.AlertInputType.Text;
-				opt.submit = opt.input.function
+				opt.submit = opt.input.function || opt.submit
 				opt.inputs = [opt.input];
 			} else if(opt.inputs) {
 				if(opt.inputs.length > 0 && opt.inputs[0].function) {
