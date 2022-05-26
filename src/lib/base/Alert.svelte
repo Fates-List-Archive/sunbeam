@@ -60,7 +60,8 @@
 		toSingleLine(index: number = -1) {
 			// Does exactly what it says it does on the tin, returns a single no-newline line
 			index = this.getIndex(index);
-			return this.toRaw(index).replaceAll('\n', ' ').replaceAll('\r', ' ').replaceAll('\t', '');
+			return this.trim(this.toRaw(index))
+			.replaceAll('\n', ' ').replaceAll('\r', ' ').replaceAll('\t', '');
 		}
 
 		toLines(index: number = -1) {
