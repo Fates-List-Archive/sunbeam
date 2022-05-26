@@ -60,34 +60,32 @@
 		Please don't abuse this by spamming LOA's non-stop or you **will** be demoted!
 	</div>
 
-	<form class="needs-validation" novalidate>
-		<div class="form-group">
-			<FormInput
-				id="reason"
-				name="Reason"
-				placeholder="Reason for LOA"
-				textarea={true}
-				required={true}
-			/>
-			<div class="valid-feedback">Looks good!</div>
-			<div class="invalid-feedback">Reason is either missing or too long!</div>
-		</div>
-		<div>
-			<label for="duration">Duration</label>
-			<input
-				type="datetime-local"
-				class="form-control question"
-				id="duration"
-				name="duration"
-				placeholder="Duration of LOA"
-				required
-				aria-required="true"
-			/>
-			<div class="valid-feedback">Looks good!</div>
-			<div class="invalid-feedback">Duration is either missing or too long!</div>
-		</div>
-		<Button class="button" id="loa-btn" on:click={() => sendLoa()}>Submit</Button>
-	</form>
+	<div class="form-group">
+		<FormInput
+			id="reason"
+			name="Reason"
+			placeholder="Reason for LOA"
+			textarea={true}
+			required={true}
+		/>
+		<div class="valid-feedback">Looks good!</div>
+		<div class="invalid-feedback">Reason is either missing or too long!</div>
+	</div>
+	<div>
+		<label for="duration">Duration</label>
+		<input
+			type="datetime-local"
+			class="form-control question"
+			id="duration"
+			name="duration"
+			placeholder="Duration of LOA"
+			required
+			aria-required="true"
+		/>
+		<div class="valid-feedback">Looks good!</div>
+		<div class="invalid-feedback">Duration is either missing or too long!</div>
+	</div>
+	<Button class="button" id="loa-btn" on:click={() => sendLoa()}>Submit</Button>
 
 	<em>Or...</em>
 

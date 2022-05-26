@@ -272,7 +272,21 @@ in the staff guide, you will just be told to reread the staff guide!`.replaceAll
 					</a>
 				</li>
 				<li class="td-1">
-					<a class="tree-link" id="reset-nav" href="/quailfeather/reset">
+					<a class="tree-link" id="reset-nav" href={"javascript:void(0)"} on:click={() => {
+						(async () => {
+							let res = await fetch(`${lynxUrl}/reset?user_id=${$session.session.user.id}`, {
+								method: 'POST',
+								headers: {
+									'Content-Type': 'application/json',
+									Authorization: $session.session.token
+								}
+							});
+
+							if (res.ok) {
+								alert(`Successfully reset credentials`);
+							}
+						})()
+					}}>
 						<span class="span">Reset Credentials</span>
 					</a>
 				</li>

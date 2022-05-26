@@ -8,6 +8,9 @@
 			id = session.session.user.id;
 		}
 		let perms = await fetch(`${apiUrl}/baypaw/perms/${id}`);
+
+		perms = await perms.json()
+
 		if (perms.perm < 2) {
 			return {
 				status: 401,
