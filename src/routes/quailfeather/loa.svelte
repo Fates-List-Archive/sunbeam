@@ -1,7 +1,7 @@
 <script context="module">
 	/** @type {import('@sveltejs/kit').ErrorLoad} */
 	import { apiUrl, lynxUrl } from '$lib/config';
-
+	export const prerender = false;
 	export async function load({ session }) {
 		let id = '0';
 		if (session.session.token) {

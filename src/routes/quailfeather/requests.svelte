@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
 	import { lynxUrl } from '$lib/config';
-
+	export const prerender = false;
 	export async function load({ params, url, fetch, session, stuff }) {
 		let res = await fetch(`${lynxUrl}/requests`);
 		if (!res.ok) {

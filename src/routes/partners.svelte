@@ -1,8 +1,8 @@
 <script context="module" lang="ts">
 	import { fetchFates } from '$lib/request';
-	export const prerender = true;
+	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
-	export async function load({ params, fetch, session, stuff }) {
+	export async function load({ params, fetch, stuff }) {
 		const url = `/partners`;
 		const res = await fetchFates(url, '', fetch, false, true);
 

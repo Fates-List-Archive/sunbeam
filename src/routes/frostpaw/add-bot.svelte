@@ -1,5 +1,6 @@
 <script lang="ts" context="module">
 	import { fetchFates } from '$lib/request';
+	export const prerender = false;
 	/** @type {import('@sveltejs/kit@next').Load} */
 	export async function load({ params, fetch, session, stuff }) {
 		if (!session.session.token) {
