@@ -1,31 +1,32 @@
 // i hate my life
 import { createClient } from '@supabase/supabase-js';
-import enums from `$lib/enums/enums`;
+import enums from '$lib/enums/enums';
 import * as logger from '$lib/logger';
 
 // Seconds to Milliseconds conversion
 const convertMilliseconds = (seconds: number) => {
-    return seconds * 1000;
+	return seconds * 1000;
 };
 
 // Generate a UUID
 const generateUUID = () => {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-        const r = (Math.random() * 16) | 0;
-        const v = c === 'x' ? r : (r & 0x3) | 0x8;
-        return v.toString(16);
-    });
+	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+		const r = (Math.random() * 16) | 0;
+		const v = c === 'x' ? r : (r & 0x3) | 0x8;
+		return v.toString(16);
+	});
 };
 
 // Options
-const options = {
+const options: object = {
 	schema: 'public',
 	headers: {
-        "client": "sunbeam", 
-        "date": Date.now(),
-        "expire_in": convertMilliseconds(600),
-        "signature": generateUUID(),
-    },
+		client: 'sunbeam',
+		date: Date.now(),
+		expire_in: convertMilliseconds(600),
+		signature: generateUUID(),
+		nightmare: true
+	},
 	autoRefreshToken: true,
 	persistSession: true,
 	detectSessionInUrl: true,
@@ -35,13 +36,13 @@ const options = {
 
 const supabase = createClient(
 	'https://uxppihlcjxnrgcqhygts.supabase.co',
-	options.PUBLIC_KEY,
+	options['PUBLIC_KEY'],
 	options
 );
 
 class storage {
-	constructor(userID: string) {
-		this.userID = userID;
+	constructor(userID) {
+		this.userID = userID || null;
 	}
 
 	createBucket = async (name, options) => {
@@ -104,17 +105,47 @@ class storage {
 		}
 	};
 
-	// big nightmare moment xd
-
 	uploadFile = async (bucket, event) => {
-		const file = event.target.files[0];
-		const { data, error } = await supabase.storage
-			.from(bucket)
-			.upload(`files/${file.name}.${file.extension}`, file, {
-				cacheControl: '3600',
-				upsert: false
-			});
+		const files = event.target.files;
 
-        // <selectthegang>: @cheesycod please look up how to get a file name and extension from the file input
+		if (files.length < 0) {
+			return {
+				error: {
+					message: 'No files submitted',
+					stack: 'User did not submit any files'
+				}
+			};
+		} else {
+			// limit to only 4 files
+			if (files.length > 4) {
+				return {
+					error: {
+						message: 'Too many files submitted',
+						stack: 'User submitted too many files'
+					}
+				};
+			} else {
+				files.forEach(async (file) => {
+					// Limit file size to only **5MB**
+					if (file.size > 5242880) {
+						return;
+					} else {
+						const { data, error } = await supabase.storage
+							.from(bucket)
+							.upload(`files/${file.name}.${file.type.replace(/(.*)\//g, '')}`, file, {
+								cacheControl: '3600',
+								upsert: false
+							});
+                        
+                        if (error) {
+                            return error;
+                        }
+                        else {
+                            return data;
+                        }
+					}
+				});
+			}
+		}
 	};
 }
