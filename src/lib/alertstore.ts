@@ -6,6 +6,8 @@ interface AlertInputInterface {
 	placeholder: string;
 	multiline: boolean;
 	required?: boolean;
+	minlength: number;
+	maxlength: number;
 	type?: AlertInputType;
 	description?: string;
 	id?: string; // Optional id

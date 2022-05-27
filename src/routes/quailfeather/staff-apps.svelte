@@ -85,7 +85,9 @@ import { session } from '$app/stores';
 						<h4>{question.title}</h4>
 						<p>{question.question}</p>
 						<p>Length: {question.min_length} to {question.max_length} characters</p>
-						<p>Answer: <span style="opacity:0.7!important;word-wrap:break-word!important;">{app.answers[question.id]}</span></p>
+						<div class="scroll-claw">
+							<p>Answer: <span style="opacity:0.7!important;word-wrap:break-word!important">{app.answers[question.id]}</span></p>
+						</div>
 						<hr/>
 					{/each}
 				{/each}
@@ -123,6 +125,8 @@ import { session } from '$app/stores';
 							label: question.title,
 							description: question.question,
 							placeholder: question.description,
+							minlength: question.min_length,
+							maxlength: question.max_length,
 							required: true,
 							validate: (value) => {
 								value = value.toString();
@@ -208,5 +212,10 @@ import { session } from '$app/stores';
 		width: 90% !important;
 		margin-left: auto;
 		margin-right: auto;
+	}
+
+	.scroll-claw {
+		max-height: 500px;
+		overflow-y: scroll
 	}
 </style>

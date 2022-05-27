@@ -270,6 +270,19 @@
 											<small>{inputData.placeholder}</small>
 										{/if}
 
+										{#if inputData.minlength || inputData.maxlength}
+											<br/>
+										{/if}
+										{#if inputData.minlength}
+											<small>Minimum Length: {inputData.minlength}</small>
+										{/if}
+										{#if inputData.maxlength}
+											{#if inputData.minlength}
+												<br/>
+											{/if}
+											<small>Maximum Length: {inputData.maxlength}</small>
+										{/if}
+
 										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
 											<div class="input-error">{error}</div>
 										{/if}
@@ -336,6 +349,19 @@
 										<TextEditor id="inp-{id}" placeHolderContent={inputData.placeholder} />
 										{#if inputData.placeholder}
 											<small>{inputData.placeholder}</small>
+										{/if}
+
+										{#if inputData.minlength || inputData.maxlength}
+											<br/>
+										{/if}
+										{#if inputData.minlength}
+											<small>Minimum Length: {inputData.minlength}</small>
+										{/if}
+										{#if inputData.maxlength}
+											{#if inputData.minlength}
+												<br/>
+											{/if}
+											<small>Maximum Length: {inputData.maxlength}</small>
 										{/if}
 
 										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
