@@ -133,7 +133,7 @@
 			message: "Please always unclaim when you can't review them",
 			type: enums.AlertType.Prompt,
 			validate: (value) => {
-				if(value.toSingleLine().length < 5) {
+				if (value.toSingleLine().length < 5) {
 					return 'Reason must be at least 5 characters';
 				}
 			},
@@ -155,7 +155,7 @@
 			message: 'Please carefully review bots before approving them',
 			type: enums.AlertType.Prompt,
 			validate: (value) => {
-				if(value.toSingleLine().length < 5) {
+				if (value.toSingleLine().length < 5) {
 					return 'Reason must be at least 5 characters';
 				}
 			},
@@ -180,7 +180,7 @@
 			message: 'Please do not deny for spurious reasons',
 			type: enums.AlertType.Prompt,
 			validate: (value) => {
-				if(value.toSingleLine().length < 5) {
+				if (value.toSingleLine().length < 5) {
 					return 'Reason must be at least 5 characters';
 				}
 			},
@@ -202,7 +202,7 @@
 			message: 'Please do not ban for spurious reasons',
 			type: enums.AlertType.Prompt,
 			validate: (value) => {
-				if(value.toSingleLine().length < 5) {
+				if (value.toSingleLine().length < 5) {
 					return 'Reason must be at least 5 characters';
 				}
 			},
@@ -224,7 +224,7 @@
 			message: 'Please do not unban for spurious reasons',
 			type: enums.AlertType.Prompt,
 			validate: (value) => {
-				if(value.toSingleLine().length < 5) {
+				if (value.toSingleLine().length < 5) {
 					return 'Reason must be at least 5 characters';
 				}
 			},
@@ -246,7 +246,7 @@
 			message: 'Please do not unverify for spurious reasons',
 			type: enums.AlertType.Prompt,
 			validate: (value) => {
-				if(value.toSingleLine().length < 5) {
+				if (value.toSingleLine().length < 5) {
 					return 'Reason must be at least 5 characters';
 				}
 			},
@@ -268,7 +268,7 @@
 			message: 'Please do not requeue for spurious reasons',
 			type: enums.AlertType.Prompt,
 			validate: (value) => {
-				if(value.toSingleLine().length < 5) {
+				if (value.toSingleLine().length < 5) {
 					return 'Reason must be at least 5 characters';
 				}
 			},
@@ -290,7 +290,7 @@
 			message: 'Before certifing, make sure you have reviewed the bot to meet the requirements',
 			type: enums.AlertType.Prompt,
 			validate: (value) => {
-				if(value.toSingleLine().length < 5) {
+				if (value.toSingleLine().length < 5) {
 					return 'Reason must be at least 5 characters';
 				}
 			},
@@ -312,7 +312,7 @@
 			message: 'Please do not uncertify for spurious reasons',
 			type: enums.AlertType.Prompt,
 			validate: (value) => {
-				if(value.toSingleLine().length < 5) {
+				if (value.toSingleLine().length < 5) {
 					return 'Reason must be at least 5 characters';
 				}
 			},
@@ -334,7 +334,7 @@
 			message: 'Please do not reset bot votes for spurious reasons',
 			type: enums.AlertType.Prompt,
 			validate: (value) => {
-				if(value.toSingleLine().length < 5) {
+				if (value.toSingleLine().length < 5) {
 					return 'Reason must be at least 5 characters';
 				}
 			},
@@ -356,7 +356,7 @@
 			message: 'Please do not reset all bot votes for spurious reasons',
 			type: enums.AlertType.Prompt,
 			validate: (value) => {
-				if(value.toSingleLine().length < 5) {
+				if (value.toSingleLine().length < 5) {
 					return 'Reason must be at least 5 characters';
 				}
 			},
@@ -379,7 +379,7 @@
 			message: 'Please do not set bot flags for spurious reasons',
 			type: enums.AlertType.Prompt,
 			validate: (value) => {
-				if(value.toSingleLine().length < 5) {
+				if (value.toSingleLine().length < 5) {
 					return 'Reason must be at least 5 characters';
 				}
 			},

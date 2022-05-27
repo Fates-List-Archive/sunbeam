@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 
-	import * as logger from "$lib/logger";
+	import * as logger from '$lib/logger';
 
 	import quillstore from '$lib/quillstore';
 
@@ -25,7 +25,7 @@
 		// Packages
 		const quillImport = await import('quill');
 
-		logger.info("Quill", "Have imported quill");
+		logger.info('Quill', 'Have imported quill');
 
 		const Quill = quillImport.default;
 		Quill.imports = quillImport.imports;
@@ -39,7 +39,7 @@
 			placeholder: options.placeholder
 		});
 
-		if(!$quillstore) {
+		if (!$quillstore) {
 			$quillstore = new Map();
 		}
 
@@ -49,14 +49,14 @@
 		// Quill (Editor) Markdown Extension
 		const markdownOptions = {};
 
-		if(window.QuillMarkdown) {
-			logger.info("Loading quill-markdown")
+		if (window.QuillMarkdown) {
+			logger.info('Loading quill-markdown');
 			let _ = new window.QuillMarkdown(quill, markdownOptions);
 		}
 	});
 </script>
 
-<div bind:this={editor} id={id} />
+<div bind:this={editor} {id} />
 
 <style>
 	@import '../../css/texteditor.css';

@@ -760,7 +760,7 @@
 			bot['action_logs'] = [];
 			bot['commands'] = []; // TODO (maybe?)
 			bot['resources'] = []; // TODO (maybe?)
-			bot["events"] = []; // Potentially
+			bot['events'] = []; // Potentially
 			bot['shard_count'] = 0; // Never used
 			bot['guild_count'] = 0; // Never used
 			bot['user_count'] = 0; // Never used

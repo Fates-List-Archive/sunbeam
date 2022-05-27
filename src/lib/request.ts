@@ -4,7 +4,6 @@ import { genError } from './strings';
 import * as logger from './logger';
 import { encode } from '@cfworker/base64url';
 
-
 // Parse review state from number
 export function parseState(v) {
 	let state = '';
@@ -93,7 +92,9 @@ export async function loginUser(noSetStorage: boolean) {
 }
 
 export function logoutUser() {
-	document.cookie = `sunbeam-session=;Path=/;secure;expires=${new Date(0).toUTCString()};samesite=lax;priority=High`
+	document.cookie = `sunbeam-session=;Path=/;secure;expires=${new Date(
+		0
+	).toUTCString()};samesite=lax;priority=High`;
 }
 
 export async function voteHandler(

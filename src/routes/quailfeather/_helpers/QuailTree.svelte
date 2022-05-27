@@ -5,9 +5,9 @@
 
 	import { onMount } from 'svelte';
 	import Icon from '@iconify/svelte'; // For later
-import { session } from '$app/stores';
-import { enums } from '$lib/enums/enums';
-import { logoutUser } from '$lib/request';
+	import { session } from '$app/stores';
+	import { enums } from '$lib/enums/enums';
+	import { logoutUser } from '$lib/request';
 
 	export let perms: number = 0;
 
@@ -16,7 +16,7 @@ import { logoutUser } from '$lib/request';
 	let treeDepthOne = [];
 	let treeDepthTwo = {};
 
-	let nonce = "";
+	let nonce = '';
 
 	// https://stackoverflow.com/a/46959528
 	function title(str) {
@@ -39,16 +39,16 @@ import { logoutUser } from '$lib/request';
 		}
 
 		// Fetch nonce from lynx api
-		if(perms > 2) {
+		if (perms > 2) {
 			let nonceReq = await fetch(`${lynxUrl}/nonce`, {
 				headers: {
 					'Content-Type': 'application/json',
 					Authorization: $session.session.token,
-					"Frostpaw-ID": $session.session.user.id
+					'Frostpaw-ID': $session.session.user.id
 				}
 			});
 
-			if(nonceReq.ok) {
+			if (nonceReq.ok) {
 				let nonceRes = await nonceReq.json();
 				nonce = nonceRes.nonce;
 			}
@@ -201,12 +201,16 @@ import { logoutUser } from '$lib/request';
 
 			{#if perms > 2}
 				<li class="td-1">
-					<a class="tree-link" id="staff-verify-nav" href={"javascript:void(0)"} on:click={() => {
-						alert({
-							id: "staff-verify-alert",
-							title: "Staff Verification",
-							type: enums.AlertType.Prompt,
-							message: `
+					<a
+						class="tree-link"
+						id="staff-verify-nav"
+						href={'javascript:void(0)'}
+						on:click={() => {
+							alert({
+								id: 'staff-verify-alert',
+								title: 'Staff Verification',
+								type: enums.AlertType.Prompt,
+								message: `
 <h3 style="color:black!important">In order to continue, you will need to make sure you are up to date with our rules</h3>
 <strong>You can find our staff guide <a style="color:blue!important" href="/quailfeather/docs/staff-guide">here</a></strong>
 <ol style="color:black!important">
@@ -225,40 +229,43 @@ If you disagree with any of the above, you should stop now and consider taking a
 Leave Of Absence or leaving the staff team though we hope it won't come to this...<br/><br/>
 
 Please <em>read</em> the staff guide carefully. Do NOT just Ctrl-F. If you ask questions already
-in the staff guide, you will just be told to reread the staff guide!`.replaceAll("\n", ""),
-							input: {
-								id: "Code",
-								label: "Code",
-								required: true,
-								multiline: false,
-								placeholder: "Enter code here",
-								type: enums.AlertInputType.Text,
-							},
-							submit: async (value) => {
-								let code = value.toString();
-								logger.info(code, "Code");
-								let res = await fetch(
-									`${lynxUrl}/staff-verify?user_id=${$session.session.user.id}&code=${code}`,
-									{
-										method: 'POST',
-										headers: {
-											'Content-Type': 'application/json',
-											Authorization: $session.session.token
+in the staff guide, you will just be told to reread the staff guide!`.replaceAll('\n', ''),
+								input: {
+									id: 'Code',
+									label: 'Code',
+									required: true,
+									multiline: false,
+									placeholder: 'Enter code here',
+									type: enums.AlertInputType.Text
+								},
+								submit: async (value) => {
+									let code = value.toString();
+									logger.info(code, 'Code');
+									let res = await fetch(
+										`${lynxUrl}/staff-verify?user_id=${$session.session.user.id}&code=${code}`,
+										{
+											method: 'POST',
+											headers: {
+												'Content-Type': 'application/json',
+												Authorization: $session.session.token
+											}
 										}
-									}
-								);
+									);
 
-								if (res.ok) {
-									let data = await res.json();
-									alert(`Staff verified! Your lynx password is:<br/><br/><code>${data.pass}</code>`);
-								} else {
-									let data = await res.json();
-									alert(data.reason);
-								}
-							},
-							close: () => {}
-						})
-					}}>
+									if (res.ok) {
+										let data = await res.json();
+										alert(
+											`Staff verified! Your lynx password is:<br/><br/><code>${data.pass}</code>`
+										);
+									} else {
+										let data = await res.json();
+										alert(data.reason);
+									}
+								},
+								close: () => {}
+							});
+						}}
+					>
 						<span class="span">Staff Verify</span>
 					</a>
 				</li>
@@ -273,34 +280,43 @@ in the staff guide, you will just be told to reread the staff guide!`.replaceAll
 					</a>
 				</li>
 				<li class="td-1">
-					<a class="tree-link" id="admin-nav" href="https://lynx.fateslist.xyz/_quailfeather/ap-login?nonce={nonce}">
+					<a
+						class="tree-link"
+						id="admin-nav"
+						href="https://lynx.fateslist.xyz/_quailfeather/ap-login?nonce={nonce}"
+					>
 						<span class="span">Admin Panel</span>
 					</a>
 				</li>
 				<li class="td-1">
-					<a class="tree-link" id="reset-nav" href={"javascript:void(0)"} on:click={() => {
-						(async () => {
-							let res = await fetch(`${lynxUrl}/reset?user_id=${$session.session.user.id}`, {
-								method: 'POST',
-								headers: {
-									'Content-Type': 'application/json',
-									Authorization: $session.session.token
-								}
-							});
-
-							if (res.ok) {
-								alert({
-									id: "reset-alert",
-									title: "Success", 
-									type: enums.AlertType.Success,
-									close: () => {
-										logoutUser();
-									},
-									message: `Successfully reset credentials. You will need to login again.`
+					<a
+						class="tree-link"
+						id="reset-nav"
+						href={'javascript:void(0)'}
+						on:click={() => {
+							(async () => {
+								let res = await fetch(`${lynxUrl}/reset?user_id=${$session.session.user.id}`, {
+									method: 'POST',
+									headers: {
+										'Content-Type': 'application/json',
+										Authorization: $session.session.token
+									}
 								});
-							}
-						})()
-					}}>
+
+								if (res.ok) {
+									alert({
+										id: 'reset-alert',
+										title: 'Success',
+										type: enums.AlertType.Success,
+										close: () => {
+											logoutUser();
+										},
+										message: `Successfully reset credentials. You will need to login again.`
+									});
+								}
+							})();
+						}}
+					>
 						<span class="span">Reset Credentials</span>
 					</a>
 				</li>

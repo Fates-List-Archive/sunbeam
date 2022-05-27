@@ -1,13 +1,13 @@
 :root {
-    --color: #1e90ff;
+	--color: #1e90ff;
 }
 
 .ql-container {
 	box-sizing: border-box;
-    font-size: 13px;
-    height: 100%;
-    margin: 0px;
-    position: relative;
+	font-size: 13px;
+	height: 100%;
+	margin: 0px;
+	position: relative;
 }
 
 .ql-container.ql-disabled .ql-tooltip {
@@ -1159,6 +1159,6 @@
 	border: 1px solid #ccc;
 }
 
-.ql-editor::before { 
+.ql-editor::before {
 	color: grey;
 }

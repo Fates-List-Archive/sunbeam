@@ -18,7 +18,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 export const getSession: GetSession = async (event) => {
 	logger.info('Auth', 'getSession called');
 
-	const cookies = cookie.parse(event.request.headers.get('cookie') || event.request.headers.get('Cookie') || '');
+	const cookies = cookie.parse(
+		event.request.headers.get('cookie') || event.request.headers.get('Cookie') || ''
+	);
 
 	let sessionData = {};
 	if (cookies['sunbeam-session']) {
@@ -36,7 +38,7 @@ export const getSession: GetSession = async (event) => {
 	}
 
 	return {
-		url: "https://fateslist.xyz",
+		url: 'https://fateslist.xyz',
 		query: {},
 		session: sessionData
 	};

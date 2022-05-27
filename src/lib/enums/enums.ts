@@ -100,7 +100,7 @@ export enum AlertInputType {
 	DateTimeLocal = 5,
 	Color = 6,
 	File = 7,
-	Pre = 8, // Implements a metadata html element that can be put before another input
+	Pre = 8 // Implements a metadata html element that can be put before another input
 }
 
 export const enums = {

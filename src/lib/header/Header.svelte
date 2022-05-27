@@ -177,7 +177,7 @@
 				{#if username}
 					<Item
 						on:SMUI:action={() => {
-							logoutUser()
+							logoutUser();
 							window.location.reload(); // Only place its really needed
 						}}
 					>

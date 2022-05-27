@@ -25,7 +25,7 @@
 	import './../css/tailwind.css';
 	import { enums } from '$lib/enums/enums';
 	import { validate_each_argument } from 'svelte/internal';
-import Alert from '$lib/base/Alert.svelte';
+	import Alert from '$lib/base/Alert.svelte';
 
 	$: {
 		if ($navigating) {
@@ -91,15 +91,15 @@ import Alert from '$lib/base/Alert.svelte';
 			// Backwards compatibility
 			if (opt.input) {
 				opt.input.type = enums.AlertInputType.Text;
-				opt.submit = opt.input.function || opt.submit
+				opt.submit = opt.input.function || opt.submit;
 				opt.inputs = [opt.input];
-			} else if(opt.inputs) {
-				if(opt.inputs.length > 0 && opt.inputs[0].function) {
-					opt.submit = opt.inputs[0].function
+			} else if (opt.inputs) {
+				if (opt.inputs.length > 0 && opt.inputs[0].function) {
+					opt.submit = opt.inputs[0].function;
 				}
 			}
 
-			if(opt.validate && opt.inputs && opt.inputs.length > 0) {
+			if (opt.validate && opt.inputs && opt.inputs.length > 0) {
 				opt.inputs[0].validate = opt.validate;
 			}
 
@@ -109,7 +109,7 @@ import Alert from '$lib/base/Alert.svelte';
 			}
 			if (!opt.type) {
 				logger.error('No type in alertstore');
-				return
+				return;
 			}
 
 			$alertstore = opt;
@@ -127,17 +127,19 @@ import Alert from '$lib/base/Alert.svelte';
 				type: enums.AlertType.Alert,
 				inputs: [
 					{
-						id: "mew3",
+						id: 'mew3',
 						label: 'Test Input',
 						required: true,
 						placeholder: `Enter some random stuff here and click Submit!`,
 						multiline: false, // Set to "true", for Multi-line input
 						type: enums.AlertInputType.Text,
 						function: (value) => {
-							logger.info("AlertTest", value.indexMap);
+							logger.info('AlertTest', value.indexMap);
 							alert({
 								title: 'Test Alert',
-								message: `Textbox 1: "${value.toLines() || 'nothing'}"<br>Textbox 2: "${value.toLines(1) || 'nothing'}"`,
+								message: `Textbox 1: "${value.toLines() || 'nothing'}"<br>Textbox 2: "${
+									value.toLines(1) || 'nothing'
+								}"`,
 								id: 1030404,
 								type: enums.AlertType.Info,
 								close: () => {
@@ -152,20 +154,20 @@ import Alert from '$lib/base/Alert.svelte';
 						}
 					},
 					{
-						id: "mew2",
+						id: 'mew2',
 						label: 'Test Input 2',
 						required: false,
 						placeholder: `Enter some random stuff here and click Submit!`,
 						multiline: false, // Set to "true", for Multi-line input
-						type: enums.AlertInputType.Text,
+						type: enums.AlertInputType.Text
 					},
 					{
-						id: "mew27",
+						id: 'mew27',
 						label: 'Test Input 3',
 						required: true,
 						placeholder: `Enter some random stuff here and click Submit!`,
 						multiline: false, // Set to "true", for Multi-line input
-						type: enums.AlertInputType.Text,
+						type: enums.AlertInputType.Text
 					}
 				]
 			});

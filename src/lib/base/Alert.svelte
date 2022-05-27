@@ -2,7 +2,7 @@
 	import { AlertInputType, enums } from '$lib/enums/enums';
 	import quillstore from '$lib/quillstore';
 	import * as logger from '$lib/logger';
-
+	import storage from '$lib/supabase';
 	import TextEditor from '$lib/base/TextEditor-BETA.svelte';
 
 	export let show: boolean;
@@ -30,31 +30,31 @@
 		indexMap: Map<String, number>; // Map of input id to index
 
 		constructor(editor: object, inputs: any) {
-			this.inputs = inputs
+			this.inputs = inputs;
 			this.defaultIndex = 0;
-			this.indexMap = this.createIndexMap()
+			this.indexMap = this.createIndexMap();
 		}
 
 		createIndexMap() {
 			let map = new Map<String, number>();
 
-			for(let i = 0; i < inputs.length; i++) {
-				if(inputs[i].type == enums.AlertInputType.Pre) {
+			for (let i = 0; i < inputs.length; i++) {
+				if (inputs[i].type == enums.AlertInputType.Pre) {
 					continue;
 				}
 
 				map.set(inputs[i].id, i);
 			}
-			return map
+			return map;
 		}
 
 		getIndex(index: number = -1) {
-			logger.info("getIndex", index)
-			if(typeof index == 'string') {
+			logger.info('getIndex', index);
+			if (typeof index == 'string') {
 				return this.indexMap.get(index) || this.defaultIndex;
 			}
 
-			if(index == -1) {
+			if (index == -1) {
 				return this.defaultIndex;
 			}
 
@@ -65,42 +65,42 @@
 			// Does exactly what it says it does on the tin, returns a single no-newline line
 			index = this.getIndex(index);
 			return this.trim(this.toRaw(index))
-			.replaceAll('\n', ' ').replaceAll('\r', ' ').replaceAll('\t', '');
+				.replaceAll('\n', ' ')
+				.replaceAll('\r', ' ')
+				.replaceAll('\t', '');
 		}
 
 		toLines(index: number = -1) {
 			let raw = this.toRaw(index);
 
-			let split = raw
-				.replaceAll("\r", "\n")
-				.split('\n');
-			
-			let result = []
+			let split = raw.replaceAll('\r', '\n').split('\n');
 
-			let gotToContent = false
+			let result = [];
 
-			for(let i = 0; i < split.length; i++) {
-				if(this.trim(split[i]) != "") {
-					gotToContent = true
-				} 
+			let gotToContent = false;
 
-				if(gotToContent) {
-					result.push(split[i])
+			for (let i = 0; i < split.length; i++) {
+				if (this.trim(split[i]) != '') {
+					gotToContent = true;
+				}
+
+				if (gotToContent) {
+					result.push(split[i]);
 				}
 			}
 
 			// If last line is \n then remove it
-			for(let i = result.length; i >= 0; i--) {
-				if(!this.trim((result[result.length - 1]))) {
-					result.pop()
+			for (let i = result.length; i >= 0; i--) {
+				if (!this.trim(result[result.length - 1])) {
+					result.pop();
 				} else {
 					break;
 				}
 			}
 
-			logger.info("AlertBox", "Got validated lines", result)
+			logger.info('AlertBox', 'Got validated lines', result);
 
-			return result.join("\n")
+			return result.join('\n');
 		}
 
 		toDelta(index: number = -1) {
@@ -108,18 +108,15 @@
 
 			let obj = inputs[index];
 
-			if(obj.type == enums.AlertInputType.Text) {
+			if (obj.type == enums.AlertInputType.Text) {
 				return $quillstore.get(`inp-${index}`).getContents();
 			}
 			return null; // No quill textbox
 		}
 
 		trim(s: string) {
-			return s.replaceAll(' ', '')
-					.replaceAll('\n', '')
-					.replaceAll('\t', '')
-					.replaceAll('\r', '');
-		} 
+			return s.replaceAll(' ', '').replaceAll('\n', '').replaceAll('\t', '').replaceAll('\r', '');
+		}
 
 		focusError() {
 			(document.querySelector(`#${errTgt}`) as HTMLElement).scrollIntoView();
@@ -127,44 +124,44 @@
 
 		validate() {
 			showError = false;
-			logger.info("AlertBox", `Validating ${inputs.length} inputs`)
-			for(let i = 0; i < inputs.length; i++) {
-				this.defaultIndex = i
+			logger.info('AlertBox', `Validating ${inputs.length} inputs`);
+			for (let i = 0; i < inputs.length; i++) {
+				this.defaultIndex = i;
 
-				let input = inputs[i]
+				let input = inputs[i];
 
-				if(showError) {
-					return showError
+				if (showError) {
+					return showError;
 				}
 
-				if(input.type == enums.AlertInputType.Pre) {
+				if (input.type == enums.AlertInputType.Pre) {
 					continue;
 				}
 
-				logger.info("AlertBox", { input })
+				logger.info('AlertBox', { input });
 				if (input.required) {
-					const checks = this.trim(this.toRaw())
+					const checks = this.trim(this.toRaw());
 
 					if (checks === '') {
 						showError = true;
 						error = 'Error: This field is required';
 						errTgt = `inp-${i}`;
 						this.focusError();
-						return showError
+						return showError;
 					} else {
 						showError = false;
 						error = '';
 					}
 				}
 
-				if(input.validate) {
+				if (input.validate) {
 					let check = input.validate(this);
-					if(check) {
+					if (check) {
 						showError = true;
 						error = check;
 						errTgt = `inp-${i}`;
 						this.focusError();
-						return showError
+						return showError;
 					}
 				}
 			}
@@ -179,7 +176,7 @@
 
 			let content;
 
-			if(obj.type == enums.AlertInputType.Text) {
+			if (obj.type == enums.AlertInputType.Text) {
 				content = $quillstore.get(`inp-${index}`).getText();
 			} else {
 				// This returns the raw output with \n's
@@ -192,7 +189,7 @@
 				content = content.value;
 			}
 
-			return content
+			return content;
 		}
 
 		toString() {
@@ -202,17 +199,17 @@
 	}
 
 	const submitInput = () => {
-		logger.info("AlertBox", "Clicked submit")
+		logger.info('AlertBox', 'Clicked submit');
 		errTgt = null;
 		if (inputs && inputs.length > 0 && submit) {
-			logger.info("AlertBox", "Found input")
+			logger.info('AlertBox', 'Found input');
 			const inp = new SubmittedInput(editor, inputs);
 			const valid = inp.validate();
 
-			logger.info("AlertBox", `Got validator ${valid}`)
+			logger.info('AlertBox', `Got validator ${valid}`);
 
-			if(valid) {
-				return
+			if (valid) {
+				return;
 			}
 
 			submit(inp);
@@ -228,7 +225,8 @@
 
 <svelte:head>
 	<!--Blame svelte-->
-	<script src="https://cdn.jsdelivr.net/npm/quilljs-markdown@latest/dist/quilljs-markdown.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/quilljs-markdown@latest/dist/quilljs-markdown.js"></script>
 </svelte:head>
 
 {#if show}
@@ -271,14 +269,14 @@
 										{/if}
 
 										{#if inputData.minlength || inputData.maxlength}
-											<br/>
+											<br />
 										{/if}
 										{#if inputData.minlength}
 											<small>Minimum Length: {inputData.minlength}</small>
 										{/if}
 										{#if inputData.maxlength}
 											{#if inputData.minlength}
-												<br/>
+												<br />
 											{/if}
 											<small>Maximum Length: {inputData.maxlength}</small>
 										{/if}
@@ -291,7 +289,12 @@
 									{#if inputData.type == enums.AlertInputType.Boolean}
 										<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-										<input id="inp-{id}" type="checkbox" class="InputAlert" placeholder={inputData.placeholder} />
+										<input
+											id="inp-{id}"
+											type="checkbox"
+											class="InputAlert"
+											placeholder={inputData.placeholder}
+										/>
 
 										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
 											<div class="input-error">{error}</div>
@@ -301,7 +304,12 @@
 									{#if inputData.type == enums.AlertInputType.DateTime}
 										<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-										<input id="inp-{id}" type="datetime" class="InputAlert" placeholder={inputData.placeholder} />
+										<input
+											id="inp-{id}"
+											type="datetime"
+											class="InputAlert"
+											placeholder={inputData.placeholder}
+										/>
 
 										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
 											<div class="input-error">{error}</div>
@@ -326,7 +334,12 @@
 									{#if inputData.type == enums.AlertInputType.Color}
 										<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-										<input id="inp-{id}" type="color" class="InputAlert" placeholder={inputData.placeholder} />
+										<input
+											id="inp-{id}"
+											type="color"
+											class="InputAlert"
+											placeholder={inputData.placeholder}
+										/>
 
 										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
 											<div class="input-error">{error}</div>
@@ -336,7 +349,12 @@
 									{#if inputData.type == enums.AlertInputType.File}
 										<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-										<input id="inp-{id}" type="file" class="InputAlert" placeholder={inputData.placeholder} />
+										<input
+											id="inp-{id}"
+											type="file"
+											class="InputAlert"
+											placeholder={inputData.placeholder}
+										/>
 
 										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
 											<div class="input-error">{error}</div>
@@ -352,14 +370,14 @@
 										{/if}
 
 										{#if inputData.minlength || inputData.maxlength}
-											<br/>
+											<br />
 										{/if}
 										{#if inputData.minlength}
 											<small>Minimum Length: {inputData.minlength}</small>
 										{/if}
 										{#if inputData.maxlength}
 											{#if inputData.minlength}
-												<br/>
+												<br />
 											{/if}
 											<small>Maximum Length: {inputData.maxlength}</small>
 										{/if}
@@ -371,11 +389,11 @@
 								</fieldset>
 							{:else}
 								{@html inputData.description}
-								<br/>
+								<br />
 							{/if}
 						{/if}
 					{/each}
-						
+
 					<button type="button" on:click={submitInput}>Submit</button>
 				{/if}
 			</div>
