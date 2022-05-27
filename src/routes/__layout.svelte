@@ -104,12 +104,10 @@
 			}
 
 			if (!opt.id) {
-				logger.error('No id in alertstore');
-				return;
+				opt.id = "alert-generic"
 			}
 			if (!opt.type) {
-				logger.error('No type in alertstore');
-				return;
+				opt.type = enums.AlertType.Alert
 			}
 
 			$alertstore = opt;
