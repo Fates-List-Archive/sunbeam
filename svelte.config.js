@@ -22,7 +22,8 @@ const config = {
 		adapter: adapter(),
 
 		prerender: {
-			default: true
+			default: false,
+			enabled: false
 		},
 
 		// hydrate the <div id="svelte"> element in src/app.html
