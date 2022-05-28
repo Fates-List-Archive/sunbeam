@@ -116,7 +116,7 @@
 
 <a
 	class="ham"
-	href={'#'}
+	href={'javascript:void(0)'}
 	on:click={() => {
 		if (treeShow) treeShow = false;
 		else treeShow = true;
