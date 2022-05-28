@@ -8,6 +8,7 @@ interface AlertInputInterface {
 	required?: boolean;
 	minlength: number;
 	maxlength: number;
+	multipleFiles?: boolean;
 	type?: AlertInputType;
 	description?: string;
 	id?: string; // Optional id

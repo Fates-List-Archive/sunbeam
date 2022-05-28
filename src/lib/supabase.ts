@@ -105,9 +105,7 @@ class storage {
 		}
 	};
 
-	uploadFile = async (bucket, event) => {
-		const files = event.target.files;
-
+	uploadFiles = async (bucket, files) => {
 		if (files.length < 0) {
 			return {
 				error: {
@@ -136,13 +134,12 @@ class storage {
 								cacheControl: '3600',
 								upsert: false
 							});
-                        
-                        if (error) {
-                            return error;
-                        }
-                        else {
-                            return data;
-                        }
+
+						if (error) {
+							return error;
+						} else {
+							return data;
+						}
 					}
 				});
 			}
