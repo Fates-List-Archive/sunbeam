@@ -2,13 +2,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { enums } from '$lib/enums/enums';
 import * as logger from '$lib/logger';
-import dotenv from "dotenv"
-
-// Configure dotenv
-dotenv.config();
-
-// Print all env variables
-console.log(process.env);
 
 // Seconds to Milliseconds conversion
 const convertMilliseconds = (seconds: number) => {
