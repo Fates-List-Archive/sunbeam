@@ -355,7 +355,6 @@
 												type="file"
 												multiple="true"
 												class="InputAlert"
-												placeholder={inputData.placeholder}
 											/>
 
 											<ol id="files" />
@@ -365,7 +364,6 @@
 												type="file"
 												multiple="false"
 												class="InputAlert"
-												placeholder={inputData.placeholder}
 											/>
 										{/if}
 
@@ -374,6 +372,8 @@
 												document.getElementById(`inp-${id}`).click();
 											}}>Upload Files</button
 										>
+
+										<h2 class="InputAlert-Placeholder">{inputData.placeholder}</h2>
 
 										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
 											<div class="input-error">{error}</div>
@@ -385,7 +385,7 @@
 
 										<TextEditor id="inp-{id}" placeHolderContent={inputData.placeholder} />
 										{#if inputData.placeholder}
-											<small>{inputData.placeholder}</small>
+											<h2 class="InputAlert-Placeholder">{inputData.placeholder}</h2>
 										{/if}
 
 										{#if inputData.minlength || inputData.maxlength}
@@ -483,6 +483,34 @@
 		cursor: pointer;
 	}
 
+	@keyframes pulse {
+		0% {
+			transform: scale(1);
+		}
+		50% {
+			transform: scale(1.1);
+		}
+		100% {
+			transform: scale(1);
+		}
+	}
+	
+	button:hover {
+		animation: pulse 1s infinite;
+		background-color: black !important;
+		color: white !important;
+	}
+
+	/* Fieldset */
+	fieldset {
+		border-radius: 6px;
+	}
+
+	legend {
+		font-family: 'Fira Code', monospace;
+		font-weight: bold;	
+	}
+	
 	/* Alert */
 	.alert-type {
 		color: black !important;
@@ -531,6 +559,15 @@
 		margin: 0;
 		padding: 0;
 		border: none;
+	}
+
+	.InputAlert-Placeholder {
+		color: black !important;
+		font-family: 'Fira Code', monospace;
+		font-weight: bold;
+		font-size: 16px;
+		margin-top: 20px;
+		margin-bottom: 0;
 	}
 
 	.input-error {
