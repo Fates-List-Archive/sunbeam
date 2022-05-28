@@ -2,7 +2,7 @@
 	import { AlertInputType, enums } from '$lib/enums/enums';
 	import quillstore from '$lib/quillstore';
 	import * as logger from '$lib/logger';
-	import storage from '$lib/supabase';
+	import { storage } from '$lib/supabase';
 	import TextEditor from '$lib/base/TextEditor-BETA.svelte';
 
 	export let show: boolean;
@@ -12,6 +12,12 @@
 	export let inputs: any[];
 
 	export let showError = false;
+
+	const test = new storage();
+
+	test.getBuckets().then((data) => {
+		logger.info("Supabase", data);
+	});
 
 	let editor; // We bind to this
 	let error: string = '';
@@ -207,7 +213,7 @@
 			const metadata = {
 				name: file.name,
 				size: file.size,
-				extension: file.type || "Unknown",
+				extension: file.type || 'Unknown',
 				last_updated: file.lastModified
 			};
 
@@ -220,6 +226,7 @@
 	const submitInput = () => {
 		logger.info('AlertBox', 'Clicked submit');
 		errTgt = null;
+
 		if (inputs && inputs.length > 0 && submit) {
 			logger.info('AlertBox', 'Found input');
 			const inp = new SubmittedInput(editor, inputs);
@@ -629,14 +636,14 @@
 	}
 
 	/* File */
-    #files {
+	#files {
 		list-style: none;
 		border: 1px solid #ccc;
 		border-radius: 4px;
 		padding: 20px;
 		overflow: scroll;
 	}
-	
+
 	.File {
 		border: 1px solid #ccc;
 		border-radius: 4px;
@@ -666,7 +673,12 @@
 	}
 
 	.File-Error {
-
+		background-color: red;
+		color: white;
+		font-weight: bold;
+		padding: 10px;
+		margin-top: 10px;
+		border-radius: 7px;
 	}
 
 	/* Responsive (Mobile) */

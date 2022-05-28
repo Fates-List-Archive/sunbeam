@@ -1,7 +1,14 @@
 // i hate my life
 import { createClient } from '@supabase/supabase-js';
-import enums from '$lib/enums/enums';
+import { enums } from '$lib/enums/enums';
 import * as logger from '$lib/logger';
+import dotenv from "dotenv"
+
+// Configure dotenv
+dotenv.config();
+
+// Print all env variables
+console.log(process.env);
 
 // Seconds to Milliseconds conversion
 const convertMilliseconds = (seconds: number) => {
@@ -29,22 +36,16 @@ const options: object = {
 	},
 	autoRefreshToken: true,
 	persistSession: true,
-	detectSessionInUrl: true,
-	PUBLIC_KEY:
-		'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4cHBpaGxjanhucmdjcWh5Z3RzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTM2NDQ5NjIsImV4cCI6MTk2OTIyMDk2Mn0.MQfD1ea89wyd3skeInCncSddq-apjCRfVDmtoEdDRnU'
+	detectSessionInUrl: true
 };
 
 const supabase = createClient(
 	'https://uxppihlcjxnrgcqhygts.supabase.co',
-	options['PUBLIC_KEY'],
+	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4cHBpaGxjanhucmdjcWh5Z3RzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTM2NDQ5NjIsImV4cCI6MTk2OTIyMDk2Mn0.MQfD1ea89wyd3skeInCncSddq-apjCRfVDmtoEdDRnU',
 	options
 );
 
 class storage {
-	constructor(userID) {
-		this.userID = userID || null;
-	}
-
 	createBucket = async (name, options) => {
 		const { data, error } = await supabase.storage.createBucket(name, options);
 
@@ -146,3 +147,7 @@ class storage {
 		}
 	};
 }
+
+class database {}
+
+export { storage, database };
