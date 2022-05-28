@@ -349,12 +349,31 @@
 									{#if inputData.type == enums.AlertInputType.File}
 										<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-										<input
-											id="inp-{id}"
-											type="file"
-											class="InputAlert"
-											placeholder={inputData.placeholder}
-										/>
+										{#if inputData.multipleData}
+											<input
+												id="inp-{id}"
+												type="file"
+												multiple="true"
+												class="InputAlert"
+												placeholder={inputData.placeholder}
+											/>
+
+											<ol id="files" />
+										{:else}
+											<input
+												id="inp-{id}"
+												type="file"
+												multiple="false"
+												class="InputAlert"
+												placeholder={inputData.placeholder}
+											/>
+										{/if}
+
+										<button
+											on:click={() => {
+												document.getElementById(`inp-${id}`).click();
+											}}>Upload Files</button
+										>
 
 										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
 											<div class="input-error">{error}</div>
@@ -505,6 +524,13 @@
 		width: 95%;
 		background-color: black;
 		color: #1e90ff;
+	}
+
+	.InputAlert[type='file'] {
+		display: none;
+		margin: 0;
+		padding: 0;
+		border: none;
 	}
 
 	.input-error {
