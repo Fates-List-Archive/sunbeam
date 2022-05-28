@@ -207,8 +207,8 @@
 			const metadata = {
 				name: file.name,
 				size: file.size,
-				type: file.type,
-				extension: file.lastModified
+				extension: file.type || "Unknown",
+				last_updated: file.lastModified
 			};
 
 			uploadedFiles.push(metadata);
@@ -398,12 +398,12 @@
 
 										<ol id="files">
 											{#each uploadedFiles as file}
-												<li>
+												<li class="File">
 													{#if file.error}
-														<span class="File-error">{file.error}</span>
+														<span class="File-Error">{file.error}</span>
 													{:else}
 														<h2 class="File-Name">Name: {file.name}</h2>
-														<p class="File-Type">Type: {file.type}</p>
+														<p class="File-Extension">Extension: {file.extension}</p>
 														<p class="File-Bytes">Bytes: {file.size}</p>
 													{/if}
 												</li>
@@ -626,6 +626,47 @@
 		clip: rect(0, 0, 0, 0);
 		white-space: nowrap;
 		border-width: 0;
+	}
+
+	/* File */
+    #files {
+		list-style: none;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		padding: 20px;
+		overflow: scroll;
+	}
+	
+	.File {
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		padding: 10px;
+	}
+
+	.File::after {
+		margin-bottom: 5px;
+	}
+
+	.File-Name {
+		color: black !important;
+		font-weight: bold;
+		font-size: 15px;
+	}
+
+	.File-Extension {
+		color: black !important;
+		font-weight: bold;
+		font-size: 10px;
+	}
+
+	.File-Bytes {
+		color: black !important;
+		font-weight: bold;
+		font-size: 10px;
+	}
+
+	.File-Error {
+
 	}
 
 	/* Responsive (Mobile) */
