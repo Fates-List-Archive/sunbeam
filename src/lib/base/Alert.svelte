@@ -198,6 +198,25 @@
 		}
 	}
 
+	export let uploadedFiles: any[] = [];
+
+	const onFileAdded = (data) => {
+		const files = data.target.files;
+
+		files.forEach((file) => {
+			const metadata = {
+				name: file.name,
+				size: file.size,
+				type: file.type,
+				extension: file.lastModified
+			};
+
+			uploadedFiles.push(metadata);
+			uploadedFiles = uploadedFiles;
+			logger.info('FileAdded', metadata);
+		});
+	};
+
 	const submitInput = () => {
 		logger.info('AlertBox', 'Clicked submit');
 		errTgt = null;
@@ -349,21 +368,25 @@
 									{#if inputData.type == enums.AlertInputType.File}
 										<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-										{#if inputData.multipleData}
+										{#if inputData.multipleFiles}
 											<input
 												id="inp-{id}"
 												type="file"
 												multiple="true"
 												class="InputAlert"
+												on:input={(data) => {
+													onFileAdded(data);
+												}}
 											/>
-
-											<ol id="files" />
 										{:else}
 											<input
 												id="inp-{id}"
 												type="file"
 												multiple="false"
 												class="InputAlert"
+												on:input={(data) => {
+													onFileAdded(data);
+												}}
 											/>
 										{/if}
 
@@ -372,6 +395,20 @@
 												document.getElementById(`inp-${id}`).click();
 											}}>Upload Files</button
 										>
+
+										<ol id="files">
+											{#each uploadedFiles as file}
+												<li>
+													{#if file.error}
+														<span class="File-error">{file.error}</span>
+													{:else}
+														<h2 class="File-Name">Name: {file.name}</h2>
+														<p class="File-Type">Type: {file.type}</p>
+														<p class="File-Bytes">Bytes: {file.size}</p>
+													{/if}
+												</li>
+											{/each}
+										</ol>
 
 										<h2 class="InputAlert-Placeholder">{inputData.placeholder}</h2>
 
@@ -494,7 +531,7 @@
 			transform: scale(1);
 		}
 	}
-	
+
 	button:hover {
 		animation: pulse 1s infinite;
 		background-color: black !important;
@@ -508,9 +545,9 @@
 
 	legend {
 		font-family: 'Fira Code', monospace;
-		font-weight: bold;	
+		font-weight: bold;
 	}
-	
+
 	/* Alert */
 	.alert-type {
 		color: black !important;
