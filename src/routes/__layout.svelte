@@ -163,9 +163,9 @@
 						id: 'mew27',
 						label: 'Test Input 3',
 						required: true,
-						placeholder: `Enter some random stuff here and click Submit!`,
-						multiline: false, // Set to "true", for Multi-line input
-						type: enums.AlertInputType.Text
+						placeholder: `Upload some random ass files please`,
+						type: enums.AlertInputType.File,
+						multipleFiles: true
 					}
 				]
 			});
