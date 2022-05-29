@@ -39,16 +39,15 @@ import Button from '@smui/button';
         }
 
         let schemaResp = await schema.json()
-        
-        // Get all tables
-        let tables = new Map()
 
-        schemaResp.forEach(el => {
-            if(!tables.has(el.table_name)) {
-                tables.set(el.table_name, [])
-            }
-            tables.get(el.table_name).push(el)
-        })
+        // Get order from schema
+        let schemaOrder = [];
+
+        for(let i = 0; i < schemaResp.length; i++) {
+            schemaOrder.push(schemaResp[i].column_name)
+        }
+
+        logger.info("AdminPanel", schemaOrder)
 
         // Get cols
         let cols = await fetch(`${lynxUrl}/ap/tables/${params.route}?user_id=${session.session.user.id}`, {
@@ -72,9 +71,9 @@ import Button from '@smui/button';
 		return {
 			props: {
 				perms: perms,
-                tables: tables,
                 tableName: params.route,
-                rows: colsResp
+                rows: colsResp,
+                schemaOrder: schemaOrder
 			}
 		};
 	}
@@ -90,48 +89,57 @@ import Button from '@smui/button';
 
 import QuailTree from '../../_helpers/QuailTree.svelte';
     export let perms: any;
-    export let tables: any;
     export let tableName: any;
     export let rows: any;
+    export let schemaOrder: any[];
     import * as logger from '$lib/logger';
 import Section from '$lib/base/Section.svelte';
 </script>
 
 <QuailTree perms={perms.perm}>
     <div class="mx-2">
-        {#each [...tables] as [tableName, table]}
-            <h1 id={tableName}>{title(tableName)}</h1>
-            <h2>Columns</h2>
-            <ul>
-                {#each table as column}
-                    <li>{column.column_name}</li>
-                {/each}
-            </ul>
-        {/each}
+        <h1 id={tableName}>{title(tableName)}</h1>
+        <h2>Columns</h2>
+        <ul>
+            {#each schemaOrder as column}
+                <li>{column}</li>
+            {/each}
+        </ul>
 
         <!--Insert schema-->
 
-        <!--Order of keys is not guaranteed, select, please fix-->
-        <table>
-            <thead>
-                <tr>
-                    {#each tables.get(tableName) as table}
-                        <th>{table.column_name}</th>
-                    {/each}
-            </thead>
-            {#each rows as row}
-                <tr>
-                    {#each Object.entries(row) as [key, value]}
-                        <td>{key} {value}</td>
-                    {/each}
-                </tr>
-            {/each}
-        </table>
+        <div class="scroll">
+            <table rules="all">
+                <thead>
+                    <tr>
+                        {#each schemaOrder as table}
+                            <th>{title(table)}</th>
+                        {/each}
+                </thead>
+                {#each rows as row}
+                    <tr>
+                        {#each schemaOrder as column}
+                            <td>{row[column]}</td>
+                        {/each}
+                    </tr>
+                {/each}
+            </table>
+        </div>
     </div>
 </QuailTree>
 
 <style>
-    ul {
+    ul, table, thead, td, tr {
         color: white !important;
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        white-space: nowrap;
+    }
+
+    .scroll {
+        overflow-x: scroll !important;
     }
 </style>
