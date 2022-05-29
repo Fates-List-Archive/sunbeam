@@ -108,9 +108,25 @@ import Section from '$lib/base/Section.svelte';
                 {/each}
             </ul>
         {/each}
-        {#each rows as row}
-            {JSON.stringify(row)}
-        {/each}
+
+        <!--Insert schema-->
+
+        <!--Order of keys is not guaranteed, select, please fix-->
+        <table>
+            <thead>
+                <tr>
+                    {#each tables.get(tableName) as table}
+                        <th>{table.column_name}</th>
+                    {/each}
+            </thead>
+            {#each rows as row}
+                <tr>
+                    {#each Object.entries(row) as [key, value]}
+                        <td>{key} {value}</td>
+                    {/each}
+                </tr>
+            {/each}
+        </table>
     </div>
 </QuailTree>
 
