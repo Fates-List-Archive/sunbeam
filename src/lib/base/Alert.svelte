@@ -34,6 +34,7 @@
 		inputs: any;
 		defaultIndex: number; // Default index to use in toSingleLine
 		indexMap: Map<String, number>; // Map of input id to index
+		values: Map<number, string>; // Map of index to value (for number/boolean etc only)
 
 		constructor(editor: object, inputs: any) {
 			this.inputs = inputs;
@@ -43,6 +44,7 @@
 
 		createIndexMap() {
 			let map = new Map<String, number>();
+			let valueMap = new Map<number, string>();
 
 			for (let i = 0; i < inputs.length; i++) {
 				if (inputs[i].type == enums.AlertInputType.Pre) {
@@ -50,13 +52,22 @@
 				}
 
 				map.set(inputs[i].id, i);
+
+				if (inputs[i].type == enums.AlertInputType.Number || inputs[i].type == enums.AlertInputType.Boolean) {
+					valueMap.set(i, document.querySelector(`#inp-${i}`).value);
+				}
 			}
+			
+			logger.info("Made valueMap of: ", valueMap);
+
+			this.values = valueMap;
 			return map;
 		}
 
 		getIndex(index: number = -1) {
 			logger.info('getIndex', index);
 			if (typeof index == 'string') {
+				logger.info("AlertBox", "Got indexMap of:", this.indexMap);
 				return this.indexMap.get(index) || this.defaultIndex;
 			}
 
@@ -77,7 +88,15 @@
 		}
 
 		toLines(index: number = -1) {
-			let raw = this.toRaw(index);
+			let gotIndex = this.getIndex(index);
+
+			let raw = this.toRaw(gotIndex);
+
+			logger.info("AlertBox", "Got raw:", raw);
+			
+			if(inputs[gotIndex].type == enums.AlertInputType.Number) {
+				return raw
+			}
 
 			let split = raw.replaceAll('\r', '\n').split('\n');
 
@@ -178,6 +197,8 @@
 		toRaw(index: number = -1) {
 			index = this.getIndex(index);
 
+			logger.info("AlertBox", "toRaw of index", index)
+
 			let obj = inputs[index];
 
 			let content;
@@ -186,13 +207,7 @@
 				content = $quillstore.get(`inp-${index}`).getText();
 			} else {
 				// This returns the raw output with \n's
-				content = document.querySelector(`#inp-${index}`);
-
-				if (!content) {
-					return '';
-				}
-
-				content = content.value;
+				content = this.values.get(index);
 			}
 
 			return content;

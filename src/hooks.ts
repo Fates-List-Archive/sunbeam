@@ -23,6 +23,13 @@ export const getSession: GetSession = async (event) => {
 	);
 
 	let sessionData = {};
+
+	let adminData = "";
+
+	if(cookies["_adminsession"]) {
+		adminData = cookies["_adminsession"];
+	}
+
 	if (cookies['sunbeam-session']) {
 		const newJwt = cookies['sunbeam-session'];
 
@@ -40,6 +47,7 @@ export const getSession: GetSession = async (event) => {
 	return {
 		url: 'https://fateslist.xyz',
 		query: {},
-		session: sessionData
+		session: sessionData,
+		adminData: adminData
 	};
 };
