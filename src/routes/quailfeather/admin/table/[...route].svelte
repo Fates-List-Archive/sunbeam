@@ -51,7 +51,7 @@ import Button from '@smui/button';
         })
 
         // Get cols
-        let cols = await fetch(`${lynxUrl}/_quailfeatjer/ap/tables/${params.route}?user_id=${session.session.user.id}`, {
+        let cols = await fetch(`${lynxUrl}/_quailfeather/ap/tables/${params.route}?user_id=${session.session.user.id}`, {
             method: "GET",
             headers: {
                 "Frostpaw-ID": session.adminData,
