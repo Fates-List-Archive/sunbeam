@@ -60,6 +60,7 @@
 		"@sveltejs/adapter-node": "^1.0.0-next.73",
 		"@tiptap/extension-placeholder": "^2.0.0-beta.48",
 		"cookie": "^0.5.0",
+		"dotenv": "^16.0.1",
 		"highlight.js": "^11.5.1",
 		"highlightjs-badge": "^0.1.9",
 		"itsdangerous": "^0.0.1",

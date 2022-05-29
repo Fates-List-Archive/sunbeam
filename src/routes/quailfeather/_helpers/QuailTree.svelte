@@ -255,7 +255,12 @@ in the staff guide, you will just be told to reread the staff guide!`.replaceAll
 									if (res.ok) {
 										let data = await res.json();
 										alert(
-											`Staff verified! Your lynx password is:<br/><br/><code>${data.pass}</code>`
+											`Staff verified! Your lynx password is:
+											
+<code style="word-wrap:break-word!important;overflow-y:scroll!important;">${data.pass}</code>
+
+Please enter <code>${data.totp_key}</code> in Google Authenticator or Authy for 2FA verification.
+`
 										);
 									} else {
 										let data = await res.json();
