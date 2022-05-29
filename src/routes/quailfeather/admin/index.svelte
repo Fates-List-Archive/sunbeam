@@ -88,20 +88,47 @@ import Button from '@smui/button';
 	}
 
 import QuailTree from '../_helpers/QuailTree.svelte';
-import { session } from '$app/stores';
     export let perms: any;
     export let allowedTables: any;
     export let tables: any
     import * as logger from '$lib/logger';
+import Section from '$lib/base/Section.svelte';
 </script>
 
 <QuailTree perms={perms.perm}>
-    {#each [...tables] as [tableName, table]}}
-        <h2>{title(tableName)}</h2>
-        {#if allowedTables.includes(tableName)}
-            <h3>You are allowed to edit this table</h3>
-        {:else}
-            <h3>You are not allowed to edit this table</h3>
-        {/if}
-    {/each}
+    <Section id="Allowed Tables" title="Allowed Tables" icon="fluent:thinking-24-regular">
+        <div class="mx-2">
+            <h2>Here are the tables you are allowed to edit!</h2>
+            {#each [...tables] as [tableName, _]}
+                {#if allowedTables == null || allowedTables.includes(tableName)}
+                    <li><a href="#{tableName}">{title(tableName)}</a></li>
+                {/if}
+            {/each}
+        </div>
+    </Section>
+    <Section id="Tables" title="Tables" icon="fluent:thinking-24-regular">
+        <div class="mx-2">
+            {#each [...tables] as [tableName, table]}
+                <h2 id={tableName}>{title(tableName)}</h2>
+                {#if allowedTables == null || allowedTables.includes(tableName)}
+                    <h3>You are allowed to edit this table</h3>
+                    <Button href={`/quailfeather/admin/table/${tableName}`}>Edit Table</Button>
+                {:else}
+                    <h3>You are not allowed to edit this table</h3>
+                {/if}
+                <h4>Columns</h4>
+                <ul>
+                    {#each table as column}
+                        <li>{column.column_name}</li>
+                    {/each}
+                </ul>
+            {/each}
+        </div>
+    </Section>
 </QuailTree>
+
+<style>
+    ul {
+        color: white !important;
+    }
+</style>
