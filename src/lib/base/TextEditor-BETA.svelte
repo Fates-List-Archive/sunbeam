@@ -41,7 +41,7 @@
 		});
 
 		if(value) {
-			quill.setText(value)
+			quill.setText(value, "silent")
 		}
 
 		if (!$quillstore) {

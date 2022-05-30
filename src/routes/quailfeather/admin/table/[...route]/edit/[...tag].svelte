@@ -99,11 +99,19 @@ import Tip from '$lib/base/Tip.svelte';
                     title: `Editting ${key}`,
                     message: `Editting ${key}`,
                     type: enums.AlertType.Prompt,
-                    inputs: [{
-                        type: enums.AlertInputType.Text,
-                        value: value,
-                        placeholder: `${key}`,
-                    }],
+                    inputs: [
+                        {
+                            type: enums.AlertInputType.Text,
+                            value: value,
+                            label: title(`${key}`),
+                            placeholder: `New content for ${key}`,
+                        },
+                        {
+                            type: enums.AlertInputType.Number,
+                            label: "2FA code",
+                            placeholder: "2FA code from your authenticator app",
+                        }
+                    ],
                 })
             }}>Edit</a></h3>
             <p>{value}</p>
