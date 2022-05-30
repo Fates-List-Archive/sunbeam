@@ -128,6 +128,7 @@ import Section from '$lib/base/Section.svelte';
 import Button from '@smui/button';
 import { session } from '$app/stores';
 import FormInput from '$lib/base/FormInput.svelte';
+import Tip from '$lib/base/Tip.svelte';
 
 let page = 1
 let limit = 50
@@ -189,6 +190,14 @@ async function getPage(nextPage) {
         <div class="width-80">
             <FormInput required={true} name="Value to search by" id="search-val" textarea={false} placeholder={"Mew..."} />
         </div>
+        <Tip>
+            When searching, here are some useful special-cases implemented in the API:
+            <ul>
+                <li>null => Select all rows such that the specified column is NULL</li>
+                <li>>QUERY => Performs a <em>character</em> based search by converting fields to text and searching by string comparison</li>
+                <li>@QUERY => Do not parse the query for special cases</li>
+            </ul>
+        </Tip>
         <Button on:click={() => {
             extQuery = `search_by=${document.querySelector('#search-by').value}&search_val=${document.querySelector('#search-val').value}`
             getPage(1)
