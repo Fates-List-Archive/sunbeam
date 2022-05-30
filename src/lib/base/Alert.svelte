@@ -492,7 +492,6 @@
 		bottom: 0;
 		z-index: 9999;
 		height: 100%;
-		word-wrap: break-word !important;
 		overflow-x: scroll;
 		width: 100%;
 		display: flex;
@@ -566,7 +565,6 @@
 	/* Fieldset */
 	fieldset {
 		border-radius: 6px;
-		word-wrap: break-word !important;
 		overflow-x: scroll;
 	}
 
