@@ -143,4 +143,10 @@ class storage {
 
 class database {}
 
-export { storage, database };
+class authentication {}
+
+export { 
+	storage, 
+	database,
+	authentication,
+};
