@@ -1,7 +1,7 @@
 <script context="module">
 	/** @type {import('@sveltejs/kit').ErrorLoad} */
 	import { apiUrl, lynxUrl } from '$lib/config';
-import Button from '@smui/button';
+import { checkAdminSession } from "$lib/request"
 	export const prerender = false;
 	export async function load({ session }) {
 		let id = '0';
@@ -25,6 +25,15 @@ import Button from '@smui/button';
             return {
                 status: 307,
                 redirect: `/quailfeather/admin/login?sess=${session.adminData}`
+            }
+        }
+
+        let sessionCheck = await checkAdminSession(session.session.user.id, session.session.token, session.adminData);
+
+        if(!sessionCheck) {
+            return {
+                status: 307,
+                redirect: `/quailfeather/admin/login`
             }
         }
 
@@ -92,6 +101,7 @@ import QuailTree from '../_helpers/QuailTree.svelte';
     export let allowedTables: any;
     export let tables: any
     import * as logger from '$lib/logger';
+    import Button from '@smui/button';
 import Section from '$lib/base/Section.svelte';
 </script>
 

@@ -1,6 +1,7 @@
 <script context="module">
 	/** @type {import('@sveltejs/kit').ErrorLoad} */
 	import { apiUrl, lynxUrl } from '$lib/config';
+    import { checkAdminSession } from "$lib/request"
 	export const prerender = false;
 	export async function load({ params, session }) {
 		let id = '0';
@@ -23,7 +24,16 @@
         if(!session.adminData) {
             return {
                 status: 307,
-                redirect: `/quailfeather/admin/login?sess=${session.adminData}`
+                redirect: `/quailfeather/admin/login`
+            }
+        }
+
+        let sessionCheck = await checkAdminSession(session.session.user.id, session.session.token, session.adminData);
+
+        if(!sessionCheck) {
+            return {
+                status: 307,
+                redirect: `/quailfeather/admin/login`
             }
         }
 

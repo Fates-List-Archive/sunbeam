@@ -1,5 +1,5 @@
 import { browser } from '$app/env';
-import { apiUrl, nextUrl } from './config';
+import { apiUrl, nextUrl, lynxUrl } from './config';
 import { genError } from './strings';
 import * as logger from './logger';
 import { encode } from '@cfworker/base64url';
@@ -238,4 +238,15 @@ export async function subNotifs(user_id: string, token: string) {
 		alert(genError(await res.json()));
 		return;
 	}
+}
+
+export async function checkAdminSession(userId: string, token: string, sessionId: string) {
+	let res = await fetch(`${lynxUrl}/ap/sessions?user_id=${userId}`, {
+		method: 'GET',
+		headers: {
+			"Frostpaw-ID": sessionId,
+			Authorization: token
+		}
+	})
+	return res.ok
 }
