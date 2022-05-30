@@ -441,9 +441,7 @@
 									{#if inputData.type == enums.AlertInputType.Text}
 										<label for="alert-input" class="alert-label">{inputData.label}</label>
 										
-										<span class="fset">
-											<TextEditor value={inputData.value || ""} id="inp-{id}" placeHolderContent={inputData.placeholder} />
-										</span>
+										<TextEditor value={inputData.value || ""} id="inp-{id}" placeHolderContent={inputData.placeholder} />
 										{#if inputData.placeholder}
 											<h2 class="InputAlert-Placeholder">{inputData.placeholder}</h2>
 										{/if}

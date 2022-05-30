@@ -40,6 +40,7 @@
 	margin: 0px;
 	max-height: 100px !important;
 	overflow: scroll;
+	overflow-x: scroll !important;
 }
 
 .ql-editor > * {
@@ -1103,7 +1104,7 @@
 .ql-snow .ql-tooltip a.ql-preview {
 	display: inline-block;
 	max-width: 200px;
-	overflow-x: hidden;
+	overflow-x: scroll;
 	text-overflow: ellipsis;
 	vertical-align: top;
 }

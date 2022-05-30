@@ -19,8 +19,6 @@
 			};
 		}
 
-        logger.info(session.adminData)
-
         if(!session.adminData) {
             return {
                 status: 307,

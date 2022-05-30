@@ -61,8 +61,16 @@
 	});
 </script>
 
-<div bind:this={editor} {id} tabindex="0"/>
+<div class="fset">
+<div class="fset" bind:this={editor} {id} tabindex="0"/>
+</div>
 
 <style>
 	@import '../../css/texteditor.css';
+
+	.fset {
+		overflow-x: scroll !important;
+		width: 100%;
+		max-width: 100%;
+	}
 </style>
