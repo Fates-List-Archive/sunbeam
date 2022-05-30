@@ -194,7 +194,7 @@ async function getPage(nextPage) {
             When searching, here are some useful special-cases implemented in the API:
             <ul>
                 <li>null => Select all rows such that the specified column is NULL</li>
-                <li>>QUERY => Performs a <em>character</em> based search by converting fields to text and searching by string comparison</li>
+                <li>&lt/&gtQUERY => Performs a <em>character</em> based search by converting fields to text and searching by string comparison</li>
                 <li>@QUERY => Do not parse the query for special cases</li>
             </ul>
         </Tip>
