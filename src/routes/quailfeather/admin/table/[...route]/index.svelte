@@ -219,7 +219,7 @@ async function getPage(nextPage) {
                     <tr class="link" role="link">
                         <td>
                             <a href={"javascript:void(0)"} on:click={() => {
-                                goto(`/_quailfeather/admin/table/${tableName}/edit/${row._lynxtag}`)
+                                goto(`/quailfeather/admin/table/${tableName}/edit/${row._lynxtag}`)
                             }}>Edit</a>
                         </td>
                         {#each schemaOrder as column}
@@ -233,9 +233,16 @@ async function getPage(nextPage) {
                 {/each}
             </table>
         </div>
-        <Button class="next-page button" variant="outlined" on:click={() => {
-            getPage(page+1)
-        }}>Next Page</Button> 
+        {#if page > 1}
+            <Button class="next-page button" variant="outlined" on:click={() => {
+                getPage(page-1)
+            }}>Previous Page</Button> 
+        {/if}
+        {#if !rows.length}
+            <Button class="next-page button" variant="outlined" on:click={() => {
+                getPage(page+1)
+            }}>Next Page</Button> 
+        {/if}
     </div>
 </QuailTree>
 
