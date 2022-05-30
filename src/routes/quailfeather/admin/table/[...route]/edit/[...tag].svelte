@@ -65,7 +65,7 @@
         logger.info("AdminPanel", schemaOrder)
 
         // Get cols
-        let cols = await fetch(`${lynxUrl}/ap/tables/${params.route}?user_id=${session.session.user.id}`, {
+        let cols = await fetch(`${lynxUrl}/ap/tables/${params.route}?user_id=${session.session.user.id}&lynx_tag=${params.tag}`, {
             method: "GET",
             headers: {
                 "Frostpaw-ID": session.adminData,
@@ -116,7 +116,7 @@
 		});
 	}
 
-import QuailTree from '../../_helpers/QuailTree.svelte';
+import QuailTree from '../../../../_helpers/QuailTree.svelte';
     export let perms: any;
     export let tableName: any;
     export let rows: any;
@@ -124,7 +124,6 @@ import QuailTree from '../../_helpers/QuailTree.svelte';
     export let secrets: any[];
     export let count: number;
     import * as logger from '$lib/logger';
-import Section from '$lib/base/Section.svelte';
 import Button from '@smui/button';
 import { session } from '$app/stores';
 import FormInput from '$lib/base/FormInput.svelte';
@@ -194,7 +193,7 @@ async function getPage(nextPage) {
             When searching, here are some useful special-cases implemented in the API:
             <ul>
                 <li>null => Select all rows such that the specified column is NULL</li>
-                <li>&lt/&gtQUERY => Performs a <em>character</em> based search by converting fields to text and searching by string comparison</li>
+                <li>(&lt / &gt)QUERY => Performs a <em>character</em> based search by converting fields to text and searching by string comparison</li>
                 <li>@QUERY => Do not parse the query for special cases</li>
             </ul>
         </Tip>
