@@ -56,7 +56,7 @@
 	});
 </script>
 
-<div bind:this={editor} {id} />
+<div bind:this={editor} {id} tabindex="0"/>
 
 <style>
 	@import '../../css/texteditor.css';

@@ -112,18 +112,33 @@ import QuailTree from '../../_helpers/QuailTree.svelte';
     export let rows: any;
     export let schemaOrder: any[];
     export let secrets: any[];
-    export let count: any;
+    export let count: number;
     import * as logger from '$lib/logger';
 import Section from '$lib/base/Section.svelte';
 import Button from '@smui/button';
 import { session } from '$app/stores';
+import FormInput from '$lib/base/FormInput.svelte';
 
 let page = 1
 let limit = 50
 
+let extQuery = ""
+
 async function getPage(nextPage) {
     // Get cols
-    let cols = await fetch(`${lynxUrl}/ap/tables/${tableName}?user_id=${$session.session.user.id}&limit=${limit}&offset=${(nextPage-1)*limit}`, {
+    if(extQuery) {
+        // Get new total count expected for this query
+        let countReq = await fetch(`${lynxUrl}/ap/tables/${tableName}/count?${extQuery}`);
+        if(countReq.ok) {
+            count = await countReq.json()
+        } else {
+            let json = await countReq.json()
+            logger.error(json)
+            alert(json.reason)
+        }
+    }
+
+    let cols = await fetch(`${lynxUrl}/ap/tables/${tableName}?user_id=${$session.session.user.id}&limit=${limit}&offset=${(nextPage-1)*limit}&${extQuery}`, {
         method: "GET",
         headers: {
             "Frostpaw-ID": $session.adminData,
@@ -154,18 +169,40 @@ async function getPage(nextPage) {
             {/each}
         </ul>
 
+        <h3>Search</h3>
+        <label for="search-by">Search By</label>
+        <select name="search-by" id="search-by">
+            {#each schemaOrder as column}
+                <option value={column}>{title(column)} ({column})</option>
+            {/each}
+        </select>
+        <div class="width-80">
+            <FormInput required={true} name="Value to search by" id="search-val" textarea={false} placeholder={"Mew..."} />
+        </div>
+        <Button on:click={() => {
+            extQuery = `search_by=${document.querySelector('#search-by').value}&search_val=${document.querySelector('#search-val').value}`
+            getPage(1)
+        }}>Search</Button>
+
         <!--Insert schema-->
         <p>Showing {(page-1) * (limit)} to [max] {page * limit} of {count} elements</p>
         <div class="scroll">
             <table rules="all">
                 <thead>
                     <tr>
+                        <th>Actions</th>
                         {#each schemaOrder as table}
                             <th>{title(table)}</th>
                         {/each}
+                    </tr>
                 </thead>
                 {#each rows as row}
-                    <tr>
+                    <tr class="link" role="link">
+                        <td>
+                            <a href={"javascript:void(0)"} on:click={() => {
+                                alert("Are you sure you wish to edit this bot?")
+                            }}>Edit</a>
+                        </td>
                         {#each schemaOrder as column}
                             {#if `${row[column]}`.length > 70}
                                 <td>{(`${row[column]}`).slice(0, 70) + "..."}</td>
@@ -189,13 +226,29 @@ async function getPage(nextPage) {
     }
 
     table {
-        border-collapse: collapse;
         width: 100%;
         white-space: nowrap;
-        padding: 3px;
+        padding: 3px !important;
+        border-collapse: collapse !important;
+        min-width: 400px !important;
+        margin: 25px 0 !important;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15) !important;
+    }
+
+    th,
+    td {
+        padding: 12px 15px !important;
+    }
+
+    tr:hover {
+	    background-color: rgba(255, 255, 255, 0.1) !important;
     }
 
     .scroll {
         overflow-x: scroll !important;
+    }
+
+    .width-80 {
+        width: 80% !important;
     }
 </style>

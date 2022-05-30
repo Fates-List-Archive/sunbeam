@@ -34,6 +34,7 @@
 			value={data || ''}
 			class="fform"
 			{placeholder}
+			aria-placeholder={placeholder}
 			{type}
 			aria-required={required}
 			{required}
@@ -47,6 +48,7 @@
 			{id}
 			class="fform"
 			{placeholder}
+			aria-placeholder={placeholder}
 			{type}
 			aria-required={required}
 			{required}
