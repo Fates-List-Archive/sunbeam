@@ -102,7 +102,7 @@ import Tip from '$lib/base/Tip.svelte';
                     inputs: [
                         {
                             type: enums.AlertInputType.Text,
-                            value: value,
+                            value: `${value || ""}`,
                             label: title(`${key}`),
                             placeholder: `New content for ${key}`,
                         },
