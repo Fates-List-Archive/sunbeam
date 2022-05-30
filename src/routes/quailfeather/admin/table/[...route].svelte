@@ -1,7 +1,6 @@
 <script context="module">
 	/** @type {import('@sveltejs/kit').ErrorLoad} */
 	import { apiUrl, lynxUrl } from '$lib/config';
-import Button from '@smui/button';
 	export const prerender = false;
 	export async function load({ params, session }) {
 		let id = '0';
@@ -43,7 +42,13 @@ import Button from '@smui/button';
         // Get order from schema
         let schemaOrder = [];
 
+        let secrets = []
+
         for(let i = 0; i < schemaResp.length; i++) {
+            if(schemaResp[i].secret) {
+                secrets.push(schemaResp[i].column_name); // Do not show secret data
+                continue;
+            }
             schemaOrder.push(schemaResp[i].column_name)
         }
 
@@ -68,12 +73,26 @@ import Button from '@smui/button';
 
         let colsResp = await cols.json()
 
+        let count = await fetch(`${lynxUrl}/ap/tables/${params.route}/count`);
+
+        if(!count.ok) {
+            let json = await count.json()
+            return {
+                status: 401,
+                error: new Error(JSON.stringify(json))
+            }
+        }
+
+        let countResp = await count.json()
+
 		return {
 			props: {
 				perms: perms,
                 tableName: params.route,
                 rows: colsResp,
-                schemaOrder: schemaOrder
+                count: countResp,
+                schemaOrder: schemaOrder,
+                secrets: secrets
 			}
 		};
 	}
@@ -92,8 +111,34 @@ import QuailTree from '../../_helpers/QuailTree.svelte';
     export let tableName: any;
     export let rows: any;
     export let schemaOrder: any[];
+    export let secrets: any[];
+    export let count: any;
     import * as logger from '$lib/logger';
 import Section from '$lib/base/Section.svelte';
+import Button from '@smui/button';
+import { session } from '$app/stores';
+
+let page = 1
+let limit = 50
+
+async function getPage(nextPage) {
+    // Get cols
+    let cols = await fetch(`${lynxUrl}/ap/tables/${tableName}?user_id=${$session.session.user.id}&limit=${limit}&offset=${(nextPage-1)*limit}`, {
+        method: "GET",
+        headers: {
+            "Frostpaw-ID": $session.adminData,
+            Authorization: $session.session.token
+        }
+    })
+
+    if(!cols.ok) {
+        let json = await cols.json()
+        alert(json.reason)
+        return
+    }
+    rows = await cols.json()
+    page = nextPage
+}
 </script>
 
 <QuailTree perms={perms.perm}>
@@ -104,10 +149,13 @@ import Section from '$lib/base/Section.svelte';
             {#each schemaOrder as column}
                 <li>{column}</li>
             {/each}
+            {#each secrets as secret}
+                <li>{secret} (secret)</li>
+            {/each}
         </ul>
 
         <!--Insert schema-->
-
+        <p>Showing {(page-1) * (limit)} to [max] {page * limit} of {count} elements</p>
         <div class="scroll">
             <table rules="all">
                 <thead>
@@ -119,12 +167,19 @@ import Section from '$lib/base/Section.svelte';
                 {#each rows as row}
                     <tr>
                         {#each schemaOrder as column}
-                            <td>{row[column]}</td>
+                            {#if `${row[column]}`.length > 70}
+                                <td>{(`${row[column]}`).slice(0, 70) + "..."}</td>
+                            {:else}
+                                <td>{`${row[column]}`}</td>
+                            {/if}
                         {/each}
                     </tr>
                 {/each}
             </table>
         </div>
+        <Button class="next-page button" variant="outlined" on:click={() => {
+            getPage(page+1)
+        }}>Next Page</Button> 
     </div>
 </QuailTree>
 
@@ -137,6 +192,7 @@ import Section from '$lib/base/Section.svelte';
         border-collapse: collapse;
         width: 100%;
         white-space: nowrap;
+        padding: 3px;
     }
 
     .scroll {
