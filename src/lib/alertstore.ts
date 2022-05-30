@@ -11,6 +11,7 @@ interface AlertInputInterface {
 	multipleFiles?: boolean;
 	type?: AlertInputType;
 	description?: string;
+	default?: string;
 	id?: string; // Optional id
 	validate?: (value) => string;
 }

@@ -98,7 +98,12 @@ import Tip from '$lib/base/Tip.svelte';
                 alert({
                     title: `Editting ${key}`,
                     message: `Editting ${key}`,
-                    type: enums.AlertType.Prompt
+                    type: enums.AlertType.Prompt,
+                    inputs: [{
+                        type: enums.AlertInputType.Text,
+                        value: value,
+                        placeholder: `${key}`,
+                    }],
                 })
             }}>Edit</a></h3>
             <p>{value}</p>

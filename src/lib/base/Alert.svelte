@@ -292,179 +292,180 @@
 						{#if inputData}
 							{#if inputData.type != enums.AlertInputType.Pre}
 								<br />
+								<div class="fset">
+									<fieldset>
+										<legend>{inputData.label} ({enums.AlertInputType[inputData.type]})</legend>
 
-								<fieldset>
-									<legend>{inputData.label} ({enums.AlertInputType[inputData.type]})</legend>
-
-									{#if inputData.description}
-										<span>{inputData.description}</span>
-									{/if}
-
-									{#if inputData.type == enums.AlertInputType.Number}
-										<label for="alert-input" class="alert-label">{inputData.label}</label>
-
-										<input id="inp-{id}" type="number" class="InputAlert" />
-
-										{#if inputData.placeholder}
-											<small>{inputData.placeholder}</small>
+										{#if inputData.description}
+											<span>{inputData.description}</span>
 										{/if}
 
-										{#if inputData.minlength || inputData.maxlength}
-											<br />
-										{/if}
-										{#if inputData.minlength}
-											<small>Minimum Length: {inputData.minlength}</small>
-										{/if}
-										{#if inputData.maxlength}
-											{#if inputData.minlength}
+										{#if inputData.type == enums.AlertInputType.Number}
+											<label for="alert-input" class="alert-label">{inputData.label}</label>
+
+											<input id="inp-{id}" type="number" class="InputAlert" />
+
+											{#if inputData.placeholder}
+												<small>{inputData.placeholder}</small>
+											{/if}
+
+											{#if inputData.minlength || inputData.maxlength}
 												<br />
 											{/if}
-											<small>Maximum Length: {inputData.maxlength}</small>
+											{#if inputData.minlength}
+												<small>Minimum Length: {inputData.minlength}</small>
+											{/if}
+											{#if inputData.maxlength}
+												{#if inputData.minlength}
+													<br />
+												{/if}
+												<small>Maximum Length: {inputData.maxlength}</small>
+											{/if}
+
+											{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+												<div class="input-error">{error}</div>
+											{/if}
 										{/if}
 
-										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
-											<div class="input-error">{error}</div>
-										{/if}
-									{/if}
+										{#if inputData.type == enums.AlertInputType.Boolean}
+											<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-									{#if inputData.type == enums.AlertInputType.Boolean}
-										<label for="alert-input" class="alert-label">{inputData.label}</label>
-
-										<input
-											id="inp-{id}"
-											type="checkbox"
-											class="InputAlert"
-											placeholder={inputData.placeholder}
-										/>
-
-										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
-											<div class="input-error">{error}</div>
-										{/if}
-									{/if}
-
-									{#if inputData.type == enums.AlertInputType.DateTime}
-										<label for="alert-input" class="alert-label">{inputData.label}</label>
-
-										<input
-											id="inp-{id}"
-											type="datetime"
-											class="InputAlert"
-											placeholder={inputData.placeholder}
-										/>
-
-										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
-											<div class="input-error">{error}</div>
-										{/if}
-									{/if}
-
-									{#if inputData.type == enums.AlertInputType.DateTimeLocal}
-										<label for="alert-input" class="alert-label">{inputData.label}</label>
-
-										<input
-											type="datetime-local"
-											id="inp-{id}"
-											class="InputAlert"
-											placeholder={inputData.placeholder}
-										/>
-
-										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
-											<div class="input-error">{error}</div>
-										{/if}
-									{/if}
-
-									{#if inputData.type == enums.AlertInputType.Color}
-										<label for="alert-input" class="alert-label">{inputData.label}</label>
-
-										<input
-											id="inp-{id}"
-											type="color"
-											class="InputAlert"
-											placeholder={inputData.placeholder}
-										/>
-
-										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
-											<div class="input-error">{error}</div>
-										{/if}
-									{/if}
-
-									{#if inputData.type == enums.AlertInputType.File}
-										<label for="alert-input" class="alert-label">{inputData.label}</label>
-
-										{#if inputData.multipleFiles}
 											<input
 												id="inp-{id}"
-												type="file"
-												multiple="true"
+												type="checkbox"
 												class="InputAlert"
-												on:input={(data) => {
-													onFileAdded(data);
-												}}
+												placeholder={inputData.placeholder}
 											/>
-										{:else}
+
+											{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+												<div class="input-error">{error}</div>
+											{/if}
+										{/if}
+
+										{#if inputData.type == enums.AlertInputType.DateTime}
+											<label for="alert-input" class="alert-label">{inputData.label}</label>
+
 											<input
 												id="inp-{id}"
-												type="file"
-												multiple="false"
+												type="datetime"
 												class="InputAlert"
-												on:input={(data) => {
-													onFileAdded(data);
-												}}
+												placeholder={inputData.placeholder}
 											/>
+
+											{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+												<div class="input-error">{error}</div>
+											{/if}
 										{/if}
 
-										<button
-											on:click={() => {
-												document.getElementById(`inp-${id}`).click();
-											}}>Upload Files</button
-										>
+										{#if inputData.type == enums.AlertInputType.DateTimeLocal}
+											<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-										<ol id="files">
-											{#each uploadedFiles as file}
-												<li class="File">
-													{#if file.error}
-														<span class="File-Error">{file.error}</span>
-													{:else}
-														<h2 class="File-Name">Name: {file.name}</h2>
-														<p class="File-Extension">Extension: {file.extension}</p>
-														<p class="File-Bytes">Bytes: {file.size}</p>
-													{/if}
-												</li>
-											{/each}
-										</ol>
+											<input
+												type="datetime-local"
+												id="inp-{id}"
+												class="InputAlert"
+												placeholder={inputData.placeholder}
+											/>
 
-										<h2 class="InputAlert-Placeholder">{inputData.placeholder}</h2>
-
-										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
-											<div class="input-error">{error}</div>
+											{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+												<div class="input-error">{error}</div>
+											{/if}
 										{/if}
-									{/if}
 
-									{#if inputData.type == enums.AlertInputType.Text}
-										<label for="alert-input" class="alert-label">{inputData.label}</label>
+										{#if inputData.type == enums.AlertInputType.Color}
+											<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-										<TextEditor id="inp-{id}" placeHolderContent={inputData.placeholder} />
-										{#if inputData.placeholder}
+											<input
+												id="inp-{id}"
+												type="color"
+												class="InputAlert"
+												placeholder={inputData.placeholder}
+											/>
+
+											{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+												<div class="input-error">{error}</div>
+											{/if}
+										{/if}
+
+										{#if inputData.type == enums.AlertInputType.File}
+											<label for="alert-input" class="alert-label">{inputData.label}</label>
+
+											{#if inputData.multipleFiles}
+												<input
+													id="inp-{id}"
+													type="file"
+													multiple="true"
+													class="InputAlert"
+													on:input={(data) => {
+														onFileAdded(data);
+													}}
+												/>
+											{:else}
+												<input
+													id="inp-{id}"
+													type="file"
+													multiple="false"
+													class="InputAlert"
+													on:input={(data) => {
+														onFileAdded(data);
+													}}
+												/>
+											{/if}
+
+											<button
+												on:click={() => {
+													document.getElementById(`inp-${id}`).click();
+												}}>Upload Files</button
+											>
+
+											<ol id="files">
+												{#each uploadedFiles as file}
+													<li class="File">
+														{#if file.error}
+															<span class="File-Error">{file.error}</span>
+														{:else}
+															<h2 class="File-Name">Name: {file.name}</h2>
+															<p class="File-Extension">Extension: {file.extension}</p>
+															<p class="File-Bytes">Bytes: {file.size}</p>
+														{/if}
+													</li>
+												{/each}
+											</ol>
+
 											<h2 class="InputAlert-Placeholder">{inputData.placeholder}</h2>
+
+											{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+												<div class="input-error">{error}</div>
+											{/if}
 										{/if}
 
-										{#if inputData.minlength || inputData.maxlength}
-											<br />
-										{/if}
-										{#if inputData.minlength}
-											<small>Minimum Length: {inputData.minlength}</small>
-										{/if}
-										{#if inputData.maxlength}
-											{#if inputData.minlength}
+										{#if inputData.type == enums.AlertInputType.Text}
+											<label for="alert-input" class="alert-label">{inputData.label}</label>
+
+											<TextEditor value={inputData.value || ""} id="inp-{id}" placeHolderContent={inputData.placeholder} />
+											{#if inputData.placeholder}
+												<h2 class="InputAlert-Placeholder">{inputData.placeholder}</h2>
+											{/if}
+
+											{#if inputData.minlength || inputData.maxlength}
 												<br />
 											{/if}
-											<small>Maximum Length: {inputData.maxlength}</small>
-										{/if}
+											{#if inputData.minlength}
+												<small>Minimum Length: {inputData.minlength}</small>
+											{/if}
+											{#if inputData.maxlength}
+												{#if inputData.minlength}
+													<br />
+												{/if}
+												<small>Maximum Length: {inputData.maxlength}</small>
+											{/if}
 
-										{#if (!errTgt || errTgt == `inp-${id}`) && showError}
-											<div class="input-error">{error}</div>
+											{#if (!errTgt || errTgt == `inp-${id}`) && showError}
+												<div class="input-error">{error}</div>
+											{/if}
 										{/if}
-									{/if}
-								</fieldset>
+									</fieldset>
+								</div>
 							{:else}
 								{@html inputData.description}
 								<br />
@@ -491,6 +492,8 @@
 		bottom: 0;
 		z-index: 9999;
 		height: 100%;
+		word-wrap: break-word !important;
+		overflow-x: scroll;
 		width: 100%;
 		display: flex;
 		justify-content: center;
@@ -563,6 +566,12 @@
 	/* Fieldset */
 	fieldset {
 		border-radius: 6px;
+		word-wrap: break-word !important;
+		overflow-x: scroll;
+	}
+
+	.fset {
+		overflow-x: scroll !important;
 	}
 
 	legend {

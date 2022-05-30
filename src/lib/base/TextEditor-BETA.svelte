@@ -7,6 +7,7 @@
 
 	export let placeHolderContent: string;
 	export let id: string;
+	export let value: string;
 
 	let options = {
 		placeholder: placeHolderContent,
@@ -36,8 +37,12 @@
 				theme: undefined,
 				toolbar: false // options.toolbar
 			},
-			placeholder: options.placeholder
+			placeholder: options.placeholder,
 		});
+
+		if(value) {
+			quill.setText(value)
+		}
 
 		if (!$quillstore) {
 			$quillstore = new Map();
