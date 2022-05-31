@@ -247,6 +247,8 @@
 			const inp = new SubmittedInput(editor, inputs);
 			const valid = inp.validate();
 
+			// File validation here, also fix validate to skip files
+
 			logger.info('AlertBox', `Got validator ${valid}`);
 
 			if (valid) {
