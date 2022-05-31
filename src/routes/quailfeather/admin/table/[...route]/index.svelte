@@ -231,7 +231,7 @@ async function getPage(nextPage) {
                 {/each}
             </table>
         </div>
-        {#if page > 1}
+        {#if page > 0}
             <Button class="next-page button" variant="outlined" on:click={() => {
                 getPage(page-1)
             }}>Previous Page</Button> 
