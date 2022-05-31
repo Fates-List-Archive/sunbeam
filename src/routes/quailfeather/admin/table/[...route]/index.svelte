@@ -236,7 +236,7 @@ async function getPage(nextPage) {
                 getPage(page-1)
             }}>Previous Page</Button> 
         {/if}
-        {#if !rows.length}
+        {#if rows.length > 0}
             <Button class="next-page button" variant="outlined" on:click={() => {
                 getPage(page+1)
             }}>Next Page</Button> 
