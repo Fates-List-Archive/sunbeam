@@ -204,7 +204,7 @@ function editAlert(key, content) {
 					let end = false
 					let i = 0
 					while(!end) {
-						let el = document.querySelector(`#inp-${row.name}=${i}`)
+						let el = document.querySelector(`#inp-${row.name}-${i}`)
 						if(el) {
 							els.push(el.value)
 							i++
