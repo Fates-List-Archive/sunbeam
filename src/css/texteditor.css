@@ -8,6 +8,9 @@
 	height: 100%;
 	margin: 0px;
 	position: relative;
+	overflow-x: scroll !important;
+	width: 100%;
+	max-width: 100%;
 }
 
 .ql-container.ql-disabled .ql-tooltip {

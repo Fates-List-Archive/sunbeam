@@ -1,132 +1,68 @@
 <script lang="ts">
-	import { onMount, onDestroy } from 'svelte';
-	import { Editor } from '@tiptap/core';
-	import StarterKit from '@tiptap/starter-kit';
-	import Placeholder from '@tiptap/extension-placeholder';
-	let element;
-	export let editor;
+	import { onMount } from 'svelte';
+
+	import * as logger from '$lib/logger';
+
+	import quillstore from '$lib/quillstore';
 
 	export let placeHolderContent: string;
+	export let id: string;
+	export let value: string;
 
-	onMount(() => {
-		editor = new Editor({
-			element: element,
-			extensions: [
-				StarterKit,
-				Placeholder.configure({
-					placeholder: placeHolderContent
-				})
-			],
-			onTransaction: () => {
-				// force re-render so `editor.isActive` works as expected
-				editor = editor;
-			}
+	let options = {
+		placeholder: placeHolderContent,
+		toolbar: [
+			[{ header: 2 }, 'blockquote', 'link', 'image', 'video'],
+			['bold', 'italic', 'underline', 'strike'],
+			[{ list: 'ordered' }, { list: 'ordered' }],
+			[{ align: [] }],
+			['clean']
+		]
+	};
+
+	let editor;
+
+	onMount(async () => {
+		// Packages
+		const quillImport = await import('quill');
+
+		logger.info('Quill', 'Have imported quill');
+
+		const Quill = quillImport.default;
+		Quill.imports = quillImport.imports;
+
+		// Editor
+		const quill = new Quill(editor, {
+			modules: {
+				theme: undefined,
+				toolbar: false // options.toolbar
+			},
+			placeholder: options.placeholder
 		});
-	});
 
-	onDestroy(() => {
-		if (editor) {
-			editor.destroy();
+		if (value) {
+			quill.setText(value, 'silent');
+		}
+
+		if (!$quillstore) {
+			$quillstore = new Map();
+		}
+
+		$quillstore.set(id, quill);
+		$quillstore = $quillstore;
+
+		// Quill (Editor) Markdown Extension
+		const markdownOptions = {};
+
+		if (window.QuillMarkdown) {
+			logger.info('Loading quill-markdown');
+			let _ = new window.QuillMarkdown(quill, markdownOptions);
 		}
 	});
 </script>
 
-{#if editor}
-	<div class="components">
-		<button
-			on:click={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
-			class="component_button"
-			active={editor.isActive('heading', { level: 1 })}
-		>
-			Heading 1
-		</button>
+<div bind:this={editor} {id} tabindex="0" />
 
-		<button
-			on:click={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
-			class="component_button"
-			active={editor.isActive('heading', { level: 2 })}
-		>
-			Heading 2
-		</button>
-
-		<button
-			on:click={() => editor.chain().focus().setParagraph().run()}
-			active={editor.isActive('paragraph')}
-			class="component_button"
-		>
-			Paragraph
-		</button>
-
-		<button
-			on:click={() => editor.chain().focus().setCodeBlock().run()}
-			active={editor.isActive('codeBlock')}
-			class="component_button"
-		>
-			Code Block
-		</button>
-	</div>
-
-	<div class="nightmare" />
-{/if}
-
-<div bind:this={element} />
-
-<style lang="scss">
-	:global(.ProseMirror) {
-		background-color: black;
-		border: none;
-		padding: 5px;
-		border-radius: 5px;
-		min-width: 80%;
-		margin: 0px;
-		max-height: 100px !important;
-		overflow: scroll;
-	}
-
-	:global(.ProseMirror p) {
-		font-family: 'Quicksand', sans-serif;
-		color: white;
-	}
-
-	:global(.ProseMirror code) {
-		color: dodgerblue;
-		font-family: 'Fira Code', monospace;
-		font-weight: bold;
-	}
-
-	:global(.ProseMirror .is-empty:first-child::before) {
-		color: #adb5bd;
-		content: attr(data-placeholder);
-		float: left;
-		height: 0;
-		pointer-events: none;
-	}
-
-	:global(.nightmare) {
-		padding: 5px;
-	}
-
-	.component_button {
-		position: relative;
-		text-align: center !important;
-		cursor: pointer;
-		color: white;
-		background-color: #000000;
-		border: none;
-		font-weight: bolder;
-		padding: 10px;
-		border-radius: 7px;
-	}
-
-	.component_button[active='true'] {
-		position: relative;
-		text-align: center !important;
-		cursor: pointer;
-		color: white;
-		background-color: red;
-		border: none;
-		font-weight: bolder;
-		padding: 10px;
-		border-radius: 7px;
-	}
+<style>
+	@import '../../css/texteditor.css';
 </style>

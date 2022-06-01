@@ -3,7 +3,7 @@
 	import quillstore from '$lib/quillstore';
 	import * as logger from '$lib/logger';
 	import { storage } from '$lib/supabase';
-	import TextEditor from '$lib/base/TextEditor-BETA.svelte';
+	import TextEditor from '$lib/base/TextEditor.svelte';
 	import { session } from '$app/stores';
 
 	export let show: boolean;
@@ -338,7 +338,7 @@
 									{#if inputData.type == enums.AlertInputType.Number}
 										<label for="alert-input" class="alert-label">{inputData.label}</label>
 
-										<input id="inp-{id}" type="number" class="InputAlert fset" />
+										<input id="inp-{id}" type="number" class="InputAlert" />
 
 										{#if inputData.placeholder}
 											<small>{inputData.placeholder}</small>
@@ -606,10 +606,6 @@
 		overflow-x: scroll;
 	}
 
-	.fset {
-		overflow-x: scroll !important;
-	}
-
 	legend {
 		font-family: 'Fira Code', monospace;
 		font-weight: bold;
@@ -665,6 +661,10 @@
 		border: none;
 	}
 
+	.InputAlert[type='number'] {
+		overflow-x: scroll !important;
+	}
+	
 	.InputAlert-Placeholder {
 		color: black !important;
 		font-family: 'Fira Code', monospace;
