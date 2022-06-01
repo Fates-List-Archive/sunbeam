@@ -65,6 +65,7 @@
 			props: {
 				perms: perms,
 				tableName: params.route,
+				lynxTag: params.tag,
 				row: colsResp[0]
 			}
 		};
@@ -82,13 +83,14 @@
 	import QuailTree from '../../../../_helpers/QuailTree.svelte';
 	export let perms: any;
 	export let tableName: any;
+	export let lynxTag: any;
 	export let row: any;
 	import * as logger from '$lib/logger';
 	import { enums } from '$lib/enums/enums';
+	import { session } from '$app/stores';
 
 	/*
 import Button from '@smui/button';
-import { session } from '$app/stores';
 import FormInput from '$lib/base/FormInput.svelte';
 import Tip from '$lib/base/Tip.svelte';
 */
@@ -109,11 +111,27 @@ import Tip from '$lib/base/Tip.svelte';
 							title: `Editting ${key}`,
 							message: `Editting ${key}`,
 							type: enums.AlertType.Prompt,
-							submit: (value) => {
-								let newContent = value.toRaw("content")
+							submit: async (value) => {
+								let newContent = value.toLines("content")
 								let mfa = value.toSingleLine('mfa-key');
 
-								logger.info(newContent)
+								logger.info("AdminPanel", "Setting new content to:", { newContent })
+
+								let res = await fetch(`${lynxUrl}/ap/tables/${tableName}/tag/${lynxTag}?user_id=${$session.session.user.id}`, {
+									method: "PATCH",
+									headers: {
+										'Frostpaw-ID': $session.adminData,
+										Authorization: $session.session.token,
+										"Content-Type": "application/json"
+									},
+									body: JSON.stringify({
+										patch: {
+											col: key,
+											value: newContent,
+										},
+										otp: mfa
+									})
+								})
 							},
 							inputs: [
 								{
