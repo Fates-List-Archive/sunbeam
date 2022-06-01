@@ -10,14 +10,7 @@
 	export let value: string;
 
 	let options = {
-		placeholder: placeHolderContent,
-		toolbar: [
-			[{ header: 2 }, 'blockquote', 'link', 'image', 'video'],
-			['bold', 'italic', 'underline', 'strike'],
-			[{ list: 'ordered' }, { list: 'ordered' }],
-			[{ align: [] }],
-			['clean']
-		]
+		placeholder: placeHolderContent
 	};
 
 	let editor;
@@ -35,7 +28,7 @@
 		const quill = new Quill(editor, {
 			modules: {
 				theme: undefined,
-				toolbar: false // options.toolbar
+				toolbar: false
 			},
 			placeholder: options.placeholder
 		});
