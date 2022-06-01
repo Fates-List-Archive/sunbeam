@@ -183,7 +183,21 @@ function editAlert(key, content) {
 					<textarea id="inp-{row.name}-{i}" class="fform inp" on:keyup={function() {
 						this.scrollTop = this.scrollHeight;
 					}}>{val}</textarea>		
+					<Button class="button" on:click={() => {
+						let added = false
+						rows.forEach((e) => {
+							if(added) {
+								return;
+							}
+							if(e.name == row.name) {
+								e.value.splice(i, 1)
+								added = true
+							}
+						})
+						row = row
+					}}>Remove Element</Button>
 				{/each}
+				<br/>
 				<Button class="button" on:click={() => {
 					let added = false
 					rows.forEach((e) => {
@@ -197,6 +211,7 @@ function editAlert(key, content) {
 					})
 					row = row
 				}}>Add new element</Button>
+				<br/><br/>
 				<Button
 				class="button"
 				on:click={() => {
