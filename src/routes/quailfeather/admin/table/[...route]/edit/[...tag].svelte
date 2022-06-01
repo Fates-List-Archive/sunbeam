@@ -156,6 +156,13 @@ function editAlert(key, content) {
 					otp: mfa
 				})
 			})
+
+			if(res.ok) {
+				alert("Successfully updated the column.")
+			} else {
+				let json = await res.json();
+				alert(json.reason)
+			}
 		},
 		inputs: [
 			{
@@ -197,6 +204,7 @@ function editAlert(key, content) {
 						row = row
 					}}>Remove Element</Button>
 				{/each}
+				<br/>
 				<br/>
 				<Button class="button" on:click={() => {
 					let added = false
