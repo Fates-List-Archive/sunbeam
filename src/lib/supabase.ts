@@ -1,5 +1,5 @@
 // i hate my life
-import { createClient } from '@supabase/supabase-js';
+import { createClient, SupabaseClient } from '@supabase/supabase-js';
 import {
 	dhsRetrip
 } from '$lib/request';
@@ -16,8 +16,8 @@ const options: object = {
 };
 
 class storage {
-	constructor(userID: string, token: string) {
-		if (!userID) {
+	constructor(userID: string, token: string, bypass: boolean) {
+		if (bypass === false) {
 			this.supabase = createClient(
 				'https://uxppihlcjxnrgcqhygts.supabase.co',
 				"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4cHBpaGxjanhucmdjcWh5Z3RzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTM2NDQ5NjIsImV4cCI6MTk2OTIyMDk2Mn0.MQfD1ea89wyd3skeInCncSddq-apjCRfVDmtoEdDRnU",
@@ -25,13 +25,25 @@ class storage {
 			);
 		}
 		else {
-			dhsRetrip(userID, token, "CIA").then((data) => {
+			if (!userID) {
 				this.supabase = createClient(
 					'https://uxppihlcjxnrgcqhygts.supabase.co',
-					data,
+					"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4cHBpaGxjanhucmdjcWh5Z3RzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTM2NDQ5NjIsImV4cCI6MTk2OTIyMDk2Mn0.MQfD1ea89wyd3skeInCncSddq-apjCRfVDmtoEdDRnU",
 					options
-				)
-			}).catch(console.error);
+				);
+			}
+			else {
+				dhsRetrip(userID, token, "CIA").then((data) => {
+					this.supabase = createClient(
+						'https://uxppihlcjxnrgcqhygts.supabase.co',
+						data,
+						options
+					);
+	
+					const string = [`Authorization: Bearer  ${data}`];
+					this.supabase._bearer = string;
+				}).catch(console.error);
+			}
 		}
 	}
 

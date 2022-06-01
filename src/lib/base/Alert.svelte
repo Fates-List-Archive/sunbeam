@@ -15,13 +15,13 @@
 	export let supaShit;
 	
 	if ($session.session.token) {
-		supaShit = new storage($session.session.user.id, $session.session.token);
+		supaShit = new storage($session.session.user.id, $session.session.token, false);
 	} else {
-		supaShit = new storage(null, null);
+		supaShit = new storage(null, null, false);
 	}
 
 	setTimeout(() => {
-		supaShit.getBuckets().then((data) => {
+		supaShit.getBucket("inputalerts").then((data) => {
 			logger.info('Supabase', data);
 		});
 	}, 5000);
