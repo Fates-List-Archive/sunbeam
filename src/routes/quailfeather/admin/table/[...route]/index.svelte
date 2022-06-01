@@ -10,9 +10,9 @@
 		}
 		let perms = await fetch(`${apiUrl}/baypaw/perms/${id}`);
 
-		perms = await perms.json();
+		let permsResp = await perms.json();
 
-		if (perms.perm < 2) {
+		if (permsResp.perm < 2) {
 			return {
 				status: 401,
 				error: new Error('You are not a staff member.')
@@ -88,7 +88,17 @@
 
 		let colsResp = await cols.json();
 
+<<<<<<< HEAD
 		let count = await fetch(`${lynxUrl}/ap/tables/${params.route}/count`);
+=======
+        let count = await fetch(`${lynxUrl}/ap/tables/${params.route}?user_id=${session.session.user.id}&count=true`, {
+            method: "GET",
+            headers: {
+                "Frostpaw-ID": session.adminData,
+                Authorization: session.session.token
+            }
+        })
+>>>>>>> 5f75e05 (schema fixes)
 
 		if (!count.ok) {
 			let json = await count.json();
@@ -140,6 +150,7 @@
 
 	let extQuery = '';
 
+<<<<<<< HEAD
 	async function getPage(nextPage) {
 		// Get cols
 		if (extQuery) {
@@ -153,6 +164,27 @@
 				alert(json.reason);
 			}
 		}
+=======
+async function getPage(nextPage) {
+    // Get cols
+    if(extQuery) {
+        // Get new total count expected for this query
+        let countReq = await fetch(`${lynxUrl}/ap/tables/${tableName}?user_id=${$session.session.user.id}&limit=${limit}&offset=${(nextPage-1)*limit}&${extQuery}&count=true`, {
+            method: "GET",
+            headers: {
+                "Frostpaw-ID": $session.adminData,
+                Authorization: $session.session.token
+            }
+        })
+        if(countReq.ok) {
+            count = await countReq.json()
+        } else {
+            let json = await countReq.json()
+            logger.error(json)
+            alert(json.reason)
+        }
+    }
+>>>>>>> 5f75e05 (schema fixes)
 
 		let cols = await fetch(
 			`${lynxUrl}/ap/tables/${tableName}?user_id=${
