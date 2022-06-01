@@ -61,12 +61,49 @@
 
 		let colsResp = await cols.json();
 
+		let schema = await fetch(`${lynxUrl}/ap/schema`);
+
+		if (!schema.ok) {
+			let json = await schema.json();
+			return {
+				status: 401,
+				error: new Error(JSON.stringify(json))
+			};
+		}
+
+		let schemaResp = await schema.json();
+
+		let typeMap = {}
+
+		schemaResp.forEach(t => {
+			typeMap[t.column_name] = {
+				array: t.array,
+				secret: t.secret,
+			}
+		})
+
+		let rows = []
+
+		Object.entries(colsResp[0]).forEach(el => {
+			if(typeMap[el[0]].secret) {
+				return;
+			}
+			rows.push({
+				name: el[0],
+				array: typeMap[el[0]].array,
+				value: el[1]
+			})
+		})
+
+		logger.info("AdminPanel", rows)
+
 		return {
 			props: {
 				perms: perms,
 				tableName: params.route,
 				lynxTag: params.tag,
-				row: colsResp[0]
+				rows: rows,
+				typeMap: typeMap
 			}
 		};
 	}
@@ -84,75 +121,97 @@
 	export let perms: any;
 	export let tableName: any;
 	export let lynxTag: any;
-	export let row: any;
+	export let rows: any;
+	export let typeMap: any;
 	import * as logger from '$lib/logger';
 	import { enums } from '$lib/enums/enums';
 	import { session } from '$app/stores';
+	import Button from '@smui/button';
 
 	/*
-import Button from '@smui/button';
 import FormInput from '$lib/base/FormInput.svelte';
 import Tip from '$lib/base/Tip.svelte';
 */
+
+function editAlert(key, content) {
+	alert({
+		title: `Editting ${key}`,
+		message: `Editting ${key}`,
+		type: enums.AlertType.Prompt,
+		submit: async (value) => {
+			let mfa = value.toSingleLine('mfa-key');
+
+			logger.info("AdminPanel", "Setting new content to:", { content })
+
+			let res = await fetch(`${lynxUrl}/ap/tables/${tableName}/tag/${lynxTag}?user_id=${$session.session.user.id}`, {
+				method: "PATCH",
+				headers: {
+					'Frostpaw-ID': $session.adminData,
+					Authorization: $session.session.token,
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify({
+					patch: {
+						col: key,
+						value: content,
+					},
+					otp: mfa
+				})
+			})
+		},
+		inputs: [
+			{
+				id: "mfa-key",
+				type: enums.AlertInputType.Number,
+				label: '2FA code',
+				placeholder: '2FA code from your authenticator app'
+			}
+		]
+	});
+
+}
 </script>
 
 <QuailTree perms={perms.perm}>
 	<div class="mx-2">
 		<h1 id={tableName}>{title(tableName)} - Editing entity</h1>
 		<h2>Columns</h2>
-		{#each Object.entries(row) as [key, value]}
+		{#each rows as row}
 			<h3>
-				{title(key)}
-				<a
-					class="inline"
-					href={'javascript:void(0)'}
-					on:click={() => {
-						alert({
-							title: `Editting ${key}`,
-							message: `Editting ${key}`,
-							type: enums.AlertType.Prompt,
-							submit: async (value) => {
-								let newContent = value.toLines("content")
-								let mfa = value.toSingleLine('mfa-key');
-
-								logger.info("AdminPanel", "Setting new content to:", { newContent })
-
-								let res = await fetch(`${lynxUrl}/ap/tables/${tableName}/tag/${lynxTag}?user_id=${$session.session.user.id}`, {
-									method: "PATCH",
-									headers: {
-										'Frostpaw-ID': $session.adminData,
-										Authorization: $session.session.token,
-										"Content-Type": "application/json"
-									},
-									body: JSON.stringify({
-										patch: {
-											col: key,
-											value: newContent,
-										},
-										otp: mfa
-									})
-								})
-							},
-							inputs: [
-								{
-									id: "content",
-									type: enums.AlertInputType.Text,
-									value: `${value || ''}`,
-									label: title(`${key}`),
-									placeholder: `New content for ${key}`
-								},
-								{
-									id: "mfa-key",
-									type: enums.AlertInputType.Number,
-									label: '2FA code',
-									placeholder: '2FA code from your authenticator app'
-								}
-							]
-						});
-					}}>Edit</a
-				>
+				{title(row.name)}
+				{#if typeMap[row.name].array}
+					<span class="text-gray-500"> (array)</span>
+				{:else}
+					<a
+						class="inline"
+						href={'javascript:void(0)'}
+						on:click={() => {
+							editAlert(row.name, document.querySelector(`#inp-${row.name}`).value)
+						}}>Edit</a
+					>
+				{/if}
 			</h3>
-			<p>{value}</p>
+			{#if row.array}
+				{#each row.value as val, i}
+					<textarea id="inp-{row.name}-{i}" class="fform inp" on:keyup={function() {
+						this.scrollTop = this.scrollHeight;
+					}}>{val}</textarea>		
+				{/each}
+				<Button class="button" on:click={() => {
+					row[row.name].value.push("")
+					row = row
+				}}>Add</Button>
+			{:else}
+				<textarea id="inp-{row.name}" class="fform inp" on:keyup={() => {
+					console.log("keyup")
+					document.querySelector(`#inp-${row.name}`).scrollTop = document.querySelector(`#inp-${row.name}`).scrollHeight;
+				}}>{row.value}</textarea>	
+			{/if}
 		{/each}
 	</div>
 </QuailTree>
+<style>
+	.inp {
+		height: 30px !important;
+	}
+</style>
