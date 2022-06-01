@@ -109,14 +109,22 @@ import Tip from '$lib/base/Tip.svelte';
 							title: `Editting ${key}`,
 							message: `Editting ${key}`,
 							type: enums.AlertType.Prompt,
+							submit: (value) => {
+								let newContent = value.toRaw("content")
+								let mfa = value.toSingleLine('mfa-key');
+
+								logger.info(newContent)
+							},
 							inputs: [
 								{
+									id: "content",
 									type: enums.AlertInputType.Text,
 									value: `${value || ''}`,
 									label: title(`${key}`),
 									placeholder: `New content for ${key}`
 								},
 								{
+									id: "mfa-key",
 									type: enums.AlertInputType.Number,
 									label: '2FA code',
 									placeholder: '2FA code from your authenticator app'
