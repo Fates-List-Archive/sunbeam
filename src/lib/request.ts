@@ -2,10 +2,7 @@ import { browser } from '$app/env';
 import { apiUrl, nextUrl, lynxUrl } from './config';
 import { genError } from './strings';
 import * as logger from './logger';
-import {
-	encode,
-	decode
-} from '@cfworker/base64url';
+import { encode, decode } from '@cfworker/base64url';
 
 // Parse review state from number
 export function parseState(v) {
@@ -247,11 +244,11 @@ export async function checkAdminSession(userId: string, token: string, sessionId
 	let res = await fetch(`${lynxUrl}/ap/sessions?user_id=${userId}`, {
 		method: 'GET',
 		headers: {
-			"Frostpaw-ID": sessionId,
+			'Frostpaw-ID': sessionId,
 			Authorization: token
 		}
-	})
-	return res.ok
+	});
+	return res.ok;
 }
 
 // alertOrg defines what to return for a 'black site'
@@ -274,6 +271,5 @@ export const dhsRetrip = async (userId: string, token: string, alertOrg: string)
 		const data = json['cia.black.site'];
 		const decoded = decode(data.slice(0, data.length - 2));
 		return decoded.slice(0, decoded.length - 2);
-	}
-	else return undefined;
+	} else return undefined;
 };

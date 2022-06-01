@@ -24,10 +24,10 @@ export const getSession: GetSession = async (event) => {
 
 	let sessionData = {};
 
-	let adminData = "";
+	let adminData = '';
 
-	if(cookies["_adminsession"]) {
-		adminData = cookies["_adminsession"];
+	if (cookies['_adminsession']) {
+		adminData = cookies['_adminsession'];
 	}
 
 	if (cookies['sunbeam-session']) {

@@ -104,10 +104,10 @@
 			}
 
 			if (!opt.id) {
-				opt.id = "alert-generic"
+				opt.id = 'alert-generic';
 			}
 			if (!opt.type) {
-				opt.type = enums.AlertType.Alert
+				opt.type = enums.AlertType.Alert;
 			}
 
 			$alertstore = opt;

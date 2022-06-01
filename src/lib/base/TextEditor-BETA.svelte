@@ -37,11 +37,11 @@
 				theme: undefined,
 				toolbar: false // options.toolbar
 			},
-			placeholder: options.placeholder,
+			placeholder: options.placeholder
 		});
 
-		if(value) {
-			quill.setText(value, "silent")
+		if (value) {
+			quill.setText(value, 'silent');
 		}
 
 		if (!$quillstore) {
@@ -62,7 +62,7 @@
 </script>
 
 <div class="fset">
-<div class="fset" bind:this={editor} {id} tabindex="0"/>
+	<div class="fset" bind:this={editor} {id} tabindex="0" />
 </div>
 
 <style>

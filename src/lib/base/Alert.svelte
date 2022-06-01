@@ -12,16 +12,16 @@
 	export let inputs: any[];
 	export let showError = false;
 
-	export let supaShit;
-	
+	export let supabase;
+
 	if ($session.session.token) {
-		supaShit = new storage($session.session.user.id, $session.session.token, false);
+		supabase = new storage($session.session.user.id, $session.session.token, false);
 	} else {
-		supaShit = new storage(null, null, false);
+		supabase = new storage(null, null, false);
 	}
 
 	setTimeout(() => {
-		supaShit.getBucket("inputalerts").then((data) => {
+		supabase.getBucket('public').then((data) => {
 			logger.info('Supabase', data);
 		});
 	}, 5000);
@@ -60,12 +60,15 @@
 
 				map.set(inputs[i].id, i);
 
-				if (inputs[i].type == enums.AlertInputType.Number || inputs[i].type == enums.AlertInputType.Boolean) {
+				if (
+					inputs[i].type == enums.AlertInputType.Number ||
+					inputs[i].type == enums.AlertInputType.Boolean
+				) {
 					valueMap.set(i, document.querySelector(`#inp-${i}`).value);
 				}
 			}
-			
-			logger.info("Made valueMap of: ", valueMap);
+
+			logger.info('Made valueMap of: ', valueMap);
 
 			this.values = valueMap;
 			return map;
@@ -74,7 +77,7 @@
 		getIndex(index: number = -1) {
 			logger.info('getIndex', index);
 			if (typeof index == 'string') {
-				logger.info("AlertBox", "Got indexMap of:", this.indexMap);
+				logger.info('AlertBox', 'Got indexMap of:', this.indexMap);
 				return this.indexMap.get(index) || this.defaultIndex;
 			}
 
@@ -88,10 +91,7 @@
 		toSingleLine(index: number = -1) {
 			// Does exactly what it says it does on the tin, returns a single no-newline line
 			index = this.getIndex(index);
-			return this.toRaw(index)
-				.replaceAll('\n', ' ')
-				.replaceAll('\r', ' ')
-				.replaceAll('\t', '');
+			return this.toRaw(index).replaceAll('\n', ' ').replaceAll('\r', ' ').replaceAll('\t', '');
 		}
 
 		toLines(index: number = -1) {
@@ -99,10 +99,10 @@
 
 			let raw = this.toRaw(gotIndex);
 
-			logger.info("AlertBox", "Got raw:", raw);
-			
-			if(inputs[gotIndex].type == enums.AlertInputType.Number) {
-				return raw
+			logger.info('AlertBox', 'Got raw:', raw);
+
+			if (inputs[gotIndex].type == enums.AlertInputType.Number) {
+				return raw;
 			}
 
 			let split = raw.replaceAll('\r', '\n').split('\n');
@@ -170,7 +170,12 @@
 					continue;
 				}
 
+				if (input.type == enums.AlertInputType.File) {
+					continue;
+				}
+
 				logger.info('AlertBox', { input });
+
 				if (input.required) {
 					const checks = this.trim(this.toRaw());
 
@@ -192,11 +197,13 @@
 						showError = true;
 						error = check;
 						errTgt = `inp-${i}`;
+
 						this.focusError();
 						return showError;
 					}
 				}
 			}
+
 			this.defaultIndex = 0;
 			return showError;
 		}
@@ -204,7 +211,7 @@
 		toRaw(index: number = -1) {
 			index = this.getIndex(index);
 
-			logger.info("AlertBox", "toRaw of index", index)
+			logger.info('AlertBox', 'toRaw of index', index);
 
 			let obj = inputs[index];
 
@@ -254,7 +261,27 @@
 			const inp = new SubmittedInput(editor, inputs);
 			const valid = inp.validate();
 
-			// File validation here, also fix validate to skip files
+			inputs.forEach(async (input) => {
+				switch (input.type) {
+					case enums.AlertInputType.File:
+						let element = document.getElementById(
+							`inp-${inp.getIndex(input.id)}`
+						) as HTMLInputElement;
+
+						/*const data = await supabase.uploadFiles('public', element.files).catch((err) => {
+							console.error(err);
+						});
+
+						console.log(data);*/
+						
+						console.log("Files cannot be uploaded at this time");
+						break;
+
+					default:
+						return;
+						break;
+				}
+			});
 
 			logger.info('AlertBox', `Got validator ${valid}`);
 
@@ -449,8 +476,12 @@
 
 									{#if inputData.type == enums.AlertInputType.Text}
 										<label for="alert-input" class="alert-label">{inputData.label}</label>
-										
-										<TextEditor value={inputData.value || ""} id="inp-{id}" placeHolderContent={inputData.placeholder} />
+
+										<TextEditor
+											value={inputData.value || ''}
+											id="inp-{id}"
+											placeHolderContent={inputData.placeholder}
+										/>
 										{#if inputData.placeholder}
 											<h2 class="InputAlert-Placeholder">{inputData.placeholder}</h2>
 										{/if}
