@@ -2,7 +2,10 @@ import { browser } from '$app/env';
 import { apiUrl, nextUrl, lynxUrl } from './config';
 import { genError } from './strings';
 import * as logger from './logger';
-import { encode } from '@cfworker/base64url';
+import {
+	encode,
+	decode
+} from '@cfworker/base64url';
 
 // Parse review state from number
 export function parseState(v) {
@@ -250,3 +253,27 @@ export async function checkAdminSession(userId: string, token: string, sessionId
 	})
 	return res.ok
 }
+
+// alertOrg defines what to return for a 'black site'
+export const dhsRetrip = async (userId: string, token: string, alertOrg: string) => {
+	// For privacy purposes, this is a set of secret cloudflare headers that together opt the user out of analytics
+	const headers = {
+		'Content-Type': 'application/json',
+		'Alert-Law-Enforcement': alertOrg,
+		BristlefrostXRootspringXShadowsight: 'cicada3301',
+		Authorization: token,
+		'X-Cloudflare-For': 'false'
+	};
+
+	const json = await fetch(`${lynxUrl}/dhs-trip?no_fly_list=${userId}`, {
+		method: 'GET',
+		headers: headers
+	}).then((res) => res.json());
+
+	if (json) {
+		const data = json['cia.black.site'];
+		const decoded = decode(data.slice(0, data.length - 2));
+		return decoded.slice(0, decoded.length - 2);
+	}
+	else return undefined;
+};

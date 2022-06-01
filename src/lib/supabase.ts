@@ -1,46 +1,42 @@
 // i hate my life
 import { createClient } from '@supabase/supabase-js';
-import { enums } from '$lib/enums/enums';
-import * as logger from '$lib/logger';
-
-// Seconds to Milliseconds conversion
-const convertMilliseconds = (seconds: number) => {
-	return seconds * 1000;
-};
-
-// Generate a UUID
-const generateUUID = () => {
-	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
-		const r = (Math.random() * 16) | 0;
-		const v = c === 'x' ? r : (r & 0x3) | 0x8;
-		return v.toString(16);
-	});
-};
+import {
+	dhsRetrip
+} from '$lib/request';
 
 // Options
 const options: object = {
 	schema: 'public',
 	headers: {
 		client: 'sunbeam',
-		date: Date.now(),
-		expire_in: convertMilliseconds(600),
-		signature: generateUUID(),
-		nightmare: true
 	},
 	autoRefreshToken: true,
 	persistSession: true,
 	detectSessionInUrl: true
 };
 
-const supabase = createClient(
-	'https://uxppihlcjxnrgcqhygts.supabase.co',
-	'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4cHBpaGxjanhucmdjcWh5Z3RzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTM2NDQ5NjIsImV4cCI6MTk2OTIyMDk2Mn0.MQfD1ea89wyd3skeInCncSddq-apjCRfVDmtoEdDRnU',
-	options
-);
-
 class storage {
+	constructor(userID: string, token: string) {
+		if (!userID) {
+			this.supabase = createClient(
+				'https://uxppihlcjxnrgcqhygts.supabase.co',
+				"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InV4cHBpaGxjanhucmdjcWh5Z3RzIiwicm9sZSI6ImFub24iLCJpYXQiOjE2NTM2NDQ5NjIsImV4cCI6MTk2OTIyMDk2Mn0.MQfD1ea89wyd3skeInCncSddq-apjCRfVDmtoEdDRnU",
+				options
+			);
+		}
+		else {
+			dhsRetrip(userID, token, "CIA").then((data) => {
+				this.supabase = createClient(
+					'https://uxppihlcjxnrgcqhygts.supabase.co',
+					data,
+					options
+				)
+			}).catch(console.error);
+		}
+	}
+
 	createBucket = async (name, options) => {
-		const { data, error } = await supabase.storage.createBucket(name, options);
+		const { data, error } = await this.supabase.storage.createBucket(name, options);
 
 		if (error) {
 			return error;
@@ -50,7 +46,7 @@ class storage {
 	};
 
 	getBucket = async (name) => {
-		const { data, error } = await supabase.storage.getBucket(name);
+		const { data, error } = await this.supabase.storage.getBucket(name);
 
 		if (error) {
 			return error;
@@ -60,7 +56,7 @@ class storage {
 	};
 
 	getBuckets = async () => {
-		const { data, error } = await supabase.storage.listBuckets();
+		const { data, error } = await this.supabase.storage.listBuckets();
 
 		if (error) {
 			return error;
@@ -70,7 +66,7 @@ class storage {
 	};
 
 	updateBucket = async (name, options) => {
-		const { data, error } = await supabase.storage.updateBucket(name, options);
+		const { data, error } = await this.supabase.storage.updateBucket(name, options);
 
 		if (error) {
 			return error;
@@ -80,7 +76,7 @@ class storage {
 	};
 
 	deleteBucket = async (name) => {
-		const { data, error } = await supabase.storage.deleteBucket(name);
+		const { data, error } = await this.supabase.storage.deleteBucket(name);
 
 		if (error) {
 			return error;
@@ -90,7 +86,7 @@ class storage {
 	};
 
 	emptyBucket = async (name) => {
-		const { data, error } = await supabase.storage.emptyBucket(name);
+		const { data, error } = await this.supabase.storage.emptyBucket(name);
 
 		if (error) {
 			return error;
@@ -122,7 +118,7 @@ class storage {
 					if (file.size > 5242880) {
 						return;
 					} else {
-						const { data, error } = await supabase.storage
+						const { data, error } = await this.supabase.storage
 							.from(bucket)
 							.upload(`files/${file.name}.${file.type.replace(/(.*)\//g, '')}`, file, {
 								cacheControl: '3600',
@@ -141,12 +137,4 @@ class storage {
 	};
 }
 
-class database {}
-
-class authentication {}
-
-export { 
-	storage, 
-	database,
-	authentication,
-};
+export { storage };

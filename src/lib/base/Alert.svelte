@@ -4,20 +4,27 @@
 	import * as logger from '$lib/logger';
 	import { storage } from '$lib/supabase';
 	import TextEditor from '$lib/base/TextEditor-BETA.svelte';
+	import { session } from '$app/stores';
 
 	export let show: boolean;
-
 	export let close;
 	export let submit;
 	export let inputs: any[];
-
 	export let showError = false;
 
-	const test = new storage();
+	export let supaShit;
+	
+	if ($session.session.token) {
+		supaShit = new storage($session.session.user.id, $session.session.token);
+	} else {
+		supaShit = new storage(null, null);
+	}
 
-	test.getBuckets().then((data) => {
-		logger.info("Supabase", data);
-	});
+	setTimeout(() => {
+		supaShit.getBuckets().then((data) => {
+			logger.info('Supabase', data);
+		});
+	}, 5000);
 
 	let editor; // We bind to this
 	let error: string = '';
