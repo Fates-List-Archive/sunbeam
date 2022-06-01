@@ -88,9 +88,6 @@
 
 		let colsResp = await cols.json();
 
-<<<<<<< HEAD
-		let count = await fetch(`${lynxUrl}/ap/tables/${params.route}/count`);
-=======
         let count = await fetch(`${lynxUrl}/ap/tables/${params.route}?user_id=${session.session.user.id}&count=true`, {
             method: "GET",
             headers: {
@@ -98,7 +95,6 @@
                 Authorization: session.session.token
             }
         })
->>>>>>> 5f75e05 (schema fixes)
 
 		if (!count.ok) {
 			let json = await count.json();
@@ -123,7 +119,7 @@
 	}
 </script>
 
-<script lang="ts">
+<script lang="ts"> 
 	// https://stackoverflow.com/a/46959528
 	function title(str: string) {
 		return str.replaceAll('_', ' ').replace(/(^|\s)\S/g, function (t) {
@@ -150,42 +146,25 @@
 
 	let extQuery = '';
 
-<<<<<<< HEAD
-	async function getPage(nextPage) {
-		// Get cols
-		if (extQuery) {
-			// Get new total count expected for this query
-			let countReq = await fetch(`${lynxUrl}/ap/tables/${tableName}/count?${extQuery}`);
-			if (countReq.ok) {
-				count = await countReq.json();
-			} else {
-				let json = await countReq.json();
-				logger.error(json);
-				alert(json.reason);
-			}
-		}
-=======
-async function getPage(nextPage) {
-    // Get cols
-    if(extQuery) {
-        // Get new total count expected for this query
-        let countReq = await fetch(`${lynxUrl}/ap/tables/${tableName}?user_id=${$session.session.user.id}&limit=${limit}&offset=${(nextPage-1)*limit}&${extQuery}&count=true`, {
-            method: "GET",
-            headers: {
-                "Frostpaw-ID": $session.adminData,
-                Authorization: $session.session.token
+    async function getPage(nextPage) {
+        // Get cols
+        if(extQuery) {
+            // Get new total count expected for this query
+            let countReq = await fetch(`${lynxUrl}/ap/tables/${tableName}?user_id=${$session.session.user.id}&limit=${limit}&offset=${(nextPage-1)*limit}&${extQuery}&count=true`, {
+                method: "GET",
+                headers: {
+                    "Frostpaw-ID": $session.adminData,
+                    Authorization: $session.session.token
+                }
+            })
+            if(countReq.ok) {
+                count = await countReq.json()
+            } else {
+                let json = await countReq.json()
+                logger.error(json)
+                alert(json.reason)
             }
-        })
-        if(countReq.ok) {
-            count = await countReq.json()
-        } else {
-            let json = await countReq.json()
-            logger.error(json)
-            alert(json.reason)
         }
-    }
->>>>>>> 5f75e05 (schema fixes)
-
 		let cols = await fetch(
 			`${lynxUrl}/ap/tables/${tableName}?user_id=${
 				$session.session.user.id
