@@ -103,7 +103,6 @@
 				tableName: params.route,
 				lynxTag: params.tag,
 				rows: rows,
-				typeMap: typeMap
 			}
 		};
 	}
@@ -122,7 +121,6 @@
 	export let tableName: any;
 	export let lynxTag: any;
 	export let rows: any;
-	export let typeMap: any;
 	import * as logger from '$lib/logger';
 	import { enums } from '$lib/enums/enums';
 	import { session } from '$app/stores';
@@ -179,17 +177,6 @@ function editAlert(key, content) {
 		{#each rows as row}
 			<h3>
 				{title(row.name)}
-				{#if typeMap[row.name].array}
-					<span class="text-gray-500"> (array)</span>
-				{:else}
-					<a
-						class="inline"
-						href={'javascript:void(0)'}
-						on:click={() => {
-							editAlert(row.name, document.querySelector(`#inp-${row.name}`).value)
-						}}>Edit</a
-					>
-				{/if}
 			</h3>
 			{#if row.array}
 				{#each row.value as val, i}
@@ -198,20 +185,52 @@ function editAlert(key, content) {
 					}}>{val}</textarea>		
 				{/each}
 				<Button class="button" on:click={() => {
-					row[row.name].value.push("")
+					let added = false
+					rows.forEach((e) => {
+						if(added) {
+							return;
+						}
+						if(e.name == row.name) {
+							e.value.push("")
+							added = true
+						}
+					})
 					row = row
-				}}>Add</Button>
+				}}>Add new element</Button>
+				<Button
+				class="button"
+				on:click={() => {
+					let els = [];
+					let end = false
+					let i = 0
+					while(!end) {
+						let el = document.querySelector(`#inp-${row.name}=${i}`)
+						if(el) {
+							els.push(el.value)
+							i++
+						} else {
+							end = true
+						}
+					}
+					editAlert(row.name, els)
+				}}>Edit</Button>
 			{:else}
 				<textarea id="inp-{row.name}" class="fform inp" on:keyup={() => {
 					console.log("keyup")
 					document.querySelector(`#inp-${row.name}`).scrollTop = document.querySelector(`#inp-${row.name}`).scrollHeight;
 				}}>{row.value}</textarea>	
+				<Button
+				class="button"
+				on:click={() => {
+					editAlert(row.name, document.querySelector(`#inp-${row.name}`).value)
+				}}>Edit</Button>
+			
 			{/if}
 		{/each}
 	</div>
 </QuailTree>
 <style>
 	.inp {
-		height: 30px !important;
+		height: 100px !important;
 	}
 </style>
