@@ -137,6 +137,28 @@ function editAlert(key, content) {
 		message: `Editting ${key}`,
 		type: enums.AlertType.Prompt,
 		submit: async (value) => {
+			// First check their ratelimits
+			let raven = await fetch(`${lynxUrl}/ap/raven?user_id=${$session.session.user.id}`, {
+				method: "GET",
+				headers: {
+					'Frostpaw-ID': $session.adminData,
+					Authorization: $session.session.token,
+				},
+			})
+
+			if(!raven.ok) {
+				let json = await raven.json();
+				alert(json.reason)
+				return
+			}
+
+			let ravenResp = await raven.json();
+
+			if(ravenResp.max == ravenResp.made) {
+				alert(`You have reached your ratelimit. Please wait ${ravenResp.ttl} seconds before trying again.`)
+				return
+			}
+
 			let mfa = value.toSingleLine('mfa-key');
 
 			logger.info("AdminPanel", "Setting new content to:", { content })
