@@ -16,8 +16,6 @@
 	let treeDepthOne = [];
 	let treeDepthTwo = {};
 
-	let nonce = '';
-
 	// https://stackoverflow.com/a/46959528
 	function title(str) {
 		return str
@@ -36,22 +34,6 @@
 			treeDepthTwo = $doctreeCache.treeDepthTwo;
 			treeLoading = false;
 			return;
-		}
-
-		// Fetch nonce from lynx api
-		if (perms > 2) {
-			let nonceReq = await fetch(`${lynxUrl}/nonce`, {
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: $session.session.token,
-					'Frostpaw-ID': $session.session.user.id
-				}
-			});
-
-			if (nonceReq.ok) {
-				let nonceRes = await nonceReq.json();
-				nonce = nonceRes.nonce;
-			}
 		}
 
 		logger.info('QuailTree', 'Fetching doctree');
@@ -288,7 +270,7 @@ Please enter <code>${data.totp_key}</code> in Google Authenticator or Authy for 
 					<a
 						class="tree-link"
 						id="admin-nav"
-						href="https://lynx.fateslist.xyz/_quailfeather/ap-login?nonce={nonce}"
+						href="/quailfeather/admin"
 					>
 						<span class="span">Admin Panel</span>
 					</a>
