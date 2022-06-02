@@ -273,8 +273,8 @@
 						});
 
 						console.log(data);*/
-						
-						console.log("Files cannot be uploaded at this time");
+
+						console.log('Files cannot be uploaded at this time');
 						break;
 
 					default:
@@ -664,7 +664,7 @@
 	.InputAlert[type='number'] {
 		overflow-x: scroll !important;
 	}
-	
+
 	.InputAlert-Placeholder {
 		color: black !important;
 		font-family: 'Fira Code', monospace;

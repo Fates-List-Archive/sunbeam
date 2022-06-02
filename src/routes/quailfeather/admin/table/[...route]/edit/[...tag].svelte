@@ -73,36 +73,36 @@
 
 		let schemaResp = await schema.json();
 
-		let typeMap = {}
+		let typeMap = {};
 
-		schemaResp.forEach(t => {
+		schemaResp.forEach((t) => {
 			typeMap[t.column_name] = {
 				array: t.array,
-				secret: t.secret,
-			}
-		})
+				secret: t.secret
+			};
+		});
 
-		let rows = []
+		let rows = [];
 
-		Object.entries(colsResp[0]).forEach(el => {
-			if(typeMap[el[0]].secret) {
+		Object.entries(colsResp[0]).forEach((el) => {
+			if (typeMap[el[0]].secret) {
 				return;
 			}
 			rows.push({
 				name: el[0],
 				array: typeMap[el[0]].array,
 				value: el[1]
-			})
-		})
+			});
+		});
 
-		logger.info("AdminPanel", rows)
+		logger.info('AdminPanel', rows);
 
 		return {
 			props: {
 				perms: permsResp,
 				tableName: params.route,
 				lynxTag: params.tag,
-				rows: rows,
+				rows: rows
 			}
 		};
 	}
@@ -131,72 +131,76 @@ import FormInput from '$lib/base/FormInput.svelte';
 import Tip from '$lib/base/Tip.svelte';
 */
 
-function editAlert(key, content) {
-	alert({
-		title: `Editting ${key}`,
-		message: `Editting ${key}`,
-		type: enums.AlertType.Prompt,
-		submit: async (value) => {
-			// First check their ratelimits
-			let raven = await fetch(`${lynxUrl}/ap/raven?user_id=${$session.session.user.id}`, {
-				method: "GET",
-				headers: {
-					'Frostpaw-ID': $session.adminData,
-					Authorization: $session.session.token,
-				},
-			})
+	function editAlert(key, content) {
+		alert({
+			title: `Editting ${key}`,
+			message: `Editting ${key}`,
+			type: enums.AlertType.Prompt,
+			submit: async (value) => {
+				// First check their ratelimits
+				let raven = await fetch(`${lynxUrl}/ap/raven?user_id=${$session.session.user.id}`, {
+					method: 'GET',
+					headers: {
+						'Frostpaw-ID': $session.adminData,
+						Authorization: $session.session.token
+					}
+				});
 
-			if(!raven.ok) {
-				let json = await raven.json();
-				alert(json.reason)
-				return
-			}
+				if (!raven.ok) {
+					let json = await raven.json();
+					alert(json.reason);
+					return;
+				}
 
-			let ravenResp = await raven.json();
+				let ravenResp = await raven.json();
 
-			if(ravenResp.max == ravenResp.made) {
-				alert(`You have reached your ratelimit. Please wait ${ravenResp.ttl} seconds before trying again.`)
-				return
-			}
+				if (ravenResp.max == ravenResp.made) {
+					alert(
+						`You have reached your ratelimit. Please wait ${ravenResp.ttl} seconds before trying again.`
+					);
+					return;
+				}
 
-			let mfa = value.toSingleLine('mfa-key');
+				let mfa = value.toSingleLine('mfa-key');
 
-			logger.info("AdminPanel", "Setting new content to:", { content })
+				logger.info('AdminPanel', 'Setting new content to:', { content });
 
-			let res = await fetch(`${lynxUrl}/ap/tables/${tableName}/tag/${lynxTag}?user_id=${$session.session.user.id}`, {
-				method: "PATCH",
-				headers: {
-					'Frostpaw-ID': $session.adminData,
-					Authorization: $session.session.token,
-					"Content-Type": "application/json"
-				},
-				body: JSON.stringify({
-					patch: {
-						col: key,
-						value: content,
-					},
-					otp: mfa
-				})
-			})
+				let res = await fetch(
+					`${lynxUrl}/ap/tables/${tableName}/tag/${lynxTag}?user_id=${$session.session.user.id}`,
+					{
+						method: 'PATCH',
+						headers: {
+							'Frostpaw-ID': $session.adminData,
+							Authorization: $session.session.token,
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify({
+							patch: {
+								col: key,
+								value: content
+							},
+							otp: mfa
+						})
+					}
+				);
 
-			if(res.ok) {
-				alert("Successfully updated the column.")
-			} else {
-				let json = await res.json();
-				alert(json.reason)
-			}
-		},
-		inputs: [
-			{
-				id: "mfa-key",
-				type: enums.AlertInputType.Number,
-				label: '2FA code',
-				placeholder: '2FA code from your authenticator app'
-			}
-		]
-	});
-
-}
+				if (res.ok) {
+					alert('Successfully updated the column.');
+				} else {
+					let json = await res.json();
+					alert(json.reason);
+				}
+			},
+			inputs: [
+				{
+					id: 'mfa-key',
+					type: enums.AlertInputType.Number,
+					label: '2FA code',
+					placeholder: '2FA code from your authenticator app'
+				}
+			]
+		});
+	}
 </script>
 
 <QuailTree perms={perms.perm}>
@@ -209,71 +213,89 @@ function editAlert(key, content) {
 			</h3>
 			{#if row.array}
 				{#each row.value as val, i}
-					<textarea id="inp-{row.name}-{i}" class="fform inp" on:keyup={function() {
-						this.scrollTop = this.scrollHeight;
-					}}>{val}</textarea>		
-					<Button class="button" on:click={() => {
-						let added = false
+					<textarea
+						id="inp-{row.name}-{i}"
+						class="fform inp"
+						on:keyup={function () {
+							this.scrollTop = this.scrollHeight;
+						}}>{val}</textarea
+					>
+					<Button
+						class="button"
+						on:click={() => {
+							let added = false;
+							rows.forEach((e) => {
+								if (added) {
+									return;
+								}
+								if (e.name == row.name) {
+									e.value.splice(i, 1);
+									added = true;
+								}
+							});
+							row = row;
+						}}>Remove Element</Button
+					>
+				{/each}
+				<br />
+				<br />
+				<Button
+					class="button"
+					on:click={() => {
+						let added = false;
 						rows.forEach((e) => {
-							if(added) {
+							if (added) {
 								return;
 							}
-							if(e.name == row.name) {
-								e.value.splice(i, 1)
-								added = true
+							if (e.name == row.name) {
+								e.value.push('');
+								added = true;
 							}
-						})
-						row = row
-					}}>Remove Element</Button>
-				{/each}
-				<br/>
-				<br/>
-				<Button class="button" on:click={() => {
-					let added = false
-					rows.forEach((e) => {
-						if(added) {
-							return;
-						}
-						if(e.name == row.name) {
-							e.value.push("")
-							added = true
-						}
-					})
-					row = row
-				}}>Add new element</Button>
-				<br/><br/>
+						});
+						row = row;
+					}}>Add new element</Button
+				>
+				<br /><br />
 				<Button
-				class="button"
-				on:click={() => {
-					let els = [];
-					let end = false
-					let i = 0
-					while(!end) {
-						let el = document.querySelector(`#inp-${row.name}-${i}`)
-						if(el) {
-							els.push(el.value)
-							i++
-						} else {
-							end = true
+					class="button"
+					on:click={() => {
+						let els = [];
+						let end = false;
+						let i = 0;
+						while (!end) {
+							let el = document.querySelector(`#inp-${row.name}-${i}`);
+							if (el) {
+								els.push(el.value);
+								i++;
+							} else {
+								end = true;
+							}
 						}
-					}
-					editAlert(row.name, els)
-				}}>Edit</Button>
+						editAlert(row.name, els);
+					}}>Edit</Button
+				>
 			{:else}
-				<textarea id="inp-{row.name}" class="fform inp" on:keyup={() => {
-					console.log("keyup")
-					document.querySelector(`#inp-${row.name}`).scrollTop = document.querySelector(`#inp-${row.name}`).scrollHeight;
-				}}>{row.value}</textarea>	
+				<textarea
+					id="inp-{row.name}"
+					class="fform inp"
+					on:keyup={() => {
+						console.log('keyup');
+						document.querySelector(`#inp-${row.name}`).scrollTop = document.querySelector(
+							`#inp-${row.name}`
+						).scrollHeight;
+					}}>{row.value}</textarea
+				>
 				<Button
-				class="button"
-				on:click={() => {
-					editAlert(row.name, document.querySelector(`#inp-${row.name}`).value)
-				}}>Edit</Button>
-			
+					class="button"
+					on:click={() => {
+						editAlert(row.name, document.querySelector(`#inp-${row.name}`).value);
+					}}>Edit</Button
+				>
 			{/if}
 		{/each}
 	</div>
 </QuailTree>
+
 <style>
 	.inp {
 		height: 100px !important;

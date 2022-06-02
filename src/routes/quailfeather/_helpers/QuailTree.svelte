@@ -244,11 +244,11 @@ in the staff guide, you will just be told to reread the staff guide!`.replaceAll
 Please enter <code>${data.totp_key}</code> in Google Authenticator or Authy for 2FA verification.
 `
 										);
-										return
+										return;
 									} else {
 										let data = await res.json();
 										alert(data.reason);
-										return
+										return;
 									}
 								},
 								close: () => {}
@@ -269,11 +269,7 @@ Please enter <code>${data.totp_key}</code> in Google Authenticator or Authy for 
 					</a>
 				</li>
 				<li class="td-1">
-					<a
-						class="tree-link"
-						id="admin-nav"
-						href="/quailfeather/admin"
-					>
+					<a class="tree-link" id="admin-nav" href="/quailfeather/admin">
 						<span class="span">Admin Panel</span>
 					</a>
 				</li>
@@ -293,7 +289,7 @@ Please enter <code>${data.totp_key}</code> in Google Authenticator or Authy for 
 										headers: {
 											'Content-Type': 'application/json',
 											Authorization: $session.session.token,
-											"Frostpaw-MFA": v.toRaw()
+											'Frostpaw-MFA': v.toRaw()
 										}
 									});
 

@@ -87,7 +87,7 @@
 
 					document.cookie = `_adminsession=${loginSessionStr};Path=/quailfeather/admin;secure;max-age=28800;samesite=strict;priority=High`;
 
-					let searchParams = new URLSearchParams(window.location.search)
+					let searchParams = new URLSearchParams(window.location.search);
 
 					let redirect = searchParams.get('redirect') || '/quailfeather/admin';
 

@@ -94,11 +94,11 @@
 
 <script lang="ts">
 	// https://stackoverflow.com/a/46959528
-	function title(str: string) {
-		return str.replaceAll('_', ' ').replace(/(^|\s)\S/g, function (t) {
+	const title = (str: string) => {
+		return str.replaceAll('_', ' ').replace(/(^|\s)\S/g, (t) => {
 			return t.toUpperCase();
 		});
-	}
+	};
 
 	import QuailTree from '../_helpers/QuailTree.svelte';
 	export let perms: any;
@@ -120,22 +120,29 @@
 			{/each}
 		</div>
 	</Section>
+
+	<div class="seperate" />
+
 	<Section id="Tables" title="Tables" icon="fluent:thinking-24-regular">
 		<div class="mx-2">
 			{#each [...tables] as [tableName, table]}
-				<h2 id={tableName}>{title(tableName)}</h2>
-				{#if allowedTables == null || allowedTables.includes(tableName)}
-					<h3>You are allowed to edit this table</h3>
-					<Button href={`/quailfeather/admin/table/${tableName}`}>Edit Table</Button>
-				{:else}
-					<h3>You are not allowed to edit this table</h3>
-				{/if}
-				<h4>Columns</h4>
-				<ul>
-					{#each table as column}
-						<li>{column.column_name}</li>
-					{/each}
-				</ul>
+				<fieldset>
+					<legend id={tableName}>{title(tableName)}</legend>
+					{#if allowedTables == null || allowedTables.includes(tableName)}
+						<h3>You are allowed to edit this table</h3>
+						<Button class="button" href={`/quailfeather/admin/table/${tableName}`}>Edit Table</Button>
+					{:else}
+						<h3>You are not allowed to edit this table</h3>
+					{/if}
+					<h4>Columns</h4>
+					<ul>
+						{#each table as column}
+							<li>{column.column_name}</li>
+						{/each}
+					</ul>
+				</fieldset>
+
+				<div class="seperate" />
 			{/each}
 		</div>
 	</Section>
@@ -144,5 +151,20 @@
 <style>
 	ul {
 		color: white !important;
+	}
+
+	.seperate {
+		padding: 15px;
+	}
+
+	fieldset {
+		border-radius: 6px;
+		overflow-y: scroll;
+	}
+
+	legend {
+		font-family: 'Fira Code', monospace;
+		color: white;
+		font-weight: bold;
 	}
 </style>
