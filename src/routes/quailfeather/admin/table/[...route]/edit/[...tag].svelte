@@ -61,7 +61,7 @@
 
 		let colsResp = await cols.json();
 
-		let schema = await fetch(`${lynxUrl}/ap/schema`);
+		let schema = await fetch(`${lynxUrl}/ap/schema?table_name=${params.route}`);
 
 		if (!schema.ok) {
 			let json = await schema.json();
