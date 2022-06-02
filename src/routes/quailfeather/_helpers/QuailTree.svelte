@@ -281,27 +281,42 @@ Please enter <code>${data.totp_key}</code> in Google Authenticator or Authy for 
 						id="reset-nav"
 						href={'javascript:void(0)'}
 						on:click={() => {
-							(async () => {
-								let res = await fetch(`${lynxUrl}/reset?user_id=${$session.session.user.id}`, {
-									method: 'POST',
-									headers: {
-										'Content-Type': 'application/json',
-										Authorization: $session.session.token
-									}
-								});
-
-								if (res.ok) {
-									alert({
-										id: 'reset-alert',
-										title: 'Success',
-										type: enums.AlertType.Success,
-										close: () => {
-											logoutUser();
-										},
-										message: `Successfully reset credentials. You will need to login again.`
+							alert({
+								title: 'Reset',
+								message: 'Enter 2FA code here',
+								type: enums.AlertType.Prompt,
+								submit: async (v) => {
+									let res = await fetch(`${lynxUrl}/reset?user_id=${$session.session.user.id}`, {
+										method: 'POST',
+										headers: {
+											'Content-Type': 'application/json',
+											Authorization: $session.session.token,
+											"Frostpaw-MFA": v.toRaw()
+										}
 									});
-								}
-							})();
+
+									if (res.ok) {
+										alert({
+											id: 'reset-alert',
+											title: 'Success',
+											type: enums.AlertType.Success,
+											close: () => {
+												logoutUser();
+											},
+											message: `Successfully reset credentials. You will need to login again.`
+										});
+									}
+								},
+								inputs: [
+									{
+										id: 'mfa-key',
+										label: '2FA Code',
+										placeholder: '2FA Code',
+										required: true,
+										type: enums.AlertInputType.Number
+									}
+								]
+							});
 						}}
 					>
 						<span class="span">Reset Credentials</span>
