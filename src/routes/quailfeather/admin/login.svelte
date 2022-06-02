@@ -87,7 +87,11 @@
 
 					document.cookie = `_adminsession=${loginSessionStr};Path=/quailfeather/admin;secure;max-age=28800;samesite=strict;priority=High`;
 
-					window.location.href = '/quailfeather/admin';
+					let searchParams = new URLSearchParams(window.location.search)
+
+					let redirect = searchParams.get('redirect') || '/quailfeather/admin';
+
+					window.location.href = redirect;
 				},
 				inputs: [
 					{

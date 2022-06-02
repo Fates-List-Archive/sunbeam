@@ -22,7 +22,7 @@
 		if (!session.adminData) {
 			return {
 				status: 307,
-				redirect: `/quailfeather/admin/login`
+				redirect: `/quailfeather/admin/login?redirect=/quailfeather/admin/table/${params.route}/edit/${params.tag}`
 			};
 		}
 
