@@ -14,7 +14,7 @@
 <div class="flex">
 	<BotCard {type} rand={false} data={randomBot} />
 	<Button
-		class="random-button white"
+		class="random-button white button"
 		on:click={() => {
 			roller();
 		}}

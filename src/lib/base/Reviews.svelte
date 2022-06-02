@@ -280,7 +280,7 @@
 					<Button
 						on:click={() => replyReview(review.id)}
 						href={'javascript:void(0);'}
-						class="bot-card-actions-link"
+						class="bot-card-actions-link button"
 						touch
 						variant="outlined">Reply</Button
 					>
@@ -316,14 +316,14 @@
 						<Button
 							on:click={() => editReview()}
 							href={'javascript:void(0);'}
-							class="bot-card-actions-link"
+							class="bot-card-actions-link button"
 							touch
 							variant="outlined">Edit</Button
 						>
 						<Button
 							on:click={() => deleteReview()}
 							href={'javascript:void(0);'}
-							class="bot-card-actions-link"
+							class="bot-card-actions-link button" 
 							touch
 							variant="outlined">Delete</Button
 						>

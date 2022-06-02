@@ -78,4 +78,4 @@
 	style="width: 100%; border-radius: 4px 4px 4px 4px;"
 	required
 />
-<Button href={'#'} on:click={() => addReview()} id="review-add">Add Review</Button>
+<Button href={'#'} on:click={() => addReview()} id="review-add" class="button">Add Review</Button>

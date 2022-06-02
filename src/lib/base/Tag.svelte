@@ -9,7 +9,7 @@
 	// Add first maxTags to initial render view
 	let maxTags = 4;
 	let classList = 'tag-container';
-	let tagClasses = 'tag-item';
+	let tagClasses = 'tag-item button';
 	let spanClasses = 'tag-span';
 
 	// Don't show tags if there are less than 5
@@ -21,7 +21,7 @@
 	if (buttonTag) {
 		modWidth = false;
 		classList = 'button-tag-container';
-		tagClasses = 'button-tag-item';
+		tagClasses = 'button-tag-item button';
 		spanClasses = 'button-tag-span';
 	}
 

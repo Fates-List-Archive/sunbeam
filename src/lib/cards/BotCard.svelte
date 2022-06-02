@@ -68,7 +68,7 @@
 			<Button
 				aria-label="View"
 				href="/{type}/{data.user.id}"
-				class="bot-card-actions-link"
+				class="bot-card-actions-link button"
 				touch
 				variant="outlined">View</Button
 			>
@@ -76,7 +76,7 @@
 				<Button
 					aria-label="Invite"
 					href="/{type}/{data.user.id}/invite"
-					class="bot-card-actions-link"
+					class="bot-card-actions-link button"
 					target="_blank"
 					touch
 					variant="outlined"
@@ -86,7 +86,7 @@
 				<Button
 					aria-label="Settings"
 					href="/{type}/{data.user.id}/settings"
-					class="bot-card-actions-link profile-settings-btn"
+					class="bot-card-actions-link profile-settings-btn button"
 					touch
 					variant="outlined">Settings</Button
 				>
@@ -117,6 +117,7 @@
 	a {
 		opacity: 1 !important;
 	}
+
 	$card-scale: 1.025;
 	$form-radius: 4px;
 	$link-opacity: 0.63;

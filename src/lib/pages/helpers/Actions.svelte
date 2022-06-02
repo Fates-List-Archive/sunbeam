@@ -71,13 +71,13 @@ If you have previously invited Squirrelflight, please remove and add Fates List 
 
 <span class="auxillary" />
 <div class="buttons">
-	<Button on:click={() => voteBot()} class="buttons-all" id="buttons-vote" touch variant="outlined">
+	<Button on:click={() => voteBot()} class="buttons-all button" id="buttons-vote" touch variant="outlined">
 		<Icon icon="fa-solid:thumbs-up" inline={false} />
 		<span style="margin-left: 3px;"><strong>{data.votes}</strong></span>
 	</Button>
 	<Button
 		href="/{type}/{data.user.id}/invite"
-		class="buttons-all"
+		class="buttons-all button"
 		id="buttons-invite"
 		touch
 		variant="outlined"
@@ -131,7 +131,7 @@ If you still wish to report, type the reason for reporting this ${type} below. R
 				});
 			}}
 			id="buttons-report"
-			class="buttons-all"
+			class="buttons-all button"
 			touch
 			variant="outlined"
 		>
@@ -143,7 +143,7 @@ If you still wish to report, type the reason for reporting this ${type} below. R
 			<Button
 				href="/bot/{data.user.id}/settings"
 				id="buttons-settings"
-				class="buttons-all auxillary"
+				class="buttons-all auxillary button"
 				touch
 				variant="outlined"
 			>
