@@ -10,9 +10,9 @@
 		}
 		let perms = await fetch(`${apiUrl}/baypaw/perms/${id}`);
 
-		perms = await perms.json();
+		let permsResp = await perms.json();
 
-		if (perms.perm < 2) {
+		if (permsResp.perm < 2) {
 			return {
 				status: 401,
 				error: new Error('You are not a staff member.')
@@ -99,7 +99,7 @@
 
 		return {
 			props: {
-				perms: perms,
+				perms: permsResp,
 				tableName: params.route,
 				lynxTag: params.tag,
 				rows: rows,
