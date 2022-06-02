@@ -241,7 +241,7 @@ export async function subNotifs(user_id: string, token: string) {
 }
 
 export async function checkAdminSession(userId: string, token: string, sessionId: string) {
-	let res = await fetch(`${lynxUrl}/ap/sessions?user_id=${userId}`, {
+	let res = await fetch(`${lynxUrl}/ap/raven?user_id=${userId}`, {
 		method: 'GET',
 		headers: {
 			'Frostpaw-ID': sessionId,
