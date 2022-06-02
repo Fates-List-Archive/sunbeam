@@ -2,6 +2,7 @@
 	/** @type {import('@sveltejs/kit').ErrorLoad} */
 	import { apiUrl, lynxUrl } from '$lib/config';
 	import { checkAdminSession } from '$lib/request';
+	import { browser } from '$app/env';
 	export const prerender = false;
 	export async function load({ params, session }) {
 		let id = '0';
@@ -128,7 +129,7 @@
 		return str.replaceAll('_', ' ').replace(/(^|\s)\S/g, (t) => {
 			return t.toUpperCase();
 		});
-	}
+	};
 
 	import QuailTree from '../../../_helpers/QuailTree.svelte';
 	export let perms: any;
@@ -193,7 +194,7 @@
 		}
 		rows = await cols.json();
 		page = nextPage;
-	}
+	};
 </script>
 
 <QuailTree perms={perms.perm}>
@@ -237,6 +238,7 @@
 			</ul>
 		</Tip>
 		<Button
+			class="button"
 			on:click={() => {
 				extQuery = `search_by=${document.querySelector('#search-by').value}&search_val=${
 					document.querySelector('#search-val').value
@@ -257,16 +259,19 @@
 						{/each}
 					</tr>
 				</thead>
+
 				{#each rows as row}
 					<tr class="link" role="link">
 						<td>
 							<a
+								class="edit"
 								href={'javascript:void(0)'}
 								on:click={() => {
 									goto(`/quailfeather/admin/table/${tableName}/edit/${row._lynxtag}`);
 								}}>Edit</a
 							>
 						</td>
+
 						{#each schemaOrder as column}
 							{#if `${row[column]}`.length > 70}
 								<td>{`${row[column]}`.slice(0, 70) + '...'}</td>
@@ -278,6 +283,9 @@
 				{/each}
 			</table>
 		</div>
+
+		<div class="seperate"></div>
+
 		{#if page > 0}
 			<Button
 				class="next-page button"
@@ -287,6 +295,7 @@
 				}}>Previous Page</Button
 			>
 		{/if}
+
 		{#if rows.length > 0}
 			<Button
 				class="next-page button"
@@ -296,6 +305,8 @@
 				}}>Next Page</Button
 			>
 		{/if}
+
+		<div class="seperate-bottom"></div>
 	</div>
 </QuailTree>
 
@@ -316,11 +327,16 @@
 		min-width: 400px !important;
 		margin: 25px 0 !important;
 		box-shadow: 0 0 20px rgba(0, 0, 0, 0.15) !important;
+		overflow: scroll !important;
 	}
 
 	th,
 	td {
 		padding: 12px 15px !important;
+	}
+
+	th {
+		text-transform: uppercase !important;
 	}
 
 	tr:hover {
@@ -333,5 +349,22 @@
 
 	.width-80 {
 		width: 80% !important;
+	}
+
+	.seperate {
+		padding: 5px;
+	}
+
+	.seperate-bottom {
+		margin-bottom: 20px;
+	}
+
+	:global(.button:hover) {
+		animation: none !important;
+		background-color: rgba(255, 255, 255, 0.1) !important;
+	}
+
+	.edit:hover {
+		color: white !important;
 	}
 </style>
