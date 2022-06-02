@@ -244,9 +244,11 @@ in the staff guide, you will just be told to reread the staff guide!`.replaceAll
 Please enter <code>${data.totp_key}</code> in Google Authenticator or Authy for 2FA verification.
 `
 										);
+										return
 									} else {
 										let data = await res.json();
 										alert(data.reason);
+										return
 									}
 								},
 								close: () => {}
