@@ -142,7 +142,7 @@
 	import { goto } from '$app/navigation';
 
 	let page = 1;
-	let limit = 50;
+	let limit = 20;
 
 	let extQuery = '';
 
