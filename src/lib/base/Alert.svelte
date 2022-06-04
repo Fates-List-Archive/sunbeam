@@ -329,7 +329,7 @@
 							{#if inputData.type != enums.AlertInputType.Pre}
 								<br />
 								<fieldset>
-									<legend>{inputData.label} ({enums.AlertInputType[inputData.type]})</legend>
+									<legend>{inputData.label}</legend>
 
 									{#if inputData.description}
 										<span>{inputData.description}</span>
@@ -482,9 +482,6 @@
 											id="inp-{id}"
 											placeHolderContent={inputData.placeholder}
 										/>
-										{#if inputData.placeholder}
-											<h2 class="InputAlert-Placeholder">{inputData.placeholder}</h2>
-										{/if}
 
 										{#if inputData.minlength || inputData.maxlength}
 											<br />

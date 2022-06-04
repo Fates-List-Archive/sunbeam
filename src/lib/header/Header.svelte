@@ -45,9 +45,10 @@
 			type: enums.AlertType.Prompt,
 			input: {
 				label: 'Report any bugs/suggestions here',
-				placeholder: `Report any bugs/suggestions here`,
+				placeholder: `Enter your suggestion here!`,
 				multiline: true,
 				required: true,
+				type: enums.AlertInputType.Text,
 				function: (value) => {
 					value = value.toString();
 					let token = '';
@@ -94,20 +95,26 @@
 		});
 	};
 
-	let scrolled = false;
-
 	if (browser) {
+		const header = document.getElementById('header');
+
 		docReady(() => {
 			document.addEventListener('scroll', (e) => {
 				if (window.scrollY > 5) {
-					logger.debug('Header', 'Set scrolled to true');
-					scrolled = true;
+					header.setAttribute("scrolled", "true");
 				} else {
-					logger.debug('Header', 'Set scrolled to false');
-					scrolled = false;
+					header.removeAttribute("scrolled");
 				}
 			});
-			scrolled = window.scrollY > 5;
+
+			if (window.scrollY > 5) {
+				header.setAttribute("scrolled", "true");
+			} else {
+				if (header.hasAttribute("scrolled")) {
+					header.removeAttribute("scrolled");
+				}
+				else return;
+			}
 		});
 	}
 </script>
@@ -130,6 +137,7 @@
 			</li>
 			<li class:active={$page.url.pathname === '/'}><a sveltekit:prefetch href="/">Bots</a></li>
 		</ul>
+
 		<Menu bind:this={addMenu} class="nav add-nav">
 			<List>
 				<Item
@@ -229,13 +237,11 @@
 				>
 					<Text>
 						Quailfeather
-						<span class="item_badge" type="beta">BETA</span>
 					</Text>
 				</Item>
 				<Item on:SMUI:action={reportFeedback}>
 					<Text>
-						Report
-						<span class="item_badge" type="new">NEW</span>
+						Feedback
 					</Text>
 				</Item>
 				<Item
@@ -250,15 +256,6 @@
 	</nav>
 </header>
 
-{#if scrolled}
-	<style lang="scss">
-		#header {
-			background-color: black !important;
-			box-shadow: 1px 1px 1px 1px black;
-		}
-	</style>
-{/if}
-
 <style lang="scss">
 	#header {
 		display: flex;
@@ -270,6 +267,11 @@
 		margin: 0px;
 		padding: 3px;
 		z-index: 3;
+	}
+
+	:global(#header[scrolled='true']) {
+		background-color: black !important;
+		box-shadow: 1px 1px 1px 1px black;
 	}
 
 	:global(.item_badge[type='beta']) {
