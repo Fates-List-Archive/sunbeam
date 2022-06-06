@@ -323,7 +323,7 @@
 						<Button
 							on:click={() => deleteReview()}
 							href={'javascript:void(0);'}
-							class="bot-card-actions-link button" 
+							class="bot-card-actions-link button"
 							touch
 							variant="outlined">Delete</Button
 						>

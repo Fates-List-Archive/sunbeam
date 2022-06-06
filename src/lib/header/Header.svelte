@@ -101,19 +101,18 @@
 		docReady(() => {
 			document.addEventListener('scroll', (e) => {
 				if (window.scrollY > 5) {
-					header.setAttribute("scrolled", "true");
+					header.setAttribute('scrolled', 'true');
 				} else {
-					header.removeAttribute("scrolled");
+					header.removeAttribute('scrolled');
 				}
 			});
 
 			if (window.scrollY > 5) {
-				header.setAttribute("scrolled", "true");
+				header.setAttribute('scrolled', 'true');
 			} else {
-				if (header.hasAttribute("scrolled")) {
-					header.removeAttribute("scrolled");
-				}
-				else return;
+				if (header.hasAttribute('scrolled')) {
+					header.removeAttribute('scrolled');
+				} else return;
 			}
 		});
 	}
@@ -235,14 +234,10 @@
 						goto('/quailfeather');
 					}}
 				>
-					<Text>
-						Quailfeather
-					</Text>
+					<Text>Quailfeather</Text>
 				</Item>
 				<Item on:SMUI:action={reportFeedback}>
-					<Text>
-						Feedback
-					</Text>
+					<Text>Feedback</Text>
 				</Item>
 				<Item
 					on:SMUI:action={() => {

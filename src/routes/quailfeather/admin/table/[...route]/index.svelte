@@ -284,7 +284,7 @@
 			</table>
 		</div>
 
-		<div class="seperate"></div>
+		<div class="seperate" />
 
 		{#if page > 0}
 			<Button
@@ -306,7 +306,7 @@
 			>
 		{/if}
 
-		<div class="seperate-bottom"></div>
+		<div class="seperate-bottom" />
 	</div>
 </QuailTree>
 

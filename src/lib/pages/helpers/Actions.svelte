@@ -71,7 +71,13 @@ If you have previously invited Squirrelflight, please remove and add Fates List 
 
 <span class="auxillary" />
 <div class="buttons">
-	<Button on:click={() => voteBot()} class="buttons-all button" id="buttons-vote" touch variant="outlined">
+	<Button
+		on:click={() => voteBot()}
+		class="buttons-all button"
+		id="buttons-vote"
+		touch
+		variant="outlined"
+	>
 		<Icon icon="fa-solid:thumbs-up" inline={false} />
 		<span style="margin-left: 3px;"><strong>{data.votes}</strong></span>
 	</Button>

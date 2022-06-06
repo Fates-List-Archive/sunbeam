@@ -10,6 +10,7 @@
 	export let close;
 	export let submit;
 	export let inputs: any[];
+	export let buttons: any[];
 	export let showError = false;
 
 	export let supabase;
@@ -509,6 +510,21 @@
 					{/each}
 
 					<button type="button" on:click={submitInput}>Submit</button>
+				{/if}
+			</div>
+
+			<div class="buttons">
+				{#if buttons && buttons.length > 0}
+					{#each buttons as buttonData}
+						{#if buttonData}
+							<button
+								type="button"
+								on:click={() => {
+									buttonData.function();
+								}}>{buttonData.name}</button
+							>
+						{/if}
+					{/each}
 				{/if}
 			</div>
 

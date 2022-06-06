@@ -72,7 +72,8 @@
 					id: 'string-alert',
 					show: true,
 					message: `${opt}` || '[empty alert]',
-					type: enums.AlertType.Alert
+					type: enums.AlertType.Alert,
+					buttons: []
 				};
 			}
 
@@ -106,8 +107,13 @@
 			if (!opt.id) {
 				opt.id = 'alert-generic';
 			}
+
 			if (!opt.type) {
 				opt.type = enums.AlertType.Alert;
+			}
+
+			if (!opt.buttons) {
+				opt.buttons = [];
 			}
 
 			$alertstore = opt;
@@ -206,6 +212,7 @@
 		bind:showError={$errorStore}
 		close={$alertStore.close}
 		inputs={$alertStore.inputs || []}
+		buttons={$alertStore.buttons || []}
 		show={$alertStore.show}
 		submit={$alertStore.submit}
 		title={$alertStore.title}

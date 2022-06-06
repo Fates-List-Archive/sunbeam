@@ -41,11 +41,9 @@
 		on:click={() => {
 			alert({
 				title: 'Login',
-				message: 'Enter 2FA code here',
+				message: 'Enter your Admin credentials here.',
 				type: enums.AlertType.Prompt,
 				submit: async (v) => {
-					// TODO: Supabase email verification
-
 					// Dummy jwt auth
 					let jwt = await fetch(`${lynxUrl}/dummy-jwt?user_id=${$session.session.user.id}`, {
 						method: 'GET',
@@ -107,6 +105,26 @@
 						placeholder: '2FA Code',
 						required: true,
 						type: enums.AlertInputType.Number
+					}
+				],
+				buttons: [
+					{
+						name: 'Forgot Credentials',
+						function: () => {
+							alert({
+								title: 'Forgot Credentials',
+								message: 'Please DM @Rootspring#6701 on Discord for assistance.',
+								type: enums.AlertType.Info,
+								buttons: [
+									{
+										name: 'Open Discord',
+										function: () => {
+											window.open('https://discord.com/channels/@me/955459763519500368');
+										}
+									}
+								]
+							});
+						}
 					}
 				]
 			});
