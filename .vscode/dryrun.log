@@ -1,0 +1,6 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory '/home/meow/sunbeam'
+make: Leaving directory '/home/meow/sunbeam'
+ 
+make: *** No targets specified and no makefile found.  Stop.
+
