@@ -59,10 +59,26 @@
 	export let perms: any;
     import { enums } from '$lib/enums/enums';
     import * as logger from '$lib/logger';
+	import Button from '@smui/button';
 
 import FormInput from '$lib/base/FormInput.svelte';
+import { session } from '$app/stores';
 
 let args = []
+
+function waitForTask(id: string) {
+    setInterval(async () => {
+        let task = await fetch(`${lynxUrl}/long-running/${id}`);
+        if(task.ok) {
+            let taskResp = await task.json();
+            if(taskResp.error) {
+                alert(taskResp.error);
+            } else {
+                alert(taskResp.output);
+            }
+        }
+    }, 500);
+}
 
 function addArgument() {
     alert({
@@ -82,7 +98,7 @@ function addArgument() {
             let value = v.toLines("arg-type")
             logger.info("Eval", { value })
             let array = false
-            if(value.contains("[]")) {
+            if(value.includes("[]")) {
                 array = true
             }
 
@@ -111,7 +127,7 @@ function addArgument() {
                 <div class="arg">
                     <FormInput 
                     id="arg-{i}-{j}"
-                    name="Argument ${i}" 
+                    name="Argument ${i+1}" 
                     placeholder="ABC" 
                     data={value} 
                     oninput={(e) => {
@@ -144,4 +160,79 @@ function addArgument() {
             }}>Remove</a>
         {/if}
     {/each}
+    <Button on:click={() => {
+        let sql = document.getElementById("sql")?.value
+
+        logger.info("Eval", { sql, args })
+		alert({
+			title: `Evaluate}`,
+			message: `Going to run ${sql}`,
+			type: enums.AlertType.Prompt,
+			submit: async (value) => {
+				// First check their ratelimits
+				let raven = await fetch(`${lynxUrl}/ap/raven?user_id=${$session.session.user.id}`, {
+					method: 'GET',
+					headers: {
+						'Frostpaw-ID': $session.adminData,
+						Authorization: $session.session.token
+					}
+				});
+
+				if (!raven.ok) {
+					let json = await raven.json();
+					alert(json.reason);
+					return;
+				}
+
+				let ravenResp = await raven.json();
+
+				if (ravenResp.max == ravenResp.made) {
+					alert(
+						`You have reached your ratelimit. Please wait ${ravenResp.ttl} seconds before trying again.`
+					);
+					return;
+				}
+
+				let mfa = value.toSingleLine('mfa-key');
+
+				let res = await fetch(
+					`${lynxUrl}/ap/evalsql?user_id=${$session.session.user.id}`,
+					{
+						method: 'POST',
+						headers: {
+							'Frostpaw-ID': $session.adminData,
+							Authorization: $session.session.token,
+							'Content-Type': 'application/json',
+                            "Frostpaw-MFA": mfa
+						},
+						body: JSON.stringify({
+                            sql: sql,
+                            args: args,
+						})
+					}
+				);
+
+				if (res.ok) {
+					alert('Waiting for approval.');
+
+                    let json = await res.json();
+
+                    waitForTask(json.task_id)
+				} else {
+					let json = await res.json();
+					alert(json.reason);
+				}
+			},
+			inputs: [
+				{
+					id: 'mfa-key',
+					type: enums.AlertInputType.Number,
+					label: '2FA code',
+					placeholder: '2FA code from your authenticator app'
+				}
+			]
+		});
+    
+
+    }}>Eval</Button>
 </QuailTree>
