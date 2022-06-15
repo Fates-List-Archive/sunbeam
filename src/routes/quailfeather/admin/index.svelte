@@ -74,10 +74,17 @@
 
 		// Get all tables
 		let tables = new Map();
+		let tableList = []
+
+		let pub = allowedTablesResp.length == 0
 
 		schemaResp.forEach((el) => {
 			if (!tables.has(el.table_name)) {
 				tables.set(el.table_name, []);
+	                        if(pub) {
+        	                        allowedTables.push(el.table_name)
+                	        }
+
 			}
 			tables.get(el.table_name).push(el);
 		});
