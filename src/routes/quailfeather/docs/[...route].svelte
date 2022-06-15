@@ -12,7 +12,7 @@
 			id = session.session.user.id;
 		}
 		let perms = await fetch(`${apiUrl}/baypaw/perms/${id}`);
-		let res = await fetch(`${lynxUrl}/docs/${params.route}`);
+		let res = await fetch(`${electroUrl}/docs/${params.route || 'index'}`);
 		if (res.ok) {
 			let json = await res.json();
 			let data = json.data;
@@ -110,7 +110,7 @@
 <script lang="ts">
 	import QuailTree from '../_helpers/QuailTree.svelte';
 	import { browser } from '$app/env';
-	import { lynxUrl, apiUrl } from '$lib/config';
+	import { lynxUrl, apiUrl, electroUrl } from '$lib/config';
 
 	export let data: any;
 	export let js: string;

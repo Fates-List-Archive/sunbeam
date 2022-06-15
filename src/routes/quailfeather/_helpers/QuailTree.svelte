@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { lynxUrl } from '$lib/config';
+	import { lynxUrl, electroUrl } from '$lib/config';
 	import { doctreeCache } from './quailcache';
 	import * as logger from '$lib/logger';
 
@@ -37,7 +37,7 @@
 		}
 
 		logger.info('QuailTree', 'Fetching doctree');
-		let doctreeRes = await fetch(`${lynxUrl}/doctree`);
+		let doctreeRes = await fetch(`${electroUrl}/doctree`);
 		let doctree = await doctreeRes.json();
 
 		doctree.forEach((treeEl) => {
