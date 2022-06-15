@@ -1,6 +1,6 @@
 <script context="module">
 	/** @type {import('@sveltejs/kit').ErrorLoad} */
-	import { apiUrl, lynxUrl } from '$lib/config';
+	import { apiUrl, lynxUrl, electroUrl } from '$lib/config';
 	import { checkAdminSession } from '$lib/request';
 	export const prerender = false;
 	export async function load({ session }) {
@@ -39,7 +39,7 @@
 			};
 		}
 
-		let schema = await fetch(`${lynxUrl}/ap/schema`);
+		let schema = await fetch(`${electroUrl}/ap/schema`);
 
 		if (!schema.ok) {
 			let json = await schema.json();
@@ -52,7 +52,7 @@
 		let schemaResp = await schema.json();
 
 		let allowedTables = await fetch(
-			`${lynxUrl}/ap/schema/allowed-tables?user_id=${session.session.user.id}`,
+			`${electroUrl}/ap/schema/allowed-tables?user_id=${session.session.user.id}`,
 			{
 				method: 'GET',
 				headers: {

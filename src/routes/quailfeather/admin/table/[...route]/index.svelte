@@ -1,6 +1,6 @@
 <script context="module">
 	/** @type {import('@sveltejs/kit').ErrorLoad} */
-	import { apiUrl, lynxUrl } from '$lib/config';
+	import { apiUrl, lynxUrl, electroUrl } from '$lib/config';
 	import { checkAdminSession } from '$lib/request';
 	import { browser } from '$app/env';
 	export const prerender = false;
@@ -40,7 +40,7 @@
 			};
 		}
 
-		let schema = await fetch(`${lynxUrl}/ap/schema?table_name=${params.route}`);
+		let schema = await fetch(`${electroUrl}/ap/schema?table_name=${params.route}`);
 
 		if (!schema.ok) {
 			let json = await schema.json();
