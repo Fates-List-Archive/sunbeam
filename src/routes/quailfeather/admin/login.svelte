@@ -1,6 +1,6 @@
 <script context="module">
 	/** @type {import('@sveltejs/kit').ErrorLoad} */
-	import { apiUrl, lynxUrl } from '$lib/config';
+	import { apiUrl, lynxUrl, electroUrl } from '$lib/config';
 	import Button from '@smui/button';
 	export const prerender = false;
 	export async function load({ session }) {
@@ -44,44 +44,28 @@
 				message: 'Enter your Admin credentials here.',
 				type: enums.AlertType.Prompt,
 				submit: async (v) => {
-					// Dummy jwt auth
-					let jwt = await fetch(`${lynxUrl}/dummy-jwt?user_id=${$session.session.user.id}`, {
-						method: 'GET',
-						headers: {
-							Authorization: $session.session.token
-						}
-					});
-
-					if (!jwt.ok) {
-						let jwtResp = await jwt.json();
-						alert(jwtResp.reason);
-					}
-
-					let jwtStr = await jwt.json();
-
 					let pwd = v.toSingleLine('passwd');
 					let mfa = v.toSingleLine('mfa-key');
 					logger.info('AdminPanel', { pwd, mfa });
 					let loginSession = await fetch(
-						`${lynxUrl}/ap/confirm-login?user_id=${$session.session.user.id}`,
+						`${electroUrl}/ap/pouncecat?user_id=${$session.session.user.id}`,
 						{
 							method: 'POST',
 							headers: {
 								'Content-Type': 'application/json',
-								BristlefrostXRootspringXShadowsight: pwd,
+								'Frostpaw-Pass': pwd,
 								'Frostpaw-MFA': mfa.padStart(6, 0),
-								'Frostpaw-ID': jwtStr,
 								Authorization: $session.session.token
 							}
 						}
 					);
 
 					if (!loginSession.ok) {
-						let loginSessionResp = await loginSession.json();
-						alert(loginSessionResp.reason);
+						let loginSessionResp = await loginSession.text();
+						alert(loginSessionResp);
 					}
 
-					let loginSessionStr = await loginSession.json();
+					let loginSessionStr = await loginSession.text();
 
 					document.cookie = `_adminsession=${loginSessionStr};Path=/quailfeather/admin;secure;max-age=28800;samesite=strict;priority=High`;
 

@@ -224,13 +224,14 @@ in the staff guide, you will just be told to reread the staff guide!`.replaceAll
 									let code = value.toString();
 									logger.info(code, 'Code');
 									let res = await fetch(
-										`${lynxUrl}/staff-verify?user_id=${$session.session.user.id}&code=${code}`,
+										`${electroUrl}/ap/newcat?user_id=${$session.session.user.id}`,
 										{
 											method: 'POST',
 											headers: {
 												'Content-Type': 'application/json',
 												Authorization: $session.session.token
-											}
+											},
+											body: code
 										}
 									);
 
@@ -241,13 +242,15 @@ in the staff guide, you will just be told to reread the staff guide!`.replaceAll
 											
 <code style="word-wrap:break-word!important;overflow-y:scroll!important;">${data.pass}</code>
 
-Please enter <code>${data.totp_key}</code> in Google Authenticator or Authy for 2FA verification.
+Please enter <code>${data.totp_shared_key}</code> in Google Authenticator or Authy for 2FA verification.
+
+<img src="${data.image}" alt="QR code totp"/>
 `
 										);
 										return;
 									} else {
-										let data = await res.json();
-										alert(data.reason);
+										let data = await res.text();
+										alert(data);
 										return;
 									}
 								},
