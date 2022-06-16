@@ -1,5 +1,5 @@
 import { browser } from '$app/env';
-import { apiUrl, nextUrl, lynxUrl } from './config';
+import { apiUrl, nextUrl, lynxUrl, electroUrl } from './config';
 import { genError } from './strings';
 import * as logger from './logger';
 import { encode, decode } from '@cfworker/base64url';
