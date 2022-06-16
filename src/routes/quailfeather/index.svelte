@@ -1,6 +1,6 @@
 <script lang="ts" context="module">
 	import { fetchFates } from '$lib/request';
-	import { apiUrl, lynxUrl, electroUrl } from '$lib/config';
+	import { apiUrl, lynxUrl } from '$lib/config';
 	export const prerender = false;
 	export async function load({ params, url, fetch, session, stuff }) {
 		const res = await fetchFates('/stats', '', fetch, false, true);

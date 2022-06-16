@@ -1,6 +1,6 @@
 <script context="module">
 	/** @type {import('@sveltejs/kit').ErrorLoad} */
-	import { apiUrl, lynxUrl, electroUrl } from '$lib/config';
+	import { apiUrl, electroUrl } from '$lib/config';
 	import { checkAdminSession } from '$lib/request';
 	export const prerender = false;
 	export async function load({ session }) {
