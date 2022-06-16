@@ -240,7 +240,7 @@ export async function subNotifs(user_id: string, token: string) {
 	}
 }
 
-export async function checkAdminSession(userId: string, token: string, sessionId: string) {
+export const checkAdminSession = async (userId: string, token: string, sessionId: string) => {
 	let res = await fetch(`${electroUrl}/ap/shadowsight?user_id=${userId}`, {
 		method: 'GET',
 		headers: {
