@@ -82,7 +82,7 @@
 			if (!tables.has(el.table_name)) {
 				tables.set(el.table_name, []);
 	                        if(pub) {
-        	                        allowedTables.push(el.table_name)
+        	                        allowedTablesResp.push(el.table_name)
                 	        }
 
 			}
