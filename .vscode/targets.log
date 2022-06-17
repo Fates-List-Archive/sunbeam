@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Fri Jun 17 10:09:09 2022
+# Make data base, printed on Fri Jun 17 14:04:38 2022
 
 # Variables
 
@@ -183,7 +183,7 @@ _ = /usr/bin/make
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-c43e5530-2c71-4046-b325-0c7621887ac3.sock
+VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-003de3b3-e582-4f7b-a85a-8391a234a49f.sock
 # environment
 GOMODCACHE = /home/meow/go/pkg/mod
 # environment
@@ -281,7 +281,7 @@ GNUmakefile:
 # strcache performance: lookups = 36 / hit rate = 8%
 # hash-table stats:
 # Load=33/8192=0%, Rehash=0, Collisions=0/36=0%
-# Finished Make data base on Fri Jun 17 10:09:09 2022
+# Finished Make data base on Fri Jun 17 14:04:38 2022
  
 
  

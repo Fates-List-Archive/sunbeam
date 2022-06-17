@@ -234,7 +234,7 @@
 						goto('/quailfeather');
 					}}
 				>
-					<Text>Quailfeather</Text>
+					<Text>Stats? Docs!</Text>
 				</Item>
 				<Item on:SMUI:action={reportFeedback}>
 					<Text>Feedback</Text>
