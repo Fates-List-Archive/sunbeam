@@ -2,28 +2,50 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target 'all'.  Stop.
 
 # GNU Make 4.3
+ 
 # Built for x86_64-redhat-linux-gnu
+ 
 # Copyright (C) 1988-2020 Free Software Foundation, Inc.
+ 
 # License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+ 
 # This is free software: you are free to change and redistribute it.
+ 
 # There is NO WARRANTY, to the extent permitted by law.
+ 
 
-# Make data base, printed on Tue Jun  7 16:36:19 2022
+ 
+# Make data base, printed on Fri Jun 17 07:01:54 2022
+ 
 
 # Variables
+ 
 
+ 
 # environment
+ 
 LC_ALL = C
+ 
 # environment
+ 
 PGHOST = localhost
+ 
 # environment
+ 
 SELINUX_USE_CURRENT_RANGE = 
+ 
 # environment
+ 
 VSCODE_CWD = /home/meow
+ 
 # environment
+ 
 LESS_TERMCAP_me = [0m
+ 
 # default
+ 
 MAKE_COMMAND := make
+ 
 # environment
 VSCODE_HANDLES_SIGPIPE = true
 # environment
@@ -131,7 +153,7 @@ VIRTUAL_ENV_DISABLE_PROMPT = 1
 # environment
 LESS_TERMCAP_mb = [01;31m
 # environment
-SSH_CLIENT = 100.87.224.101 54364 911
+SSH_CLIENT = 100.107.211.30 56006 911
 # environment
 VSCODE_LOG_NATIVE = false
 # automatic
@@ -183,7 +205,7 @@ _ = /usr/bin/make
 # environment
 XDG_RUNTIME_DIR = /run/user/1000
 # environment
-VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-75fd08a4-675d-4dc5-86b1-19781be6f1ee.sock
+VSCODE_IPC_HOOK_CLI = /run/user/1000/vscode-ipc-39fc97b5-0faf-4fd9-8770-2ec3bb79684d.sock
 # environment
 GOMODCACHE = /home/meow/go/pkg/mod
 # environment
@@ -199,7 +221,7 @@ SELINUX_LEVEL_REQUESTED =
 # environment
 CYCLONE_TOKEN = NzQ1MjI2MjI1NDU0NDE1OTIz.XzusAQ.iFqKilQ8bDXkEvzS052GO8a1EWc
 # environment
-XDG_SESSION_ID = 29
+XDG_SESSION_ID = 105
 # environment
 GOPROXY = direct
 # default
@@ -213,7 +235,7 @@ PGUSER = fateslist
 # default
 .FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell nocomment grouped-target extra-prereqs archives jobserver output-sync check-symlink guile load
 # environment
-SSH_CONNECTION = 100.87.224.101 54364 100.67.94.49 911
+SSH_CONNECTION = 100.107.211.30 56006 100.67.94.49 911
 # variable set hash-table stats:
 # Load=101/1024=10%, Rehash=0, Collisions=8/128=6%
 
@@ -281,6 +303,6 @@ GNUmakefile:
 # strcache performance: lookups = 36 / hit rate = 8%
 # hash-table stats:
 # Load=33/8192=0%, Rehash=0, Collisions=0/36=0%
-# Finished Make data base on Tue Jun  7 16:36:19 2022
+# Finished Make data base on Fri Jun 17 07:01:54 2022
 
  

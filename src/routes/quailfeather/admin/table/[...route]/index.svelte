@@ -69,7 +69,7 @@
 
 		// Get cols
 		let cols = await fetch(
-			`${lynxUrl}/ap/tables/${params.route}?user_id=${session.session.user.id}`,
+			`${electroUrl}/ap/tables/${params.route}?user_id=${session.session.user.id}`,
 			{
 				method: 'GET',
 				headers: {
@@ -90,7 +90,7 @@
 		let colsResp = await cols.json();
 
 		let count = await fetch(
-			`${lynxUrl}/ap/tables/${params.route}?user_id=${session.session.user.id}&count=true`,
+			`${electroUrl}/ap/tables/${params.route}?user_id=${session.session.user.id}&count=true`,
 			{
 				method: 'GET',
 				headers: {
@@ -155,7 +155,7 @@
 		if (extQuery) {
 			// Get new total count expected for this query
 			let countReq = await fetch(
-				`${lynxUrl}/ap/tables/${tableName}?user_id=${
+				`${electroUrl}/ap/tables/${tableName}?user_id=${
 					$session.session.user.id
 				}&limit=${limit}&offset=${(nextPage - 1) * limit}&${extQuery}&count=true`,
 				{
@@ -175,7 +175,7 @@
 			}
 		}
 		let cols = await fetch(
-			`${lynxUrl}/ap/tables/${tableName}?user_id=${
+			`${electroUrl}/ap/tables/${tableName}?user_id=${
 				$session.session.user.id
 			}&limit=${limit}&offset=${(nextPage - 1) * limit}&${extQuery}`,
 			{
