@@ -41,7 +41,7 @@
 
 		// Get cols
 		let cols = await fetch(
-			`${lynxUrl}/ap/tables/${params.route}?user_id=${session.session.user.id}&lynx_tag=${params.tag}`,
+			`${electroUrl}/ap/tables/${params.route}?user_id=${session.session.user.id}&search_by=_lynxtag&search_val==${params.tag}`,
 			{
 				method: 'GET',
 				headers: {
@@ -52,10 +52,10 @@
 		);
 
 		if (!cols.ok) {
-			let json = await cols.json();
+			let json = await cols.text();
 			return {
 				status: 401,
-				error: new Error(JSON.stringify(json))
+				error: new Error(json)
 			};
 		}
 
@@ -74,6 +74,8 @@
 		let schemaResp = await schema.json();
 
 		let typeMap = {};
+		
+		cols = colsResp[0]
 
 		schemaResp.forEach((t) => {
 			typeMap[t.column_name] = {
@@ -84,10 +86,16 @@
 
 		let rows = [];
 
-		Object.entries(colsResp[0]).forEach((el) => {
+		Object.entries(cols).forEach((el) => {
 			if (typeMap[el[0]].secret) {
 				return;
 			}
+			
+			if(typeMap[el[0]].array && !el[1]) {
+				logger.info("Admin Panel", "Got bad data column: ", typeMap[el[0]], el[1])
+				el[1] = []
+			}
+
 			rows.push({
 				name: el[0],
 				array: typeMap[el[0]].array,
@@ -95,7 +103,7 @@
 			});
 		});
 
-		logger.info('AdminPanel', rows);
+		logger.info('AdminPanel', "Parsed data", rows);
 
 		return {
 			props: {
