@@ -253,7 +253,7 @@
 
 <div class="alert-box">
 	<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-	<p>Rest in Piece, Technoblade. You will be missed :(</p>
+	<p>Rest in Peace, Technoblade. You will be missed :(</p>
 </div>
 
 <style lang="scss">
