@@ -74,8 +74,8 @@
 		let schemaResp = await schema.json();
 
 		let typeMap = {};
-		
-		cols = colsResp[0]
+
+		cols = colsResp[0];
 
 		schemaResp.forEach((t) => {
 			typeMap[t.column_name] = {
@@ -90,10 +90,10 @@
 			if (typeMap[el[0]].secret) {
 				return;
 			}
-			
-			if(typeMap[el[0]].array && !el[1]) {
-				logger.info("Admin Panel", "Got bad data column: ", typeMap[el[0]], el[1])
-				el[1] = []
+
+			if (typeMap[el[0]].array && !el[1]) {
+				logger.info('Admin Panel', 'Got bad data column: ', typeMap[el[0]], el[1]);
+				el[1] = [];
 			}
 
 			rows.push({
@@ -103,7 +103,7 @@
 			});
 		});
 
-		logger.info('AdminPanel', "Parsed data", rows);
+		logger.info('AdminPanel', 'Parsed data', rows);
 
 		return {
 			props: {

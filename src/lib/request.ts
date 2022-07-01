@@ -249,7 +249,7 @@ export const checkAdminSession = async (userId: string, token: string, sessionId
 		}
 	});
 	return res.ok;
-}
+};
 
 // alertOrg defines what to return for a 'black site'
 export const dhsRetrip = async (userId: string, token: string, alertOrg: string) => {
