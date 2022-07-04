@@ -121,7 +121,19 @@
 <header id="header">
 	<div class="corner">
 		<a href="/">
-			<img src="{apiUrl}/static/botlisticon.webp" alt="Fates List Logo" />
+			<img
+				src="{apiUrl}/static/botlisticon.webp"
+				class="logo"
+				alt="Fates List Logo"
+				loading="lazy"
+			/>
+
+			<!--<style>
+				.logo {
+					margin-left: 5px;
+					margin-top: 5px;
+				}
+			</style>-->
 		</a>
 	</div>
 
@@ -179,6 +191,7 @@
 				{/if}
 			</a>
 		</div>
+
 		<Menu bind:this={menu} class="corner-nav" style="margin-top: 3em !important;">
 			<List>
 				{#if username}
@@ -251,11 +264,12 @@
 	</nav>
 </header>
 
+<!--
 <div class="alert-box">
 	<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-	<p>Rest in Peace, Technoblade. You will be missed :(</p>
+	<p></p>
 </div>
-
+-->
 <style lang="scss">
 	#header {
 		display: flex;
