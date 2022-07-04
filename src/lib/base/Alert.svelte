@@ -320,7 +320,7 @@
 						{#if icon}
 							<img class="alert-icon" src={icon} onerror="this.src='https://api.fateslist.xyz/static/botlisticon.webp';" alt={`${id} icon`} height="25px" width="25px" />
 						{/if}
-						
+
 						<h2 class="alert-title">{title}</h2>
 					</div>
 				</strong>
@@ -639,7 +639,6 @@
 	}
 
 	.alert-title {
-		margin-left: 15px;
 		color: black !important;
 	}
 
@@ -654,6 +653,11 @@
 		border-radius: 50%;
 		padding: 5px;
 		background: black;
+	}
+
+	/* Make alert-icon push alert-content to the right by 15px */
+	.alert-icon + .alert-title {
+		margin-left: 10px;
 	}
 
 	.alert-header {
