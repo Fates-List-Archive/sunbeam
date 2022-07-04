@@ -216,6 +216,7 @@
 		show={$alertStore.show}
 		submit={$alertStore.submit}
 		title={$alertStore.title}
+		icon={$alertStore.icon}
 		type={$alertStore.type}
 		id={$alertStore.id}>{@html $alertStore.message.replaceAll('\n', '<br/>')}</Alert
 	>

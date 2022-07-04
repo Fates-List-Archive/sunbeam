@@ -7,6 +7,7 @@
 	import { session } from '$app/stores';
 
 	export let show: boolean;
+	export let icon: string;
 	export let close;
 	export let submit;
 	export let inputs: any[];
@@ -315,7 +316,13 @@
 
 			<header id={`${id}-title`}>
 				<strong>
-					<h2 class="alert-title">{title}</h2>
+					<div class="alert-header">
+						{#if icon}
+							<img class="alert-icon" src={icon} onerror="this.src='https://api.fateslist.xyz/static/botlisticon.webp';" alt={`${id} icon`} height="25px" width="25px" />
+						{/if}
+						
+						<h2 class="alert-title">{title}</h2>
+					</div>
 				</strong>
 			</header>
 
@@ -638,6 +645,20 @@
 
 	.alert-content {
 		color: black !important;
+		margin-left: 15px;
+	}
+
+	.alert-icon {
+		height: 25px;
+		width: 25px;
+		border-radius: 50%;
+		padding: 5px;
+		background: black;
+	}
+
+	.alert-header {
+		display: flex;
+		align-items: center;
 		margin-left: 15px;
 	}
 

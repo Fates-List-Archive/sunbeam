@@ -22,6 +22,7 @@ interface Alert {
 	message: string;
 	id: string;
 	show: boolean;
+	icon: string;
 	close?: () => void;
 	submit?: (value) => void;
 	inputs?: AlertInputInterface[];
