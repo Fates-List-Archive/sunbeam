@@ -655,7 +655,6 @@
 		background: black;
 	}
 
-	/* Make alert-icon push alert-content to the right by 15px */
 	.alert-icon + .alert-title {
 		margin-left: 10px;
 	}
