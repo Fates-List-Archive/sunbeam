@@ -23,12 +23,20 @@
 				title: badge.name,
 				message: badge.description,
 				id: badge.id,
+				icon: badge.icon,
 				type: enums.AlertType.Info
 			});
 		}}
 		on:mouseleave={() => (isHovering = false)}
 	>
-		<img class="badge-img" src={badge.icon} width="50px" height="50px" alt={badge.description} />
+		<img
+			class="badge-img"
+			src={badge.icon}
+			width="50px"
+			height="50px"
+			alt={badge.description}
+			onerror="this.src='https://api.fateslist.xyz/static/botlisticon.webp';"
+		/>
 	</div>
 </div>
 
