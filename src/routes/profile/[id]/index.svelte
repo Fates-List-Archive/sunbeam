@@ -71,6 +71,16 @@
 		});
 	}
 
+	if (enums.helpers.flagCheck(enums.UserFlags.Premium, data.flags)) {
+		data.badges.push({
+			id: 'premium',
+			name: 'Fates List Premium Subscriber',
+			description:
+				'This user subscribes to Fates List Premium, you can learn more about it here: <a style="color: black !important; text-decoration: underline !important;" href="https://fateslist.xyz/premium/">https://fateslist.xyz/premium</a>',
+			icon: 'https://api.fateslist.xyz/static/assets/prod/premium.webp'
+		});
+	}
+
 	if (personal) {
 		data.badges.push({
 			id: 'settings',
