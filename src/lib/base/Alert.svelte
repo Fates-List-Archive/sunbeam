@@ -318,7 +318,14 @@
 				<strong>
 					<div class="alert-header">
 						{#if icon}
-							<img class="alert-icon" src={icon} onerror="this.src='https://api.fateslist.xyz/static/botlisticon.webp';" alt={`${id} icon`} height="25px" width="25px" />
+							<img
+								class="alert-icon"
+								src={icon}
+								onerror="this.src='https://api.fateslist.xyz/static/botlisticon.webp';"
+								alt={`${id} icon`}
+								height="25px"
+								width="25px"
+							/>
 						{/if}
 
 						<h2 class="alert-title">{title}</h2>
