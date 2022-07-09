@@ -230,10 +230,10 @@
 				</Item>
 				<Item
 					on:SMUI:action={() => {
-						goto('/frostpaw/add-server');
+						goto('/servers');
 					}}
 				>
-					<Text>Add Server</Text>
+					<Text>Servers</Text>
 				</Item>
 				<Item
 					on:SMUI:action={() => {
