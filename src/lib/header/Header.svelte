@@ -237,10 +237,10 @@
 				</Item>
 				<Item
 					on:SMUI:action={() => {
-						goto('/servers');
+						goto('/quailfeather/docs/privacy');
 					}}
 				>
-					<Text>Servers</Text>
+					<Text>TOS</Text>
 				</Item>
 				<Item
 					on:SMUI:action={() => {
