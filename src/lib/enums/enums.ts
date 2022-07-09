@@ -23,7 +23,8 @@ enum UserFlags {
 	Unknown = 0,
 	VotesPrivate = 1,
 	Staff = 2,
-	AvidVoter = 3
+	AvidVoter = 3,
+	Premium = 4
 }
 
 // This only covers site-supported user experiments
