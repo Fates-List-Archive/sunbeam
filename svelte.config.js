@@ -25,17 +25,6 @@ const config = {
 			default: false,
 			enabled: false
 		},
-
-		// hydrate the <div id="svelte"> element in src/app.html
-		vite: {
-			autoReload: false,
-			ssr: {
-				noExternal: [/^@material\//, /^@smui(?:-extra)?\//]
-			},
-			optimizeDeps: {
-				include: ['highlight.js', 'highlight.js/lib/core']
-			}
-		}
 	}
 };
 

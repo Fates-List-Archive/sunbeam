@@ -3,11 +3,11 @@
 	"version": "0.0.1",
 	"scripts": {
 		"gentypes": "echo 'npx openapi-to-ts -i https://api.fateslist.xyz/docs/openapi -o src/lib/apiTypes.ts'",
-		"dev": "svelte-kit dev --port 5000",
-		"build": "svelte-kit build",
+		"dev": "svelte-kit dev --port 5000 --host",
+		"build": "vite build",
 		"package": "svelte-kit package",
-		"start": "svelte-kit build && svelte-kit preview --port 5000",
-		"preview": "svelte-kit preview --port 5000",
+		"start": "vite build && svelte-kit preview --port 5000 --host",
+		"preview": "vite preview --port 5000 --host",
 		"asset-prepare": "npm run smui-theme-light && npm run smui-theme-dark",
 		"smui-theme-light": "smui-theme compile ~/FatesList/data/static/smui.css -i src/theme",
 		"smui-theme-dark": "smui-theme compile ~/FatesList/data/static/smui-dark.css -i src/theme/dark",
@@ -79,7 +79,8 @@
 		"svelte-lazy-image": "^0.5.1",
 		"svelte-quill": "^1.2.0",
 		"tailwindcss-all": "^0.0.2",
-		"tw-elements": "^1.0.0-alpha12"
+		"tw-elements": "^1.0.0-alpha12",
+		"vite": "^2.9.14"
 	},
 	"browser": {
 		"crypto": false
