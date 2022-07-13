@@ -1,149 +1,225 @@
 <script context="module" lang="ts">
-	export const prerender = false;
-</script>
-
-<script>
-	import { browser } from '$app/env';
+	import { encode, decode } from '@cfworker/base64url';
 	import { apiUrl } from '$lib/config';
-	import { loginUser } from '$lib/request';
-	import { enums } from '$lib/enums/enums';
-	import Button from '@smui/button';
-	import { goto } from '$app/navigation';
-	import { encode } from '@cfworker/base64url';
 
-	let frostpawServer = '';
-	let frostpawMsg = 'Please wait...';
+	export const prerender = false;
 
-	let cliInfo = null;
+	interface CustomClients {
+		clientId?: string;
+		currentTime?: number;
+		hmacTime?: string;
+		cliInfo?: any;
+		code: string;
+		state: string;
+	}
 
-	let code = null;
-	let state = null;
+	export async function load({ session, fetch }) {
+		let url = new URL(session.url);
+		let searchParams = url.searchParams;
 
-	let clientId = null;
-	let currentTime = null;
-	let hmacTime = null;
+		let retry = "<br/><br/><a href='https://fateslist.xyz'>Try Again?</a>";
 
-	if (browser) {
-		frostpawServer = localStorage.sunbeamLogin;
+		let error = searchParams.get('error');
 
-		if (!frostpawServer) {
-			frostpawServer = '/';
+		if (error) {
+			return {
+				props: {
+					error: error
+				}
+			};
 		}
 
-		function login() {
-			frostpawMsg = `Logging you in and redirecting you back to ${frostpawServer}. Please wait...`;
-			let retry = "<br/><br/><a href='https://fateslist.xyz'>Try Again?</a>";
-			let searchParams = new URLSearchParams(window.location.search);
-			let error = searchParams.get('error');
-			if (error) {
-				frostpawMsg = 'Login Cancelled';
-				return;
-			}
-
-			code = searchParams.get('code');
-			state = searchParams.get('state');
-			if (!code || !state) {
-				frostpawMsg = 'Invalid code/state' + retry;
-				return;
-			}
-
-			if (state.startsWith('Bayshine.')) {
-				frostpawMsg = 'Custom client auth... checking';
-				// Bayshine custom client login
-				let stateSplit = state.split('.');
-				clientId = stateSplit[1];
-				currentTime = parseInt(stateSplit[2]);
-				hmacTime = stateSplit[3];
-				if (!clientId || !currentTime || !hmacTime) {
-					frostpawMsg = 'Invalid state' + retry;
-					return;
+		let code = searchParams.get('code');
+		let state = searchParams.get('state');
+		if (!code || !state) {
+			return {
+				props: {
+					error: 'Invalid code/state' + retry
 				}
-				if (
-					new Date().getTime() / 1000 - currentTime > 60 ||
-					currentTime > new Date().getTime() / 1000 ||
-					currentTime <= 0
-				) {
-					frostpawMsg = `Current time nonce is too old! ${new Date().getTime() / 1000}`;
-					return;
+			};
+		}
+
+		let stateSplit = state.split(".");
+		if(stateSplit.length != 2) {
+			return {
+				props: {
+					error: 'Invalid state'
 				}
+			};
+		}
 
-				// Fetch baypaw client info
-				fetch(`${apiUrl}/frostpaw/clients/${clientId}`)
-					.then((res) => {
-						if (res.ok) {
-							return res.json();
-						} else {
-							frostpawMsg = 'Client not found';
-							return async () => {
-								{
-								}
-							};
-						}
-					})
-					.then((json) => {
-						cliInfo = json;
-					});
+		let nonce = stateSplit[0];
+		let modifier = stateSplit[1];
 
-				return;
-			}
+		let modifierInfo = {}
 
-			if (state != localStorage.sunbeamLoginState) {
-				frostpawMsg =
-					'Invalid state. Are you blocking localStorage?<br/>Try reloading this page or using the application if logging in from a WebView/app embedded browser' +
-					retry;
-				return;
-			}
+		try {
+			modifierInfo = JSON.parse(decode(modifier));
+		} catch (e) {
+			return {
+				props: {
+					error: 'Invalid modifier info'
+				}
+			};
+		}
 
-			localStorage.removeItem('sunbeamLoginState');
+		if(modifierInfo["state"] != nonce) {
+			return {
+				props: {
+					error: 'Invalid nonce'
+				}
+			};
+		}
 
-			const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+		if(modifierInfo["version"] != 11) {
+			return {
+				props: {
+					error: 'Invalid login request, please try logging in again!!!'
+				}
+			};
+		}
 
-			fetch(`${apiUrl}/oauth2`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					Frostpaw: '0.1.0',
-					'Frostpaw-Server': window.location.origin
-				},
-				body: JSON.stringify({
-					code: code,
-					state: state,
-					// We are not a custom client
-					frostpaw: false
-				})
-			})
-				.then((res) => res.json())
-				.then((json) => {
-					if (json.state == enums.UserState.global_ban) {
-						frostpawMsg = `<h1>You are global banned</h1><br/><h2>This is a global ban and as such, you may not login/use our API.</h2><br/>You can try to appeal this ban at <a href="https://fateslist.xyz/banappeal">our ban appeal server</a>`;
-					} else if (!json.token) {
-						frostpawMsg = `Got error: ${JSON.stringify(json)}. Trying again...`;
-						localStorage.loginError = '1';
-						loginUser(false);
-					} else {
-						// Push to client
-						fetch(`/frostpaw/set-cookie?json=${encode(JSON.stringify(json))}`, {
-							credentials: 'same-origin'
-						})
-							.then(() => sleep(1000))
-							.then(() => {
-								// ive tried, doesnt want to work so fuck it
-								document.cookie = `sunbeam-session=${encode(
-									JSON.stringify(json)
-								)};Path=/;secure;max-age=28800;samesite=lax;priority=High`;
-								window.location.href = frostpawServer;
-							});
+		let customClientInfo: CustomClients = {code: code, state: nonce}
+
+		if (state.startsWith('Bayshine.')) {
+			// Bayshine custom client login
+			let stateSplit = state.split('.');
+			customClientInfo.clientId = stateSplit[1];
+			customClientInfo.currentTime = parseInt(stateSplit[2]);
+			customClientInfo.hmacTime = stateSplit[3];
+			if (!customClientInfo.clientId || !customClientInfo.currentTime || !customClientInfo.hmacTime) {
+				return {
+					props: {
+						error: 'Invalid custom client information'
 					}
-				});
+				};
+			}
+			if (
+				new Date().getTime() / 1000 - customClientInfo.currentTime > 60 ||
+				customClientInfo.currentTime > new Date().getTime() / 1000 ||
+				customClientInfo.currentTime <= 0
+			) {
+				return {
+					props: {
+						error: `Current time nonce is too old! (${new Date().getTime() / 1000})`
+					}
+				};
+			}
+
+			// Fetch baypaw client info
+			let res = await fetch(`${apiUrl}/frostpaw/clients/${customClientInfo.clientId}`);
+
+			if(!res.ok) {
+				return {
+					props: {
+						error: `Could not fetch custom client information: ${res.statusText}`
+					}
+				};
+			}
+			
+			customClientInfo.cliInfo = await res.json();
+
+			return {
+				props: {
+					customClient: customClientInfo,
+				}
+			};
 		}
-		login();
+
+		console.log("ORIGIN:", url.origin)
+
+		let res = await fetch(`${apiUrl}/oauth2`, {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+				Frostpaw: '0.1.0',
+				'Frostpaw-Server': url.origin
+			},
+			body: JSON.stringify({
+				code: code,
+				state: nonce,
+				// We are not a custom client
+				frostpaw: false
+			})
+		});
+
+		let json = {}
+		
+		try {
+			json = await res.json();
+		} catch (e) {
+			return {
+				props: {
+					error: `Invalid login request, please try logging in again (${e})`
+				}
+			};
+		}
+
+		if (json["state"] == enums.UserState.global_ban) {
+			return {
+				props: {
+					error: `<h1>You are global banned</h1><br/><h2>This is a global ban and as such, you may not login/use our API.</h2><br/>You can try to appeal this ban at <a href="https://fateslist.xyz/banappeal">our ban appeal server</a>`
+				}
+			}
+		} else if (!json["token"]) {
+			return {
+				props: {
+					error: `Got error: ${JSON.stringify(json)}.`
+				}
+			}
+		} 
+
+		return {
+			props: {
+				cookie: encode(JSON.stringify(json)),
+				href: modifier["href"] || "/",
+			}
+		}
 	}
 </script>
 
-<div style="margin: 20px;">
-	<p style="font-size: bold;">{@html frostpawMsg}</p>
+<script lang="ts">
+import { goto } from '$app/navigation';
 
-	{#if cliInfo}
+	export let cookie: string;
+	export let customClient: CustomClients;
+	export let error: string;
+	export let href: string;
+
+	import Button from '@smui/button';
+import { enums } from '$lib/enums/enums';
+import { browser } from '$app/env';
+
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+async function setLoginCookie() {
+	if(cookie) {
+		if(browser) {
+			document.cookie = `sunbeam-session=${cookie};Path=/;secure;max-age=28800;samesite=lax;priority=High`;
+			await sleep(1000)
+			window.location.href = href
+		}
+	}
+}
+
+if(cookie) {
+	setLoginCookie();
+}
+</script>
+
+<div style="margin: 20px;">
+	{#if error}
+		<p style="font-size: bold;">{@html error}</p>
+		<footer>
+			<p>Try logging in again?</p>
+		</footer>
+	{/if}
+
+	{#if cookie}
+		<p style="font-size: bold;">Successfully logged in and will be redirecting to {href}! If you do not get redirected, click <a href={"#"} on:click={setLoginCookie}>here</a></p>
+	{/if}
+
+	{#if customClient}
 		<h1>Custom Client Alert!</h1>
 		<h2>
 			Custom clients can add, edit and delete bots on your behalf and can also vote for bots and
@@ -151,29 +227,29 @@
 		</h2>
 		<p>
 			You are about to login to <span
-				style="opacity: 0.8; text-decoration: underline; font-weight: bolder;">{cliInfo.name}</span
+				style="opacity: 0.8; text-decoration: underline; font-weight: bolder;">{customClient.cliInfo.name}</span
 			>!
 			<br /><br />
 			Fates List cannot validate the authenticity of this client.
 			<br /><br />
 			You will be redirected to
 			<span style="opacity: 0.8; text-decoration: underline; font-weight: bolder;"
-				>{cliInfo.domain}</span
+				>{customClient.cliInfo.domain}</span
 			>
 			which has a privacy policy of
 			<span style="opacity: 0.8; text-decoration: underline; font-weight: bolder;"
-				>{cliInfo.privacy_policy}</span
+				>{customClient.cliInfo.privacy_policy}</span
 			>
 			and is owned by
 			<span style="opacity: 0.8; text-decoration: underline; font-weight: bolder;"
-				>{cliInfo.owner.username}</span
+				>{customClient.cliInfo.owner.username}</span
 			>
 			<br /><br />
 			If you are not sure, <em>exit this page now</em>.
 			<br /><br />
 		</p>
 		<small
-			>Client ID: <span style="text-decoration: underline; font-weight: bolder;">{cliInfo.id}</span
+			>Client ID: <span style="text-decoration: underline; font-weight: bolder;">{customClient.cliInfo.id}</span
 			></small
 		>
 		<br /><br />
@@ -194,18 +270,18 @@
 						'Frostpaw-Server': window.location.origin
 					},
 					body: JSON.stringify({
-						code: code,
-						state: state,
+						code: customClient.code,
+						state: customClient.state,
 						// We are a custom client
 						frostpaw: true,
-						frostpaw_blood: clientId,
-						frostpaw_claw: hmacTime,
-						frostpaw_claw_unseathe_time: currentTime
+						frostpaw_blood: customClient.clientId,
+						frostpaw_claw: customClient.hmacTime,
+						frostpaw_claw_unseathe_time: customClient.currentTime
 					})
 				});
 				let json = await res.json();
 				if (res.ok) {
-					window.location.href = `${cliInfo.domain}/frostpaw?data=${encode(JSON.stringify(json))}`;
+					window.location.href = `${customClient.cliInfo.domain}/frostpaw?data=${encode(JSON.stringify(json))}`;
 				} else {
 					alert({
 						title: 'Error',

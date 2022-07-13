@@ -45,8 +45,7 @@ export const getSession: GetSession = async (event) => {
 	}
 
 	return {
-		url: 'https://fateslist.xyz',
-		query: {},
+		url: event.request.url, // Is there because we need low level access to url for login
 		session: sessionData,
 		adminData: adminData
 	};

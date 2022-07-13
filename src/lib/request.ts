@@ -66,9 +66,11 @@ export function getCookie(name, cookie) {
 	return match ? match[1] : null;
 }
 
-export async function loginUser(noSetStorage: boolean) {
+export async function loginUser(noSetStorage: boolean = false) {
+	let modifier = {};
+
 	if (!noSetStorage) {
-		localStorage.sunbeamLogin = window.location.href;
+		modifier["href"] = window.location.href;
 	}
 	const res = await fetch(`${nextUrl}/oauth2`, {
 		method: 'GET',
@@ -79,16 +81,12 @@ export async function loginUser(noSetStorage: boolean) {
 		}
 	});
 	const json = await res.json();
-	if (!noSetStorage && localStorage.loginError == '1') {
-		json.context += '&prompt=none';
-		localStorage.removeItem('loginError');
-	}
 
-	if (browser) {
-		localStorage.sunbeamLoginState = json.reason;
-	}
+	modifier["state"] = json.reason;
 
-	window.location.href = `${json.context}&state=${json.reason}`;
+	modifier["version"] = 11;
+
+	window.location.href = `${json.context}&state=${json.reason}.${encode(JSON.stringify(modifier))}`;
 }
 
 export function logoutUser() {
