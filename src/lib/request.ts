@@ -66,12 +66,11 @@ export function getCookie(name, cookie) {
 	return match ? match[1] : null;
 }
 
-export async function loginUser(noSetStorage: boolean = false) {
+export async function loginUser(_: boolean = false) {
 	let modifier = {};
 
-	if (!noSetStorage) {
-		modifier["href"] = window.location.href;
-	}
+	modifier["href"] = window.location.href;
+	
 	const res = await fetch(`${nextUrl}/oauth2`, {
 		method: 'GET',
 		headers: {

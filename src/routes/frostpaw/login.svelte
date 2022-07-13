@@ -172,7 +172,8 @@
 		return {
 			props: {
 				cookie: encode(JSON.stringify(json)),
-				href: modifier["href"] || "/",
+				href: modifierInfo["href"] || "/",
+				modifier: modifierInfo,
 			}
 		}
 	}
@@ -185,6 +186,7 @@ import { goto } from '$app/navigation';
 	export let customClient: CustomClients;
 	export let error: string;
 	export let href: string;
+	export let modifier: any;
 
 	import Button from '@smui/button';
 import { enums } from '$lib/enums/enums';
@@ -227,6 +229,7 @@ if(cookie) {
 
 	{#if cookie}
 		<p style="font-size: bold;">Successfully logged in and will be redirecting to {href}! If you do not get redirected, click <a href={"#"} on:click={() => setCookieReload()}>here</a></p>
+		<footer>Modifier (for debugging): {JSON.stringify(modifier)}</footer>
 	{/if}
 
 	{#if customClient}
