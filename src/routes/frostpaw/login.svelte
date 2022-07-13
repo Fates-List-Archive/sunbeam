@@ -195,11 +195,21 @@ const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 async function setLoginCookie() {
 	if(cookie) {
 		if(browser) {
+			setCookie()
 			document.cookie = `sunbeam-session=${cookie};Path=/;secure;max-age=28800;samesite=lax;priority=High`;
 			await sleep(1000)
 			window.location.href = href
 		}
 	}
+}
+
+function setCookie() {
+	document.cookie = `sunbeam-session=${cookie};Path=/;secure;max-age=28800;samesite=lax;priority=High`;
+}
+
+function setCookieReload() {
+	setCookie()
+	window.location.href = href
 }
 
 if(cookie) {
@@ -216,7 +226,7 @@ if(cookie) {
 	{/if}
 
 	{#if cookie}
-		<p style="font-size: bold;">Successfully logged in and will be redirecting to {href}! If you do not get redirected, click <a href={"#"} on:click={setLoginCookie}>here</a></p>
+		<p style="font-size: bold;">Successfully logged in and will be redirecting to {href}! If you do not get redirected, click <a href={"#"} on:click={() => setCookieReload()}>here</a></p>
 	{/if}
 
 	{#if customClient}
