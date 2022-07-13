@@ -158,7 +158,7 @@
 		if (json["state"] == enums.UserState.global_ban) {
 			return {
 				props: {
-					error: `<h1>You are global banned</h1><br/><h2>This is a global ban and as such, you may not login/use our API.</h2><br/>You can try to appeal this ban at <a href="https://fateslist.xyz/banappeal">our ban appeal server</a>`
+					error: `<h1>You are global banned</h1><br/><h2>This is a global ban and as such, you may not login/use our API.</h2><br/>You can try to appeal this ban at <a href="https://fateslist.xyz/staffserver">our ban appeal server</a>`
 				}
 			}
 		} else if (!json["token"]) {
