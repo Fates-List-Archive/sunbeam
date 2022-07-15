@@ -181,12 +181,12 @@ import Menu from '$lib/base/Menu.svelte';
 				loading="lazy"
 			/>
 
-			<!--<style>
+			<style>
 				.logo {
 					margin-left: 5px;
 					margin-top: 5px;
 				}
-			</style>-->
+			</style>
 		</a>
 	</div>
 
@@ -424,7 +424,6 @@ import Menu from '$lib/base/Menu.svelte';
 	}
 
 	.logo {
-		margin-left: 6px;
 		margin-bottom: 10px !important;
 	}
 </style>
