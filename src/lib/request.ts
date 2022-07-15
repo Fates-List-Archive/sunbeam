@@ -46,7 +46,7 @@ export async function fetchFates(
 	return await fetch(capiUrl + url, { headers: headers });
 }
 
-export async function roll(type: string) {
+export async function roll(type: string, fetch) {
 	const url = `/random-${type}`;
 	const res = await fetchFates(url, '', fetch, false, true);
 	const roll = await res.json();

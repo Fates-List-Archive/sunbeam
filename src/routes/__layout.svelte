@@ -1,6 +1,5 @@
 <script lang="ts">
 	import Header from '$lib/header/Header.svelte';
-	import lozad from 'lozad';
 
 	import navigationState from '$lib/navigationState';
 	import inputstore from '$lib/inputstore';
@@ -16,16 +15,73 @@
 
 	import { navigating, session } from '$app/stores';
 
-	if (browser) {
-		const observer = lozad(); // lazy loads elements with default selector as '.lozad'
-		observer.observe();
-		localStorage.currentPage = window.location.href;
-	}
-
 	import './../css/tailwind.css';
 	import { enums } from '$lib/enums/enums';
-	import { validate_each_argument } from 'svelte/internal';
 	import Alert from '$lib/base/Alert.svelte';
+
+	function llhandler() {
+		logger.info("Nav", "Called lazy load handler");
+		var lazyloadImages;    
+
+		if ("IntersectionObserver" in window) {
+			lazyloadImages = document.querySelectorAll(".lazy");
+			var imageObserver = new IntersectionObserver(function(entries, observer) {
+				entries.forEach(function(entry) {
+					if (entry.isIntersecting) {
+						var image = entry.target;
+						image.classList.remove("lazy");
+						imageObserver.unobserve(image);
+					}
+				});
+			});
+
+			lazyloadImages.forEach(function(image) {
+			imageObserver.observe(image);
+			});
+		} else {  
+			var lazyloadThrottleTimeout;
+			lazyloadImages = document.querySelectorAll(".lazy");
+			
+			function lazyload () {
+				if(lazyloadThrottleTimeout) {
+					clearTimeout(lazyloadThrottleTimeout);
+				}    
+
+				lazyloadThrottleTimeout = setTimeout(function() {
+					var scrollTop = window.pageYOffset;
+					lazyloadImages.forEach(function(img) {
+						if(img.offsetTop < (window.innerHeight + scrollTop)) {
+							img.src = img.dataset.src;
+							img.classList.remove('lazy');
+						}
+					});
+					if(lazyloadImages.length == 0) { 
+						document.removeEventListener("scroll", lazyload);
+						window.removeEventListener("resize", lazyload);
+						window.removeEventListener("orientationChange", lazyload);
+					}
+				}, 20);
+			}
+
+			document.addEventListener("scroll", lazyload);
+			window.addEventListener("resize", lazyload);
+			window.addEventListener("orientationChange", lazyload);
+		}
+	}
+
+	if(browser) {
+		function docReady(fn) {
+			// see if DOM is already available
+			if (document.readyState === "complete" || document.readyState === "interactive") {
+				// call on next available tick
+				setTimeout(fn, 1);
+			} else {
+				document.addEventListener("DOMContentLoaded", fn);
+			}
+		}    
+
+		docReady(llhandler)
+	}
 
 	$: {
 		if ($navigating) {
@@ -41,6 +97,9 @@
 		}
 		if (!$navigating) {
 			$navigationState = 'loaded';
+			if(browser) {
+				llhandler()
+			}
 		}
 	}
 

@@ -7,11 +7,13 @@
 		const url = `/index?target_type=1`;
 		const res = await fetchFates(url, '', fetch, false, true);
 
+		let data = await res.json();
+
 		if (res.ok) {
 			return {
 				props: {
-					data: await res.json(),
-					randomBot: await roll('server')
+					data: data,
+					randomBot: data.random
 				}
 			};
 		}

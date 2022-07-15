@@ -40,50 +40,10 @@
 		}
 
 		let stateSplit = state.split(".");
-		if(stateSplit.length != 2) {
-			return {
-				props: {
-					error: 'Invalid state'
-				}
-			};
-		}
-
-		let nonce = stateSplit[0];
-		let modifier = stateSplit[1];
-
-		let modifierInfo = {}
-
-		try {
-			modifierInfo = JSON.parse(decode(modifier));
-		} catch (e) {
-			return {
-				props: {
-					error: 'Invalid modifier info'
-				}
-			};
-		}
-
-		if(modifierInfo["state"] != nonce) {
-			return {
-				props: {
-					error: 'Invalid nonce'
-				}
-			};
-		}
-
-		if(modifierInfo["version"] != 11) {
-			return {
-				props: {
-					error: 'Invalid login request, please try logging in again!!!'
-				}
-			};
-		}
-
-		let customClientInfo: CustomClients = {code: code, state: nonce}
+		let customClientInfo: CustomClients = {code: code, state: stateSplit[3]}
 
 		if (state.startsWith('Bayshine.')) {
 			// Bayshine custom client login
-			let stateSplit = state.split('.');
 			customClientInfo.clientId = stateSplit[1];
 			customClientInfo.currentTime = parseInt(stateSplit[2]);
 			customClientInfo.hmacTime = stateSplit[3];
@@ -122,6 +82,45 @@
 			return {
 				props: {
 					customClient: customClientInfo,
+				}
+			};
+		}
+
+		if(stateSplit.length != 2) {
+			return {
+				props: {
+					error: 'Invalid state'
+				}
+			};
+		}
+
+		let nonce = stateSplit[0];
+		let modifier = stateSplit[1];
+
+		let modifierInfo = {}
+
+		try {
+			modifierInfo = JSON.parse(decode(modifier));
+		} catch (e) {
+			return {
+				props: {
+					error: 'Invalid modifier info'
+				}
+			};
+		}
+
+		if(modifierInfo["state"] != nonce) {
+			return {
+				props: {
+					error: 'Invalid nonce'
+				}
+			};
+		}
+
+		if(modifierInfo["version"] != 11) {
+			return {
+				props: {
+					error: 'Invalid login request, please try logging in again!!!'
 				}
 			};
 		}

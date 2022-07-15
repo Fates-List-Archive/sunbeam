@@ -7,7 +7,7 @@
 	export let randomBot: any;
 
 	async function roller() {
-		randomBot = await roll(type);
+		randomBot = await roll(type, fetch);
 	}
 </script>
 

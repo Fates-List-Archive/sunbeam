@@ -16,7 +16,7 @@
 </script>
 
 <section class="bot-card">
-	<div class="lozad bot-card-banner" data-background-image={data.banner}>
+	<div class="bot-card-banner lazy"  style="--background: url('{data.banner}');">
 		{#if (type == 'bot' || type == 'server') && data.state == enums.BotState.certified}
 			<Icon class="bot-card-cert" icon="fa-solid:certificate" inline={false} height="3em" />
 		{/if}
@@ -219,5 +219,18 @@
 	.bot-card-actions {
 		width: 80%;
 		margin: 0 15%;
+	}
+
+	.bot-card-banner {
+		background: var(--background) no-repeat;
+		background-size: 100% 100%;
+		height: 200px;
+		width: 100%;
+		z-index: 10;
+	}
+
+	.bot-card-banner.lazy {
+   		background-image: none;
+   		background-color: #F1F1FA;
 	}
 </style>

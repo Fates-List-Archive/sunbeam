@@ -35,7 +35,7 @@
 	</style>
 {/if}
 
-<div id="long-description" class="lozad bot-page-banner" data-background-image={data.banner}>
+<div id="long-description" class="lazy bot-page-banner" style="--background: url('{data.banner}');">
 	<img
 		class="bot-avatar"
 		src={data.user.avatar.replace('.png', '.webp').replace('width=', 'width=120px')}
@@ -111,13 +111,22 @@
 	.prefix {
 		opacity: 0.65;
 	}
+	
 	.bot-page-banner {
-		background-size: cover;
+		background: var(--background) no-repeat;
+		background-size: 100% 100%;
 		width: 100%;
 		height: 100%;
 		min-height: 1000px;
 		background-repeat: no-repeat;
+		z-index: 10;
 	}
+
+	.bot-page-banner.lazy {
+   		background-image: none;
+   		background-color: #F1F1FA;
+	}
+
 	.bot-page {
 		display: flex;
 		flex-wrap: wrap;

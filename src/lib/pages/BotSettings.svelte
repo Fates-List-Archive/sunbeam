@@ -251,7 +251,7 @@
 				required: true,
 				validate: (value) => {
 					if (value.toSingleLine() != data.bot_id) {
-						return "Bot ID doesn't match";
+						return `Bot ID doesn't match ${value.toSingleLine()} != ${data.bot_id}`;
 					}
 				},
 				function: async (value) => {
