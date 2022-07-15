@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Button from '@smui/button';
+	import Button from '$lib/base/Button.svelte';
 	import { subNotifs } from '$lib/request';
 	import { session } from '$app/stores';
 	let token = $session.session.token;
@@ -86,7 +86,7 @@
                hover:scale-125">Transform</button
 >
 
-<Button class="vr-test" on:click={() => subNotifs(id, token)}>Test VR</Button>
+<Button class="vr-test" onclick={() => subNotifs(id, token)}>Test VR</Button>
 <div class="flex items-center" />
 
 <!--Force add textarea styles-->

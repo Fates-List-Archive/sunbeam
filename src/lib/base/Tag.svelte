@@ -1,6 +1,6 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
-	import Button from '@smui/button';
+	import Button from '$lib/base/Button.svelte';
 	export let tags;
 	export let targetType: string;
 	export let modWidth = true; // Whether to set width to 90% or not, needed in bot pages to make showing tags look decent
@@ -48,12 +48,10 @@
 	{#each tagsToDisplay as tag}
 		<span class={spanClasses}>
 			<Button
+				onclick={() => {}}
 				id="tags-{tag.id}"
 				class={tagClasses}
 				href={tag.href || `/frostpaw/search/tags?tag=${tag.id}&target_type=${targetType}`}
-				title={tag.name}
-				touch
-				variant="outlined"
 			>
 				{#if !buttonTag}
 					<Icon class="white tag-icon" icon={tag.iconify_data} inline={false} aria-hidden="true" />
@@ -68,11 +66,11 @@
 	{/each}
 	{#if showButton}
 		{#if !showingAllTags}
-			<Button class="show-all" on:click={showAllTags} touch variant="outlined"
-				>+ {tags.length - maxTags}</Button
+			<Button id="show-all-tags" class="show-all" onclick={showAllTags}
+				>+{tags.length - maxTags}</Button
 			>
 		{:else}
-			<Button class="show-all" on:click={showAllTags} touch variant="outlined">hide</Button>
+			<Button id="hide-all-tags" class="show-all" onclick={showAllTags}>hide</Button>
 		{/if}
 	{/if}
 </div>
@@ -104,10 +102,10 @@
 		outline: none !important;
 		word-wrap: break-word;
 		text-overflow: ellipsis;
-		margin-left: 10px;
-		margin-right: 10px;
+		margin-left: 3px;
+		margin-bottom: 3px;
 		cursor: pointer;
-		min-width: 180px;
+		min-width: 180px !important;
 	}
 
 	.tag-container {
@@ -121,6 +119,7 @@
 		border: none !important;
 		background-color: white !important;
 		color: black !important;
+		--clickcolor: #d2edf3 !important;
 	}
 
 	:global(.button-tag-item) {

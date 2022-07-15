@@ -59,7 +59,7 @@
 	export let perms: any;
 	import { enums } from '$lib/enums/enums';
 	import * as logger from '$lib/logger';
-	import Button from '@smui/button';
+	import Button from '$lib/base/Button.svelte';
 
 	import FormInput from '$lib/base/FormInput.svelte';
 	import { session } from '$app/stores';
@@ -173,7 +173,7 @@
 		{/if}
 	{/each}
 	<Button
-		on:click={() => {
+		onclick={() => {
 			let sql = document.getElementById('sql')?.value;
 
 			logger.info('Eval', { sql, args });

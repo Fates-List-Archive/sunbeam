@@ -30,7 +30,7 @@
 	import CardContainer from '$lib/cards/CardContainer.svelte';
 	import Section from '$lib/base/Section.svelte';
 	import { enums } from '$lib/enums/enums';
-	import Button from '@smui/button';
+	import Button from '$lib/base/Button.svelte';
 	import { session } from '$app/stores';
 	import { genError } from '$lib/strings';
 	import QuailTree from './_helpers/QuailTree.svelte';
@@ -502,7 +502,7 @@
 					{#if perms.perm > permData.BOT_REVIEWER}
 						<div class="flex justify-center">
 							<Button
-								on:click={() => claimBot(bot.user.id)}
+								onclick={() => claimBot(bot.user.id)}
 								variant="outlined"
 								class="button self-center">Claim</Button
 							>
@@ -533,17 +533,17 @@
 					{#if perms.perm > permData.BOT_REVIEWER}
 						<div class="flex justify-center">
 							<Button
-								on:click={() => unclaimBot(bot.user.id)}
+								onclick={() => unclaimBot(bot.user.id)}
 								variant="outlined"
 								class="button self-center lb">Unclaim</Button
 							>
 							<Button
-								on:click={() => approveBot(bot.user.id)}
+								onclick={() => approveBot(bot.user.id)}
 								variant="outlined"
 								class="button self-center lb">Approve</Button
 							>
 							<Button
-								on:click={() => denyBot(bot.user.id)}
+								onclick={() => denyBot(bot.user.id)}
 								variant="outlined"
 								class="button self-center lb">Deny</Button
 							>
@@ -574,7 +574,7 @@
 					{#if perms.perm >= permData.HEAD_ADMIN}
 						<div class="flex justify-center">
 							<Button
-								on:click={() => uncertifyBot(bot.user.id)}
+								onclick={() => uncertifyBot(bot.user.id)}
 								variant="outlined"
 								class="button self-center">Uncertify</Button
 							>
@@ -605,7 +605,7 @@
 					<div class="flex justify-center">
 						{#if perms.perm >= permData.ADMIN}
 							<Button
-								on:click={() => unbanBot(bot.user.id)}
+								onclick={() => unbanBot(bot.user.id)}
 								variant="outlined"
 								class="button self-center lb">Unban</Button
 							>
@@ -613,7 +613,7 @@
 
 						{#if perms.perm >= permData.MODERATOR}
 							<Button
-								on:click={() => requeueBot(bot.user.id)}
+								onclick={() => requeueBot(bot.user.id)}
 								variant="outlined"
 								class="button self-center lb">Requeue</Button
 							>
@@ -644,7 +644,7 @@
 					{#if perms.perm >= permData.MODERATOR}
 						<div class="flex justify-center">
 							<Button
-								on:click={() => requeueBot(bot.user.id)}
+								onclick={() => requeueBot(bot.user.id)}
 								variant="outlined"
 								class="button self-center">Requeue</Button
 							>
@@ -675,7 +675,7 @@
 					<div class="flex justify-center">
 						{#if perms.perm >= permData.MODERATOR}
 							<Button
-								on:click={() => unverifyBot(bot.user.id)}
+								onclick={() => unverifyBot(bot.user.id)}
 								variant="outlined"
 								class="button self-center lb">Unverify</Button
 							>
@@ -683,7 +683,7 @@
 
 						{#if perms.perm >= permData.DEVELOPER}
 							<Button
-								on:click={() => certifyBot(bot.user.id)}
+								onclick={() => certifyBot(bot.user.id)}
 								variant="outlined"
 								class="button self-center lb">Certify</Button
 							>
@@ -691,7 +691,7 @@
 
 						{#if perms.perm >= permData.ADMIN}
 							<Button
-								on:click={() => banBot(bot.user.id)}
+								onclick={() => banBot(bot.user.id)}
 								variant="outlined"
 								class="button self-center lb">Ban</Button
 							>
@@ -812,14 +812,14 @@
 			<FormInput id="bot-id-setflag" name="Bot ID" placeholder="Enter Bot ID here" />
 			<select id="bot-flag">
 				<option value="" disabled aria-disabled="true">Select a flag</option>
-				{#each Object.keys(enums.Flags).filter((k) => !parseInt(k) && k != 0) as flag, i}
+				{#each Object.keys(enums.Flags).filter((k) => !parseInt(k) && parseInt(k) != 0) as flag, i}
 					<option value={i}>{flag} ({i}, may be inaccurate, always check this number)</option>
 				{/each}
 			</select>
 			<Button
 				class="button"
 				variant="outlined"
-				on:click={() => {
+				onclick={() => {
 					let flag = parseInt(document.querySelector('#bot-flag').value);
 					let id = document.querySelector('#bot-id-setflag').value;
 					setBotFlag(id, flag);
@@ -831,7 +831,7 @@
 			<Button
 				class="button"
 				variant="outlined"
-				on:click={() => {
+				onclick={() => {
 					let id = document.querySelector('#bot-id-rbv').value;
 					resetBotVotes(id);
 				}}>Reset</Button
@@ -843,7 +843,7 @@
 			<Button
 				class="button"
 				variant="outlined"
-				on:click={() => {
+				onclick={() => {
 					resetAllVotes();
 				}}>Reset</Button
 			>

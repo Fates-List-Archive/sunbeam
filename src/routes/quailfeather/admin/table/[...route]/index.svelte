@@ -139,7 +139,7 @@
 	export let secrets: any[];
 	export let count: number;
 	import * as logger from '$lib/logger';
-	import Button from '@smui/button';
+	import Button from '$lib/base/Button.svelte';
 	import { session } from '$app/stores';
 	import FormInput from '$lib/base/FormInput.svelte';
 	import Tip from '$lib/base/Tip.svelte';
@@ -290,7 +290,7 @@
 			<Button
 				class="next-page button"
 				variant="outlined"
-				on:click={() => {
+				onclick={() => {
 					getPage(page - 1);
 				}}>Previous Page</Button
 			>
@@ -300,7 +300,7 @@
 			<Button
 				class="next-page button"
 				variant="outlined"
-				on:click={() => {
+				onclick={() => {
 					getPage(page + 1);
 				}}>Next Page</Button
 			>

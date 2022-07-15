@@ -36,7 +36,7 @@
 	import Tab from '$lib/base/Tab.svelte';
 	import { page, session } from '$app/stores';
 	import SelectOption from '$lib/base/SelectOption.svelte';
-	import Button from '@smui/button';
+	import Button from '$lib/base/Button.svelte';
 	import Tip from '$lib/base/Tip.svelte';
 	import BotPack from '$lib/base/BotPack.svelte';
 	import { apiUrl, nextUrl } from '$lib/config';
@@ -323,7 +323,7 @@
 		<pre id="user-token-field">{userToken}</pre>
 		<Button
 			href={'#'}
-			on:click={showUserToken}
+			onclick={showUserToken}
 			class="button"
 			id="user-token-show-btn"
 			touch
@@ -331,7 +331,7 @@
 		>
 		<Button
 			href={'#'}
-			on:click={regenUserToken}
+			onclick={regenUserToken}
 			class="button"
 			id="user-token-regen-btn"
 			touch
@@ -353,7 +353,7 @@
 				</ul>
 				<Button
 					href={'#'}
-					on:click={() => {
+					onclick={() => {
 						revokeClient(conn.client.id);
 					}}
 					class="button"
@@ -374,7 +374,7 @@
 			Developer). Click here
 		</p>
 		<div id="new-roles" />
-		<Button href={'#'} on:click={getOldRoles} class="button" id="gor-btn" touch variant="outlined"
+		<Button href={'#'} onclick={getOldRoles} class="button" id="gor-btn" touch variant="outlined"
 			>Get Old Roles</Button
 		>
 
@@ -384,7 +384,7 @@
 			<BotPack {pack} centered={false} />
 			<Button
 				href={'#'}
-				on:click={() => {
+				onclick={() => {
 					delBotPack(pack.id);
 				}}
 				class="button"
@@ -429,7 +429,7 @@
 		<input id="pack-bots" name="pack-bots" class="fform" placeholder="10293,29392,39492 etc." />
 		<Button
 			href={'#'}
-			on:click={addBotPack}
+			onclick={addBotPack}
 			class="button"
 			id="add-bot-pack-btn"
 			touch
@@ -447,7 +447,7 @@
 		/>
 		<Button
 			href={'#'}
-			on:click={() => {
+			onclick={() => {
 				let packId = document.querySelector('#del-pack-id').value;
 				delBotPack(packId);
 			}}
@@ -518,7 +518,7 @@
 </Tab>
 <Button
 	href={'#'}
-	on:click={updateProfile}
+	onclick={updateProfile}
 	class="button"
 	id="update-profile-btn"
 	touch

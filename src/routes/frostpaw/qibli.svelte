@@ -2,7 +2,7 @@
 	import { browser } from '$app/env';
 
 	import FormInput from '$lib/base/FormInput.svelte';
-	import Button from '@smui/button';
+	import Button from '$lib/base/Button.svelte';
 
 	let saveTxt = 'fetch';
 
@@ -34,7 +34,7 @@
 <div class="center">
 	<Button
 		href={'#'}
-		on:click={() => {
+		onclick={() => {
 			let url = document.getElementById('app-url').value;
 			getAppFromJSON('https://fateslist.xyz/frostpaw/qibli-fetch?url=' + url);
 		}}
@@ -57,7 +57,7 @@
 <div class="center">
 	<Button
 		href={'#'}
-		on:click={() => {
+		onclick={() => {
 			let data = document.getElementById('app-json').value;
 			getApplication(JSON.parse(data));
 		}}

@@ -12,6 +12,7 @@
 	import { errorStore } from '$lib/alertstore';
 	import { apiUrl, lynxUrl } from '$lib/config';
 	import * as logger from '$lib/logger';
+	import menustore from "$lib/menustore";
 
 	import { navigating, session } from '$app/stores';
 
@@ -100,6 +101,7 @@
 			if(browser) {
 				llhandler()
 			}
+			$menustore.open = ""
 		}
 	}
 
@@ -239,19 +241,6 @@
 </script>
 
 <svelte:head>
-	<link href="{apiUrl}/static/assets/prod/material-icons.min.css" rel="stylesheet" />
-	<!-- SMUI Styles -->
-	<link rel="stylesheet" href="{apiUrl}/static/smui.css?v=8" />
-	<link
-		rel="stylesheet"
-		href="{apiUrl}/static/smui.css?v=8"
-		media="(prefers-color-scheme: light)"
-	/>
-	<link
-		rel="stylesheet"
-		href="{apiUrl}/static/smui-dark.css?v=8"
-		media="(prefers-color-scheme: dark)"
-	/>
 	<meta
 		name="keywords"
 		content="discord bot, discord bot list, fateslist, fates list, bot list, discord list, list of bots, list of bot, bot, discord bots, fateslist bots, fates list"
@@ -273,6 +262,7 @@
 		inputs={$alertStore.inputs || []}
 		buttons={$alertStore.buttons || []}
 		show={$alertStore.show}
+		supabase={null}
 		submit={$alertStore.submit}
 		title={$alertStore.title}
 		icon={$alertStore.icon}

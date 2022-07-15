@@ -26,7 +26,7 @@
 <script lang="ts">
 	import { session } from '$app/stores';
 
-	import Button from '@smui/button';
+	import Button from '$lib/base/Button.svelte';
 	import QuailTree from './_helpers/QuailTree.svelte';
 	import FormInput from '$lib/base/FormInput.svelte';
 
@@ -85,7 +85,7 @@
 		<div class="valid-feedback">Looks good!</div>
 		<div class="invalid-feedback">Duration is either missing or too long!</div>
 	</div>
-	<Button class="button" id="loa-btn" on:click={() => sendLoa()}>Submit</Button>
+	<Button class="button" id="loa-btn" onclick={() => sendLoa()}>Submit</Button>
 
 	<em>Or...</em>
 

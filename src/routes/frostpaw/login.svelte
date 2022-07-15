@@ -187,7 +187,7 @@ import { goto } from '$app/navigation';
 	export let href: string;
 	export let modifier: any;
 
-	import Button from '@smui/button';
+	import Button from '$lib/base/Button.svelte';
 import { enums } from '$lib/enums/enums';
 import { browser } from '$app/env';
 
@@ -266,13 +266,13 @@ if(cookie) {
 		>
 		<br /><br />
 		<Button
-			on:click={() => {
+			onclick={() => {
 				goto('/');
 			}}
 			style="background-color: #90EE90; color: black;">Back To Safety</Button
 		>
 		<Button
-			on:click={async () => {
+			onclick={async () => {
 				let res = await fetch(`${apiUrl}/oauth2`, {
 					credentials: 'include',
 					method: 'POST',

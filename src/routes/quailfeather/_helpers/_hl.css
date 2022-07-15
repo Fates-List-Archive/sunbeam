@@ -1,8 +1,8 @@
-h2 {
+.h2 {
 	font-size: 1.5em;
 }
 
-h3 {
+,h3 {
 	font-size: 1.3em;
 }
 
@@ -10,10 +10,10 @@ h3 {
 	display: none;
 	color: #81e69b !important;
 }
-h2:hover > .header-anchor {
+.h2:hover > .header-anchor {
 	display: initial;
 }
-h3:hover > .header-anchor {
+.h3:hover > .header-anchor {
 	display: initial;
 }
 
@@ -102,29 +102,29 @@ h3:hover > .header-anchor {
 	height: 50px;
 }
 
-blockquote h3 {
+.blockquote .h3 {
 	color: cyan !important;
 }
 
-blockquote {
+.blockquote {
 	border-left: cyan !important;
 }
 
-table,
+.table,
 .ul,
 .li {
 	color: white !important;
 }
 
-thead {
+.thead {
 	border-bottom: 1px solid white !important;
 }
 
-tr:hover {
+.tr:hover {
 	background-color: rgba(255, 255, 255, 0.1) !important;
 }
 
-.button {
+.button-quail {
 	display: block;
 	width: 100px;
 	background-color: red !important;

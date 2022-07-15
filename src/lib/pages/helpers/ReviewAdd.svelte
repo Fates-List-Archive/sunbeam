@@ -7,7 +7,7 @@
 	import navigationState from '$lib/navigationState';
 	import { addReviewHandler, loginUser } from '$lib/request';
 	import { genError } from '$lib/strings';
-	import Button from '@smui/button';
+	import Button from '$lib/base/Button.svelte';
 
 	export let data: any;
 	export let type: string;
@@ -78,4 +78,4 @@
 	style="width: 100%; border-radius: 4px 4px 4px 4px;"
 	required
 />
-<Button href={'#'} on:click={() => addReview()} id="review-add" class="button">Add Review</Button>
+<Button href={'#'} onclick={() => addReview()} id="review-add" class="button">Add Review</Button>

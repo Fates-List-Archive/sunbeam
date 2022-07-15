@@ -26,10 +26,11 @@ interface Alert {
 	close?: () => void;
 	submit?: (value) => void;
 	inputs?: AlertInputInterface[];
+	buttons: any[];
 }
 
 type AlertStore = Alert;
 
-export default writable<AlertStore>(null);
+export default writable<AlertStore>();
 
-export let errorStore = writable<boolean>(null);
+export let errorStore = writable<boolean>();

@@ -28,7 +28,6 @@
 
 <script lang="ts">
 	import BotCard from '$lib/cards/BotCard.svelte';
-	import Button from '@smui/button';
 	import CardContainer from '$lib/cards/CardContainer.svelte';
 	import { page, session } from '$app/stores';
 	import BristlefrostMeta from '$lib/base/BristlefrostMeta.svelte';

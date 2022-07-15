@@ -48,7 +48,6 @@ nav,
 a,
 ol,
 .tab {
-	overflow: hidden;
 	color: white !important;
 	font-family: 'Lexend Deca';
 }
@@ -314,6 +313,7 @@ pre {
 	border-radius: 6px !important;
 	background: black !important;
 	color: white !important;
+	font-weight: normal !important;
 }
 
 .button:hover {

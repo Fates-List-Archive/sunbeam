@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Button from '@smui/button';
+	import Button from '$lib/base/Button.svelte';
 	import BotCard from '$lib/cards/BotCard.svelte';
 	import { roll } from '$lib/request';
 	export let type: string;
@@ -14,12 +14,12 @@
 <div class="flex">
 	<BotCard {type} rand={false} data={randomBot} />
 	<Button
+		id="random-bot"
 		class="random-button white button"
-		on:click={() => {
+		onclick={() => {
 			roller();
 		}}
-		touch
-		variant="outlined">Roll</Button
+	>Roll</Button
 	>
 </div>
 <div class="spacer" />

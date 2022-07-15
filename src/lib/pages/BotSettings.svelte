@@ -5,7 +5,7 @@
 	import SelectOption from '$lib/base/SelectOption.svelte';
 	import { enums } from '$lib/enums/enums';
 	import Icon from '@iconify/svelte';
-	import Button from '@smui/button';
+	import Button from '$lib/base/Button.svelte';
 	import { page, session } from '$app/stores';
 	import { voteHandler } from '$lib/request';
 	import loadstore from '$lib/loadstore';
@@ -999,11 +999,9 @@
 					</ul>
 					<Button
 						href={'#'}
-						on:click={() => deleteCommand(command.id)}
+						onclick={() => deleteCommand(command.id)}
 						class="button"
-						touch
-						variant="outlined">Delete {command.name}</Button
-					>
+					>Delete {command.name}</Button>
 				{/each}
 			{:else}
 				<p>No commands created for this bot</p>
@@ -1012,16 +1010,16 @@
 			<h2>API Token</h2>
 			<pre>{token}</pre>
 			<Button
-				href={'#'}
-				on:click={showBotToken}
+				href={'javascript:void(0)'}
+				onclick={showBotToken}
 				class="button"
 				id="bot-token-show-btn"
 				touch
 				variant="outlined"><span class="regen-btn">{showBtn}</span></Button
 			>
 			<Button
-				href={'#'}
-				on:click={regenBotToken}
+				href={'javascript:void(0)'}
+				onclick={regenBotToken}
 				class="button danger"
 				id="bot-token-regen-btn"
 				touch
@@ -1057,7 +1055,7 @@
 					/>
 					<Button
 						href={'#'}
-						on:click={appealBot}
+						onclick={appealBot}
 						class="button"
 						id="appeal"
 						touch
@@ -1096,7 +1094,7 @@
 			/><br />
 			<Button
 				href={'#'}
-				on:click={postStats}
+				onclick={postStats}
 				class="button"
 				id="post-stats"
 				touch
@@ -1182,7 +1180,7 @@
 
 			<Button
 				href={'#'}
-				on:click={createCommand}
+				onclick={createCommand}
 				class="button"
 				id="create-resource"
 				touch
@@ -1208,7 +1206,7 @@
 			/>
 			<Button
 				href={'#'}
-				on:click={requestCertification}
+				onclick={requestCertification}
 				class="button"
 				id="request-certification"
 				touch
@@ -1222,7 +1220,7 @@
 			</Tip>
 			<Button
 				href={'#'}
-				on:click={deleteBot}
+				onclick={deleteBot}
 				class="button danger"
 				id="delete-bot"
 				touch
@@ -1248,7 +1246,7 @@
 		/>
 		<Button
 			href={'#'}
-			on:click={autofillBot}
+			onclick={autofillBot}
 			class="button"
 			id="autofill-bot"
 			touch
@@ -1436,7 +1434,7 @@
 		>
 		<Button
 			href={'#'}
-			on:click={sendTestWebhook}
+			onclick={sendTestWebhook}
 			class="button"
 			id="submit"
 			touch
@@ -1536,7 +1534,7 @@
 <div class="center">
 	<Button
 		href={'#'}
-		on:click={updateBot}
+		onclick={updateBot}
 		class="button btn-save"
 		id="submit"
 		touch
@@ -1619,10 +1617,6 @@
 
 	.value {
 		opacity: 0.8 !important;
-	}
-
-	.regen-btn {
-		font-size: 12px !important;
 	}
 
 	.link-pane {

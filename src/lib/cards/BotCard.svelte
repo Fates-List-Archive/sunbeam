@@ -2,7 +2,7 @@
 	import { session } from '$app/stores';
 	import { apiUrl } from '$lib/config';
 	import Icon from '@iconify/svelte';
-	import Button from '@smui/button';
+	import Button from '$lib/base/Button.svelte';
 	import { enums } from '../enums/enums';
 	export let data: any;
 	export let type: string;
@@ -66,38 +66,38 @@
 		{/if}
 		<div class="bot-card-actions">
 			<Button
-				aria-label="View"
+				id="bot-card-action-{data.user.id}"
+				ariaLabel="View"
 				href="/{type}/{data.user.id}"
 				class="bot-card-actions-link button"
-				touch
-				variant="outlined">View</Button
-			>
+				onclick={() => {}}
+			>View</Button>
 			{#if type != 'profile'}
 				<Button
-					aria-label="Invite"
+					id="bot-card-action-inv-{data.user.id}"
+					ariaLabel="Invite"
 					href="/{type}/{data.user.id}/invite"
 					class="bot-card-actions-link button"
 					target="_blank"
-					touch
-					variant="outlined"
+					onclick={() => {}}
 					>{#if type == 'server'}Join{:else}Invite{/if}</Button
 				>
 			{:else if $session.session.token && data.user.id == $session.session.user.id}
 				<Button
-					aria-label="Settings"
+					id="bot-card-action-settings-{data.user.id}"
+					ariaLabel="Settings"
 					href="/{type}/{data.user.id}/settings"
+					onclick={() => {}}
 					class="bot-card-actions-link profile-settings-btn button"
-					touch
-					variant="outlined">Settings</Button
-				>
+				>Settings</Button>
 			{:else}
 				<Button
-					aria-label="Settings"
-					aria-disabled="true"
+					id="bot-card-action-settings-{data.user.id}"
+					onclick={() => {}}
+					ariaLabel="Settings"
+					ariaDisabled={true}
 					class="bot-card-actions-link disabled-profile-btn"
-					touch
-					variant="outlined">Settings</Button
-				>
+				>Settings</Button>
 			{/if}
 		</div>
 		<slot />
@@ -224,7 +224,7 @@
 	.bot-card-banner {
 		background: var(--background) no-repeat;
 		background-size: 100% 100%;
-		height: 200px;
+		height: 190px;
 		width: 100%;
 		z-index: 10;
 	}

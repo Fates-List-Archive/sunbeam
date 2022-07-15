@@ -56,7 +56,7 @@
 <script lang="ts">
 	import QuailTree from './_helpers/QuailTree.svelte';
 	import Section from '$lib/base/Section.svelte';
-	import Button from '@smui/button/src/Button.svelte';
+	import Button from '$lib/base/Button.svelte';
 	import { enums } from '$lib/enums/enums';
 	import * as logger from '$lib/logger';
 	import { session } from '$app/stores';
@@ -112,7 +112,7 @@
 					href={'javascript:void(0)'}
 					class="mx-2 button"
 					variant="outlined"
-					on:click={() => {
+					onclick={() => {
 						let inputs = [];
 
 						questions.questions.forEach((pane) => {

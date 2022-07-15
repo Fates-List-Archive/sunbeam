@@ -87,8 +87,14 @@
 				.render(toc + '\n' + data)
 				.replaceAll('<li', '<li class="li"')
 				.replaceAll('<ul', '<ul class="ul"')
-				.replaceAll('<button', '<button class="button"')
-				.replaceAll('<textarea', '<textarea class="fform"');
+				.replaceAll('<button', '<button class="button-quail"')
+				.replaceAll('<textarea', '<textarea class="fform"')
+				.replaceAll('<h2', '<h2 class="h2"')
+				.replaceAll('<h3', '<h3 class="h3"')
+				.replaceAll("<blockquote", '<blockquote class="blockquote"')
+				.replaceAll('<table', '<table class="table"')
+				.replaceAll('<thead', '<thead class="thead"')
+				.replaceAll('<tr', '<tr class="tr"')
 
 			return {
 				props: {

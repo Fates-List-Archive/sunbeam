@@ -2,19 +2,19 @@
 	import { page, session } from '$app/stores';
 	import * as logger from '$lib/logger';
 	logger.info('Header', 'Session from header', $session);
-	import Menu, { MenuComponentDev } from '@smui/menu';
-	import List, { Item, Text } from '@smui/list';
 	import { loginUser, logoutUser } from '$lib/request';
 	import { goto } from '$app/navigation';
 	import { apiUrl, nextUrl, lynxUrl } from '$lib/config';
 	import { browser } from '$app/env';
+	import menustore from "$lib/menustore";
+	import navigationState from '$lib/navigationState';
 	import { enums } from '$lib/enums/enums';
+import Menu from '$lib/base/Menu.svelte';
 
 	let username = null;
 	let userID = null;
 	let avatar = null;
-	let menu: MenuComponentDev;
-	let addMenu: MenuComponentDev;
+
 	if ($session.session.user) {
 		username = $session.session.user.username;
 		userID = $session.session.user.id;
@@ -35,6 +35,14 @@
 			document.addEventListener('DOMContentLoaded', fn);
 		}
 	};
+
+	const openMenu = (id) => {
+		if($menustore.open != id) {
+			$menustore.open = id;
+		} else {
+			$menustore.open = "";
+		}
+	}
 
 	// Report Feedback
 	const reportFeedback = () => {
@@ -96,9 +104,9 @@
 	};
 
 	if (browser) {
-		const header = document.getElementById('header');
-
 		docReady(() => {
+			const header = document.getElementById('header');
+
 			document.addEventListener('scroll', (e) => {
 				if (window.scrollY > 5) {
 					header.setAttribute('scrolled', 'true');
@@ -116,6 +124,51 @@
 			}
 		});
 	}
+
+	let commonEls = [
+		{
+			id: 'add-bot',
+			label: 'Add Bot',
+			action: () => {
+				goto('/add-bot');
+			}
+		},
+		{
+			id: 'Servers',
+			label: 'Servers',
+			action: () => {
+				goto('/servers');
+			}
+		},
+		{
+			id: 'report-feedback',
+			label: 'Report An Issue',
+			action: () => {
+				reportFeedback();
+			}
+		},	
+		{
+			id: "tos",
+			label: "Terms of Service",
+			action: () => {
+				goto('/quailfeather/docs/privacy');
+			}
+		},
+		{
+			id: "docs",
+			label: "Stats, Docs and More!",
+			action: () => {
+				goto('/quailfeather');
+			}
+		},
+		{
+			id: "support",
+			label: "Support",
+			action: () => {
+				goto('/server/789934742128558080/invite');
+			}
+		}
+	];
 </script>
 
 <header id="header">
@@ -139,7 +192,36 @@
 
 	<nav class="nav1">
 		<ul>
-			<li><a href={'#'} on:click={() => addMenu.setOpen(true)}>Add</a></li>
+			<li>
+				<a href={'javascript:void(0)'} on:click={() => {
+					openMenu("add-nav")
+				}}>Add</a>
+				<Menu id="add-nav" els={
+					[
+						{
+							id: "add-bot",
+							label: "Add Bot",
+							action: () => {
+								goto(`/frostpaw/add-bot`);
+							}
+						},
+						{
+							id: "add-server",
+							label: "Add Server",
+							action: () => {
+								goto(`/frostpaw/add-server`);
+							}
+						},
+						{
+							id: "import Bot",
+							label: "Import Bot",
+							action: () => {
+								goto(`/frostpaw/import-bot`);
+							}
+						}
+					]
+				} />
+			</li>
 			<li class:active={$page.url.pathname === '/partners'}>
 				<a sveltekit:prefetch href="/partners">Partners</a>
 			</li>
@@ -148,39 +230,13 @@
 			</li>
 			<li class:active={$page.url.pathname === '/'}><a sveltekit:prefetch href="/">Bots</a></li>
 		</ul>
-
-		<Menu bind:this={addMenu} class="nav add-nav">
-			<List>
-				<Item
-					on:SMUI:action={() => {
-						goto(`/frostpaw/add-bot`);
-					}}
-				>
-					<Text>Add Bot</Text>
-				</Item>
-				<Item
-					on:SMUI:action={() => {
-						goto(`/frostpaw/add-server`);
-					}}
-				>
-					<Text>Add Server</Text>
-				</Item>
-				<Item
-					on:SMUI:action={() => {
-						goto(`/frostpaw/import-bot`);
-					}}
-				>
-					<Text>Import Bot</Text>
-				</Item>
-			</List>
-		</Menu>
 	</nav>
 	<nav class="corner-two">
 		<div>
 			<a
-				href={'#'}
+				href={'javascript:void(0)'}
 				on:click={() => {
-					menu.setOpen(true);
+					openMenu("main-menu")
 				}}
 			>
 				{#if username}
@@ -190,86 +246,47 @@
 					Anonymous
 				{/if}
 			</a>
+			{#if username}
+				<Menu id="main-menu" els={
+					[
+						{
+							id: "logout",
+							label: "Logout",
+							action: () => {
+								logoutUser();
+								return window.location.reload
+							},
+						},
+						{
+							id: "profile",
+							label: "Profile",
+							action: () => {
+								goto(`/profile/${userID}`);
+							}
+						},
+						...commonEls
+					]
+				} />
+			{:else}
+				<Menu id="main-menu" els={
+					[
+						{
+							id: "login",
+							label: "Login",
+							action: () => {
+								$navigationState = "loading"
+								loginUser();
+								return;
+							},
+						},
+						...commonEls
+					]
+				} />
+			{/if}
 		</div>
-
-		<Menu bind:this={menu} class="corner-nav" style="margin-top: 3em !important;">
-			<List>
-				{#if username}
-					<Item
-						on:SMUI:action={() => {
-							logoutUser();
-							window.location.reload(); // Only place its really needed
-						}}
-					>
-						<Text>Logout</Text>
-					</Item>
-
-					<Item
-						on:SMUI:action={() => {
-							goto(`/profile/${userID}`);
-						}}
-					>
-						<Text>Profile</Text>
-					</Item>
-				{:else}
-					<Item
-						on:SMUI:action={() => {
-							loginUser(false);
-						}}
-					>
-						<Text>Login</Text>
-					</Item>
-				{/if}
-
-				<Item
-					on:SMUI:action={() => {
-						goto(`/bot/admin/add`);
-					}}
-				>
-					<Text>Add Bot</Text>
-				</Item>
-				<Item
-					on:SMUI:action={() => {
-						goto('/servers');
-					}}
-				>
-					<Text>Servers</Text>
-				</Item>
-				<Item
-					on:SMUI:action={() => {
-						goto('/quailfeather/docs/privacy');
-					}}
-				>
-					<Text>TOS</Text>
-				</Item>
-				<Item
-					on:SMUI:action={() => {
-						goto('/quailfeather');
-					}}
-				>
-					<Text>Stats? Docs!</Text>
-				</Item>
-				<Item on:SMUI:action={reportFeedback}>
-					<Text>Feedback</Text>
-				</Item>
-				<Item
-					on:SMUI:action={() => {
-						goto('/server/789934742128558080/invite');
-					}}
-				>
-					<Text>Support</Text>
-				</Item>
-			</List>
-		</Menu>
 	</nav>
 </header>
 
-<!--
-<div class="alert-box">
-	<span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
-	<p></p>
-</div>
--->
 <style lang="scss">
 	#header {
 		display: flex;
@@ -402,26 +419,5 @@
 		border-radius: 50%;
 		width: 30px;
 		margin-right: 10px;
-	}
-
-	/* Alert Box */
-	.alert-box {
-		padding: 20px;
-		background-color: #f44336; /* Red */
-		color: white;
-		margin-bottom: 15px;
-	}
-	.closebtn {
-		margin-left: 15px;
-		color: white;
-		font-weight: bold;
-		float: right;
-		font-size: 22px;
-		line-height: 20px;
-		cursor: pointer;
-		transition: 0.3s;
-	}
-	.closebtn:hover {
-		color: black;
 	}
 </style>

@@ -3,9 +3,8 @@
 	import { session } from '$app/stores';
 	import loadstore from '$lib/loadstore';
 	import navigationState from '$lib/navigationState';
-	import Button from '@smui/button/src/Button.svelte';
+	import Button from '$lib/base/Button.svelte';
 	import { nextUrl } from '$lib/config';
-	import alertstore from '$lib/alertstore';
 	import { genError } from '$lib/strings';
 	import * as logger from '$lib/logger';
 	import { enums } from '$lib/enums/enums';
@@ -278,12 +277,11 @@
 						placeholder="This bot is a really good bot because of X, Y and Z however..."
 					/>
 					<Button
-						on:click={() => replyReview(review.id)}
+						id="reply-review-{review.id}"
+						onclick={() => replyReview(review.id)}
 						href={'javascript:void(0);'}
 						class="bot-card-actions-link button"
-						touch
-						variant="outlined">Reply</Button
-					>
+					>Reply</Button>
 				</section>
 			{/if}
 			{#if $session.session.token && $session.session.user.id == review.user.id && edittable}
@@ -314,18 +312,18 @@
 							>{review.review_text}</textarea
 						>
 						<Button
-							on:click={() => editReview()}
+							onclick={() => editReview()}
 							href={'javascript:void(0);'}
+							id="edit-review-{review.id}"
 							class="bot-card-actions-link button"
-							touch
-							variant="outlined">Edit</Button
+							>Edit</Button
 						>
 						<Button
-							on:click={() => deleteReview()}
+							onclick={() => deleteReview()}
 							href={'javascript:void(0);'}
+							id="delete-review-{review.id}"
 							class="bot-card-actions-link button"
-							touch
-							variant="outlined">Delete</Button
+						>Delete</Button
 						>
 					</section>
 				</div>

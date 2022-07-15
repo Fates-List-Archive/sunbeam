@@ -1,7 +1,7 @@
 <script context="module">
 	/** @type {import('@sveltejs/kit').ErrorLoad} */
 	import { apiUrl, lynxUrl, electroUrl } from '$lib/config';
-	import Button from '@smui/button';
+	import Button from '$lib/base/Button.svelte';
 	export const prerender = false;
 	export async function load({ session }) {
 		let id = '0';

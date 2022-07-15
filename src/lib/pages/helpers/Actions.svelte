@@ -11,7 +11,7 @@
 	import { voteHandler } from '$lib/request';
 	import { genError } from '$lib/strings';
 	import Icon from '@iconify/svelte';
-	import Button from '@smui/button';
+	import Button from '$lib/base/Button.svelte';
 
 	export let data: any;
 	export let type: string;
@@ -72,7 +72,7 @@ If you have previously invited Squirrelflight, please remove and add Fates List 
 <span class="auxillary" />
 <div class="buttons">
 	<Button
-		on:click={() => voteBot()}
+		onclick={() => voteBot()}
 		class="buttons-all button"
 		id="buttons-vote"
 		touch
@@ -87,7 +87,7 @@ If you have previously invited Squirrelflight, please remove and add Fates List 
 		id="buttons-invite"
 		touch
 		variant="outlined"
-		rel="external"
+		onclick={() => {}}
 	>
 		<span
 			><strong
@@ -97,7 +97,7 @@ If you have previously invited Squirrelflight, please remove and add Fates List 
 	</Button>
 	{#if $session.session.token && $session.session.user_experiments.includes(enums.UserExperiments.BotReport)}
 		<Button
-			on:click={() => {
+			onclick={() => {
 				alert({
 					title: `Report this ${type}`,
 					message: `
@@ -152,11 +152,13 @@ If you still wish to report, type the reason for reporting this ${type} below. R
 				class="buttons-all auxillary button"
 				touch
 				variant="outlined"
+				onclick={() => {}}
 			>
 				<span><strong>Settings</strong></span>
 			</Button>
 		{:else}
 			<Button
+				onclick={() => {}}
 				class="buttons-all disabled auxillary"
 				id="buttons-settings"
 				touch

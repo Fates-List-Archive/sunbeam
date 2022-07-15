@@ -8,9 +8,9 @@
 		if (session.session.token) {
 			id = session.session.user.id;
 		}
-		let perms = await fetch(`${apiUrl}/baypaw/perms/${id}`);
+		let permsRes = await fetch(`${apiUrl}/baypaw/perms/${id}`);
 
-		perms = await perms.json();
+		let perms = await permsRes.json();
 
 		if (perms.perm < 2) {
 			return {
@@ -110,8 +110,7 @@
 	export let perms: any;
 	export let allowedTables: any;
 	export let tables: any;
-	import * as logger from '$lib/logger';
-	import Button from '@smui/button';
+	import Button from '$lib/base/Button.svelte';
 	import Section from '$lib/base/Section.svelte';
 </script>
 
@@ -136,7 +135,7 @@
 					<legend id={tableName}>{title(tableName)}</legend>
 					{#if allowedTables == null || allowedTables.includes(tableName)}
 						<h3>You are allowed to edit this table</h3>
-						<Button class="button" href={`/quailfeather/admin/table/${tableName}`}
+						<Button onclick={() => {}} id="edit-table-{tableName}" class="button" href={`/quailfeather/admin/table/${tableName}`}
 							>Edit Table</Button
 						>
 					{:else}

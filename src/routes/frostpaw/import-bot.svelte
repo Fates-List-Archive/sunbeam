@@ -34,7 +34,7 @@
 	import { apiUrl } from '$lib/config';
 	import Tip from '$lib/base/Tip.svelte';
 	import FormInput from '$lib/base/FormInput.svelte';
-	import Button from '@smui/button/src/Button.svelte';
+	import Button from '$lib/base/Button.svelte';
 	import navigationState from '$lib/navigationState';
 	import alertstore from '$lib/alertstore';
 	import loadstore from '$lib/loadstore';
@@ -253,7 +253,7 @@
 					</li>
 				</ul>
 			</Tip>
-			<Button on:click={topggAutofill} variant="outlined" class="button btn-save"
+			<Button onclick={topggAutofill} variant="outlined" class="button btn-save"
 				>Import from top.gg</Button
 			>
 			<FormInput
@@ -278,7 +278,7 @@
 				CORS or not, then just try and see if it errors.
 			</Tip>
 		{/if}
-		<Button on:click={() => importBot()} variant="outlined" class="button btn-save"
+		<Button onclick={() => importBot()} variant="outlined" class="button btn-save"
 			>{saveTxt}</Button
 		>
 		<pre>Recieved data (for debugging): {JSON.stringify(extData)}</pre>

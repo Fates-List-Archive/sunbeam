@@ -16,7 +16,7 @@ import { browser } from '$app/env';
 	import FormInput from '$lib/base/FormInput.svelte';
 import SelectOption from '$lib/base/SelectOption.svelte';
 import { apiUrl } from '$lib/config';
-import Button from '@smui/button/src/Button.svelte';
+import Button from '$lib/base/Button.svelte';
 
 export let token: string;
 
@@ -142,6 +142,6 @@ async function previewInput() {
     {#if !token}
         <p>You will not be able to update anything as there is no token however you can still use this interface to preview your descriptions</p>
     {:else}
-        <Button on:click={() => setValue()}>Set Value</Button>
+        <Button onclick={() => setValue()}>Set Value</Button>
     {/if}
 </div>

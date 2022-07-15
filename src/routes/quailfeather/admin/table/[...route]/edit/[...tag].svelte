@@ -132,7 +132,7 @@
 	import * as logger from '$lib/logger';
 	import { enums } from '$lib/enums/enums';
 	import { session } from '$app/stores';
-	import Button from '@smui/button';
+	import Button from '$lib/base/Button.svelte';
 
 	/*
 import FormInput from '$lib/base/FormInput.svelte';
@@ -230,7 +230,7 @@ import Tip from '$lib/base/Tip.svelte';
 					>
 					<Button
 						class="button"
-						on:click={() => {
+						onclick={() => {
 							let added = false;
 							rows.forEach((e) => {
 								if (added) {
@@ -249,7 +249,7 @@ import Tip from '$lib/base/Tip.svelte';
 				<br />
 				<Button
 					class="button"
-					on:click={() => {
+					onclick={() => {
 						let added = false;
 						rows.forEach((e) => {
 							if (added) {
@@ -266,7 +266,7 @@ import Tip from '$lib/base/Tip.svelte';
 				<br /><br />
 				<Button
 					class="button"
-					on:click={() => {
+					onclick={() => {
 						let els = [];
 						let end = false;
 						let i = 0;
@@ -295,7 +295,7 @@ import Tip from '$lib/base/Tip.svelte';
 				>
 				<Button
 					class="button"
-					on:click={() => {
+					onclick={() => {
 						editAlert(row.name, document.querySelector(`#inp-${row.name}`).value);
 					}}>Edit</Button
 				>
