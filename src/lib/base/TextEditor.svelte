@@ -54,7 +54,7 @@
 	});
 </script>
 
-<div bind:this={editor} {id} tabindex="0" />
+<div bind:this={editor} {id} tabindex="0" style="overflow-x: hidden;" />
 
 <style>
 	@import '../../css/texteditor.css';

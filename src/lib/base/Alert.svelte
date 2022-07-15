@@ -93,7 +93,7 @@
 		toSingleLine(index: number = -1) {
 			// Does exactly what it says it does on the tin, returns a single no-newline line
 			index = this.getIndex(index);
-			return this.toRaw(index).replaceAll('\n', ' ').replaceAll('\r', ' ').replaceAll('\t', '');
+			return this.toRaw(index).replaceAll('\n', ' ').replaceAll('\r', ' ').replaceAll('\t', '').trim();
 		}
 
 		toLines(index: number = -1) {
@@ -594,13 +594,14 @@
 		max-height: 100%;
 		padding: 10px;
 		border-radius: 4px 4px 4px 4px;
-		background: white;
+		background: rgb(31, 28, 28);
+		color: white;
 		overflow-y: scroll;
 	}
 
 	button {
-		background-color: white !important;
-		color: black !important;
+		background-color: rgb(47, 40, 40) !important;
+		color: white !important;
 		font-weight: bold !important;
 		border: black solid 1px !important;
 		padding: 12px;
@@ -640,17 +641,17 @@
 
 	/* Alert */
 	.alert-type {
-		color: black !important;
+		color: white !important;
 		font-weight: bold;
 		font-size: 15px;
 	}
 
 	.alert-title {
-		color: black !important;
+		color: white !important;
 	}
 
 	.alert-content {
-		color: black !important;
+		color: white !important;
 		margin-left: 15px;
 	}
 
@@ -710,7 +711,7 @@
 	}
 
 	.InputAlert-Placeholder {
-		color: black !important;
+		color: white !important;
 		font-family: 'Fira Code', monospace;
 		font-weight: bold;
 		font-size: 16px;
@@ -759,19 +760,19 @@
 	}
 
 	.File-Name {
-		color: black !important;
+		color: white !important;
 		font-weight: bold;
 		font-size: 15px;
 	}
 
 	.File-Extension {
-		color: black !important;
+		color: white !important;
 		font-weight: bold;
 		font-size: 10px;
 	}
 
 	.File-Bytes {
-		color: black !important;
+		color: white !important;
 		font-weight: bold;
 		font-size: 10px;
 	}
@@ -800,7 +801,7 @@
 			justify-content: center;
 			align-items: center;
 			background: transparent;
-			color: black !important;
+			color: white !important;
 		}
 
 		dialog::after {
@@ -823,7 +824,8 @@
 			max-height: 500px;
 			padding: 10px;
 			border-radius: 4px 4px 4px 4px;
-			background: white;
+			background: rgb(31, 28, 28);
+			color: white !important;
 		}
 	}
 </style>
