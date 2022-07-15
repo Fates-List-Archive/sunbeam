@@ -66,7 +66,6 @@
 		{/if}
 		<div class="bot-card-actions">
 			<Button
-				id="bot-card-action-{data.user.id}"
 				ariaLabel="View"
 				href="/{type}/{data.user.id}"
 				class="bot-card-actions-link button"
@@ -74,7 +73,6 @@
 			>View</Button>
 			{#if type != 'profile'}
 				<Button
-					id="bot-card-action-inv-{data.user.id}"
 					ariaLabel="Invite"
 					href="/{type}/{data.user.id}/invite"
 					class="bot-card-actions-link button"
