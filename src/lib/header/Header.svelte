@@ -300,6 +300,8 @@ import Menu from '$lib/base/Menu.svelte';
 		z-index: 3;
 	}
 
+	
+
 	:global(#header[scrolled='true']) {
 		background-color: black !important;
 		box-shadow: 1px 1px 1px 1px black;
@@ -419,5 +421,10 @@ import Menu from '$lib/base/Menu.svelte';
 		border-radius: 50%;
 		width: 30px;
 		margin-right: 10px;
+	}
+
+	.logo {
+		margin-left: 6px;
+		margin-bottom: 10px !important;
 	}
 </style>
