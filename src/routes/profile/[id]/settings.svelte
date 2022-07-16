@@ -41,8 +41,6 @@
   import BotPack from '$lib/base/BotPack.svelte';
   import { apiUrl, nextUrl } from '$lib/config';
   import AuditLogs from '$lib/base/AuditLogs.svelte';
-  import MultiSelect from '$lib/base/MultiSelect.svelte';
-  import SelectOptionMulti from '$lib/base/SelectOptionMulti.svelte';
   import Checkbox from '$lib/base/Checkbox.svelte';
   import alertstore from '$lib/alertstore';
   import navigationState from '$lib/navigationState';

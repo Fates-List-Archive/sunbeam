@@ -13,7 +13,8 @@
   import inputstore from '$lib/inputstore';
   import RedStar from '$lib/base/RedStar.svelte';
   import FormInput from '$lib/base/FormInput.svelte';
-  import MultiSelect from '$lib/base/MultiSelect.svelte';
+  import MultiSelect from 'svelte-multiselect';
+  import type { Option } from 'svelte-multiselect';
   import { apiUrl, nextUrl } from '$lib/config';
   import Checkbox from '$lib/base/Checkbox.svelte';
   import Owner from '$lib/base/Owner.svelte';
@@ -594,6 +595,8 @@
     let bot = {};
     let errorFields = [];
 
+	logger.info("MultiSelect", selectedFeatures, selectedTags);
+
     try {
       $inputstore.forEach((field) => {
         let value = null;
@@ -728,7 +731,7 @@
       }
 
       // Tags+Features
-      if (tags.length == 0) {
+      if (selectedTags.length == 0) {
         alert({
           title: 'Error',
           id: 'error',
@@ -737,17 +740,17 @@
         });
         return;
       } else {
-        bot['tags'] = tags.map((el) => {
+        bot['tags'] = selectedTags.map((el) => {
           return {
-            id: el,
+            id: el.value,
             name: '',
             iconify_data: ''
           };
         });
       }
-      bot['features'] = features.map((el) => {
+      bot['features'] = selectedFeatures.map((el) => {
         return {
-          id: el,
+          id: el.value,
           name: '',
           viewed_as: '',
           description: ''
@@ -955,6 +958,45 @@
       extraOwners.splice(index, 1);
     }
     extraOwners = extraOwners; // Rerender
+  }
+
+  let tagOptions: Option[] = []
+
+  context.tags.forEach((tag) => {
+	tagOptions.push({
+		value: tag.id,
+		label: tag.name,
+	})
+  })
+
+  let featureOptions: Option[] = [];
+
+  context.features.forEach((feature) => {
+	featureOptions.push({
+		value: feature.id,
+		label: feature.name,
+	})
+  })
+
+  logger.info("tagOpts", tagOptions)
+
+  let selectedTags = [];
+  let selectedFeatures = [];
+
+  if(mode == "edit") {
+	data.tags.forEach((tag) => {
+		selectedTags.push({
+			value: tag.id,
+			label: tag.name,
+		})
+	})
+
+	data.features.forEach((feature) => {
+		selectedFeatures.push({
+			value: feature.id,
+			label: feature.name,
+		})
+	})
   }
 </script>
 
@@ -1341,23 +1383,16 @@
       required={true}
     />
     <label for="tags">Tags <RedStar /></label>
-    <MultiSelect initialValues={data.tags.map((el) => el.id)} id="tags" bind:value={tags}>
-      {#each context.tags as tag}
-        <SelectOptionMulti value={tag.id} valueList={data.tags}>{tag.name}</SelectOptionMulti>
-      {/each}
-    </MultiSelect>
+    <MultiSelect options={tagOptions} id="tags" bind:selected={selectedTags} --sms-li-active-bg="#4f4242" --sms-options-bg="black" --sms-selected-bg="#423838" />
     <label for="features">Features</label>
     <MultiSelect
-      initialValues={data.features.map((el) => el.id)}
+      options={featureOptions}
       id="features"
-      bind:value={features}
-    >
-      {#each context.features as feature}
-        <SelectOptionMulti value={feature.id} valueList={data.features}
-          >{feature.name}</SelectOptionMulti
-        >
-      {/each}
-    </MultiSelect>
+      bind:selected={selectedFeatures}
+	  --sms-li-active-bg="#4f4242" 
+	  --sms-options-bg="black"
+	  --sms-selected-bg="#423838"
+    />
     <label for="site-lang">Long Description Type</label>
     <select name="long_description_type" id="long_description_type">
       <SelectOption value="1" masterValue={data.long_description_type}
