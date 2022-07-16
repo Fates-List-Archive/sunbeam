@@ -8,9 +8,9 @@
 		if (session.session.token) {
 			id = session.session.user.id;
 		}
-		let perms = await fetch(`${apiUrl}/baypaw/perms/${id}`);
+		let permsResp = await fetch(`${apiUrl}/baypaw/perms/${id}`);
 
-		perms = await perms.json();
+		let perms = await permsResp.json();
 
 		if (perms.perm < 2) {
 			return {

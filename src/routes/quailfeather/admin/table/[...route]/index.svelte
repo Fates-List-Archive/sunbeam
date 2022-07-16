@@ -231,7 +231,7 @@
 			<ul>
 				<li>null => Select all rows such that the specified column is NULL</li>
 				<li>
-					(&lt / &gt)QUERY => Performs a <em>character</em> based search by converting fields to text
+					(&lt / &gt)QUERY =&gt Performs a <em>character</em> based search by converting fields to text
 					and searching by string comparison
 				</li>
 				<li>@QUERY => Do not parse the query for special cases</li>

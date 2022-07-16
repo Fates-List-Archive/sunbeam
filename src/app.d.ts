@@ -5,6 +5,8 @@ export {};
 interface UserInterface {
     id: string;
     username: string;
+    disc: string;
+    avatar: string;
 }
 
 interface SessionInterface {
