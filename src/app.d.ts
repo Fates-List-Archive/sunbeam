@@ -15,6 +15,7 @@ interface SessionInterface {
     css: string?;
     refresh_token: string?;
     user_experiments: number[];
+    site_lang: string;
 }
 
 interface UserFnInterface {
@@ -40,7 +41,8 @@ declare global {
 
     namespace globalThis {
         interface Window {
-            user: () => UserFnInterface
+            user: () => UserFnInterface;
+            QuillMarkdown: any;
         }
     }
 }

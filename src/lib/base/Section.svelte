@@ -34,7 +34,7 @@
 	function showHideSection() {
 		logger.info('Section', 'Changing section state');
 		let sid = `#section-${id}`;
-		let group = document.querySelector(sid);
+		let group = (document.querySelector(sid) as HTMLElement);
 		if (group.style.display != 'none') {
 			fade(group);
 		} else {
