@@ -40,10 +40,10 @@
 	};
 
 	class SubmittedInput {
-		inputs: any;
-		defaultIndex: number; // Default index to use in toSingleLine
-		indexMap: Map<String, number>; // Map of input id to index
-		values: Map<number, string>; // Map of index to value (for number/boolean etc only)
+		inputs: any
+		defaultIndex: number // Default index to use in toSingleLine
+		indexMap: Map<String, number> // Map of input id to index
+		values: Map<number, string> // Map of index to value (for number/boolean etc only)
 
 		constructor(editor: object, inputs: any) {
 			this.inputs = inputs;

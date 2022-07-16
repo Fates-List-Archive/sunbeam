@@ -254,7 +254,7 @@ import Menu from '$lib/base/Menu.svelte';
 							label: "Logout",
 							action: () => {
 								logoutUser();
-								return window.location.reload
+								return () => window.location.reload()
 							},
 						},
 						{

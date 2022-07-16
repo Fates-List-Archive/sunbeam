@@ -26,6 +26,10 @@
 
 		if ("IntersectionObserver" in window) {
 			lazyloadImages = document.querySelectorAll(".lazy");
+			if(lazyloadImages.length < 1) {
+				logger.info("Nav", "No lazy load images found");
+				return;
+			}
 			var imageObserver = new IntersectionObserver(function(entries, observer) {
 				entries.forEach(function(entry) {
 					if (entry.isIntersecting) {

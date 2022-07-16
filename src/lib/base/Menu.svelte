@@ -48,7 +48,9 @@
                 <a href={"javascript:void(0)"} id={el.id} on:click={() => {
                     let postfn = el.action()
                     $menustore.open = "";
-                    postfn()
+                    if(postfn) {
+                        postfn()
+                    }
                 }}>{el.label}</a>
             {/each}
         </div>
