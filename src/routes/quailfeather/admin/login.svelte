@@ -38,7 +38,7 @@
 <QuailTree perms={perms.perm}>
 	<h2>Login</h2>
 	<Button
-		on:click={() => {
+		onclick={() => {
 			alert({
 				title: 'Login',
 				message: 'Enter your Admin credentials here.',

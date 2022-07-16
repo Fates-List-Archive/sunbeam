@@ -22,7 +22,7 @@ export const getSession: GetSession = async (event) => {
 		event.request.headers.get('cookie') || event.request.headers.get('Cookie') || ''
 	);
 
-	let sessionData = {};
+	let sessionData = {user: {id: '', username: ''}, token: '', css: '', refresh_token: '', user_experiments: [2, 5, 6]};
 
 	let adminData = '';
 

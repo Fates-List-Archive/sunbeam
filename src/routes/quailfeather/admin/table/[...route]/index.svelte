@@ -239,7 +239,7 @@
 		</Tip>
 		<Button
 			class="button"
-			on:click={() => {
+			onclick={() => {
 				extQuery = `search_by=${document.querySelector('#search-by').value}&search_val=${
 					document.querySelector('#search-val').value
 				}`;
