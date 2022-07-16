@@ -456,6 +456,10 @@
 	const minPerm = (perm: permData) => {
 		return `${perm} (${permData[perm]})`;
 	};
+
+	function queryToInpEl(q: string): HTMLInputElement {
+		return document.querySelector(q)
+	}
 </script>
 
 <QuailTree perms={perms.perm}>
@@ -820,8 +824,8 @@
 				class="button"
 				variant="outlined"
 				onclick={() => {
-					let flag = parseInt(document.querySelector('#bot-flag').value);
-					let id = document.querySelector('#bot-id-setflag').value;
+					let flag = parseInt(queryToInpEl('#bot-flag').value);
+					let id = queryToInpEl('#bot-id-setflag').value;
 					setBotFlag(id, flag);
 				}}>Set Flag</Button
 			>
@@ -832,7 +836,7 @@
 				class="button"
 				variant="outlined"
 				onclick={() => {
-					let id = document.querySelector('#bot-id-rbv').value;
+					let id = queryToInpEl('#bot-id-rbv').value;
 					resetBotVotes(id);
 				}}>Reset</Button
 			>

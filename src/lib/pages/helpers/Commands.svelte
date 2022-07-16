@@ -47,7 +47,7 @@
 {/if}
 {#each [...groupedCmds] as [cmd_group, cmds]}
 	<Section icon={'bx:command'} id={cmd_group} title={title(groups.get(cmd_group))}>
-		<table id="{cmd_group}-table" class="commands-table" rules="all">
+		<table id="{cmd_group}-table" class="commands-table rules-all">
 			<tr>
 				<th class="commands-header">Command</th>
 				<th class="commands-header">Type</th>
