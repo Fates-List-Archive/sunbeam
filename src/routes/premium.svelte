@@ -22,11 +22,13 @@
 	<div class="premium-about">
 		<img
 			src="https://api.fateslist.xyz/static/assets/prod/premium.webp"
-			onerror="this.src='https://api.fateslist.xyz/static/botlisticon.webp';"
 			class="premium-icon"
 			height="25px"
 			width="25px"
 			alt="Fates List Premium Icon"
+			on:error={function() {
+				this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
+			}}	
 		/>
 		<h2 class="premium-title">Fates List Premium</h2>
 	</div>

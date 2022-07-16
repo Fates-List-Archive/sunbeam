@@ -194,7 +194,7 @@
 
 	function topggAutofill() {
 		let botId = (document.querySelector('#bot_id') as HTMLInputElement).value;
-		document.querySelector('#import-url').value = `https://top.gg/api/bots/${botId}`;
+		(document.querySelector('#import-url') as HTMLInputElement).value = `https://top.gg/api/bots/${botId}`;
 		popup(
 			"Autofill done, now specify a top.gg API token under the API token column and you'll be ready to go!",
 			'Success'

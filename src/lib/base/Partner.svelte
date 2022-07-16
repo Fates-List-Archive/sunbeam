@@ -21,6 +21,8 @@
 			return t.toUpperCase();
 		});
 	}
+
+	let links: Map<string, string> = partner.links
 </script>
 
 <div class="partner-shell" id={partner.id}>
@@ -32,11 +34,14 @@
 				alt="{partner.name} image"
 				width="100px"
 				height="100px"
+				on:error={function() {
+					this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
+				}}	
 			/>
 			<div class="partner-content">
 				<h2 style="opacity: 1 !important">{partner.name}</h2>
 				<p style="opacity: 1 !important">{partner.description}</p>
-				{#each Object.entries(partner.links) as link}
+				{#each Object.entries(links) as link}
 					<a href={link[1]} style="margin-right: 3px;">
 						<Icon icon={icons[link[0]]} />
 						{title(link[0])}

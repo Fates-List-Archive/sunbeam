@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { AlertInputType, enums } from '$lib/enums/enums';
 	import quillstore from '$lib/quillstore';
 	import * as logger from '$lib/logger';
 	import { storage } from '$lib/supabase';
 	import TextEditor from '$lib/base/TextEditor.svelte';
 	import { session } from '$app/stores';
+	import { AlertType, enums } from '$lib/enums/enums'; 
 
 	export let show: boolean;
 	export let icon: string;
@@ -66,7 +66,7 @@
 					inputs[i].type == enums.AlertInputType.Number ||
 					inputs[i].type == enums.AlertInputType.Boolean
 				) {
-					valueMap.set(i, document.querySelector(`#inp-${i}`).value);
+					valueMap.set(i, (document.querySelector(`#inp-${i}`) as HTMLInputElement).value);
 				}
 			}
 
@@ -299,7 +299,7 @@
 
 	export let title: string;
 	export let id: string;
-	export let type: enums.AlertType;
+	export let type: AlertType;
 </script>
 
 <svelte:head>
@@ -321,10 +321,12 @@
 							<img
 								class="alert-icon"
 								src={icon}
-								onerror="this.src='https://api.fateslist.xyz/static/botlisticon.webp';"
 								alt={`${id} icon`}
 								height="25px"
 								width="25px"
+								on:error={function() {
+									this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
+								}}				
 							/>
 						{/if}
 
@@ -444,7 +446,7 @@
 											<input
 												id="inp-{id}"
 												type="file"
-												multiple="true"
+												multiple={true}
 												class="InputAlert"
 												on:input={(data) => {
 													onFileAdded(data);
@@ -454,7 +456,7 @@
 											<input
 												id="inp-{id}"
 												type="file"
-												multiple="false"
+												multiple={false}
 												class="InputAlert"
 												on:input={(data) => {
 													onFileAdded(data);

@@ -209,6 +209,10 @@ import Tip from '$lib/base/Tip.svelte';
 			]
 		});
 	}
+
+	function getInputElement(id: string): HTMLInputElement {
+		return document.querySelector(id);
+	}
 </script>
 
 <QuailTree perms={perms.perm}>
@@ -271,7 +275,7 @@ import Tip from '$lib/base/Tip.svelte';
 						let end = false;
 						let i = 0;
 						while (!end) {
-							let el = document.querySelector(`#inp-${row.name}-${i}`);
+							let el = getInputElement(`#inp-${row.name}-${i}`);
 							if (el) {
 								els.push(el.value);
 								i++;
@@ -296,7 +300,7 @@ import Tip from '$lib/base/Tip.svelte';
 				<Button
 					class="button"
 					onclick={() => {
-						editAlert(row.name, document.querySelector(`#inp-${row.name}`).value);
+						editAlert(row.name, getInputElement(`#inp-${row.name}`).value);
 					}}>Edit</Button
 				>
 			{/if}

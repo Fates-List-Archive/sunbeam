@@ -224,3 +224,12 @@
 		>
 	</form>
 </div>
+
+<img 
+  src="https://google.com"
+  on:error={function() {
+    this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
+  }}	
+  alt="test"
+  width="1000px;"
+/>

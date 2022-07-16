@@ -71,8 +71,8 @@
 		}
 		let userID = $session.session.user.id;
 
-		let reviewText = document.querySelector(`#review-${review.id}-reply`);
-		let starRating = document.querySelector(`#rating-${review.id}-reply`);
+		let reviewText = (document.querySelector(`#review-${review.id}-reply`) as HTMLInputElement);
+		let starRating = (document.querySelector(`#rating-${review.id}-reply`) as HTMLInputElement);
 
 		let res = await addReviewHandler(
 			userID,
@@ -114,8 +114,8 @@
 		$loadstore = 'Editing...';
 		$navigationState = 'loading';
 
-		let reviewText = document.querySelector(`#review-${review.id}-edit-text`);
-		let starRating = document.querySelector(`#review-${review.id}-edit-slider`);
+		let reviewText = (document.querySelector(`#review-${review.id}-edit-text`) as HTMLInputElement);
+		let starRating = (document.querySelector(`#review-${review.id}-edit-slider`) as HTMLInputElement);
 
 		let res = await addReviewHandler(
 			userID,
@@ -182,10 +182,10 @@
 			return;
 		}
 		if (replyPaneOpen) {
-			document.querySelector(`#reviewreply-${review.id}`).style.display = 'none';
+			(document.querySelector(`#reviewreply-${review.id}`) as HTMLElement).style.display = 'none';
 			replyPaneOpen = false;
 		} else {
-			document.querySelector(`#reviewreply-${review.id}`).style.display = 'block';
+			(document.querySelector(`#reviewreply-${review.id}`) as HTMLElement).style.display = 'block';
 			replyPaneOpen = true;
 		}
 	}
@@ -194,10 +194,10 @@
 			return;
 		}
 		if (editPaneOpen) {
-			document.querySelector(`#reviewopt-${review.id}`).style.display = 'none';
+			(document.querySelector(`#reviewopt-${review.id}`) as HTMLElement).style.display = 'none';
 			editPaneOpen = false;
 		} else {
-			document.querySelector(`#reviewopt-${review.id}`).style.display = 'block';
+			(document.querySelector(`#reviewopt-${review.id}`) as HTMLElement).style.display = 'block';
 			editPaneOpen = true;
 		}
 	}
@@ -213,6 +213,9 @@
 						src={review.user.avatar}
 						class="review-avatar"
 						alt="{review.user.username}'s avatar"
+						on:error={function() {
+							this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
+						}}			
 					/>
 					<span class="white">{review.user.username}</span>
 				</a>

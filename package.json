@@ -28,7 +28,6 @@
 		"@types/markdown-it-container": "^2.0.5",
 		"@typescript-eslint/eslint-plugin": "^5.20.0",
 		"@typescript-eslint/parser": "^5.20.0",
-		"@zerodevx/svelte-img": "^0.1.0-rc1",
 		"autoprefixer": "^10.4.4",
 		"eslint": "^8.13.0",
 		"eslint-config-prettier": "^8.5.0",

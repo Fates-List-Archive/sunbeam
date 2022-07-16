@@ -135,7 +135,7 @@
 	async function updateProfile() {
 		let flags = [];
 		if (data.user_experiments.includes(enums.UserExperiments.VotePrivacy)) {
-			if (document.querySelector('#vote-privacy').checked) {
+			if ((document.querySelector('#vote-privacy') as HTMLInputElement).checked) {
 				flags.push(enums.UserFlags.VotesPrivate);
 			}
 		}
@@ -302,6 +302,10 @@
 		'Warning: Fates List is not responsible for any issues due to your custom user CSS. To use javascript in custom css, put your JS in a LT/styleGTLTscriptGTYOUR JS HERELT/scriptGTLTstyleGT tag';
 
 	let roles;
+
+	function getDelPackIdEl(): HTMLInputElement {
+		return document.querySelector('#del-pack-id');
+	}
 </script>
 
 <img
@@ -310,6 +314,9 @@
 	src={data.user.avatar.replace('.png', '.webp').replace('width=', 'width=120px')}
 	id="user-avatar"
 	alt="{data.user.username}'s avatar"
+	on:error={function() {
+		this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
+	}}	
 />
 <h1 class="white user-username" id="user-name">{data.user.username}</h1>
 <h2 id="user-description">Profile Settings</h2>
@@ -448,7 +455,7 @@
 		<Button
 			href={'#'}
 			onclick={() => {
-				let packId = document.querySelector('#del-pack-id').value;
+				let packId = getDelPackIdEl().value;
 				delBotPack(packId);
 			}}
 			class="button"

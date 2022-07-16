@@ -78,7 +78,14 @@
 				<p>The below list of staff applications shows all applications that are pending review</p>
 			{/if}
 			{#each apps as app}
-				<img loading="lazy" src={app.user.avatar} alt="{app.user.username}'s avatar" />
+				<img 
+					loading="lazy" 
+					src={app.user.avatar} 
+					alt="{app.user.username}'s avatar" 
+					on:error={function() {
+						this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
+					}}		
+				/>
 				<p>{app.user.username}#{app.user.disc.padStart(4, 0)}</p>
 
 				{#each app.questions as pane}
@@ -159,7 +166,7 @@
 							type: enums.AlertType.Prompt,
 							inputs: inputs,
 							submit: async (value) => {
-								let json = {};
+								let json = {reason: ""};
 								value.indexMap.forEach((index, key) => {
 									json[key] = value.toLines(index);
 								});

@@ -17,6 +17,13 @@ interface SessionInterface {
     user_experiments: number[];
 }
 
+interface UserFnInterface {
+    id: string; 
+    token: string; 
+    apiUrl: string; 
+    lynxUrl: string;
+}
+
 declare global {
     namespace App {
         interface Locals {}
@@ -29,5 +36,11 @@ declare global {
         }
     
         interface Stuff {}
+    }
+
+    namespace globalThis {
+        interface Window {
+            user: () => UserFnInterface
+        }
     }
 }

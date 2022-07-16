@@ -17,6 +17,7 @@ import { browser } from '$app/env';
 import SelectOption from '$lib/base/SelectOption.svelte';
 import { apiUrl } from '$lib/config';
 import Button from '$lib/base/Button.svelte';
+import * as logger from '$lib/logger';
 
 export let token: string;
 
@@ -97,8 +98,8 @@ async function previewInput() {
     }
     previewWs.send(
         JSON.stringify({
-            long_description_type: parseInt(document.querySelector('#long_description_type').value),
-            text: document.querySelector('#value').value
+            long_description_type: parseInt((document.querySelector('#long_description_type') as HTMLInputElement).value),
+            text: (document.querySelector('#value') as HTMLInputElement).value
         })
     );
 }

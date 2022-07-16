@@ -64,7 +64,14 @@
 	import FormInput from '$lib/base/FormInput.svelte';
 	import { session } from '$app/stores';
 
-	let args = [];
+	interface Args {
+		type?: string;
+		array?: boolean;
+		value?: string;
+		values?: any[]; // Ignored if not array
+	}
+
+	let args: Args[] = [];
 
 	function waitForTask(id: string) {
 		setInterval(async () => {
@@ -116,6 +123,10 @@
 			}
 		});
 	}
+
+	function getSql(): HTMLInputElement {
+		return document.querySelector('#sql')
+	}
 </script>
 
 <QuailTree perms={perms.perm}>
@@ -123,7 +134,7 @@
 	<a href={'javascript:void(0)'} on:click={addArgument}>Add Argument</a>
 
 	{#each args as arg, i}
-		{#if args.array}
+		{#if arg.array}
 			{#each arg.values as value, j}
 				<div class="arg">
 					<FormInput
@@ -174,7 +185,7 @@
 	{/each}
 	<Button
 		onclick={() => {
-			let sql = document.getElementById('sql')?.value;
+			let sql = getSql().value;
 
 			logger.info('Eval', { sql, args });
 			alert({

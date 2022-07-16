@@ -19,6 +19,14 @@
 	async function getApplication(data: any) {
 		appData = data;
 	}
+
+	function getAppEl(): HTMLInputElement {
+		return document.querySelector('#app-url')
+	}
+
+	function getAppJsonEl(): HTMLInputElement {
+		return document.querySelector('#app-json')
+	}
 </script>
 
 <h1>Qibli Staff App Viewer</h1>
@@ -35,7 +43,7 @@
 	<Button
 		href={'#'}
 		onclick={() => {
-			let url = document.getElementById('app-url').value;
+			let url = getAppEl().value;
 			getAppFromJSON('https://fateslist.xyz/frostpaw/qibli-fetch?url=' + url);
 		}}
 		class="button"
@@ -58,7 +66,7 @@
 	<Button
 		href={'#'}
 		onclick={() => {
-			let data = document.getElementById('app-json').value;
+			let data = getAppJsonEl().value;
 			getApplication(JSON.parse(data));
 		}}
 		class="button"
@@ -74,6 +82,9 @@
 		class="user-avatar"
 		src="https://cdn.discordapp.com/avatars/{appData.user.id}/{appData.user.avatar}.png"
 		alt="user avatar"
+		on:error={function() {
+			this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
+		}}	
 	/>
 	<h3>{appData.user.username}<span class="disc">#{appData.user.discriminator}</span></h3>
 	<h4>User ID: {appData.user.id}</h4>

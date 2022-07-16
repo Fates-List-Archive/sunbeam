@@ -34,6 +34,8 @@
 			id: 'commands'
 		}
 	];
+
+	let links: Map<string, string> = data.extra_links;
 </script>
 
 <BristlefrostMeta
@@ -60,6 +62,9 @@
 		src={data.user.avatar.replace('.png', '.webp').replace('width=', 'width=120px')}
 		id="bot-avatar"
 		alt="{data.user.username}'s avatar"
+		on:error={function() {
+			this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
+		}}	
 	/>
 	<article class="bot-page">
 		<a
@@ -95,7 +100,7 @@
 				<section id="resources-tab" class="tabcontent tabdesign">
 					<h2>Some cool resources!</h2>
 					<a href="/bot/{data.user.id}/invite">Invite</a><br />
-					{#each Object.entries(data.extra_links) as link}
+					{#each Object.entries(links) as link}
 						{#if !link[0].startsWith('_')}
 							<a href={link[1]}>{link[0]}</a><br />
 						{/if}

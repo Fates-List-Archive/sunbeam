@@ -347,3 +347,28 @@ details summary {
 details summary > * {
 	display: inline;
 }
+
+// CSS for rules="all"
+table.rules-all {
+	border-collapse: collapse;
+}
+
+.rules-all td {
+	border: 1px solid black;
+}
+
+.rules-all td:first-child {
+	border-left: none;
+}
+
+.rules-all td:last-child {
+	border-right: none;
+}
+
+.rules-all tr:first-child td {
+	border-top: none;
+}
+
+.rules-all tr:last-child td {
+	border-bottom: none;
+}  

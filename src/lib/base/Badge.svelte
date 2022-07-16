@@ -30,12 +30,15 @@
 		on:mouseleave={() => (isHovering = false)}
 	>
 		<img
+			id="badge-icon-{badge.id}"
 			class="badge-img"
 			src={badge.icon}
 			width="50px"
 			height="50px"
 			alt={badge.description}
-			onerror="this.src='https://api.fateslist.xyz/static/botlisticon.webp';"
+			on:error={function() {
+				this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
+			}}
 		/>
 	</div>
 </div>

@@ -140,7 +140,7 @@
 			headers: headers,
 			body: JSON.stringify({
 				request_type: 0,
-				appeal: document.querySelector('#appeal-text').value
+				appeal: (document.querySelector('#appeal-text') as HTMLInputElement).value
 			})
 		});
 		if (res.ok) {
@@ -175,7 +175,7 @@
 			headers: headers,
 			body: JSON.stringify({
 				request_type: 1,
-				appeal: document.querySelector('#certify-text').value
+				appeal: (document.querySelector('#certify-text') as HTMLInputElement).value
 			})
 		});
 		if (res.ok) {
@@ -211,8 +211,8 @@
 			method: 'POST',
 			headers: headers,
 			body: JSON.stringify({
-				guild_count: parseInt(document.querySelector('#guild-count').value),
-				shard_count: parseInt(document.querySelector('#shard-count').value)
+				guild_count: parseInt((document.querySelector('#guild-count') as HTMLInputElement).value),
+				shard_count: parseInt((document.querySelector('#shard-count') as HTMLInputElement).value)
 			})
 		});
 		if (res.ok) {
@@ -374,7 +374,7 @@
 		previewWs.onmessage = (e) => {
 			let json = JSON.parse(e.data);
 			if (json.preview === undefined || !json.preview) return;
-			let css = document.querySelector('#css').value;
+			let css = (document.querySelector('#css') as HTMLInputElement).value;
 			previewHtml =
 				'<' +
 				'style' +
@@ -420,11 +420,11 @@
 			setTimeout(previewInput, 500);
 			return;
 		}
-		let css = document.querySelector('#css').value;
+		let css = (document.querySelector('#css') as HTMLInputElement).value;
 		previewWs.send(
 			JSON.stringify({
-				long_description_type: parseInt(document.querySelector('#long_description_type').value),
-				text: document.querySelector('#long_description').value
+				long_description_type: parseInt((document.querySelector('#long_description_type') as HTMLSelectElement).value),
+				text: (document.querySelector('#long_description') as HTMLInputElement).value
 			})
 		);
 	}
@@ -449,33 +449,29 @@
             pub nsfw: bool, DONE
         */
 		let json = {
-			name: document.querySelector('#command-name').value,
-			cmd_type: parseInt(document.querySelector('#command-type').value),
-			groups: document
-				.querySelector('#command-groups')
+			name: (document.querySelector('#command-name') as HTMLInputElement).value,
+			cmd_type: parseInt((document.querySelector('#command-type') as HTMLInputElement).value),
+			groups: (document.querySelector('#command-groups') as HTMLInputElement)
 				.value.replaceAll(',', '|')
 				.split(',')
 				.map((el) => el.trim()),
-			description: document.querySelector('#command-description').value,
-			args: document
-				.querySelector('#command-args')
+			description: (document.querySelector('#command-description') as HTMLInputElement).value,
+			args: (document.querySelector('#command-args') as HTMLInputElement)
 				.value.replaceAll(',', '|')
 				.split('|')
 				.map((el) => el.trim()),
-			examples: document
-				.querySelector('#command-examples')
+			examples: (document.querySelector('#command-examples') as HTMLInputElement)
 				.value.replaceAll(',', '|')
 				.split('|')
 				.map((el) => el.trim()),
-			notes: document
-				.querySelector('#command-notes')
+			notes: (document.querySelector('#command-notes') as HTMLInputElement)
 				.value.replaceAll(',', '|')
 				.split('|')
 				.map((el) => el.trim()),
-			doc_link: document.querySelector('#command-doc-link').value,
-			vote_locked: document.querySelector('#command-vote-locked').checked,
-			premium_only: document.querySelector('#command-premium-only').checked,
-			nsfw: document.querySelector('#command-nsfw').checked
+			doc_link: (document.querySelector('#command-doc-link') as HTMLInputElement).value,
+			vote_locked: (document.querySelector('#command-vote-locked') as HTMLInputElement).checked,
+			premium_only: (document.querySelector('#command-premium-only') as HTMLInputElement).checked,
+			nsfw: (document.querySelector('#command-nsfw') as HTMLInputElement).checked
 		};
 		let res = await fetch(`${nextUrl}/bots/${data.user.id}/commands`, {
 			method: 'POST',
@@ -539,12 +535,9 @@
 	}
 
 	async function autofillBot() {
-		function qs(q: string) {
-			return document.querySelector(q);
-		}
-		let botId = qs('#bot_id').value;
+		let botId = (document.querySelector('#bot_id') as HTMLInputElement).value;
 
-		let clientId = qs('#client_id').value;
+		let clientId = (document.querySelector('#client_id') as HTMLInputElement).value;
 
 		// If client id is set, use that
 		if (clientId) {
@@ -567,12 +560,12 @@
 			return;
 		} else {
 			let data = await res.json();
-			if (data.description) qs('#description').value = data.description;
-			if (data.summary) qs('#long_description').textContent = data.summary;
-			if (data.privacy_policy_url) qs('#privacy_policy').value = data.privacy_policy_url;
-			if (data.custom_install_url) qs('#invite').value = data.custom_install_url;
-			if (data.slug) qs('#vanity').value = data.slug.toLowerCase();
-			else qs('#vanity').value = data.name.replaceAll(' ', '').toLowerCase();
+			if (data.description) (document.querySelector('#description') as HTMLInputElement).value = data.description;
+			if (data.summary) document.querySelector('#long_description').textContent = data.summary;
+			if (data.privacy_policy_url) (document.querySelector('#privacy_policy') as HTMLInputElement).value = data.privacy_policy_url;
+			if (data.custom_install_url) (document.querySelector('#invite') as HTMLInputElement).value = data.custom_install_url;
+			if (data.slug) (document.querySelector('#vanity') as HTMLInputElement).value = data.slug.toLowerCase();
+			else (document.querySelector('#vanity') as HTMLInputElement).value = data.name.replaceAll(' ', '').toLowerCase();
 		}
 	}
 
@@ -616,7 +609,7 @@
 
 			// Fix known broken things
 			if (mode == 'add') {
-				let botIdEl = document.querySelector('#bot_id');
+				let botIdEl = (document.querySelector('#bot_id') as HTMLInputElement);
 				if (!botIdEl) {
 					alert({
 						title: 'Error',
@@ -630,24 +623,24 @@
 			} else {
 				bot['bot_id'] = data.bot_id;
 			}
-			bot['client_id'] = document.querySelector('#client_id').value;
+			bot['client_id'] = (document.querySelector('#client_id') as HTMLInputElement).value;
 
 			// Handle the selects here
 			// webhook_type, webhook_hmac_only, long_description_type, nsfw, system_bot, keep_banner_decor
-			bot['webhook_type'] = parseInt(document.querySelector('#webhook_type').value);
-			bot['webhook_hmac_only'] = document.querySelector('#webhook_hmac_only').checked;
+			bot['webhook_type'] = parseInt((document.querySelector('#webhook_type') as HTMLSelectElement).value);
+			bot['webhook_hmac_only'] = (document.querySelector('#webhook_hmac_only') as HTMLInputElement).checked;
 			bot['long_description_type'] = parseInt(
-				document.querySelector('#long_description_type').value
+				(document.querySelector('#long_description_type') as HTMLSelectElement).value
 			);
-			bot['page_style'] = parseInt(document.querySelector('#page_style').value);
+			bot['page_style'] = parseInt((document.querySelector('#page_style') as HTMLSelectElement).value);
 
 			let flags = [];
 
-			if (document.querySelector('#keep_banner_decor').value == 'true') {
+			if ((document.querySelector('#keep_banner_decor') as HTMLInputElement).value == 'true') {
 				flags.push(enums.Flags.keep_banner_decor);
 			}
 
-			if (document.querySelector('#nsfw').checked) {
+			if ((document.querySelector('#nsfw') as HTMLInputElement).checked) {
 				flags.push(enums.Flags.nsfw);
 			}
 
@@ -955,6 +948,9 @@
 	src={user.avatar.replace('.png', '.webp').replace('width=', 'width=120px')}
 	id="user-avatar"
 	alt="{user.username}'s avatar"
+	on:error={function() {
+		this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
+	}}	
 />
 <h2 class="white user-username" id="user-name">{user.username}</h2>
 <h2 id="bot-settings">
@@ -1264,6 +1260,9 @@
 							style="height: 100%"
 							loading="lazy"
 							alt="{owner.user.username}'s avatar"
+							on:error={function() {
+								this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
+							}}				
 						/>
 						<span class="owner-un float-right align-middle" style="height: 100%"
 							>{owner.user.username}#{owner.user.disc.padStart(4, '0')}</span
@@ -1290,6 +1289,9 @@
 							loading="lazy"
 							class="filter-white float-left"
 							alt="Add Bot Icon"
+							on:error={function() {
+								this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
+							}}				
 						/><br />
 						<span style="font-size: 18px;" class="float-right">Add new owner</span>
 					</div>

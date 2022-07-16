@@ -195,6 +195,14 @@
 		rows = await cols.json();
 		page = nextPage;
 	};
+
+	function getSearchBy(): HTMLInputElement {
+		return document.querySelector('#search-by');
+	}
+
+	function getSearchVal(): HTMLInputElement {
+		return document.querySelector('#search-val');
+	}
 </script>
 
 <QuailTree perms={perms.perm}>
@@ -240,8 +248,8 @@
 		<Button
 			class="button"
 			onclick={() => {
-				extQuery = `search_by=${document.querySelector('#search-by').value}&search_val=${
-					document.querySelector('#search-val').value
+				extQuery = `search_by=${getSearchBy().value}&search_val=${
+					getSearchVal().value
 				}`;
 				getPage(1);
 			}}>Search</Button
@@ -250,7 +258,7 @@
 		<!--Insert schema-->
 		<p>Showing {(page - 1) * limit} to [max] {page * limit} of {count} elements</p>
 		<div class="scroll">
-			<table rules="all">
+			<table class="rules-all">
 				<thead>
 					<tr>
 						<th>Actions</th>

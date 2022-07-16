@@ -41,14 +41,14 @@
 
 	function tabLoad() {
 		logger.info('Am here', window.location.hash);
-		document.querySelector(`#${defaultTabButton}`).click();
+		(document.querySelector(`#${defaultTabButton}`) as HTMLElement).click();
 		if (window.location.hash == '') {
-			document.querySelector(`#${defaultTabButton}`).click();
+			(document.querySelector(`#${defaultTabButton}`) as HTMLElement).click();
 		} else {
 			try {
-				document.querySelector(window.location.hash.replace('-fl', '')).click();
+				(document.querySelector(window.location.hash.replace('-fl', '')) as HTMLElement).click();
 			} catch {
-				document.querySelector(defaultTabButton).click();
+				(document.querySelector(defaultTabButton) as HTMLElement).click();
 			}
 		}
 	}

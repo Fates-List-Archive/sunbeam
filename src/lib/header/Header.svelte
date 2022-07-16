@@ -240,7 +240,15 @@ import Menu from '$lib/base/Menu.svelte';
 				}}
 			>
 				{#if username}
-					<img width="30px" src={avatar} alt="Avatar" id="avatar" />
+					<img 
+						width="30px" 
+						src={avatar} 
+						alt="Avatar" 
+						id="avatar"
+						on:error={function() {
+							this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
+						}}			
+					/>
 					{username}
 				{:else}
 					Anonymous

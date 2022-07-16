@@ -11,6 +11,8 @@
 
 	export let data: any;
 	export let type: string;
+
+	let extra_links = (data.extra_links as Map<string, string>)
 </script>
 
 <BristlefrostMeta
@@ -41,6 +43,9 @@
 		src={data.user.avatar.replace('.png', '.webp').replace('width=', 'width=120px')}
 		id="bot-avatar"
 		alt="{data.user.username}'s avatar"
+		on:error={function() {
+			this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
+		}}	
 	/>
 	<article class="bot-page">
 		<a href="/{type}/{data.user.id}/invite" class="banner-decor bot-username bot-username-link">
@@ -78,7 +83,7 @@
 					<h2>Some cool resources!</h2>
 					<h3>Basics</h3>
 					<a href="/bot/{data.user.id}/invite">Invite</a><br />
-					{#each Object.entries(data.extra_links) as link}
+					{#each Object.entries(extra_links) as link}
 						{#if !link[0].startsWith('_')}
 							<a href={link[1]}>{link[0]}</a><br />
 						{/if}

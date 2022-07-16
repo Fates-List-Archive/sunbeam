@@ -33,6 +33,9 @@
 		src={data.user.avatar.replace('.png', '.webp').replace('width=', 'width=120px')}
 		id="bot-avatar"
 		alt="{data.user.username}'s avatar"
+		on:error={function() {
+			this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
+		}}	
 	/>
 	<article class="bot-page">
 		<a href="/{type}/{data.user.id}/invite" class="banner-decor bot-username bot-username-link">

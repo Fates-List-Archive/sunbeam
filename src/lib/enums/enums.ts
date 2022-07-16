@@ -118,8 +118,7 @@ export const enums = {
 	UserExperiments: UserExperiments,
 	LongDescType: {
 		html: 0,
-		markdown_pymarkdown: 1,
-		markdown_marked: 2
+		markdown_server: 1,
 	},
 	helpers: {
 		flagCheck: function (flags: number[] | number, allFlags: number[]) {

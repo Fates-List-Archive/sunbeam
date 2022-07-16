@@ -94,6 +94,15 @@
 	});
 
 	let treeShow = false;
+
+	// Needed to cast to HTMLInputElement for ts
+	function castEventToInputEl(el: any): HTMLInputElement {
+		return el;
+	}
+	
+	function castAnyToAnyArray(el: any): any[] {
+		return el;
+	}
 </script>
 
 <a
@@ -128,7 +137,7 @@
 					placeholder="Search"
 					on:input={(e) => {
 						// Check if string is empty, if so, use $doctreeCache
-						let val = e.target.value.toLowerCase().replaceAll(' ', '-');
+						let val = castEventToInputEl(e.target).value.toLowerCase().replaceAll(' ', '-');
 						logger.info('SearchDocTree', val);
 
 						if (!val) {
@@ -339,7 +348,7 @@ Please enter <code>${data.totp_shared_key}</code> in Google Authenticator or Aut
 					<details>
 						<summary class="span">{title(tree.replace('-', ' '))}</summary>
 						<ul>
-							{#each childs as child}
+							{#each castAnyToAnyArray(childs) as child}
 								<li>
 									<a
 										class="tree-link"
