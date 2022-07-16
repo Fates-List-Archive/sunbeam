@@ -3,46 +3,46 @@
 export {};
 
 interface UserInterface {
-	id: string;
-	username: string;
-	disc: string;
-	avatar: string;
+  id: string;
+  username: string;
+  disc: string;
+  avatar: string;
 }
 
 interface SessionInterface {
-	user: UserInterface;
-	token: string;
-	css: string?;
-	refresh_token: string?;
-	user_experiments: number[];
-	site_lang: string;
+  user: UserInterface;
+  token: string;
+  css: string?;
+  refresh_token: string?;
+  user_experiments: number[];
+  site_lang: string;
 }
 
 interface UserFnInterface {
-	id: string;
-	token: string;
-	apiUrl: string;
-	lynxUrl: string;
+  id: string;
+  token: string;
+  apiUrl: string;
+  lynxUrl: string;
 }
 
 declare global {
-	namespace App {
-		interface Locals {}
+  namespace App {
+    interface Locals {}
 
-		interface Platform {}
+    interface Platform {}
 
-		interface Session {
-			session: SessionInterface;
-			adminData: any;
-		}
+    interface Session {
+      session: SessionInterface;
+      adminData: any;
+    }
 
-		interface Stuff {}
-	}
+    interface Stuff {}
+  }
 
-	namespace globalThis {
-		interface Window {
-			user: () => UserFnInterface;
-			QuillMarkdown: any;
-		}
-	}
+  namespace globalThis {
+    interface Window {
+      user: () => UserFnInterface;
+      QuillMarkdown: any;
+    }
+  }
 }

@@ -1,223 +1,223 @@
 <script context="module" lang="ts">
-	import { fetchFates } from '$lib/request';
-	export const prerender = false;
-	/** @type {import('@sveltejs/kit@next').Load} */
-	export async function load({ url, session, fetch }) {
-		let search = {
-			query: url.searchParams.get('q'),
-			targetType: url.searchParams.get('f'), // f stands for first display
-			gc_from: parseInt(url.searchParams.get('gcf')) || 0,
-			gc_to: parseInt(url.searchParams.get('gct')) || -1
-		};
+  import { fetchFates } from '$lib/request';
+  export const prerender = false;
+  /** @type {import('@sveltejs/kit@next').Load} */
+  export async function load({ url, session, fetch }) {
+    let search = {
+      query: url.searchParams.get('q'),
+      targetType: url.searchParams.get('f'), // f stands for first display
+      gc_from: parseInt(url.searchParams.get('gcf')) || 0,
+      gc_to: parseInt(url.searchParams.get('gct')) || -1
+    };
 
-		const res = await fetchFates(
-			`/search?q=${search.query}&gc_from=${search.gc_from}&gc_to=${search.gc_to}`,
-			'',
-			fetch,
-			false,
-			true
-		);
+    const res = await fetchFates(
+      `/search?q=${search.query}&gc_from=${search.gc_from}&gc_to=${search.gc_to}`,
+      '',
+      fetch,
+      false,
+      true
+    );
 
-		if (res.ok) {
-			let data = await res.json();
-			return {
-				props: {
-					data: data,
-					targetType: search.targetType,
-					query: search.query,
-					gc_from: search.gc_from,
-					gc_to: search.gc_to
-				}
-			};
-		}
+    if (res.ok) {
+      let data = await res.json();
+      return {
+        props: {
+          data: data,
+          targetType: search.targetType,
+          query: search.query,
+          gc_from: search.gc_from,
+          gc_to: search.gc_to
+        }
+      };
+    }
 
-		return {
-			status: res.status,
-			error: new Error(`Search Error`)
-		};
-	}
+    return {
+      status: res.status,
+      error: new Error(`Search Error`)
+    };
+  }
 </script>
 
 <script lang="ts">
-	import CardContainer from '$lib/cards/CardContainer.svelte';
-	import BotCard from '$lib/cards/BotCard.svelte';
-	import SearchBar from '$lib/base/SearchBar.svelte';
-	import Tag from '$lib/base/Tag.svelte';
-	import BristlefrostMeta from '$lib/base/BristlefrostMeta.svelte';
-	import Section from '$lib/base/Section.svelte';
-	import BotPack from '$lib/base/BotPack.svelte';
-	export let data: any;
-	export let targetType: string;
-	export let query: string;
-	export let gc_from: number;
-	export let gc_to: number;
+  import CardContainer from '$lib/cards/CardContainer.svelte';
+  import BotCard from '$lib/cards/BotCard.svelte';
+  import SearchBar from '$lib/base/SearchBar.svelte';
+  import Tag from '$lib/base/Tag.svelte';
+  import BristlefrostMeta from '$lib/base/BristlefrostMeta.svelte';
+  import Section from '$lib/base/Section.svelte';
+  import BotPack from '$lib/base/BotPack.svelte';
+  export let data: any;
+  export let targetType: string;
+  export let query: string;
+  export let gc_from: number;
+  export let gc_to: number;
 </script>
 
 <BristlefrostMeta
-	url="https://fateslist.xyz/frostpaw/search?q={query}"
-	title="Search results matching {query}!"
-	description="Find, invite and discover the best bots and servers matching {query}"
-	thumbnail="https://fateslist.xyz/static/botlisticon.webp"
+  url="https://fateslist.xyz/frostpaw/search?q={query}"
+  title="Search results matching {query}!"
+  description="Find, invite and discover the best bots and servers matching {query}"
+  thumbnail="https://fateslist.xyz/static/botlisticon.webp"
 />
 
 <section>
-	<h1>Fates List</h1>
-	<h2 class="best-bots">Find the best bots for your servers!</h2>
+  <h1>Fates List</h1>
+  <h2 class="best-bots">Find the best bots for your servers!</h2>
 </section>
 
-<SearchBar type={targetType} {query} {gc_from} {gc_to} />
+<SearchBar type={targetType} query={query} gc_from={gc_from} gc_to={gc_to} />
 
 <!--First Display-->
 {#if targetType == 'bot'}
-	<Section title="Bots" icon="fa-solid:search" id="search-res-bots">
-		<Tag {targetType} tags={data.tags.bots} />
-		<CardContainer>
-			{#each data.bots as bot}
-				<BotCard data={bot} type="bot" rand={false} />
-			{/each}
-		</CardContainer>
-	</Section>
+  <Section title="Bots" icon="fa-solid:search" id="search-res-bots">
+    <Tag targetType={targetType} tags={data.tags.bots} />
+    <CardContainer>
+      {#each data.bots as bot}
+        <BotCard data={bot} type="bot" rand={false} />
+      {/each}
+    </CardContainer>
+  </Section>
 
-	<Section title="Bot Packs" icon="bx:bx-package" id="search-res-packs">
-		{#each data.packs as pack}
-			<BotPack {pack} />
-		{/each}
-	</Section>
+  <Section title="Bot Packs" icon="bx:bx-package" id="search-res-packs">
+    {#each data.packs as pack}
+      <BotPack pack={pack} />
+    {/each}
+  </Section>
 
-	<Section title="Servers" icon="fa-solid:search" id="search-res-servers">
-		<Tag {targetType} tags={data.tags.servers} />
-		<CardContainer>
-			{#each data.servers as server}
-				<BotCard data={server} type="server" rand={false} />
-			{/each}
-		</CardContainer>
-	</Section>
+  <Section title="Servers" icon="fa-solid:search" id="search-res-servers">
+    <Tag targetType={targetType} tags={data.tags.servers} />
+    <CardContainer>
+      {#each data.servers as server}
+        <BotCard data={server} type="server" rand={false} />
+      {/each}
+    </CardContainer>
+  </Section>
 
-	<Section title="Profiles" icon="fa-solid:search" id="search-res-profiles">
-		<CardContainer>
-			{#each data.profiles as profile}
-				<BotCard data={profile} type="profile" rand={false} />
-			{/each}
-		</CardContainer>
-	</Section>
+  <Section title="Profiles" icon="fa-solid:search" id="search-res-profiles">
+    <CardContainer>
+      {#each data.profiles as profile}
+        <BotCard data={profile} type="profile" rand={false} />
+      {/each}
+    </CardContainer>
+  </Section>
 {:else if targetType == 'pack'}
-	<Section title="Bot Packs" icon="bx:bx-package" id="search-res-packs">
-		{#each data.packs as pack}
-			<BotPack {pack} />
-		{/each}
-	</Section>
+  <Section title="Bot Packs" icon="bx:bx-package" id="search-res-packs">
+    {#each data.packs as pack}
+      <BotPack pack={pack} />
+    {/each}
+  </Section>
 
-	<Section title="Bots" icon="fa-solid:search" id="search-res-bots">
-		<Tag {targetType} tags={data.tags.bots} />
-		<CardContainer>
-			{#each data.bots as bot}
-				<BotCard data={bot} type="bot" rand={false} />
-			{/each}
-		</CardContainer>
-	</Section>
+  <Section title="Bots" icon="fa-solid:search" id="search-res-bots">
+    <Tag targetType={targetType} tags={data.tags.bots} />
+    <CardContainer>
+      {#each data.bots as bot}
+        <BotCard data={bot} type="bot" rand={false} />
+      {/each}
+    </CardContainer>
+  </Section>
 
-	<Section title="Servers" icon="fa-solid:search" id="search-res-servers">
-		<Tag {targetType} tags={data.tags.servers} />
-		<CardContainer>
-			{#each data.servers as server}
-				<BotCard data={server} type="server" rand={false} />
-			{/each}
-		</CardContainer>
-	</Section>
+  <Section title="Servers" icon="fa-solid:search" id="search-res-servers">
+    <Tag targetType={targetType} tags={data.tags.servers} />
+    <CardContainer>
+      {#each data.servers as server}
+        <BotCard data={server} type="server" rand={false} />
+      {/each}
+    </CardContainer>
+  </Section>
 
-	<Section title="Profiles" icon="fa-solid:search" id="search-res-profiles">
-		<CardContainer>
-			{#each data.profiles as profile}
-				<BotCard data={profile} type="profile" rand={false} />
-			{/each}
-		</CardContainer>
-	</Section>
+  <Section title="Profiles" icon="fa-solid:search" id="search-res-profiles">
+    <CardContainer>
+      {#each data.profiles as profile}
+        <BotCard data={profile} type="profile" rand={false} />
+      {/each}
+    </CardContainer>
+  </Section>
 {:else if targetType == 'server'}
-	<Section title="Servers" icon="fa-solid:search" id="search-res-servers">
-		<Tag {targetType} tags={data.tags.servers} />
-		<CardContainer>
-			{#each data.servers as server}
-				<BotCard data={server} type="server" rand={false} />
-			{/each}
-		</CardContainer>
-	</Section>
+  <Section title="Servers" icon="fa-solid:search" id="search-res-servers">
+    <Tag targetType={targetType} tags={data.tags.servers} />
+    <CardContainer>
+      {#each data.servers as server}
+        <BotCard data={server} type="server" rand={false} />
+      {/each}
+    </CardContainer>
+  </Section>
 
-	<Section title="Profiles" icon="fa-solid:search" id="search-res-profiles">
-		<CardContainer>
-			{#each data.profiles as profile}
-				<BotCard data={profile} type="profile" rand={false} />
-			{/each}
-		</CardContainer>
-	</Section>
+  <Section title="Profiles" icon="fa-solid:search" id="search-res-profiles">
+    <CardContainer>
+      {#each data.profiles as profile}
+        <BotCard data={profile} type="profile" rand={false} />
+      {/each}
+    </CardContainer>
+  </Section>
 
-	<Section title="Bots" icon="fa-solid:search" id="search-res-bots">
-		<Tag {targetType} tags={data.tags.bots} />
-		<CardContainer>
-			{#each data.bots as bot}
-				<BotCard data={bot} type="bot" rand={false} />
-			{/each}
-		</CardContainer>
-	</Section>
+  <Section title="Bots" icon="fa-solid:search" id="search-res-bots">
+    <Tag targetType={targetType} tags={data.tags.bots} />
+    <CardContainer>
+      {#each data.bots as bot}
+        <BotCard data={bot} type="bot" rand={false} />
+      {/each}
+    </CardContainer>
+  </Section>
 
-	<Section title="Bot Packs" icon="bx:bx-package" id="search-res-packs">
-		{#each data.packs as pack}
-			<BotPack {pack} />
-		{/each}
-	</Section>
+  <Section title="Bot Packs" icon="bx:bx-package" id="search-res-packs">
+    {#each data.packs as pack}
+      <BotPack pack={pack} />
+    {/each}
+  </Section>
 {:else}
-	<Section title="Profiles" icon="fa-solid:search" id="search-res-profiles">
-		<CardContainer>
-			{#each data.profiles as profile}
-				<BotCard data={profile} type="profile" rand={false} />
-			{/each}
-		</CardContainer>
-	</Section>
+  <Section title="Profiles" icon="fa-solid:search" id="search-res-profiles">
+    <CardContainer>
+      {#each data.profiles as profile}
+        <BotCard data={profile} type="profile" rand={false} />
+      {/each}
+    </CardContainer>
+  </Section>
 
-	<Section title="Servers" icon="fa-solid:search" id="search-res-servers">
-		<Tag {targetType} tags={data.tags.servers} />
-		<CardContainer>
-			{#each data.servers as server}
-				<BotCard data={server} type="server" rand={false} />
-			{/each}
-		</CardContainer>
-	</Section>
+  <Section title="Servers" icon="fa-solid:search" id="search-res-servers">
+    <Tag targetType={targetType} tags={data.tags.servers} />
+    <CardContainer>
+      {#each data.servers as server}
+        <BotCard data={server} type="server" rand={false} />
+      {/each}
+    </CardContainer>
+  </Section>
 
-	<Section title="Bot Packs" icon="bx:bx-package" id="search-res-packs">
-		{#each data.packs as pack}
-			<BotPack {pack} />
-		{/each}
-	</Section>
+  <Section title="Bot Packs" icon="bx:bx-package" id="search-res-packs">
+    {#each data.packs as pack}
+      <BotPack pack={pack} />
+    {/each}
+  </Section>
 
-	<Section title="Bots" icon="fa-solid:search" id="search-res-bots">
-		<Tag {targetType} tags={data.tags.bots} />
-		<CardContainer>
-			{#each data.bots as bot}
-				<BotCard data={bot} type="bot" rand={false} />
-			{/each}
-		</CardContainer>
-	</Section>
+  <Section title="Bots" icon="fa-solid:search" id="search-res-bots">
+    <Tag targetType={targetType} tags={data.tags.bots} />
+    <CardContainer>
+      {#each data.bots as bot}
+        <BotCard data={bot} type="bot" rand={false} />
+      {/each}
+    </CardContainer>
+  </Section>
 {/if}
 
 <style lang="scss">
-	h1 {
-		font-size: 50px;
-		margin: 0px;
-	}
+  h1 {
+    font-size: 50px;
+    margin: 0px;
+  }
 
-	h2 {
-		font-size: 40px;
-		margin: 0px;
-	}
+  h2 {
+    font-size: 40px;
+    margin: 0px;
+  }
 
-	.best-bots {
-		opacity: 0.6;
-	}
-	section {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		flex: 1;
-		overflow: hidden;
-	}
+  .best-bots {
+    opacity: 0.6;
+  }
+  section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    overflow: hidden;
+  }
 </style>

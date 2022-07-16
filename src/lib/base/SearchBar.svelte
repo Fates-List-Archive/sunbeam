@@ -1,100 +1,100 @@
 <script lang="ts">
-	import FormInput from './FormInput.svelte';
-	import Tip from './Tip.svelte';
+  import FormInput from './FormInput.svelte';
+  import Tip from './Tip.svelte';
 
-	export let type: string;
-	export let query: string;
-	export let gc_from = 1;
-	export let gc_to = -1;
+  export let type: string;
+  export let query: string;
+  export let gc_from = 1;
+  export let gc_to = -1;
 
-	function keyHandle(event) {
-		event.preventDefault();
-		if (event.keyCode === 13) {
-			let form = document.querySelector('#search') as HTMLFormElement;
-			form.submit();
-		}
-	}
+  function keyHandle(event) {
+    event.preventDefault();
+    if (event.keyCode === 13) {
+      let form = document.querySelector('#search') as HTMLFormElement;
+      form.submit();
+    }
+  }
 </script>
 
 <form id="search" method="GET" action="/frostpaw/search">
-	<div class="search">
-		<input
-			type="text"
-			on:keyup={keyHandle}
-			class="form-control fform search"
-			placeholder="Search for {type}s (ENTER to search)"
-			name="q"
-			value={query}
-			aria-label="Search for something.."
-			style="width: 90%"
-		/>
-		<details class="filters">
-			<summary>Advanced Search Options</summary>
-			<h3>Server Count Filter</h3>
-			<FormInput
-				formclass="filter-inp filter-inp-left"
-				onkeyup={keyHandle}
-				id="gcf"
-				name="From:"
-				placeholder="From..."
-				type="number"
-				data={gc_from}
-			/>
-			<FormInput
-				formclass="filter-inp filter-inp-right"
-				onkeyup={keyHandle}
-				id="gct"
-				name="To:"
-				placeholder="To... (-1 means no limit)"
-				type="number"
-				data={gc_to}
-			/>
+  <div class="search">
+    <input
+      type="text"
+      on:keyup={keyHandle}
+      class="form-control fform search"
+      placeholder="Search for {type}s (ENTER to search)"
+      name="q"
+      value={query}
+      aria-label="Search for something.."
+      style="width: 90%"
+    />
+    <details class="filters">
+      <summary>Advanced Search Options</summary>
+      <h3>Server Count Filter</h3>
+      <FormInput
+        formclass="filter-inp filter-inp-left"
+        onkeyup={keyHandle}
+        id="gcf"
+        name="From:"
+        placeholder="From..."
+        type="number"
+        data={gc_from}
+      />
+      <FormInput
+        formclass="filter-inp filter-inp-right"
+        onkeyup={keyHandle}
+        id="gct"
+        name="To:"
+        placeholder="To... (-1 means no limit)"
+        type="number"
+        data={gc_to}
+      />
 
-			<h3>Display Order</h3>
-			<Tip>
-				First display is either 'bot', 'server', 'pack' or 'profile' and chooses whether you want
-				bots first or servers first!
-			</Tip>
-			<FormInput
-				onkeyup={keyHandle}
-				id="f"
-				name="First Display"
-				data={type}
-				placeholder="First display, see tip"
-			/>
-		</details>
-	</div>
+      <h3>Display Order</h3>
+      <Tip>
+        First display is either 'bot', 'server', 'pack' or 'profile' and chooses whether you want
+        bots first or servers first!
+      </Tip>
+      <FormInput
+        onkeyup={keyHandle}
+        id="f"
+        name="First Display"
+        data={type}
+        placeholder="First display, see tip"
+      />
+    </details>
+  </div>
 </form>
 
 <style lang="scss">
-	.search {
-		display: block;
-		padding: 12px !important;
-		margin-top: 15px;
-	}
+  .search {
+    display: block;
+    padding: 12px !important;
+    margin-top: 15px;
+  }
 
-	.filters {
-		max-width: 94%;
-		margin: 0 auto;
-		color: white;
-	}
+  .filters {
+    max-width: 94%;
+    margin: 0 auto;
+    color: white;
+  }
 
-	:global(.filter-inp) {
-		min-width: 45% !important;
-		max-width: 45% !important;
-		display: inline-block !important;
-		white-space: nowrap;
-		overflow-x: nowrap;
-	}
+  :global(.filter-inp) {
+    min-width: 45% !important;
+    max-width: 45% !important;
+    display: inline-block !important;
+    white-space: nowrap;
+    overflow-x: nowrap;
+  }
 
-	@media only screen and (min-width: 763px) {
-		:global(.filter-inp-left) {
-			margin-right: 65px;
-		}
-	}
-	@media only screen and (max-width: 763px) {
-		:global(.filter-inp-left) {
-			margin-right: 20px;
-		}
-	}
+  @media only screen and (min-width: 763px) {
+    :global(.filter-inp-left) {
+      margin-right: 65px;
+    }
+  }
+  @media only screen and (max-width: 763px) {
+    :global(.filter-inp-left) {
+      margin-right: 20px;
+    }
+  }
 </style>

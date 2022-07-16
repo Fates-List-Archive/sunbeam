@@ -5,27 +5,27 @@ import preprocess from 'svelte-preprocess';
 var adapter;
 
 if (process.env.CF_PAGES) {
-	adapter = cfAdapter;
+  adapter = cfAdapter;
 } else {
-	adapter = nodeAdapter;
+  adapter = nodeAdapter;
 }
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	// Consult https://github.com/sveltejs/svelte-preprocess
-	// for more information about preprocessors
-	preprocess: preprocess({
-		preserve: ['ld+json']
-	}),
+  // Consult https://github.com/sveltejs/svelte-preprocess
+  // for more information about preprocessors
+  preprocess: preprocess({
+    preserve: ['ld+json']
+  }),
 
-	kit: {
-		adapter: adapter(),
+  kit: {
+    adapter: adapter(),
 
-		prerender: {
-			default: false,
-			enabled: false
-		}
-	}
+    prerender: {
+      default: false,
+      enabled: false
+    }
+  }
 };
 
 export default config;
