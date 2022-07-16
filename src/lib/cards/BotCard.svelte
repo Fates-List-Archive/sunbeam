@@ -13,6 +13,10 @@
     data.user = { id: data.id };
   }
   data.banner = data.banner || `${apiUrl}/static/assets/prod/banner.webp?v=2`;
+
+  if(data.description && data.description.length > 150) {
+	data.description = data.description.substring(0, 150) + '...';
+  }
 </script>
 
 <section class="bot-card">

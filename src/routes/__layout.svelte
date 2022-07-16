@@ -86,6 +86,7 @@
     }
 
     docReady(llhandler);
+	window.llhandler = llhandler
   }
 
   $: {

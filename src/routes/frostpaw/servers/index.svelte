@@ -46,7 +46,7 @@
 />
 
 <section>
-  <h1>Fates List</h1>
+  <h1 class="best-bots">Fates List</h1>
   <h2 class="best-bots"><Intl key="index.best_servers" /></h2>
 </section>
 <SearchBar type="server" query="" />
@@ -86,11 +86,13 @@
   h2 {
     font-size: 40px;
     margin: 0px;
+    opacity: 0.6;
   }
 
   .best-bots {
-    opacity: 0.6;
+    width: 90%;
   }
+
   section {
     display: flex;
     flex-direction: column;
@@ -98,5 +100,6 @@
     align-items: center;
     flex: 1;
     overflow: hidden;
+    margin-top: 35px;
   }
 </style>

@@ -21,6 +21,11 @@ export const translations: TranslationData = {
     fr: 'Trouvez les meilleurs serveurs à rejoindre!',
     it: 'Trova i migliori server per unirsi!'
   },
+  'index.search': {
+    en: 'Search for the best bots and servers NOW!',
+    fr: 'Recherchez les meilleurs bots et serveurs MAINTENANT!',
+    it: 'Cerca i migliori bot e server ORA!'
+  },
   MemberNotFound: {
     en: 'You are not on our support server!',
     fr: "Vous n'êtes pas sur notre serveur de support!",

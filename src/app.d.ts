@@ -42,6 +42,7 @@ declare global {
   namespace globalThis {
     interface Window {
       user: () => UserFnInterface;
+      llhandler: () => any;
       QuillMarkdown: any;
     }
   }
