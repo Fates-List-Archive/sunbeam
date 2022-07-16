@@ -114,6 +114,6 @@
       });
     }}
     class="button"
-    variant="outlined">Login</Button
+    >Login</Button
   >
 </QuailTree>

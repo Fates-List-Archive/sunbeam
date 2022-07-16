@@ -295,7 +295,7 @@
     {#if page > 0}
       <Button
         class="next-page button"
-        variant="outlined"
+        
         onclick={() => {
           getPage(page - 1);
         }}>Previous Page</Button
@@ -305,7 +305,7 @@
     {#if rows.length > 0}
       <Button
         class="next-page button"
-        variant="outlined"
+        
         onclick={() => {
           getPage(page + 1);
         }}>Next Page</Button

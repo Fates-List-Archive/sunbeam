@@ -8,6 +8,7 @@
   import { genError } from '$lib/strings';
   import * as logger from '$lib/logger';
   import { enums } from '$lib/enums/enums';
+import Icon from '@iconify/svelte';
 
   export let review: any;
   export let index: number;
@@ -220,13 +221,13 @@
           <span class="white">{review.user.username}</span>
         </a>
         <span style="margin-right: 6px" />
-        <i class="material-icons pointer" on:click={() => voteReview(review.id, true)}
-          >keyboard_arrow_up</i
-        >
+		<span on:click={() => voteReview(review.id, true)} class="cursor-pointer">
+			<Icon icon={"bx:upvote"} />
+		</span>
         <span class="white">{review.votes.upvotes.length - review.votes.downvotes.length}</span>
-        <i class="material-icons pointer" on:click={() => voteReview(review.id, false)}
-          >keyboard_arrow_down</i
-        >
+		<span on:click={() => voteReview(review.id, false)} class="cursor-pointer">
+			<Icon icon={"bx:downvote"} />
+		</span>
         <span class="white" style="font-weight: bold">
           <i class="material-icons">star</i>
           <span>{Number(parseFloat(review.star_rating)).toFixed(1)}/10.0</span>

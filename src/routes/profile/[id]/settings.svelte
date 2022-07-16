@@ -332,7 +332,7 @@
       class="button"
       id="user-token-show-btn"
       touch
-      variant="outlined">Show</Button
+      >Show</Button
     >
     <Button
       href={'#'}
@@ -340,7 +340,7 @@
       class="button"
       id="user-token-regen-btn"
       touch
-      variant="outlined">Regenerate</Button
+      >Regenerate</Button
     >
 
     <h2>Connections</h2>
@@ -365,7 +365,7 @@
           id="danger-revoke-btn-{conn.client.id}"
           style="background-color: red"
           touch
-          variant="outlined">Revoke</Button
+          >Revoke</Button
         >
       </div>
     {/each}
@@ -379,7 +379,7 @@
       Developer). Click here
     </p>
     <div id="new-roles" />
-    <Button href={'#'} onclick={getOldRoles} class="button" id="gor-btn" touch variant="outlined"
+    <Button href={'#'} onclick={getOldRoles} class="button" id="gor-btn" 
       >Get Old Roles</Button
     >
 
@@ -395,7 +395,7 @@
         class="button"
         id="del-bot-pack-btn"
         touch
-        variant="outlined">Delete {pack.name}</Button
+        >Delete {pack.name}</Button
       >
     {/each}
     <h2>Profile Info</h2>
@@ -438,7 +438,7 @@
       class="button"
       id="add-bot-pack-btn"
       touch
-      variant="outlined">Add Pack</Button
+      >Add Pack</Button
     >
 
     <h2>Delete Bot Packs</h2>
@@ -459,7 +459,7 @@
       class="button"
       id="del-bot-pack-btn"
       touch
-      variant="outlined">Delete Pack</Button
+      >Delete Pack</Button
     >
   </section>
   <section id="basics-tab" class="tabcontent tabdesign">
@@ -527,7 +527,7 @@
   class="button"
   id="update-profile-btn"
   touch
-  variant="outlined">Update Profile</Button
+  >Update Profile</Button
 >
 <pre>{popUpMsg}</pre>
 

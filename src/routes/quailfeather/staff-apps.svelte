@@ -118,7 +118,7 @@
         <Button
           href={'javascript:void(0)'}
           class="mx-2 button"
-          variant="outlined"
+          
           onclick={() => {
             let inputs = [];
 

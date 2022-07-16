@@ -49,7 +49,7 @@
     class="button"
     id="post-app-btn"
     touch
-    variant="outlined">{saveTxt}</Button
+    >{saveTxt}</Button
   >
 </div>
 <div class="staff-app">
@@ -72,7 +72,7 @@
     class="button"
     id="post-app-btn"
     touch
-    variant="outlined">{saveTxt}</Button
+    >{saveTxt}</Button
   >
 </div>
 {#if appData}

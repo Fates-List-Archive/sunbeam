@@ -76,7 +76,7 @@ If you have previously invited Squirrelflight, please remove and add Fates List 
     class="buttons-all button"
     id="buttons-vote"
     touch
-    variant="outlined"
+    
   >
     <Icon icon="fa-solid:thumbs-up" inline={false} />
     <span style="margin-left: 3px;"><strong>{data.votes}</strong></span>
@@ -86,7 +86,7 @@ If you have previously invited Squirrelflight, please remove and add Fates List 
     class="buttons-all button"
     id="buttons-invite"
     touch
-    variant="outlined"
+    
     onclick={() => {}}
   >
     <span
@@ -139,7 +139,7 @@ If you still wish to report, type the reason for reporting this ${type} below. R
       id="buttons-report"
       class="buttons-all button"
       touch
-      variant="outlined"
+      
     >
       <span><strong>Report</strong></span>
     </Button>
@@ -151,7 +151,7 @@ If you still wish to report, type the reason for reporting this ${type} below. R
         id="buttons-settings"
         class="buttons-all auxillary button"
         touch
-        variant="outlined"
+        
         onclick={() => {}}
       >
         <span><strong>Settings</strong></span>
@@ -162,7 +162,7 @@ If you still wish to report, type the reason for reporting this ${type} below. R
         class="buttons-all disabled auxillary"
         id="buttons-settings"
         touch
-        variant="outlined"
+        
         disabled
       >
         <span><strong>Settings</strong></span>

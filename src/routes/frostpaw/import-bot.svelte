@@ -255,7 +255,7 @@
           </li>
         </ul>
       </Tip>
-      <Button onclick={topggAutofill} variant="outlined" class="button btn-save"
+      <Button onclick={topggAutofill}  class="button btn-save"
         >Import from top.gg</Button
       >
       <FormInput
@@ -280,7 +280,7 @@
         CORS or not, then just try and see if it errors.
       </Tip>
     {/if}
-    <Button onclick={() => importBot()} variant="outlined" class="button btn-save">{saveTxt}</Button
+    <Button onclick={() => importBot()}  class="button btn-save">{saveTxt}</Button
     >
     <pre>Recieved data (for debugging): {JSON.stringify(extData)}</pre>
     <pre>{popUpMsg}</pre>

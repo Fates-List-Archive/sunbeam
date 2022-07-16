@@ -507,7 +507,7 @@
             <div class="flex justify-center">
               <Button
                 onclick={() => claimBot(bot.user.id)}
-                variant="outlined"
+                
                 class="button self-center">Claim</Button
               >
             </div>
@@ -538,17 +538,17 @@
             <div class="flex justify-center">
               <Button
                 onclick={() => unclaimBot(bot.user.id)}
-                variant="outlined"
+                
                 class="button self-center lb">Unclaim</Button
               >
               <Button
                 onclick={() => approveBot(bot.user.id)}
-                variant="outlined"
+                
                 class="button self-center lb">Approve</Button
               >
               <Button
                 onclick={() => denyBot(bot.user.id)}
-                variant="outlined"
+                
                 class="button self-center lb">Deny</Button
               >
             </div>
@@ -579,7 +579,7 @@
             <div class="flex justify-center">
               <Button
                 onclick={() => uncertifyBot(bot.user.id)}
-                variant="outlined"
+                
                 class="button self-center">Uncertify</Button
               >
             </div>
@@ -610,7 +610,7 @@
             {#if perms.perm >= permData.ADMIN}
               <Button
                 onclick={() => unbanBot(bot.user.id)}
-                variant="outlined"
+                
                 class="button self-center lb">Unban</Button
               >
             {/if}
@@ -618,7 +618,7 @@
             {#if perms.perm >= permData.MODERATOR}
               <Button
                 onclick={() => requeueBot(bot.user.id)}
-                variant="outlined"
+                
                 class="button self-center lb">Requeue</Button
               >
             {/if}
@@ -649,7 +649,7 @@
             <div class="flex justify-center">
               <Button
                 onclick={() => requeueBot(bot.user.id)}
-                variant="outlined"
+                
                 class="button self-center">Requeue</Button
               >
             </div>
@@ -680,7 +680,7 @@
             {#if perms.perm >= permData.MODERATOR}
               <Button
                 onclick={() => unverifyBot(bot.user.id)}
-                variant="outlined"
+                
                 class="button self-center lb">Unverify</Button
               >
             {/if}
@@ -688,7 +688,7 @@
             {#if perms.perm >= permData.DEVELOPER}
               <Button
                 onclick={() => certifyBot(bot.user.id)}
-                variant="outlined"
+                
                 class="button self-center lb">Certify</Button
               >
             {/if}
@@ -696,7 +696,7 @@
             {#if perms.perm >= permData.ADMIN}
               <Button
                 onclick={() => banBot(bot.user.id)}
-                variant="outlined"
+                
                 class="button self-center lb">Ban</Button
               >
             {/if}
@@ -822,7 +822,7 @@
       </select>
       <Button
         class="button"
-        variant="outlined"
+        
         onclick={() => {
           let flag = parseInt(queryToInpEl('#bot-flag').value);
           let id = queryToInpEl('#bot-id-setflag').value;
@@ -834,7 +834,7 @@
       <FormInput id="bot-id-rbv" name="Bot ID" placeholder="Enter Bot ID here" />
       <Button
         class="button"
-        variant="outlined"
+        
         onclick={() => {
           let id = queryToInpEl('#bot-id-rbv').value;
           resetBotVotes(id);
@@ -846,7 +846,7 @@
       <h2>Reset All Bot Votes</h2>
       <Button
         class="button"
-        variant="outlined"
+        
         onclick={() => {
           resetAllVotes();
         }}>Reset</Button

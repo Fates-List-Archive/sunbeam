@@ -1066,16 +1066,14 @@
         onclick={showBotToken}
         class="button"
         id="bot-token-show-btn"
-        touch
-        variant="outlined"><span class="regen-btn">{showBtn}</span></Button
+    ><span class="regen-btn">{showBtn}</span></Button
       >
       <Button
         href={'javascript:void(0)'}
         onclick={regenBotToken}
         class="button danger"
         id="bot-token-regen-btn"
-        touch
-        variant="text"><span class="regen-btn">Regenerate</span></Button
+    	><span class="regen-btn">Regenerate</span></Button
       >
 
       <h2>Action Logs</h2>
@@ -1105,7 +1103,7 @@
             style="width: 100%"
             placeholder="I feel like my bot was {enums.BotState[data.state]}.../I fixed all the..."
           />
-          <Button href={'#'} onclick={appealBot} class="button" id="appeal" touch variant="outlined"
+          <Button href={'#'} onclick={appealBot} class="button" id="appeal" 
             >Send Appeal</Button
           >
         </div>
@@ -1139,7 +1137,7 @@
         placeholder="Optional"
         type="number"
       /><br />
-      <Button href={'#'} onclick={postStats} class="button" id="post-stats" touch variant="outlined"
+      <Button href={'#'} onclick={postStats} class="button" id="post-stats" 
         >Post Stats</Button
       >
 
@@ -1226,7 +1224,7 @@
         class="button"
         id="create-resource"
         touch
-        variant="outlined">Add Command</Button
+        >Add Command</Button
       >
 
       <h3 class="white section">Request Certification</h3>
@@ -1252,7 +1250,7 @@
         class="button"
         id="request-certification"
         touch
-        variant="outlined">Request Certification</Button
+        >Request Certification</Button
       >
       <h3 class="white section">Delete Bot</h3>
       <Tip icon="jam:triangle-danger-f" alertClass="tip-red alert-info">
@@ -1292,7 +1290,7 @@
       class="button"
       id="autofill-bot"
       touch
-      variant="outlined">Autofill</Button
+      >Autofill</Button
     ><br /><br />
     <h2>Extra Owners</h2>
     <section class="grid grid-cols-4 gap-6 ext-owners">
@@ -1473,7 +1471,7 @@
     <Checkbox id="webhook_hmac_only" data={data.webhook_hmac_only}
       >HMAC Only (no 'Authorization' header)</Checkbox
     >
-    <Button href={'#'} onclick={sendTestWebhook} class="button" id="submit" touch variant="outlined"
+    <Button href={'#'} onclick={sendTestWebhook} class="button" id="submit" 
       >Test Webhook</Button
     >
     <Tip>
@@ -1574,7 +1572,7 @@
     class="button btn-save"
     id="submit"
     touch
-    variant="outlined">{saveTxt}</Button
+    >{saveTxt}</Button
   >
 </div>
 <pre>{popUpMsg}</pre>
