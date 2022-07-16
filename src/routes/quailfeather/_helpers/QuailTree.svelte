@@ -99,7 +99,7 @@
 	function castEventToInputEl(el: any): HTMLInputElement {
 		return el;
 	}
-	
+
 	function castAnyToAnyArray(el: any): any[] {
 		return el;
 	}

@@ -69,8 +69,8 @@ export function getCookie(name, cookie) {
 export async function loginUser(_: boolean = false) {
 	let modifier = {};
 
-	modifier["href"] = window.location.href;
-	
+	modifier['href'] = window.location.href;
+
 	const res = await fetch(`${nextUrl}/oauth2`, {
 		method: 'GET',
 		headers: {
@@ -81,9 +81,9 @@ export async function loginUser(_: boolean = false) {
 	});
 	const json = await res.json();
 
-	modifier["state"] = json.reason;
+	modifier['state'] = json.reason;
 
-	modifier["version"] = 11;
+	modifier['version'] = 11;
 
 	window.location.href = `${json.context}&state=${json.reason}.${encode(JSON.stringify(modifier))}`;
 }

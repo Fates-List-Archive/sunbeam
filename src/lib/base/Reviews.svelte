@@ -71,8 +71,8 @@
 		}
 		let userID = $session.session.user.id;
 
-		let reviewText = (document.querySelector(`#review-${review.id}-reply`) as HTMLInputElement);
-		let starRating = (document.querySelector(`#rating-${review.id}-reply`) as HTMLInputElement);
+		let reviewText = document.querySelector(`#review-${review.id}-reply`) as HTMLInputElement;
+		let starRating = document.querySelector(`#rating-${review.id}-reply`) as HTMLInputElement;
 
 		let res = await addReviewHandler(
 			userID,
@@ -114,8 +114,8 @@
 		$loadstore = 'Editing...';
 		$navigationState = 'loading';
 
-		let reviewText = (document.querySelector(`#review-${review.id}-edit-text`) as HTMLInputElement);
-		let starRating = (document.querySelector(`#review-${review.id}-edit-slider`) as HTMLInputElement);
+		let reviewText = document.querySelector(`#review-${review.id}-edit-text`) as HTMLInputElement;
+		let starRating = document.querySelector(`#review-${review.id}-edit-slider`) as HTMLInputElement;
 
 		let res = await addReviewHandler(
 			userID,
@@ -213,9 +213,9 @@
 						src={review.user.avatar}
 						class="review-avatar"
 						alt="{review.user.username}'s avatar"
-						on:error={function() {
-							this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
-						}}			
+						on:error={function () {
+							this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+						}}
 					/>
 					<span class="white">{review.user.username}</span>
 				</a>
@@ -283,8 +283,8 @@
 						id="reply-review-{review.id}"
 						onclick={() => replyReview(review.id)}
 						href={'javascript:void(0);'}
-						class="bot-card-actions-link button"
-					>Reply</Button>
+						class="bot-card-actions-link button">Reply</Button
+					>
 				</section>
 			{/if}
 			{#if $session.session.token && $session.session.user.id == review.user.id && edittable}
@@ -318,15 +318,13 @@
 							onclick={() => editReview()}
 							href={'javascript:void(0);'}
 							id="edit-review-{review.id}"
-							class="bot-card-actions-link button"
-							>Edit</Button
+							class="bot-card-actions-link button">Edit</Button
 						>
 						<Button
 							onclick={() => deleteReview()}
 							href={'javascript:void(0);'}
 							id="delete-review-{review.id}"
-							class="bot-card-actions-link button"
-						>Delete</Button
+							class="bot-card-actions-link button">Delete</Button
 						>
 					</section>
 				</div>

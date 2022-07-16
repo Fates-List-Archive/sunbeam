@@ -16,7 +16,7 @@
 </script>
 
 <section class="bot-card">
-	<div class="bot-card-banner lazy"  style="--background: url('{data.banner}');">
+	<div class="bot-card-banner lazy" style="--background: url('{data.banner}');">
 		{#if (type == 'bot' || type == 'server') && data.state == enums.BotState.certified}
 			<Icon class="bot-card-cert" icon="fa-solid:certificate" inline={false} height="3em" />
 		{/if}
@@ -26,9 +26,9 @@
 				class="bot-card-avatar"
 				src={data.user.avatar.replace('.png', '.webp')}
 				loading="lazy"
-				on:error={function() {
-					this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
-				}}	
+				on:error={function () {
+					this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+				}}
 			/>
 		</a>
 		<div>
@@ -72,8 +72,8 @@
 				ariaLabel="View"
 				href="/{type}/{data.user.id}"
 				class="bot-card-actions-link button"
-				onclick={() => {}}
-			>View</Button>
+				onclick={() => {}}>View</Button
+			>
 			{#if type != 'profile'}
 				<Button
 					ariaLabel="Invite"
@@ -89,16 +89,16 @@
 					ariaLabel="Settings"
 					href="/{type}/{data.user.id}/settings"
 					onclick={() => {}}
-					class="bot-card-actions-link profile-settings-btn button"
-				>Settings</Button>
+					class="bot-card-actions-link profile-settings-btn button">Settings</Button
+				>
 			{:else}
 				<Button
 					id="bot-card-action-settings-{data.user.id}"
 					onclick={() => {}}
 					ariaLabel="Settings"
 					ariaDisabled={true}
-					class="bot-card-actions-link disabled-profile-btn"
-				>Settings</Button>
+					class="bot-card-actions-link disabled-profile-btn">Settings</Button
+				>
 			{/if}
 		</div>
 		<slot />
@@ -231,7 +231,7 @@
 	}
 
 	.bot-card-banner.lazy {
-   		background-image: none;
-   		background-color: #F1F1FA;
+		background-image: none;
+		background-color: #f1f1fa;
 	}
 </style>

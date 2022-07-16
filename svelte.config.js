@@ -24,7 +24,7 @@ const config = {
 		prerender: {
 			default: false,
 			enabled: false
-		},
+		}
 	}
 };
 

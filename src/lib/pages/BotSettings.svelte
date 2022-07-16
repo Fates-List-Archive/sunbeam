@@ -423,7 +423,9 @@
 		let css = (document.querySelector('#css') as HTMLInputElement).value;
 		previewWs.send(
 			JSON.stringify({
-				long_description_type: parseInt((document.querySelector('#long_description_type') as HTMLSelectElement).value),
+				long_description_type: parseInt(
+					(document.querySelector('#long_description_type') as HTMLSelectElement).value
+				),
 				text: (document.querySelector('#long_description') as HTMLInputElement).value
 			})
 		);
@@ -451,21 +453,21 @@
 		let json = {
 			name: (document.querySelector('#command-name') as HTMLInputElement).value,
 			cmd_type: parseInt((document.querySelector('#command-type') as HTMLInputElement).value),
-			groups: (document.querySelector('#command-groups') as HTMLInputElement)
-				.value.replaceAll(',', '|')
+			groups: (document.querySelector('#command-groups') as HTMLInputElement).value
+				.replaceAll(',', '|')
 				.split(',')
 				.map((el) => el.trim()),
 			description: (document.querySelector('#command-description') as HTMLInputElement).value,
-			args: (document.querySelector('#command-args') as HTMLInputElement)
-				.value.replaceAll(',', '|')
+			args: (document.querySelector('#command-args') as HTMLInputElement).value
+				.replaceAll(',', '|')
 				.split('|')
 				.map((el) => el.trim()),
-			examples: (document.querySelector('#command-examples') as HTMLInputElement)
-				.value.replaceAll(',', '|')
+			examples: (document.querySelector('#command-examples') as HTMLInputElement).value
+				.replaceAll(',', '|')
 				.split('|')
 				.map((el) => el.trim()),
-			notes: (document.querySelector('#command-notes') as HTMLInputElement)
-				.value.replaceAll(',', '|')
+			notes: (document.querySelector('#command-notes') as HTMLInputElement).value
+				.replaceAll(',', '|')
 				.split('|')
 				.map((el) => el.trim()),
 			doc_link: (document.querySelector('#command-doc-link') as HTMLInputElement).value,
@@ -560,12 +562,20 @@
 			return;
 		} else {
 			let data = await res.json();
-			if (data.description) (document.querySelector('#description') as HTMLInputElement).value = data.description;
+			if (data.description)
+				(document.querySelector('#description') as HTMLInputElement).value = data.description;
 			if (data.summary) document.querySelector('#long_description').textContent = data.summary;
-			if (data.privacy_policy_url) (document.querySelector('#privacy_policy') as HTMLInputElement).value = data.privacy_policy_url;
-			if (data.custom_install_url) (document.querySelector('#invite') as HTMLInputElement).value = data.custom_install_url;
-			if (data.slug) (document.querySelector('#vanity') as HTMLInputElement).value = data.slug.toLowerCase();
-			else (document.querySelector('#vanity') as HTMLInputElement).value = data.name.replaceAll(' ', '').toLowerCase();
+			if (data.privacy_policy_url)
+				(document.querySelector('#privacy_policy') as HTMLInputElement).value =
+					data.privacy_policy_url;
+			if (data.custom_install_url)
+				(document.querySelector('#invite') as HTMLInputElement).value = data.custom_install_url;
+			if (data.slug)
+				(document.querySelector('#vanity') as HTMLInputElement).value = data.slug.toLowerCase();
+			else
+				(document.querySelector('#vanity') as HTMLInputElement).value = data.name
+					.replaceAll(' ', '')
+					.toLowerCase();
 		}
 	}
 
@@ -609,7 +619,7 @@
 
 			// Fix known broken things
 			if (mode == 'add') {
-				let botIdEl = (document.querySelector('#bot_id') as HTMLInputElement);
+				let botIdEl = document.querySelector('#bot_id') as HTMLInputElement;
 				if (!botIdEl) {
 					alert({
 						title: 'Error',
@@ -627,12 +637,18 @@
 
 			// Handle the selects here
 			// webhook_type, webhook_hmac_only, long_description_type, nsfw, system_bot, keep_banner_decor
-			bot['webhook_type'] = parseInt((document.querySelector('#webhook_type') as HTMLSelectElement).value);
-			bot['webhook_hmac_only'] = (document.querySelector('#webhook_hmac_only') as HTMLInputElement).checked;
+			bot['webhook_type'] = parseInt(
+				(document.querySelector('#webhook_type') as HTMLSelectElement).value
+			);
+			bot['webhook_hmac_only'] = (
+				document.querySelector('#webhook_hmac_only') as HTMLInputElement
+			).checked;
 			bot['long_description_type'] = parseInt(
 				(document.querySelector('#long_description_type') as HTMLSelectElement).value
 			);
-			bot['page_style'] = parseInt((document.querySelector('#page_style') as HTMLSelectElement).value);
+			bot['page_style'] = parseInt(
+				(document.querySelector('#page_style') as HTMLSelectElement).value
+			);
 
 			let flags = [];
 
@@ -948,9 +964,9 @@
 	src={user.avatar.replace('.png', '.webp').replace('width=', 'width=120px')}
 	id="user-avatar"
 	alt="{user.username}'s avatar"
-	on:error={function() {
-		this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
-	}}	
+	on:error={function () {
+		this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+	}}
 />
 <h2 class="white user-username" id="user-name">{user.username}</h2>
 <h2 id="bot-settings">
@@ -993,11 +1009,9 @@
 						<li>Name: <span class="value">{command.name}</span></li>
 						<li>Command Type: <span class="value">{enums.CommandType[command.cmd_type]}</span></li>
 					</ul>
-					<Button
-						href={'#'}
-						onclick={() => deleteCommand(command.id)}
-						class="button"
-					>Delete {command.name}</Button>
+					<Button href={'#'} onclick={() => deleteCommand(command.id)} class="button"
+						>Delete {command.name}</Button
+					>
 				{/each}
 			{:else}
 				<p>No commands created for this bot</p>
@@ -1049,13 +1063,8 @@
 						style="width: 100%"
 						placeholder="I feel like my bot was {enums.BotState[data.state]}.../I fixed all the..."
 					/>
-					<Button
-						href={'#'}
-						onclick={appealBot}
-						class="button"
-						id="appeal"
-						touch
-						variant="outlined">Send Appeal</Button
+					<Button href={'#'} onclick={appealBot} class="button" id="appeal" touch variant="outlined"
+						>Send Appeal</Button
 					>
 				</div>
 			{:else}
@@ -1088,13 +1097,8 @@
 				placeholder="Optional"
 				type="number"
 			/><br />
-			<Button
-				href={'#'}
-				onclick={postStats}
-				class="button"
-				id="post-stats"
-				touch
-				variant="outlined">Post Stats</Button
+			<Button href={'#'} onclick={postStats} class="button" id="post-stats" touch variant="outlined"
+				>Post Stats</Button
 			>
 
 			<h3 class="white section">Add a command</h3>
@@ -1260,9 +1264,9 @@
 							style="height: 100%"
 							loading="lazy"
 							alt="{owner.user.username}'s avatar"
-							on:error={function() {
-								this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
-							}}				
+							on:error={function () {
+								this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+							}}
 						/>
 						<span class="owner-un float-right align-middle" style="height: 100%"
 							>{owner.user.username}#{owner.user.disc.padStart(4, '0')}</span
@@ -1289,9 +1293,9 @@
 							loading="lazy"
 							class="filter-white float-left"
 							alt="Add Bot Icon"
-							on:error={function() {
-								this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
-							}}				
+							on:error={function () {
+								this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+							}}
 						/><br />
 						<span style="font-size: 18px;" class="float-right">Add new owner</span>
 					</div>
@@ -1434,13 +1438,8 @@
 		<Checkbox id="webhook_hmac_only" data={data.webhook_hmac_only}
 			>HMAC Only (no 'Authorization' header)</Checkbox
 		>
-		<Button
-			href={'#'}
-			onclick={sendTestWebhook}
-			class="button"
-			id="submit"
-			touch
-			variant="outlined">Test Webhook</Button
+		<Button href={'#'} onclick={sendTestWebhook} class="button" id="submit" touch variant="outlined"
+			>Test Webhook</Button
 		>
 		<Tip>
 			Didn't get anything? Make sure you have <em>saved</em> your bot first before clicking Test Webhook.

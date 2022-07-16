@@ -6,10 +6,10 @@
 	import { goto } from '$app/navigation';
 	import { apiUrl, nextUrl, lynxUrl } from '$lib/config';
 	import { browser } from '$app/env';
-	import menustore from "$lib/menustore";
+	import menustore from '$lib/menustore';
 	import navigationState from '$lib/navigationState';
 	import { enums } from '$lib/enums/enums';
-import Menu from '$lib/base/Menu.svelte';
+	import Menu from '$lib/base/Menu.svelte';
 
 	let username = null;
 	let userID = null;
@@ -37,12 +37,12 @@ import Menu from '$lib/base/Menu.svelte';
 	};
 
 	const openMenu = (id) => {
-		if($menustore.open != id) {
+		if ($menustore.open != id) {
 			$menustore.open = id;
 		} else {
-			$menustore.open = "";
+			$menustore.open = '';
 		}
-	}
+	};
 
 	// Report Feedback
 	const reportFeedback = () => {
@@ -146,24 +146,24 @@ import Menu from '$lib/base/Menu.svelte';
 			action: () => {
 				reportFeedback();
 			}
-		},	
+		},
 		{
-			id: "tos",
-			label: "Terms of Service",
+			id: 'tos',
+			label: 'Terms of Service',
 			action: () => {
 				goto('/quailfeather/docs/privacy');
 			}
 		},
 		{
-			id: "docs",
-			label: "Stats, Docs and More!",
+			id: 'docs',
+			label: 'Stats, Docs and More!',
 			action: () => {
 				goto('/quailfeather');
 			}
 		},
 		{
-			id: "support",
-			label: "Support",
+			id: 'support',
+			label: 'Support',
 			action: () => {
 				goto('/server/789934742128558080/invite');
 			}
@@ -193,34 +193,38 @@ import Menu from '$lib/base/Menu.svelte';
 	<nav class="nav1">
 		<ul>
 			<li>
-				<a href={'javascript:void(0)'} on:click={() => {
-					openMenu("add-nav")
-				}}>Add</a>
-				<Menu id="add-nav" els={
-					[
+				<a
+					href={'javascript:void(0)'}
+					on:click={() => {
+						openMenu('add-nav');
+					}}>Add</a
+				>
+				<Menu
+					id="add-nav"
+					els={[
 						{
-							id: "add-bot",
-							label: "Add Bot",
+							id: 'add-bot',
+							label: 'Add Bot',
 							action: () => {
 								goto(`/frostpaw/add-bot`);
 							}
 						},
 						{
-							id: "add-server",
-							label: "Add Server",
+							id: 'add-server',
+							label: 'Add Server',
 							action: () => {
 								goto(`/frostpaw/add-server`);
 							}
 						},
 						{
-							id: "import Bot",
-							label: "Import Bot",
+							id: 'import Bot',
+							label: 'Import Bot',
 							action: () => {
 								goto(`/frostpaw/import-bot`);
 							}
 						}
-					]
-				} />
+					]}
+				/>
 			</li>
 			<li class:active={$page.url.pathname === '/partners'}>
 				<a sveltekit:prefetch href="/partners">Partners</a>
@@ -236,18 +240,18 @@ import Menu from '$lib/base/Menu.svelte';
 			<a
 				href={'javascript:void(0)'}
 				on:click={() => {
-					openMenu("main-menu")
+					openMenu('main-menu');
 				}}
 			>
 				{#if username}
-					<img 
-						width="30px" 
-						src={avatar} 
-						alt="Avatar" 
+					<img
+						width="30px"
+						src={avatar}
+						alt="Avatar"
 						id="avatar"
-						on:error={function() {
-							this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
-						}}			
+						on:error={function () {
+							this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+						}}
 					/>
 					{username}
 				{:else}
@@ -255,41 +259,43 @@ import Menu from '$lib/base/Menu.svelte';
 				{/if}
 			</a>
 			{#if username}
-				<Menu id="main-menu" els={
-					[
+				<Menu
+					id="main-menu"
+					els={[
 						{
-							id: "logout",
-							label: "Logout",
+							id: 'logout',
+							label: 'Logout',
 							action: () => {
 								logoutUser();
-								return () => window.location.reload()
-							},
+								return () => window.location.reload();
+							}
 						},
 						{
-							id: "profile",
-							label: "Profile",
+							id: 'profile',
+							label: 'Profile',
 							action: () => {
 								goto(`/profile/${userID}`);
 							}
 						},
 						...commonEls
-					]
-				} />
+					]}
+				/>
 			{:else}
-				<Menu id="main-menu" els={
-					[
+				<Menu
+					id="main-menu"
+					els={[
 						{
-							id: "login",
-							label: "Login",
+							id: 'login',
+							label: 'Login',
 							action: () => {
-								$navigationState = "loading"
+								$navigationState = 'loading';
 								loginUser();
 								return;
-							},
+							}
 						},
 						...commonEls
-					]
-				} />
+					]}
+				/>
 			{/if}
 		</div>
 	</nav>
@@ -307,8 +313,6 @@ import Menu from '$lib/base/Menu.svelte';
 		padding: 3px;
 		z-index: 3;
 	}
-
-	
 
 	:global(#header[scrolled='true']) {
 		background-color: black !important;

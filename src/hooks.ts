@@ -22,17 +22,18 @@ export const getSession: GetSession = async (event) => {
 		event.request.headers.get('cookie') || event.request.headers.get('Cookie') || ''
 	);
 
-	let sessionData = {user: {
-			id: '', 
+	let sessionData = {
+		user: {
+			id: '',
 			username: '',
 			disc: '0000',
 			avatar: 'https://cdn.discordapp.com/embed/avatars/0.png'
-		}, 
-		token: '', 
-		css: '', 
-		refresh_token: '', 
+		},
+		token: '',
+		css: '',
+		refresh_token: '',
 		user_experiments: [2, 5, 6],
-		site_lang: "en"
+		site_lang: 'en'
 	};
 
 	let adminData = '';

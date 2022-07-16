@@ -104,9 +104,9 @@
 	src={data.user.avatar.replace('.png', '.webp').replace('width=', 'width=120px')}
 	id="user-avatar"
 	alt="{data.user.username}'s avatar"
-	on:error={function() {
-		this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
-	}}	
+	on:error={function () {
+		this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+	}}
 />
 
 {#if personal}

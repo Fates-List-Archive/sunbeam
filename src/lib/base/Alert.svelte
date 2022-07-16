@@ -4,7 +4,7 @@
 	import { storage } from '$lib/supabase';
 	import TextEditor from '$lib/base/TextEditor.svelte';
 	import { session } from '$app/stores';
-	import { AlertType, enums } from '$lib/enums/enums'; 
+	import { AlertType, enums } from '$lib/enums/enums';
 
 	export let show: boolean;
 	export let icon: string;
@@ -40,10 +40,10 @@
 	};
 
 	class SubmittedInput {
-		inputs: any
-		defaultIndex: number // Default index to use in toSingleLine
-		indexMap: Map<String, number> // Map of input id to index
-		values: Map<number, string> // Map of index to value (for number/boolean etc only)
+		inputs: any;
+		defaultIndex: number; // Default index to use in toSingleLine
+		indexMap: Map<String, number>; // Map of input id to index
+		values: Map<number, string>; // Map of index to value (for number/boolean etc only)
 
 		constructor(editor: object, inputs: any) {
 			this.inputs = inputs;
@@ -93,7 +93,11 @@
 		toSingleLine(index: number = -1) {
 			// Does exactly what it says it does on the tin, returns a single no-newline line
 			index = this.getIndex(index);
-			return this.toRaw(index).replaceAll('\n', ' ').replaceAll('\r', ' ').replaceAll('\t', '').trim();
+			return this.toRaw(index)
+				.replaceAll('\n', ' ')
+				.replaceAll('\r', ' ')
+				.replaceAll('\t', '')
+				.trim();
 		}
 
 		toLines(index: number = -1) {
@@ -324,9 +328,9 @@
 								alt={`${id} icon`}
 								height="25px"
 								width="25px"
-								on:error={function() {
-									this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
-								}}				
+								on:error={function () {
+									this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+								}}
 							/>
 						{/if}
 

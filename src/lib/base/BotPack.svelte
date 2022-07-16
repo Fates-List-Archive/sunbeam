@@ -14,9 +14,9 @@
 					alt="{bot.username || bot.user.username}s avatar"
 					src={bot.avatar || bot.user.avatar}
 					loading="lazy"
-					on:error={function() {
-						this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
-					}}		
+					on:error={function () {
+						this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+					}}
 				/>
 			</a>
 			<span class="pack-data">

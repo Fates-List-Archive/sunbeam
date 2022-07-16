@@ -18,8 +18,7 @@
 		class="random-button white button"
 		onclick={() => {
 			roller();
-		}}
-	>Roll</Button
+		}}>Roll</Button
 	>
 </div>
 <div class="spacer" />

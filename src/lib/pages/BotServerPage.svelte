@@ -12,7 +12,7 @@
 	export let data: any;
 	export let type: string;
 
-	let extra_links = (data.extra_links as Map<string, string>)
+	let extra_links = data.extra_links as Map<string, string>;
 </script>
 
 <BristlefrostMeta
@@ -43,9 +43,9 @@
 		src={data.user.avatar.replace('.png', '.webp').replace('width=', 'width=120px')}
 		id="bot-avatar"
 		alt="{data.user.username}'s avatar"
-		on:error={function() {
-			this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
-		}}	
+		on:error={function () {
+			this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+		}}
 	/>
 	<article class="bot-page">
 		<a href="/{type}/{data.user.id}/invite" class="banner-decor bot-username bot-username-link">
@@ -116,7 +116,7 @@
 	.prefix {
 		opacity: 0.65;
 	}
-	
+
 	.bot-page-banner {
 		background: var(--background) no-repeat;
 		background-size: 100% 100%;
@@ -128,8 +128,8 @@
 	}
 
 	.bot-page-banner.lazy {
-   		background-image: none;
-   		background-color: #F1F1FA;
+		background-image: none;
+		background-color: #f1f1fa;
 	}
 
 	.bot-page {

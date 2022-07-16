@@ -248,9 +248,7 @@
 		<Button
 			class="button"
 			onclick={() => {
-				extQuery = `search_by=${getSearchBy().value}&search_val=${
-					getSearchVal().value
-				}`;
+				extQuery = `search_by=${getSearchBy().value}&search_val=${getSearchVal().value}`;
 				getPage(1);
 			}}>Search</Button
 		>

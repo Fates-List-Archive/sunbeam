@@ -458,7 +458,7 @@
 	};
 
 	function queryToInpEl(q: string): HTMLInputElement {
-		return document.querySelector(q)
+		return document.querySelector(q);
 	}
 </script>
 

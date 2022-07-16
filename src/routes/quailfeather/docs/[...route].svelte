@@ -91,10 +91,10 @@
 				.replaceAll('<textarea', '<textarea class="fform"')
 				.replaceAll('<h2', '<h2 class="h2"')
 				.replaceAll('<h3', '<h3 class="h3"')
-				.replaceAll("<blockquote", '<blockquote class="blockquote"')
+				.replaceAll('<blockquote', '<blockquote class="blockquote"')
 				.replaceAll('<table', '<table class="table"')
 				.replaceAll('<thead', '<thead class="thead"')
-				.replaceAll('<tr', '<tr class="tr"')
+				.replaceAll('<tr', '<tr class="tr"');
 
 			return {
 				props: {

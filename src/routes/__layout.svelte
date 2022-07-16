@@ -12,7 +12,7 @@
 	import { errorStore } from '$lib/alertstore';
 	import { apiUrl, lynxUrl } from '$lib/config';
 	import * as logger from '$lib/logger';
-	import menustore from "$lib/menustore";
+	import menustore from '$lib/menustore';
 
 	import { navigating, session } from '$app/stores';
 
@@ -21,71 +21,71 @@
 	import Alert from '$lib/base/Alert.svelte';
 
 	function llhandler() {
-		logger.info("Nav", "Called lazy load handler");
-		var lazyloadImages;    
+		logger.info('Nav', 'Called lazy load handler');
+		var lazyloadImages;
 
-		if ("IntersectionObserver" in window) {
-			lazyloadImages = document.querySelectorAll(".lazy");
-			if(lazyloadImages.length < 1) {
-				logger.info("Nav", "No lazy load images found");
+		if ('IntersectionObserver' in window) {
+			lazyloadImages = document.querySelectorAll('.lazy');
+			if (lazyloadImages.length < 1) {
+				logger.info('Nav', 'No lazy load images found');
 				return;
 			}
-			var imageObserver = new IntersectionObserver(function(entries, observer) {
-				entries.forEach(function(entry) {
+			var imageObserver = new IntersectionObserver(function (entries, observer) {
+				entries.forEach(function (entry) {
 					if (entry.isIntersecting) {
 						var image = entry.target;
-						image.classList.remove("lazy");
+						image.classList.remove('lazy');
 						imageObserver.unobserve(image);
 					}
 				});
 			});
 
-			lazyloadImages.forEach(function(image) {
-			imageObserver.observe(image);
+			lazyloadImages.forEach(function (image) {
+				imageObserver.observe(image);
 			});
-		} else {  
+		} else {
 			var lazyloadThrottleTimeout;
-			lazyloadImages = document.querySelectorAll(".lazy");
-			
-			function lazyload () {
-				if(lazyloadThrottleTimeout) {
-					clearTimeout(lazyloadThrottleTimeout);
-				}    
+			lazyloadImages = document.querySelectorAll('.lazy');
 
-				lazyloadThrottleTimeout = setTimeout(function() {
+			function lazyload() {
+				if (lazyloadThrottleTimeout) {
+					clearTimeout(lazyloadThrottleTimeout);
+				}
+
+				lazyloadThrottleTimeout = setTimeout(function () {
 					var scrollTop = window.pageYOffset;
-					lazyloadImages.forEach(function(img) {
-						if(img.offsetTop < (window.innerHeight + scrollTop)) {
+					lazyloadImages.forEach(function (img) {
+						if (img.offsetTop < window.innerHeight + scrollTop) {
 							img.src = img.dataset.src;
 							img.classList.remove('lazy');
 						}
 					});
-					if(lazyloadImages.length == 0) { 
-						document.removeEventListener("scroll", lazyload);
-						window.removeEventListener("resize", lazyload);
-						window.removeEventListener("orientationChange", lazyload);
+					if (lazyloadImages.length == 0) {
+						document.removeEventListener('scroll', lazyload);
+						window.removeEventListener('resize', lazyload);
+						window.removeEventListener('orientationChange', lazyload);
 					}
 				}, 20);
 			}
 
-			document.addEventListener("scroll", lazyload);
-			window.addEventListener("resize", lazyload);
-			window.addEventListener("orientationChange", lazyload);
+			document.addEventListener('scroll', lazyload);
+			window.addEventListener('resize', lazyload);
+			window.addEventListener('orientationChange', lazyload);
 		}
 	}
 
-	if(browser) {
+	if (browser) {
 		function docReady(fn) {
 			// see if DOM is already available
-			if (document.readyState === "complete" || document.readyState === "interactive") {
+			if (document.readyState === 'complete' || document.readyState === 'interactive') {
 				// call on next available tick
 				setTimeout(fn, 1);
 			} else {
-				document.addEventListener("DOMContentLoaded", fn);
+				document.addEventListener('DOMContentLoaded', fn);
 			}
-		}    
+		}
 
-		docReady(llhandler)
+		docReady(llhandler);
 	}
 
 	$: {
@@ -102,10 +102,10 @@
 		}
 		if (!$navigating) {
 			$navigationState = 'loaded';
-			if(browser) {
-				llhandler()
+			if (browser) {
+				llhandler();
 			}
-			$menustore.open = ""
+			$menustore.open = '';
 		}
 	}
 

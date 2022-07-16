@@ -22,7 +22,7 @@
 		});
 	}
 
-	let links: Map<string, string> = partner.links
+	let links: Map<string, string> = partner.links;
 </script>
 
 <div class="partner-shell" id={partner.id}>
@@ -34,9 +34,9 @@
 				alt="{partner.name} image"
 				width="100px"
 				height="100px"
-				on:error={function() {
-					this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
-				}}	
+				on:error={function () {
+					this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+				}}
 			/>
 			<div class="partner-content">
 				<h2 style="opacity: 1 !important">{partner.name}</h2>

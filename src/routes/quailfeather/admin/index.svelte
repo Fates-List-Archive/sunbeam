@@ -135,8 +135,11 @@
 					<legend id={tableName}>{title(tableName)}</legend>
 					{#if allowedTables == null || allowedTables.includes(tableName)}
 						<h3>You are allowed to edit this table</h3>
-						<Button onclick={() => {}} id="edit-table-{tableName}" class="button" href={`/quailfeather/admin/table/${tableName}`}
-							>Edit Table</Button
+						<Button
+							onclick={() => {}}
+							id="edit-table-{tableName}"
+							class="button"
+							href={`/quailfeather/admin/table/${tableName}`}>Edit Table</Button
 						>
 					{:else}
 						<h3>You are not allowed to edit this table</h3>

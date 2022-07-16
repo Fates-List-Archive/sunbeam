@@ -314,9 +314,9 @@
 	src={data.user.avatar.replace('.png', '.webp').replace('width=', 'width=120px')}
 	id="user-avatar"
 	alt="{data.user.username}'s avatar"
-	on:error={function() {
-		this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
-	}}	
+	on:error={function () {
+		this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+	}}
 />
 <h1 class="white user-username" id="user-name">{data.user.username}</h1>
 <h2 id="user-description">Profile Settings</h2>

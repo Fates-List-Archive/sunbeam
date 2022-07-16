@@ -125,7 +125,7 @@
 	}
 
 	function getSql(): HTMLInputElement {
-		return document.querySelector('#sql')
+		return document.querySelector('#sql');
 	}
 </script>
 

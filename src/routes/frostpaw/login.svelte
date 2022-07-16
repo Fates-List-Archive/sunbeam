@@ -39,15 +39,19 @@
 			};
 		}
 
-		let stateSplit = state.split(".");
-		let customClientInfo: CustomClients = {code: code, state: stateSplit[3]}
+		let stateSplit = state.split('.');
+		let customClientInfo: CustomClients = { code: code, state: stateSplit[3] };
 
 		if (state.startsWith('Bayshine.')) {
 			// Bayshine custom client login
 			customClientInfo.clientId = stateSplit[1];
 			customClientInfo.currentTime = parseInt(stateSplit[2]);
 			customClientInfo.hmacTime = stateSplit[3];
-			if (!customClientInfo.clientId || !customClientInfo.currentTime || !customClientInfo.hmacTime) {
+			if (
+				!customClientInfo.clientId ||
+				!customClientInfo.currentTime ||
+				!customClientInfo.hmacTime
+			) {
 				return {
 					props: {
 						error: 'Invalid custom client information'
@@ -69,24 +73,24 @@
 			// Fetch baypaw client info
 			let res = await fetch(`${apiUrl}/frostpaw/clients/${customClientInfo.clientId}`);
 
-			if(!res.ok) {
+			if (!res.ok) {
 				return {
 					props: {
 						error: `Could not fetch custom client information: ${res.statusText}`
 					}
 				};
 			}
-			
+
 			customClientInfo.cliInfo = await res.json();
 
 			return {
 				props: {
-					customClient: customClientInfo,
+					customClient: customClientInfo
 				}
 			};
 		}
 
-		if(stateSplit.length != 2) {
+		if (stateSplit.length != 2) {
 			return {
 				props: {
 					error: 'Invalid state'
@@ -97,7 +101,7 @@
 		let nonce = stateSplit[0];
 		let modifier = stateSplit[1];
 
-		let modifierInfo = {}
+		let modifierInfo = {};
 
 		try {
 			modifierInfo = JSON.parse(decode(modifier));
@@ -109,7 +113,7 @@
 			};
 		}
 
-		if(modifierInfo["state"] != nonce) {
+		if (modifierInfo['state'] != nonce) {
 			return {
 				props: {
 					error: 'Invalid nonce'
@@ -117,7 +121,7 @@
 			};
 		}
 
-		if(modifierInfo["version"] != 11) {
+		if (modifierInfo['version'] != 11) {
 			return {
 				props: {
 					error: 'Invalid login request, please try logging in again!!!'
@@ -125,7 +129,7 @@
 			};
 		}
 
-		console.log("ORIGIN:", url.origin)
+		console.log('ORIGIN:', url.origin);
 
 		let res = await fetch(`${apiUrl}/oauth2`, {
 			method: 'POST',
@@ -142,8 +146,8 @@
 			})
 		});
 
-		let json = {}
-		
+		let json = {};
+
 		try {
 			json = await res.json();
 		} catch (e) {
@@ -154,32 +158,32 @@
 			};
 		}
 
-		if (json["state"] == enums.UserState.global_ban) {
+		if (json['state'] == enums.UserState.global_ban) {
 			return {
 				props: {
 					error: `<h1>You are global banned</h1><br/><h2>This is a global ban and as such, you may not login/use our API.</h2><br/>You can try to appeal this ban at <a href="https://fateslist.xyz/staffserver">our ban appeal server</a>`
 				}
-			}
-		} else if (!json["token"]) {
+			};
+		} else if (!json['token']) {
 			return {
 				props: {
 					error: `Got error: ${JSON.stringify(json)}.`
 				}
-			}
-		} 
+			};
+		}
 
 		return {
 			props: {
 				cookie: encode(JSON.stringify(json)),
-				href: modifierInfo["href"] || "/",
-				modifier: modifierInfo,
+				href: modifierInfo['href'] || '/',
+				modifier: modifierInfo
 			}
-		}
+		};
 	}
 </script>
 
 <script lang="ts">
-import { goto } from '$app/navigation';
+	import { goto } from '$app/navigation';
 
 	export let cookie: string;
 	export let customClient: CustomClients;
@@ -188,34 +192,34 @@ import { goto } from '$app/navigation';
 	export let modifier: any;
 
 	import Button from '$lib/base/Button.svelte';
-import { enums } from '$lib/enums/enums';
-import { browser } from '$app/env';
+	import { enums } from '$lib/enums/enums';
+	import { browser } from '$app/env';
 
-const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+	const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-async function setLoginCookie() {
-	if(cookie) {
-		if(browser) {
-			setCookie()
-			document.cookie = `sunbeam-session=${cookie};Path=/;secure;max-age=28800;samesite=lax;priority=High`;
-			await sleep(1000)
-			window.location.href = href
+	async function setLoginCookie() {
+		if (cookie) {
+			if (browser) {
+				setCookie();
+				document.cookie = `sunbeam-session=${cookie};Path=/;secure;max-age=28800;samesite=lax;priority=High`;
+				await sleep(1000);
+				window.location.href = href;
+			}
 		}
 	}
-}
 
-function setCookie() {
-	document.cookie = `sunbeam-session=${cookie};Path=/;secure;max-age=28800;samesite=lax;priority=High`;
-}
+	function setCookie() {
+		document.cookie = `sunbeam-session=${cookie};Path=/;secure;max-age=28800;samesite=lax;priority=High`;
+	}
 
-function setCookieReload() {
-	setCookie()
-	window.location.href = href
-}
+	function setCookieReload() {
+		setCookie();
+		window.location.href = href;
+	}
 
-if(cookie) {
-	setLoginCookie();
-}
+	if (cookie) {
+		setLoginCookie();
+	}
 </script>
 
 <div style="margin: 20px;">
@@ -227,7 +231,10 @@ if(cookie) {
 	{/if}
 
 	{#if cookie}
-		<p style="font-size: bold;">Successfully logged in and will be redirecting to {href}! If you do not get redirected, click <a href={"#"} on:click={() => setCookieReload()}>here</a></p>
+		<p style="font-size: bold;">
+			Successfully logged in and will be redirecting to {href}! If you do not get redirected, click
+			<a href={'#'} on:click={() => setCookieReload()}>here</a>
+		</p>
 		<footer>Modifier (for debugging): {JSON.stringify(modifier)}</footer>
 	{/if}
 
@@ -239,7 +246,8 @@ if(cookie) {
 		</h2>
 		<p>
 			You are about to login to <span
-				style="opacity: 0.8; text-decoration: underline; font-weight: bolder;">{customClient.cliInfo.name}</span
+				style="opacity: 0.8; text-decoration: underline; font-weight: bolder;"
+				>{customClient.cliInfo.name}</span
 			>!
 			<br /><br />
 			Fates List cannot validate the authenticity of this client.
@@ -261,7 +269,8 @@ if(cookie) {
 			<br /><br />
 		</p>
 		<small
-			>Client ID: <span style="text-decoration: underline; font-weight: bolder;">{customClient.cliInfo.id}</span
+			>Client ID: <span style="text-decoration: underline; font-weight: bolder;"
+				>{customClient.cliInfo.id}</span
 			></small
 		>
 		<br /><br />
@@ -293,7 +302,9 @@ if(cookie) {
 				});
 				let json = await res.json();
 				if (res.ok) {
-					window.location.href = `${customClient.cliInfo.domain}/frostpaw?data=${encode(JSON.stringify(json))}`;
+					window.location.href = `${customClient.cliInfo.domain}/frostpaw?data=${encode(
+						JSON.stringify(json)
+					)}`;
 				} else {
 					alert({
 						title: 'Error',

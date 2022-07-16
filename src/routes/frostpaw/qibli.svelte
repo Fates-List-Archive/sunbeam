@@ -21,11 +21,11 @@
 	}
 
 	function getAppEl(): HTMLInputElement {
-		return document.querySelector('#app-url')
+		return document.querySelector('#app-url');
 	}
 
 	function getAppJsonEl(): HTMLInputElement {
-		return document.querySelector('#app-json')
+		return document.querySelector('#app-json');
 	}
 </script>
 
@@ -82,9 +82,9 @@
 		class="user-avatar"
 		src="https://cdn.discordapp.com/avatars/{appData.user.id}/{appData.user.avatar}.png"
 		alt="user avatar"
-		on:error={function() {
-			this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
-		}}	
+		on:error={function () {
+			this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+		}}
 	/>
 	<h3>{appData.user.username}<span class="disc">#{appData.user.discriminator}</span></h3>
 	<h4>User ID: {appData.user.id}</h4>

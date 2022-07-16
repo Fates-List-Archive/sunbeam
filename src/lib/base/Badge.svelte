@@ -36,8 +36,8 @@
 			width="50px"
 			height="50px"
 			alt={badge.description}
-			on:error={function() {
-				this.src ='https://api.fateslist.xyz/static/botlisticon.webp'
+			on:error={function () {
+				this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
 			}}
 		/>
 	</div>

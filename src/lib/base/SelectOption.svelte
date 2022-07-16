@@ -10,10 +10,8 @@
 	{:else}
 		<option {value} selected><slot /></option>
 	{/if}
+{:else if disabled}
+	<option {value} disabled><slot /></option>
 {:else}
-	{#if disabled}
-		<option {value} disabled><slot /></option>
-	{:else}
-		<option {value}><slot /></option>
-	{/if}
+	<option {value}><slot /></option>
 {/if}
