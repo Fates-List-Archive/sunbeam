@@ -61,7 +61,7 @@
       {feature.name}:
       <span class="opaque"
         >{feature.description}.
-        <em>According to our community, this feature is {feature.type}.</em></span
+        <em>According to our community, this feature is {feature.viewed_as}.</em></span
       >
     </p>
   {/each}
