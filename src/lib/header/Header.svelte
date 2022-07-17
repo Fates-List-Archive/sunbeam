@@ -130,7 +130,7 @@
       id: 'add-bot',
       label: 'Add Bot',
       action: () => {
-        goto('/add-bot');
+        goto('/frostpaw/add-bot');
       }
     },
     {
