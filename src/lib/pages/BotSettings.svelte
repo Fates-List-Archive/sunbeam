@@ -998,6 +998,14 @@
 		})
 	})
   }
+
+  function generateSecret(length) {
+    return window.btoa(Array.from(crypto.getRandomValues(new Uint8Array(length * 2))).map((b) => String.fromCharCode(b)).join("")).replace(/[+/]/g, "").substring(0, length);
+  }
+
+  function castAnyToInputEl(el: any): HTMLInputElement {
+    return el
+  }
 </script>
 
 <img
@@ -1452,10 +1460,9 @@
     />
     <Tip>
       API Token is used as the webhook secret if you do not set a webhook secret below. It is
-      recommended to use a webhook secret if you are a large bot. Using a service like <a
-        href="https://randomkeygen.com/">https://randomkeygen.com/</a
-      >
-      is recommended if you will be using this.
+      recommended to use a webhook secret if you are a large bot. Using 'Create Secret For Me'
+      is highly recommended unless you can be certain that your secret is secure, it uses the 
+      Web Crypto API to generate a cryptographically secure secret.
     </Tip>
     <FormInput
       name="Webhook Secret"
@@ -1463,6 +1470,10 @@
       placeholder="Make sure that this is random and secure!"
       data={data.webhook_secret}
     />
+    <Button onclick={() => {
+      let secret = generateSecret(96)
+      castAnyToInputEl(document.querySelector("#webhook_secret")).value = secret
+    }}>Create Secret For Me</Button>
     <Tip>
       HMAC request signing can be more secure than just a 'Authorization' header. This is
       recommended for large bots. Once you have enabled HMAC, it is a good idea to tick this option
