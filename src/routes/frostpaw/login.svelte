@@ -250,7 +250,7 @@
         >{customClient.cliInfo.name}</span
       >!
       <br /><br />
-      Fates List cannot validate the authenticity of this client.
+      Select List cannot validate the authenticity of this client.
       <br /><br />
       You will be redirected to
       <span style="opacity: 0.8; text-decoration: underline; font-weight: bolder;"

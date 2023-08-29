@@ -329,7 +329,7 @@
                 height="25px"
                 width="25px"
                 on:error={function () {
-                  this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+                  this.src = 'https://fates-api.select-list.xyz/static/botlisticon.webp';
                 }}
               />
             {/if}

@@ -42,13 +42,13 @@
 
 <BristlefrostMeta
   url="https://fateslist.xyz"
-  title="Fates List | Discord Bot List"
-  description="Find, invite and discover the best bots &amp; servers now on Fates List"
+  title="Select List | Discord Bot List"
+  description="Find, invite and discover the best bots &amp; servers now on Select List"
   thumbnail="https://fateslist.xyz/static/botlisticon.webp"
 />
 
 <section>
-  <h1 class="best-bots">Fates List</h1>
+  <h1 class="best-bots">Select List</h1>
   <h2 class="best-bots"><Intl key="index.best_bots" /></h2>
 </section>
 

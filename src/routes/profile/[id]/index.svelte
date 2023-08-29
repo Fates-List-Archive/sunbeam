@@ -57,7 +57,7 @@
       id: 'staff',
       name: 'Official Staff Member',
       description: 'Official Staff Member Alert!',
-      icon: 'https://api.fateslist.xyz/static/assets/prod/staff.webp'
+      icon: 'https://fates-api.select-list.xyz/static/assets/prod/staff.webp'
     });
   }
 
@@ -66,17 +66,17 @@
       id: 'avid-voter',
       name: 'Avid Voter',
       description: 'Whoa! Actively voting for bots and servers?',
-      icon: 'https://api.fateslist.xyz/static/assets/prod/avidvoter.webp'
+      icon: 'https://fates-api.select-list.xyz/static/assets/prod/avidvoter.webp'
     });
   }
 
   if (enums.helpers.flagCheck(enums.UserFlags.Premium, data.flags)) {
     data.badges.push({
       id: 'premium',
-      name: 'Fates List Premium Subscriber',
+      name: 'Select List Premium Subscriber',
       description:
-        'This user subscribes to Fates List Premium, you can learn more about it here: <a style="color: black !important; text-decoration: underline !important;" href="https://fateslist.xyz/premium/">https://fateslist.xyz/premium</a>',
-      icon: 'https://api.fateslist.xyz/static/premium.webp'
+        'This user subscribes to Select List Premium, you can learn more about it here: <a style="color: black !important; text-decoration: underline !important;" href="https://fateslist.xyz/premium/">https://fateslist.xyz/premium</a>',
+      icon: 'https://fates-api.select-list.xyz/static/premium.webp'
     });
   }
 
@@ -85,7 +85,7 @@
       id: 'settings',
       name: 'View Profile Settings',
       description: 'This should never be seen and is a bug bud!',
-      icon: 'https://api.fateslist.xyz/static/assets/prod/settings.webp',
+      icon: 'https://fates-api.select-list.xyz/static/assets/prod/settings.webp',
       link: `/profile/${data.user.id}/settings`
     });
   }
@@ -105,7 +105,7 @@
   id="user-avatar"
   alt="{data.user.username}'s avatar"
   on:error={function () {
-    this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+    this.src = 'https://fates-api.select-list.xyz/static/botlisticon.webp';
   }}
 />
 

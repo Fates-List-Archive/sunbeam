@@ -33,11 +33,11 @@
         message: `
 Successfully voted for this ${type}!
 
-<em>Pro Tip</em>: You can vote for ${type} directly on your server using Fates List Helper. Fates List Helper also supports vote reminders as well!
+<em>Pro Tip</em>: You can vote for ${type} directly on your server using Select List Helper. Select List Helper also supports vote reminders as well!
 
-You can invite Fates List Helper to your server by <a style="color: blue !important" href="https://discord.com/api/oauth2/authorize?client_id=811073947382579200&permissions=2048&scope=bot%20applications.commands">clicking here</a>!
+You can invite Select List Helper to your server by <a style="color: blue !important" href="https://discord.com/api/oauth2/authorize?client_id=811073947382579200&permissions=2048&scope=bot%20applications.commands">clicking here</a>!
 
-If you have previously invited Squirrelflight, please remove and add Fates List Helper instead.
+If you have previously invited Squirrelflight, please remove and add Select List Helper instead.
 `,
         id: 'alert',
         type: enums.AlertType.Success
@@ -105,7 +105,7 @@ Oh, we're sorry you are having an issue with this ${type}.
         
 Before you report, have you tried contacting the owner of this ${type} if possible?
 
-If you still wish to report, type the reason for reporting this ${type} below. Reports are <em>not</em> automated by Fates List and as such may take time to process.`,
+If you still wish to report, type the reason for reporting this ${type} below. Reports are <em>not</em> automated by Select List and as such may take time to process.`,
           input: {
             label: 'Reason for reporting and proof',
             placeholder: `Be sure to have proof of why you're reporting!`,

@@ -62,14 +62,14 @@ export const translations: TranslationData = {
     it: 'Sei bannato da questo server!'
   },
   StaffReview: {
-    en: 'This server is currently under review by Fates List Staff and not accepting invites at this time!',
-    fr: "Ce serveur est actuellement en cours de révision par les membres du staff de Fates List et n'accepte pas les invitations pour le moment!",
-    it: 'Questo server è attualmente in fase di revisione dallo staff di Fates List e non accetta inviti al momento!'
+    en: 'This server is currently under review by Select List Staff and not accepting invites at this time!',
+    fr: "Ce serveur est actuellement en cours de révision par les membres du staff de Select List et n'accepte pas les invitations pour le moment!",
+    it: 'Questo server è attualmente in fase di revisione dallo staff di Select List e non accetta inviti al momento!'
   },
   ServerBanned: {
-    en: 'This server has been banned (or denied due to requiring small changes) from Fates List. If you are a staff member of this server, contact Fates List Support for more information.',
-    fr: "Ce serveur a été banni (ou refusé en raison de demander des modifications mineures) de Fates List. Si vous êtes un membre du staff de ce serveur, contactez le support de Fates List pour plus d'informations.",
-    it: 'Questo server è stato bannato (o negato a causa di richieste di modifiche piccole) da Fates List. Se sei un membro del staff di questo server, contatta il supporto di Fates List per ulteriori informazioni.'
+    en: 'This server has been banned (or denied due to requiring small changes) from Select List. If you are a staff member of this server, contact Select List Support for more information.',
+    fr: "Ce serveur a été banni (ou refusé en raison de demander des modifications mineures) de Select List. Si vous êtes un membre du staff de ce serveur, contactez le support de Select List pour plus d'informations.",
+    it: 'Questo server è stato bannato (o negato a causa di richieste di modifiche piccole) da Select List. Se sei un membro del staff di questo server, contatta il supporto di Select List per ulteriori informazioni.'
   },
   NoChannelFound: {
     en: 'Could not find channel to invite you to... Please ask the owner of this server to set an invite or set the invite channel for this server',
@@ -107,9 +107,9 @@ export const translations: TranslationData = {
     it: 'Impossibile trovare un utente con questo ID! Qualcosa è andato storto sul nostro lato! Contatta il supporto.'
   },
   'CheckBotError.AlreadyExists': {
-    en: 'This bot already exists on Fates List',
-    fr: 'Ce bot existe déjà sur Fates List',
-    it: 'Questo bot esiste già su Fates List'
+    en: 'This bot already exists on Select List',
+    fr: 'Ce bot existe déjà sur Select List',
+    it: 'Questo bot esiste già su Select List'
   },
   'CheckBotError.ClientIDImmutable': {
     en: 'Client ID cannot be changed once set',
@@ -127,9 +127,9 @@ export const translations: TranslationData = {
     it: "Devi avere un vanity per il tuo bot. Questo può essere il tuo username. Puoi prefissarlo con _ (underscore) se non vuoi l'extra-crescita di quello. Per esempio _mewbot disattiverà il vanity mewbot"
   },
   'CheckBotError.VanityTaken': {
-    en: 'This vanity has already been taken. Please contact Fates List staff if you wish to report this!',
-    fr: 'Ce vanity a déjà été pris. Contactez le staff de Fates List si vous souhaitez signaler ceci!',
-    it: 'Questo vanity è già stato preso. Contatta il staff di Fates List se vuoi segnalare questo!'
+    en: 'This vanity has already been taken. Please contact Select List staff if you wish to report this!',
+    fr: 'Ce vanity a déjà été pris. Contactez le staff de Select List si vous souhaitez signaler ceci!',
+    it: 'Questo vanity è già stato preso. Contatta il staff di Select List se vuoi segnalare questo!'
   },
   'CheckBotError.InvalidInvitePermNum': {
     en: 'This invites permissions are invalid!',
@@ -192,9 +192,9 @@ export const translations: TranslationData = {
     it: "L'ID client inserito è invalido per questo bot"
   },
   'CheckBotError.PrivateBot': {
-    en: 'This bot is private and cannot be added to Fates List',
-    fr: 'Ce bot est privé et ne peut pas être ajouté à Fates List',
-    it: 'Questo bot è privato e non può essere aggiunto a Fates List'
+    en: 'This bot is private and cannot be added to Select List',
+    fr: 'Ce bot est privé et ne peut pas être ajouté à Select List',
+    it: 'Questo bot è privato e non può essere aggiunto a Select List'
   },
   'CheckBotError.OwnerIDParseError': {
     en: 'An owner ID in your owner list is invalid (hint: not a snowflake)',
@@ -269,9 +269,9 @@ export const translations: TranslationData = {
     it: 'Hai già votato recentemente!'
   },
   'VoteBotError.UnknownError': {
-    en: 'An unknown error occurred. Please ask for help on the Fates List support server.',
-    fr: "Une erreur inconnue est survenue. Veuillez demander de l'aide sur le serveur de support Fates List.",
-    it: 'Si è verificato un errore sconosciuto. Chiedi aiuto sul server di supporto Fates List.'
+    en: 'An unknown error occurred. Please ask for help on the Select List support server.',
+    fr: "Une erreur inconnue est survenue. Veuillez demander de l'aide sur le serveur de support Select List.",
+    it: 'Si è verificato un errore sconosciuto. Chiedi aiuto sul server di supporto Select List.'
   },
   'VoteBotError.System': {
     en: 'This is a system bot or server and as such cannot be voted for at this time',
@@ -370,13 +370,13 @@ export const translations: TranslationData = {
     en: 'This pack has an invalid banner URL!'
   },
   'PackCheckError.InvalidPackId': {
-    en: 'This pack has an invalid ID! Contact Fates List staff if you see this!'
+    en: 'This pack has an invalid ID! Contact Select List staff if you see this!'
   },
   'PackCheckError.DescriptionTooShort': {
     en: "This pack's description is too short!"
   },
   JsonContext: {
-    en: 'This error is caused by a malformed JSON object. Please contact Fates List staff if you see this as this is a bug!'
+    en: 'This error is caused by a malformed JSON object. Please contact Select List staff if you see this as this is a bug!'
   }
 };
 

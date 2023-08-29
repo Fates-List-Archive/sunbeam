@@ -83,7 +83,7 @@
           src={app.user.avatar}
           alt="{app.user.username}'s avatar"
           on:error={function () {
-            this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+            this.src = 'https://fates-api.select-list.xyz/static/botlisticon.webp';
           }}
         />
         <p>{app.user.username}#{app.user.disc.padStart(4, 0)}</p>

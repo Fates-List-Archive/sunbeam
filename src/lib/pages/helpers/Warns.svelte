@@ -11,7 +11,7 @@
         <p class="content accordian-container">
           This bot is a system bot and was added as a placeholder to avoid malicious use of your
           bot. If you are the bots owner, please either edit your bot setting System to False if
-          available or contact Fates List Support to claim the bot. To avoid misinformation and
+          available or contact Select List Support to claim the bot. To avoid misinformation and
           false advertising, the actual owner of the bot is listed in About who may edit their bot
           if they wish to change anything on it.
 

@@ -8,7 +8,7 @@
 
 **Currently may or may not deploy on Cloudflare pages**
 
-Sunbeam is also the new WIP frontend for Fates List.
+Sunbeam is also the new WIP frontend for Select List.
 
 See SETUP.md for deploy instructions
 

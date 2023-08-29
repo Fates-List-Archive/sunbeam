@@ -29,7 +29,7 @@
 
 <BristlefrostMeta
   url="https://fateslist.xyz/partners"
-  title="Fates List | Our Partners"
+  title="Select List | Our Partners"
   description="See our partners and supporters!"
   thumbnail="https://fateslist.xyz/static/botlisticon.webp"
 />
@@ -38,7 +38,7 @@
   <h1>Our Partners</h1>
 
   <p>
-    Note that Fates List is not responsible for any activities taking place on the below servers!
+    Note that Select List is not responsible for any activities taking place on the below servers!
   </p>
 </div>
 

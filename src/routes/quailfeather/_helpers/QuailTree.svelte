@@ -212,9 +212,9 @@
 <strong>By continuing, you agree to:</strong>
 <ol style="color:black!important">
 	<li>Abide by Discord ToS</li>
-	<li>Abide by Fates List ToS</li>
+	<li>Abide by Select List ToS</li>
 	<li>Agree to try and be at least partially active on the list</li>
-	<li>Be able to join group chats (group DMs) if required by Fates List Admin+</li>
+	<li>Be able to join group chats (group DMs) if required by Select List Admin+</li>
 </ol>
 If you disagree with any of the above, you should stop now and consider taking a 
 Leave Of Absence or leaving the staff team though we hope it won't come to this...<br/><br/>

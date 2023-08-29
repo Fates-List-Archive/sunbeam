@@ -31,7 +31,7 @@
         src={data.user.avatar.replace('.png', '.webp')}
         loading="lazy"
         on:error={function () {
-          this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+          this.src = 'https://fates-api.select-list.xyz/static/botlisticon.webp';
         }}
       />
     </a>

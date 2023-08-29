@@ -44,7 +44,7 @@
     id="bot-avatar"
     alt="{data.user.username}'s avatar"
     on:error={function () {
-      this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+      this.src = 'https://fates-api.select-list.xyz/static/botlisticon.webp';
     }}
   />
   <article class="bot-page">

@@ -3,7 +3,7 @@
  */
 
 /**
- * Represents a "regular" API response on Fates List CRUD endpoints
+ * Represents a "regular" API response on Select List CRUD endpoints
  *
  * You can check for success using the done boolean and reason using the reason attribute
  */
@@ -46,7 +46,7 @@ export interface BasePager {
 }
 
 /**
- * Represents a base user class on Fates List.
+ * Represents a base user class on Select List.
  */
 export interface BaseUser {
   id?: string;
@@ -58,7 +58,7 @@ export interface BaseUser {
 }
 
 /**
- * Represents a bot on Fates List
+ * Represents a bot on Select List
  */
 export interface Bot {
   user?: BaseUser;
@@ -221,7 +221,7 @@ export interface BotOwners {
 }
 
 /**
- * Represents a bot pack on fates list
+ * Represents a bot pack on Select list
  */
 export interface BotPack {
   name: string;
@@ -236,7 +236,7 @@ export interface BotPack {
 }
 
 /**
- * Represents a partial bot pack on fates list
+ * Represents a partial bot pack on Select list
  * (a bot pack without a id, owner or created_at)
  */
 export interface BotPackPartial {
@@ -294,7 +294,7 @@ export interface BotQueueList {
 }
 
 /**
- * Represents a random bot on Fates List
+ * Represents a random bot on Select List
  *
  * **Note:** Inline user fields are deprecated, use user instead
  */
@@ -343,7 +343,7 @@ export interface BotReview {
 }
 
 /**
- * Represents a list of bot reviews on Fates List
+ * Represents a list of bot reviews on Select List
  */
 export interface BotReviewList {
   botReview?: BotReview;
@@ -376,7 +376,7 @@ export interface BotReviewVote {
 }
 
 /**
- * Represents bot reviews and average stars of a bot on Fates List
+ * Represents bot reviews and average stars of a bot on Select List
  */
 export interface BotReviews {
   reviews: BotReviewList;
@@ -448,7 +448,7 @@ export interface GCVFormat {
 }
 
 /**
- * Represents a server/guild on Fates List
+ * Represents a server/guild on Select List
  */
 export interface Guild {
   invite_channel?: string;
@@ -474,7 +474,7 @@ export interface Guild {
 }
 
 /**
- * Represents a random server/guild on Fates List
+ * Represents a random server/guild on Select List
  */
 export interface GuildRandom {
   guild_id: string;
@@ -489,7 +489,7 @@ export interface GuildRandom {
 }
 
 /**
- * Represents a "regular" API response on Fates List CRUD endpoints
+ * Represents a "regular" API response on Select List CRUD endpoints
  *
  * You can check for success using the done boolean and reason using the reason attribute
  */
@@ -516,7 +516,7 @@ export interface LoginBan {
 }
 
 /**
- * Represents a "regular" API response on Fates List CRUD endpoints
+ * Represents a "regular" API response on Select List CRUD endpoints
  *
  * You can check for success using the done boolean and reason using the reason attribute
  */
@@ -528,7 +528,7 @@ export interface LoginResponse {
 }
 
 /**
- * Represents a "regular" API response on Fates List CRUD endpoints
+ * Represents a "regular" API response on Select List CRUD endpoints
  *
  * You can check for success using the done boolean and reason using the reason attribute
  */
@@ -544,7 +544,7 @@ export interface OwnershipTransfer {
 }
 
 /**
- * Represents a base user class on Fates List.
+ * Represents a base user class on Select List.
  */
 export interface PackBot {
   id?: string;

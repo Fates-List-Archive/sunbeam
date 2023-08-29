@@ -57,7 +57,7 @@
 />
 
 <section>
-  <h1 class="best-bots">Fates List</h1>
+  <h1 class="best-bots">Select List</h1>
   <h2 class="best-bots"><Intl key="index.search" /></h2>
 </section>
 

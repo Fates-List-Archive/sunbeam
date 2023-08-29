@@ -13,27 +13,27 @@
 
 <BristlefrostMeta
   url="https://fateslist.xyz"
-  title="Fates List | Discord Bot List"
-  description="Find, invite and discover the best bots &amp; servers now on Fates List"
+  title="Select List | Discord Bot List"
+  description="Find, invite and discover the best bots &amp; servers now on Select List"
   thumbnail="https://fateslist.xyz/static/botlisticon.webp"
 />
 
 <div class="premium">
   <div class="premium-about">
     <img
-      src="https://api.fateslist.xyz/static/assets/prod/premium.webp"
+      src="https://fates-api.select-list.xyz/static/assets/prod/premium.webp"
       class="premium-icon"
       height="25px"
       width="25px"
-      alt="Fates List Premium Icon"
+      alt="Select List Premium Icon"
       on:error={function () {
-        this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+        this.src = 'https://fates-api.select-list.xyz/static/botlisticon.webp';
       }}
     />
-    <h2 class="premium-title">Fates List Premium</h2>
+    <h2 class="premium-title">Select List Premium</h2>
   </div>
 
-  <p class="premium-description">Help your bot reach more servers with Fates List Premium!</p>
+  <p class="premium-description">Help your bot reach more servers with Select List Premium!</p>
 </div>
 
 <style>

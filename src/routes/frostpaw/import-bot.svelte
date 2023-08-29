@@ -242,7 +242,7 @@
         You can always contact us over DMs if you wish to blacklist a URL from being imported to for
         any reason.<br /><br />
 
-        This feature is provided so bot developers can easily add their bot to Fates List. It
+        This feature is provided so bot developers can easily add their bot to Select List. It
         requires their explicit knowledge and permission.<br /><br />
 
         Most (good) bot lists will have a API you can directly specify for import URL and many also
@@ -271,7 +271,7 @@
         placeholder="API token (if the source you use requires this, many do)"
       />
       <Tip>
-        This is only shared with the import source in question and is not stored on Fates List.<br
+        This is only shared with the import source in question and is not stored on Select List.<br
         /><br />
 
         Due to this being fully client side, the source you specify here must support CORS (you can

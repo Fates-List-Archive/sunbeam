@@ -37,7 +37,7 @@
   export let context: any;
   export let data: any;
   let user = {
-    username: 'Fates List',
+    username: 'Select List',
     avatar: `${apiUrl}/static/botlisticon.webp`
   };
   data.user = user;

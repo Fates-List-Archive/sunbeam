@@ -6,7 +6,7 @@
         props: {
           title: 'Server Maintenance',
           message:
-            "The Fates List API is currently under maintenance.<br/>Dont worry this won't take long!",
+            "The Select List API is currently under maintenance.<br/>Dont worry this won't take long!",
           serverMaint: true
         }
       };

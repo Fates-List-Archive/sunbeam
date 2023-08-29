@@ -194,7 +194,7 @@ export async function subNotifs(user_id: string, token: string) {
 
   if (status !== 'granted') {
     alert(
-      'Permission not granted. Consider unblocking notifications from Fates List in your browsers settings?'
+      'Permission not granted. Consider unblocking notifications from Select List in your browsers settings?'
     );
     return;
   }

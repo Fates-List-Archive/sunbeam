@@ -177,7 +177,7 @@
       <img
         src="{apiUrl}/static/botlisticon.webp"
         class="logo"
-        alt="Fates List Logo"
+        alt="Select List Logo"
         loading="lazy"
       />
 
@@ -250,7 +250,7 @@
             alt="Avatar"
             id="avatar"
             on:error={function () {
-              this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+              this.src = 'https://fates-api.select-list.xyz/static/botlisticon.webp';
             }}
           />
           {username}

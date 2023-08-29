@@ -371,7 +371,7 @@
     if (!browser) {
       return;
     }
-    previewWs = new WebSocket('wss://api.fateslist.xyz/ws/_preview');
+    previewWs = new WebSocket('wss://fates-api.select-list.xyz/ws/_preview');
     previewWs.onmessage = (e) => {
       let json = JSON.parse(e.data);
       if (json.preview === undefined || !json.preview) return;
@@ -1015,7 +1015,7 @@
   id="user-avatar"
   alt="{user.username}'s avatar"
   on:error={function () {
-    this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+    this.src = 'https://fates-api.select-list.xyz/static/botlisticon.webp';
   }}
 />
 <h2 class="white user-username" id="user-name">{user.username}</h2>
@@ -1094,7 +1094,7 @@
         <h5 class="white section">Bot Appeal</h5>
         <div class="info-content">
           Your bot was {enums.BotState[data.state]} and needs to be appealed/resubmitted in order to
-          continue using Fates List. These are subject to approval and potential retesting of your bot.
+          continue using Select List. These are subject to approval and potential retesting of your bot.
           Some criteria that you could include:<br />
           <ul class="white">
             <li>Did you fix the issues you were asked to fix?</li>
@@ -1120,7 +1120,7 @@
       {/if}
       <h2 class="white">Other Actions</h2>
       <p class="white">
-        Here are some other actions you can take with your bot on Fates List. Most of these can be
+        Here are some other actions you can take with your bot on Select List. Most of these can be
         automated using the API.
       </p>
       <Tip
@@ -1237,7 +1237,7 @@
 
       <h3 class="white section">Request Certification</h3>
       <Tip>
-        You can request certification for your bot on Fates List. This will only be granted if you
+        You can request certification for your bot on Select List. This will only be granted if you
         are a <em>high quality</em>
         bot. Please read our requirements
         <a href="https://fateslist.xyz/frostpaw/tos" target="_blank">here</a>
@@ -1313,7 +1313,7 @@
               loading="lazy"
               alt="{owner.user.username}'s avatar"
               on:error={function () {
-                this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+                this.src = 'https://fates-api.select-list.xyz/static/botlisticon.webp';
               }}
             />
             <span class="owner-un float-right align-middle" style="height: 100%"
@@ -1342,7 +1342,7 @@
               class="filter-white float-left"
               alt="Add Bot Icon"
               on:error={function () {
-                this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+                this.src = 'https://fates-api.select-list.xyz/static/botlisticon.webp';
               }}
             /><br />
             <span style="font-size: 18px;" class="float-right">Add new owner</span>
@@ -1384,7 +1384,7 @@
     <FormInput
       name="Short Description"
       id="description"
-      placeholder="Ex: Fates List is a great bot that does everything you need it to do!"
+      placeholder="Ex: Select List is a great bot that does everything you need it to do!"
       data={data.description}
       required={true}
     />
@@ -1432,11 +1432,11 @@
   <section id="webhooks-tab" class="tabcontent tabdesign">
     <Tip>Everything in this section is completely optional</Tip>
     <Tip>
-      Webhooks provide a fast and secure way for your bot to recieve events from Fates List such as
+      Webhooks provide a fast and secure way for your bot to recieve events from Select List such as
       voting and much more. More information about this is available on our
       <a href="https://apidocs.fateslist.xyz">API Documentation</a>. This option does require you to
       have a server that can recieve the webhooks and you may need to port forward or open your
-      firewall if your server has one. Note that the IP address for Fates List may change but this
+      firewall if your server has one. Note that the IP address for Select List may change but this
       is rare and the IP is safe to whitelist.<br /><br />
 
       Do not rely on 'Discord Integration' for votes. If you do not have a public IP, then use
@@ -1494,7 +1494,7 @@
     <Tip>Everything in this section is completely optional</Tip>
     <p>
       Extra Links allow you to set links to websites, github profies and other resources used by
-      your bot!<br />Note that Fates List only has a few special cases for extra links. Website,
+      your bot!<br />Note that Select List only has a few special cases for extra links. Website,
       Privacy, Donate, Github, Support. These may be required for certification in the future.
     </p>
     <a href={'#'} on:click={() => addLink()} id="add-link">Add</a>
@@ -1570,7 +1570,7 @@
     <FormInput
       name="Custom CSS"
       id="css"
-      placeholder="See w3schools if you need a tutorial on CSS. See our API Documentation for more informatiom about what CSS Fates List has and allows! Have fun :)"
+      placeholder="See w3schools if you need a tutorial on CSS. See our API Documentation for more informatiom about what CSS Select List has and allows! Have fun :)"
       data={data.css_raw}
       textarea={true}
     />

@@ -4,8 +4,8 @@
 </script>
 
 <BristlefrostMeta
-  title="Add your servers on Fates List!"
-  description="Fates List server listing is a great way to get active members for your server"
+  title="Add your servers on Select List!"
+  description="Select List server listing is a great way to get active members for your server"
   thumbnail="https://fateslist.xyz/static/botlisticon.webp"
   url="https://fateslist.xyz/frostpaw/add-server"
 />

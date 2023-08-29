@@ -5,7 +5,7 @@
   export async function load({ params, fetch, session, stuff }) {
     return {
       status: 301,
-      redirect: `https://lynx.fateslist.xyz/privacy`
+      redirect: `https://fates-lynx.select-list.xyz/privacy`
     };
   }
 </script>

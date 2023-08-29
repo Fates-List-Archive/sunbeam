@@ -83,7 +83,7 @@
     src="https://cdn.discordapp.com/avatars/{appData.user.id}/{appData.user.avatar}.png"
     alt="user avatar"
     on:error={function () {
-      this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+      this.src = 'https://fates-api.select-list.xyz/static/botlisticon.webp';
     }}
   />
   <h3>{appData.user.username}<span class="disc">#{appData.user.discriminator}</span></h3>

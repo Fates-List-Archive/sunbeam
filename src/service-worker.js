@@ -6,7 +6,7 @@ self.addEventListener('install', (event) => {
   logger.info('Service Worker', 'Installed');
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.add('https://api.fateslist.xyz/static/offline.html');
+      return cache.add('https://fates-api.select-list.xyz/static/offline.html');
     })
   );
   self.skipWaiting();

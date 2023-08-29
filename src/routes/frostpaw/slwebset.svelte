@@ -54,7 +54,7 @@
     if (!browser) {
       return;
     }
-    previewWs = new WebSocket('wss://api.fateslist.xyz/ws/_preview');
+    previewWs = new WebSocket('wss://fates-api.select-list.xyz/ws/_preview');
     previewWs.onmessage = (e) => {
       let json = JSON.parse(e.data);
       if (json.preview === undefined || !json.preview) return;

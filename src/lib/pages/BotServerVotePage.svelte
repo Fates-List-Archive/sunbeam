@@ -9,7 +9,7 @@
 <BristlefrostMeta
   url="https://fateslist.xyz/{type}/{data.user.id}"
   pageTitle={data.user.username}
-  title="Vote For {data.user.username} on Fates List!"
+  title="Vote For {data.user.username} on Select List!"
   description={data.description}
   thumbnail={data.user.avatar}
 />
@@ -34,7 +34,7 @@
     id="bot-avatar"
     alt="{data.user.username}'s avatar"
     on:error={function () {
-      this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+      this.src = 'https://fates-api.select-list.xyz/static/botlisticon.webp';
     }}
   />
   <article class="bot-page">

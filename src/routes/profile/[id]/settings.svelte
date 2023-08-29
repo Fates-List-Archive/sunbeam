@@ -297,7 +297,7 @@
 
   // Sigh svelte
   let placeholderUserCss =
-    'Warning: Fates List is not responsible for any issues due to your custom user CSS. To use javascript in custom css, put your JS in a LT/styleGTLTscriptGTYOUR JS HERELT/scriptGTLTstyleGT tag';
+    'Warning: Select List is not responsible for any issues due to your custom user CSS. To use javascript in custom css, put your JS in a LT/styleGTLTscriptGTYOUR JS HERELT/scriptGTLTstyleGT tag';
 
   let roles;
 
@@ -313,7 +313,7 @@
   id="user-avatar"
   alt="{data.user.username}'s avatar"
   on:error={function () {
-    this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+    this.src = 'https://fates-api.select-list.xyz/static/botlisticon.webp';
   }}
 />
 <h1 class="white user-username" id="user-name">{data.user.username}</h1>

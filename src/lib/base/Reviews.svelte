@@ -215,7 +215,7 @@ import Icon from '@iconify/svelte';
             class="review-avatar"
             alt="{review.user.username}'s avatar"
             on:error={function () {
-              this.src = 'https://api.fateslist.xyz/static/botlisticon.webp';
+              this.src = 'https://fates-api.select-list.xyz/static/botlisticon.webp';
             }}
           />
           <span class="white">{review.user.username}</span>
